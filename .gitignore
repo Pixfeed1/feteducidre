@@ -1,0 +1,32 @@
+# Environnement
+.env
+
+# Dépendances
+/vendor/
+
+# Cache (contenu dynamique)
+/cache/pages/*
+/cache/fragments/*
+/cache/queries/*
+/cache/config/*
+!/cache/**/.gitkeep
+
+# Storage (contenu dynamique)
+/storage/logs/*
+/storage/uploads/*
+/storage/invoices/*
+/storage/.installed
+!/storage/**/.gitkeep
+
+# Assets compilés
+/public/assets/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

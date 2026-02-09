@@ -1,0 +1,15 @@
+-- Migration : table editions
+CREATE TABLE IF NOT EXISTS editions (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    year INT NOT NULL UNIQUE,
+    title VARCHAR(255) DEFAULT NULL,
+    description TEXT DEFAULT NULL,
+    poster_image_id INT UNSIGNED DEFAULT NULL,
+    programme_image_id INT UNSIGNED DEFAULT NULL,
+    highlights TEXT DEFAULT NULL COMMENT 'JSON des temps forts',
+    stats TEXT DEFAULT NULL COMMENT 'JSON des statistiques',
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_year (year)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

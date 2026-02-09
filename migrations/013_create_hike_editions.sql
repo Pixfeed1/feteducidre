@@ -1,0 +1,17 @@
+-- Migration : table hike_editions
+CREATE TABLE IF NOT EXISTS hike_editions (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    year INT NOT NULL,
+    title VARCHAR(255) DEFAULT NULL,
+    description TEXT DEFAULT NULL,
+    date DATE DEFAULT NULL,
+    distance_km DECIMAL(5,1) DEFAULT NULL,
+    elevation_gain INT DEFAULT NULL,
+    participant_count INT DEFAULT NULL,
+    map_image_id INT UNSIGNED DEFAULT NULL,
+    gpx_file VARCHAR(255) DEFAULT NULL,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_year (year)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
