@@ -20,7 +20,9 @@ class Theme
         'creme'         => '#FAF5EC',
         'creme-fonce'   => '#F0E8D8',
         'brun'          => '#5C3D2E',
+        'brun-clair'    => '#8B6B4A',
         'texte'         => '#2A2318',
+        'texte-leger'   => '#6B5D4F',
         'blanc'         => '#FFFDF8',
     ];
 

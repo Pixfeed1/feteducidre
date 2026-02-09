@@ -32,6 +32,11 @@ $baseUrl = \App\Core\Config::baseUrl();
 <link rel="preload" href="<?= $baseUrl ?>/assets/fonts/playfair-display-v37-latin-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="<?= $baseUrl ?>/assets/fonts/source-sans-3-v15-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
 
+<!-- Cormorant Garamond (Google Fonts) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
 <!-- 1. Variables couleurs dynamiques -->
 <style><?= \App\Core\Theme::cssVariables() ?></style>
 
@@ -39,8 +44,8 @@ $baseUrl = \App\Core\Config::baseUrl();
 <style>
 /* Reset minimal */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Source Sans 3',system-ui,-apple-system,sans-serif;color:var(--texte);background:var(--creme);line-height:1.6;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;font-size:16px}
+body{font-family:'Source Sans 3',system-ui,-apple-system,sans-serif;color:var(--texte);background:var(--blanc);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;height:auto;display:block}
 a{color:var(--orange-cidre);text-decoration:none;transition:color .2s}
 a:hover{color:var(--vert-mousse)}
@@ -53,19 +58,15 @@ ul,ol{list-style:none}
 
 /* Layout */
 .container{width:100%;max-width:1200px;margin:0 auto;padding:0 1.5rem}
-.section{padding:4rem 0}
-.section-title{text-align:center;margin-bottom:2rem}
-.section-title h2{margin-bottom:.5rem}
-.section-title p{color:var(--brun);font-size:1.1rem}
 
 /* Boutons */
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border:none;border-radius:12px;font-weight:600;font-size:.95rem;cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-primary{background:var(--vert-profond);color:#fff}
-.btn-primary:hover{background:var(--vert-mousse);color:#fff}
-.btn-secondary{background:var(--orange-cidre);color:#fff}
-.btn-secondary:hover{background:#c0753a;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 2rem;border:none;border-radius:100px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .4s cubic-bezier(.23,1,.32,1);text-decoration:none;letter-spacing:.03em;position:relative;overflow:hidden}
+.btn-primary{background:var(--orange-cidre);color:#fff;box-shadow:0 4px 20px rgba(212,131,59,.3)}
+.btn-primary:hover{background:#C0742F;color:#fff;box-shadow:0 8px 32px rgba(212,131,59,.4);transform:translateY(-2px)}
+.btn-secondary{background:var(--vert-profond);color:#fff}
+.btn-secondary:hover{background:var(--vert-mousse);color:#fff}
 .btn-outline{background:transparent;border:2px solid var(--vert-profond);color:var(--vert-profond)}
-.btn-outline:hover{background:var(--vert-profond);color:#fff}
+.btn-outline:hover{background:var(--vert-profond);color:var(--creme);transform:translateY(-2px)}
 
 /* Grilles */
 .grid{display:grid;gap:1.5rem}
@@ -79,7 +80,7 @@ ul,ol{list-style:none}
 .card-body{padding:1.25rem}
 
 /* Flash messages */
-.flash{display:flex;align-items:center;gap:.75rem;padding:1rem 1.5rem;border-radius:10px;margin-bottom:1.5rem;font-weight:500}
+.flash{display:flex;align-items:center;gap:.75rem;padding:1rem 1.5rem;border-radius:10px;margin:1rem 2rem;font-weight:500}
 .flash-success{background:#e8f5e9;color:#2e7d32;border:1px solid #c8e6c9}
 .flash-error{background:#fce4ec;color:#c62828;border:1px solid #f8bbd0}
 .flash-warning{background:#fff3e0;color:#e65100;border:1px solid #ffe0b2}

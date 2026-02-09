@@ -4,26 +4,63 @@
 (function () {
     'use strict';
 
-    // ── Menu mobile ──
-    const navToggle = document.getElementById('nav-toggle');
-    const navMenu = document.getElementById('nav-menu');
+    // ── Navbar scroll effect ──
+    var navbar = document.getElementById('navbar');
+    if (navbar) {
+        window.addEventListener('scroll', function () {
+            navbar.classList.toggle('scrolled', window.scrollY > 20);
+        });
+    }
 
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function () {
-            const isOpen = navMenu.classList.toggle('open');
-            navToggle.setAttribute('aria-expanded', isOpen);
+    // ── Mobile menu ──
+    var menuToggle = document.getElementById('menuToggle');
+    var navLinks = document.getElementById('navLinks');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function () {
+            navLinks.classList.toggle('open');
         });
 
-        // Fermer le menu au clic sur un lien
-        navMenu.querySelectorAll('.nav-link').forEach(function (link) {
+        navLinks.querySelectorAll('a').forEach(function (link) {
             link.addEventListener('click', function () {
-                navMenu.classList.remove('open');
-                navToggle.setAttribute('aria-expanded', 'false');
+                navLinks.classList.remove('open');
             });
         });
     }
 
-    // ── Auto-dismiss des messages flash ──
+    // ── Scroll reveal ──
+    var reveals = document.querySelectorAll('.reveal');
+    if (reveals.length > 0) {
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry, i) {
+                if (entry.isIntersecting) {
+                    setTimeout(function () {
+                        entry.target.classList.add('visible');
+                    }, i * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        reveals.forEach(function (el) {
+            observer.observe(el);
+        });
+    }
+
+    // ── Smooth scroll for anchors ──
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+            var href = this.getAttribute('href');
+            if (href === '#') return;
+            var target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // ── Auto-dismiss flash messages ──
     document.querySelectorAll('.flash').forEach(function (flash) {
         setTimeout(function () {
             flash.style.transition = 'opacity 0.3s, transform 0.3s';
@@ -35,18 +72,7 @@
         }, 5000);
     });
 
-    // ── Smooth scroll pour les ancres ──
-    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-        anchor.addEventListener('click', function (e) {
-            var target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-
-    // ── Quantité produit (panier) ──
+    // ── Quantity buttons (cart) ──
     document.querySelectorAll('.qty-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var input = this.parentElement.querySelector('.qty-input');
@@ -62,7 +88,6 @@
                 input.value = Math.min(max, val + 1);
             }
 
-            // Déclencher le change pour les formulaires auto-submit
             input.dispatchEvent(new Event('change'));
         });
     });

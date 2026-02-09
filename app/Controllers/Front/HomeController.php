@@ -30,6 +30,11 @@ class HomeController extends Controller
             $settings[$row['group']][$row['key']] = $row['value'];
         }
 
+        // Édition courante / prochaine
+        $currentEdition = $db->fetch(
+            "SELECT year, title, description FROM editions WHERE is_active = 1 ORDER BY year DESC LIMIT 1"
+        );
+
         // Produits mis en avant
         $featuredProducts = $db->fetchAll(
             "SELECT id, name, slug, short_description, price, sale_price, volume, category, image_id
@@ -57,6 +62,7 @@ class HomeController extends Controller
             'page'             => $page,
             'seo'              => $seo,
             'settings'         => $settings,
+            'currentEdition'   => $currentEdition,
             'featuredProducts' => $featuredProducts,
             'editions'         => $editions,
             'partners'         => $partners,
