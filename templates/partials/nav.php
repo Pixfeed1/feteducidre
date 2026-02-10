@@ -3,8 +3,6 @@
  * Navigation principale — topbar + nav glassmorphism.
  * Menu dynamique basé sur les pages avec in_menu = 1, triées par menu_order.
  */
-$baseUrl = \App\Core\Config::baseUrl();
-
 // Récupérer les pages du menu
 try {
     $menuPages = \App\Core\Database::getInstance()->fetchAll(
@@ -38,18 +36,20 @@ try {
 ?>
 
 <!-- TOPBAR -->
-<div class="topbar">
+<div class="topbar-wrap">
+  <div class="topbar">
     <span>Association la Fête du Cidre — L'Hôtellerie de Flée, 49500</span>
     <a href="tel:<?= e($phoneClean) ?>">
         <?= icon('phone', 14) ?> <?= e($phone) ?>
     </a>
+  </div>
 </div>
 
 <!-- NAVIGATION -->
 <nav class="main-nav" id="navbar">
     <div class="nav-inner">
         <a href="/" class="logo" aria-label="Fête du Cidre — Accueil">
-            <div class="logo-icon"><img src="/assets/images/logo.png" alt="Fête du Cidre" width="56" height="56"></div>
+            <div class="logo-icon"><img src="/assets/images/logo.png" alt="Fête du Cidre" width="64" height="64"></div>
             <div class="logo-text">
                 Fête du Cidre
                 <span>L'Hôtellerie de Flée</span>

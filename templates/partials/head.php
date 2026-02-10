@@ -4,7 +4,6 @@
  * Variables attendues : $seo, $page
  */
 $siteName = 'Fête du Cidre';
-$baseUrl = \App\Core\Config::baseUrl();
 ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,17 +19,17 @@ $baseUrl = \App\Core\Config::baseUrl();
 <meta property="og:type" content="website">
 <meta property="og:title" content="<?= e($seo['title'] ?? $siteName) ?>">
 <meta property="og:description" content="<?= e($seo['description'] ?? '') ?>">
-<meta property="og:url" content="<?= e($seo['canonical'] ?? $baseUrl) ?>">
+<meta property="og:url" content="<?= e($seo['canonical'] ?? '/') ?>">
 <meta property="og:site_name" content="<?= e($siteName) ?>">
 <meta property="og:locale" content="fr_FR">
 
 <!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="<?= $baseUrl ?>/assets/images/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
 <meta name="theme-color" content="#2C4A2E">
 
 <!-- Preload fonts -->
-<link rel="preload" href="<?= $baseUrl ?>/assets/fonts/playfair-display-v37-latin-900.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="<?= $baseUrl ?>/assets/fonts/source-sans-3-v15-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/playfair-display-v37-latin-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/source-sans-3-v15-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
 
 <!-- Cormorant Garamond (Google Fonts) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,15 +89,15 @@ ul,ol{list-style:none}
 .icon{flex-shrink:0;vertical-align:middle}
 
 /* Fonts */
-@font-face{font-family:'Playfair Display';src:url('<?= $baseUrl ?>/assets/fonts/playfair-display-v37-latin-900.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
-@font-face{font-family:'Playfair Display';src:url('<?= $baseUrl ?>/assets/fonts/playfair-display-v37-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:'Playfair Display';src:url('<?= $baseUrl ?>/assets/fonts/playfair-display-v37-latin-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'Playfair Display';src:url('<?= $baseUrl ?>/assets/fonts/playfair-display-v37-latin-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
-@font-face{font-family:'Source Sans 3';src:url('<?= $baseUrl ?>/assets/fonts/source-sans-3-v15-latin-300.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:'Source Sans 3';src:url('<?= $baseUrl ?>/assets/fonts/source-sans-3-v15-latin-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'Source Sans 3';src:url('<?= $baseUrl ?>/assets/fonts/source-sans-3-v15-latin-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:'Source Sans 3';src:url('<?= $baseUrl ?>/assets/fonts/source-sans-3-v15-latin-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'Source Sans 3';src:url('<?= $baseUrl ?>/assets/fonts/source-sans-3-v15-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('/assets/fonts/playfair-display-v37-latin-900.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('/assets/fonts/playfair-display-v37-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('/assets/fonts/playfair-display-v37-latin-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Playfair Display';src:url('/assets/fonts/playfair-display-v37-latin-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'Source Sans 3';src:url('/assets/fonts/source-sans-3-v15-latin-300.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Source Sans 3';src:url('/assets/fonts/source-sans-3-v15-latin-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Source Sans 3';src:url('/assets/fonts/source-sans-3-v15-latin-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Source Sans 3';src:url('/assets/fonts/source-sans-3-v15-latin-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Source Sans 3';src:url('/assets/fonts/source-sans-3-v15-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
 </style>
 
 <!-- CSS principal (non-bloquant) -->
