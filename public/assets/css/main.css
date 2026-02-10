@@ -61,7 +61,7 @@ body::after {
 .nav-inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0.5rem 2rem;
+  padding: 0.35rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,8 +76,8 @@ body::after {
 }
 
 .logo-icon {
-  width: 80px;
-  height: 80px;
+  width: 88px;
+  height: 88px;
   position: relative;
   flex-shrink: 0;
 }

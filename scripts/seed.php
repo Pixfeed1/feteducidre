@@ -43,7 +43,7 @@ $pages = [
     ['Accueil', 'accueil', 'home', 0, 0, 'Fête du Cidre — L\'Hôtellerie de Flée', 'Découvrez la Fête du Cidre, événement incontournable du Maine-et-Loire depuis 1989.'],
     ['Nos Origines', 'origines', 'page', 1, 1, 'Nos Origines — Fête du Cidre', 'L\'histoire de la Fête du Cidre depuis sa création en 1989 à L\'Hôtellerie de Flée.'],
     ['Infos Pratiques', 'infos-pratiques', 'page', 1, 2, 'Infos Pratiques — Fête du Cidre', 'Horaires, tarifs, accès et informations pratiques pour la Fête du Cidre.'],
-    ['Programme 2025', 'programme-2025', 'page', 1, 3, 'Programme 2025 — Fête du Cidre', 'Le programme complet de l\'édition 2025 de la Fête du Cidre.'],
+    ['Programme', 'programme', 'page', 1, 3, 'Programme — Fête du Cidre', 'Le programme complet de la Fête du Cidre.'],
     ['Boutique', 'boutique', 'shop', 1, 4, 'Boutique — Fête du Cidre', 'Achetez nos cidres, jus de pomme et produits du terroir en ligne.'],
     ['Galerie Photos', 'galerie', 'gallery', 1, 5, 'Galerie Photos — Fête du Cidre', 'Retrouvez les photos des éditions passées de la Fête du Cidre.'],
     ['Archives', 'archives', 'archive', 1, 6, 'Archives — Fête du Cidre', 'Les archives de toutes les éditions de la Fête du Cidre depuis 1989.'],

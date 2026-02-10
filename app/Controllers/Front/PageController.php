@@ -41,6 +41,60 @@ class PageController extends Controller
         ]);
     }
 
+    /**
+     * Affiche la page programme avec l'année courante dynamique.
+     */
+    public function programme(Request $request, array $params = []): void
+    {
+        $db = $this->db();
+        $year = date('Y');
+
+        // Chercher la page "programme" (slug sans année) ou "programme-XXXX" (ancien format)
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, excerpt, meta_title, meta_description, hero_image, template
+             FROM pages WHERE slug = ? AND status = ?",
+            ['programme', 'published']
+        );
+
+        if (!$page) {
+            // Fallback : chercher le slug avec n'importe quelle année
+            $page = $db->fetch(
+                "SELECT id, title, slug, content, excerpt, meta_title, meta_description, hero_image, template
+                 FROM pages WHERE slug LIKE 'programme-%' AND status = ?
+                 ORDER BY slug DESC LIMIT 1",
+                ['published']
+            );
+        }
+
+        if (!$page) {
+            Response::notFound();
+            return;
+        }
+
+        // Remplacer dynamiquement l'année dans le titre
+        $page['title'] = preg_replace('/Programme\s*\d{4}/i', 'Programme ' . $year, $page['title'])
+            ?: 'Programme ' . $year;
+
+        $seo = [
+            'title'       => 'Programme ' . $year . ' — Fête du Cidre',
+            'description' => $page['meta_description'] ?: 'Le programme complet de l\'édition ' . $year . '.',
+            'canonical'   => \App\Core\Config::baseUrl() . '/programme',
+        ];
+
+        $this->render('templates/front/page.php', [
+            'page' => $page,
+            'seo'  => $seo,
+        ]);
+    }
+
+    /**
+     * Redirige /programme-XXXX vers /programme.
+     */
+    public function programmeRedirect(Request $request, array $params = []): void
+    {
+        Response::redirect('/programme');
+    }
+
     public function infos(Request $request, array $params = []): void
     {
         $db = $this->db();

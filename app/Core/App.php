@@ -70,7 +70,8 @@ class App
         $r->get('/infos-pratiques', [\App\Controllers\Front\PageController::class, 'infos']);
         $r->get('/remerciements', [\App\Controllers\Front\PageController::class, 'remerciements']);
         $r->get('/mentions-legales', [\App\Controllers\Front\PageController::class, 'show']);
-        $r->get('/programme-2025', [\App\Controllers\Front\PageController::class, 'show']);
+        $r->get('/programme', [\App\Controllers\Front\PageController::class, 'programme']);
+        $r->get('/programme-{year}', [\App\Controllers\Front\PageController::class, 'programmeRedirect']);
 
         // Contact
         $r->get('/contact', [\App\Controllers\Front\PageController::class, 'contact']);

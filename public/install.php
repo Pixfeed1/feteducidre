@@ -312,7 +312,7 @@ ENV;
                 ['Accueil', 'accueil', 'home', 0, 0, 'Fête du Cidre — L\'Hôtellerie de Flée', 'Découvrez la Fête du Cidre, événement incontournable depuis 1989.'],
                 ['Nos Origines', 'origines', 'page', 1, 1, 'Nos Origines — Fête du Cidre', 'L\'histoire de la Fête du Cidre depuis 1989.'],
                 ['Infos Pratiques', 'infos-pratiques', 'page', 1, 2, 'Infos Pratiques — Fête du Cidre', 'Horaires, tarifs, accès et informations pratiques.'],
-                ['Programme 2025', 'programme-2025', 'page', 1, 3, 'Programme 2025 — Fête du Cidre', 'Le programme complet de l\'édition 2025.'],
+                ['Programme', 'programme', 'page', 1, 3, 'Programme — Fête du Cidre', 'Le programme complet de la Fête du Cidre.'],
                 ['Boutique', 'boutique', 'shop', 1, 4, 'Boutique — Fête du Cidre', 'Produits du terroir et articles de la Fête du Cidre.'],
                 ['Galerie Photos', 'galerie', 'gallery', 1, 5, 'Galerie Photos — Fête du Cidre', 'Toutes les photos des éditions de la Fête du Cidre.'],
                 ['Archives', 'archives', 'archive', 1, 6, 'Archives — Fête du Cidre', 'Retrouvez toutes les éditions passées.'],

@@ -132,7 +132,7 @@
   <div class="suggestions">
     <div class="suggestions-title">Peut-être cherchez-vous</div>
     <div class="suggestions-links">
-      <a href="/programme-2025">Programme</a>
+      <a href="/programme">Programme</a>
       <a href="/boutique">Boutique</a>
       <a href="/concours">Concours</a>
       <a href="/galerie">Galerie</a>
