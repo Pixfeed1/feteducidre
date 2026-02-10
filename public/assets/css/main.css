@@ -2523,6 +2523,229 @@ textarea.form-control {
   white-space: nowrap;
 }
 
+/* ===== RANDONNÉES ARCHIVES ===== */
+.block-classements .block-icon { background: var(--vert-profond); }
+.block-reponses .block-icon { background: var(--orange-cidre); }
+.block-stats .block-icon { background: var(--brun); }
+
+.year-row {
+  background: var(--blanc);
+  border: 2px solid var(--creme-fonce);
+  border-radius: 18px;
+  padding: 1.4rem 1.8rem;
+  margin-bottom: 0.8rem;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.year-row::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: var(--vert-clair);
+  border-radius: 3px 0 0 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.year-row:hover {
+  border-color: var(--vert-clair);
+  transform: translateX(4px);
+  box-shadow: 0 8px 24px rgba(44, 74, 46, 0.06);
+}
+
+.year-row:hover::before { opacity: 1; }
+
+.year-row-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.year-pill {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--vert-profond);
+  background: var(--creme);
+  padding: 0.3rem 1rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.year-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texte-leger);
+}
+
+.year-links {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.cat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  border: 1px solid transparent;
+}
+
+.cat-link.adultes {
+  background: rgba(44, 74, 46, 0.08);
+  color: var(--vert-profond);
+}
+
+.cat-link.adultes:hover {
+  background: var(--vert-profond);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44, 74, 46, 0.15);
+}
+
+.cat-link.supercool {
+  background: rgba(212, 131, 59, 0.1);
+  color: var(--orange-cidre);
+}
+
+.cat-link.supercool:hover {
+  background: var(--orange-cidre);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 131, 59, 0.2);
+}
+
+.cat-link.enfants {
+  background: rgba(122, 158, 107, 0.12);
+  color: var(--vert-mousse);
+}
+
+.cat-link.enfants:hover {
+  background: var(--vert-mousse);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 107, 62, 0.15);
+}
+
+.reponses-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.reponse-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: 14px;
+  background: var(--blanc);
+  border: 2px solid var(--creme-fonce);
+  text-decoration: none;
+  color: var(--texte);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reponse-chip:hover {
+  border-color: var(--orange-cidre);
+  background: var(--orange-cidre);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(212, 131, 59, 0.15);
+}
+
+.reponse-chip .chip-year {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.reponse-chip .chip-arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.3s;
+}
+
+.reponse-chip:hover .chip-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.stats-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 2.5rem;
+  background: linear-gradient(135deg, var(--creme) 0%, var(--creme-fonce) 100%);
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--texte);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  border: 2px solid transparent;
+}
+
+.stats-card:hover {
+  border-color: var(--brun-clair);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(92, 61, 46, 0.1);
+}
+
+.stats-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--brun);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.4s;
+}
+
+.stats-card:hover .stats-icon {
+  transform: rotate(-5deg) scale(1.05);
+}
+
+.stats-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brun);
+  margin-bottom: 0.2rem;
+}
+
+.stats-text p {
+  font-size: 0.88rem;
+  color: var(--texte-leger);
+}
+
+.stats-arrow {
+  margin-left: auto;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.stats-card:hover .stats-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
   from {
@@ -2712,6 +2935,29 @@ textarea.form-control {
 
   .infos-grid {
     grid-template-columns: 1fr;
+  }
+
+  .year-row {
+    padding: 1.2rem 1.4rem;
+  }
+
+  .year-links {
+    gap: 0.4rem;
+  }
+
+  .cat-link {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .stats-card {
+    padding: 1.5rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .stats-arrow {
+    display: none;
   }
 
   .section {

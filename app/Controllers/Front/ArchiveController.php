@@ -294,47 +294,44 @@ class ArchiveController extends Controller
     }
 
     /**
-     * Page d'information de la randonnée.
+     * Page archives des randonnées — classements par année/catégorie, réponses.
      */
     public function hike(Request $request, array $params = []): void
     {
         $db = $this->db();
 
-        // Récupérer la dernière édition de randonnée
-        $hikeEdition = $db->fetch(
-            "SELECT id, year, title, description, date, distance_km, elevation_gain,
-                    participant_count, map_image_id, gpx_file
-             FROM hike_editions WHERE is_active = 1 ORDER BY year DESC LIMIT 1"
+        // Années avec résultats, groupés par catégorie
+        $rows = $db->fetchAll(
+            "SELECT DISTINCT he.year, hr.category
+             FROM hike_editions he
+             JOIN hike_results hr ON he.id = hr.hike_edition_id
+             WHERE he.is_active = 1
+             ORDER BY he.year DESC, hr.category ASC"
         );
 
-        // Récupérer l'image de la carte si définie
-        $mapImage = null;
-        if ($hikeEdition && $hikeEdition['map_image_id']) {
-            $mapImage = $db->fetch(
-                "SELECT id, filename, alt_text, width, height, dominant_color, has_webp, has_avif, sizes
-                 FROM media WHERE id = ?",
-                [(int) $hikeEdition['map_image_id']]
-            );
+        $classementYears = [];
+        foreach ($rows as $row) {
+            $year = (int) $row['year'];
+            $classementYears[$year][] = $row['category'];
         }
 
-        // Éditions passées
-        $pastEditions = $db->fetchAll(
-            "SELECT id, year, title, distance_km, participant_count
-             FROM hike_editions WHERE is_active = 1 ORDER BY year DESC"
+        // Années avec éditions pour les réponses du rallye
+        $editionYears = $db->fetchAll(
+            "SELECT year FROM hike_editions WHERE is_active = 1 ORDER BY year DESC"
         );
+        $reponseYears = array_column($editionYears, 'year');
 
         // SEO
         $seo = [
-            'title'       => 'Randonnée — Fête du Cidre',
-            'description' => 'Participez à la randonnée de la Fête du Cidre : parcours, dénivelé et classements.',
+            'title'       => 'Randonnées — Archives — Fête du Cidre',
+            'description' => 'Résultats, classements et réponses du rallye pédestre de la Fête du Cidre.',
             'canonical'   => Config::baseUrl() . '/randonnee',
         ];
 
         $this->render('templates/front/archive/hike.php', [
-            'hikeEdition'  => $hikeEdition,
-            'mapImage'     => $mapImage,
-            'pastEditions' => $pastEditions,
-            'seo'          => $seo,
+            'classementYears' => $classementYears,
+            'reponseYears'    => $reponseYears,
+            'seo'             => $seo,
         ]);
     }
 
