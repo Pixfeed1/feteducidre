@@ -16,27 +16,18 @@ use App\Core\Response;
 class ArchiveController extends Controller
 {
     /**
-     * Liste toutes les éditions par année.
+     * Page d'accueil des archives — navigation vers les sections.
      */
     public function index(Request $request, array $params = []): void
     {
-        $db = $this->db();
-
-        $editions = $db->fetchAll(
-            "SELECT id, year, title, description, poster_image_id
-             FROM editions WHERE is_active = 1 ORDER BY year DESC"
-        );
-
-        // SEO
         $seo = [
-            'title'       => 'Archives — Fête du Cidre',
-            'description' => 'Retrouvez toutes les éditions passées de la Fête du Cidre depuis 1989.',
+            'title'       => 'Revivez les années — Archives — Fête du Cidre',
+            'description' => 'Plongez dans les archives de la Fête du Cidre : origines, affiches, randonnées, programmes, photos et concours.',
             'canonical'   => Config::baseUrl() . '/archives',
         ];
 
         $this->render('templates/front/archive/index.php', [
-            'editions' => $editions,
-            'seo'      => $seo,
+            'seo' => $seo,
         ]);
     }
 

@@ -1,52 +1,94 @@
 <?php
 /**
- * Template liste des éditions / archives.
- * Design premium avec page-hero + grille d'éditions.
- * Variables : $editions, $seo
+ * Template Archives — page d'accueil "Revivez les années".
+ * Navigation vers les différentes sections d'archives.
+ * Variables : $seo
  */
+$cards = [
+    [
+        'icon'  => 'book-open',
+        'label' => 'Histoire',
+        'title' => 'Origines',
+        'desc'  => 'Découvrez comment tout a commencé en 1989 et l\'histoire de notre fête.',
+        'href'  => '/origines',
+    ],
+    [
+        'icon'  => 'image',
+        'label' => 'Collection',
+        'title' => 'Affiches',
+        'desc'  => 'Les affiches de chaque édition.',
+        'href'  => '/archives/programmes',
+    ],
+    [
+        'icon'  => 'map',
+        'label' => 'Parcours',
+        'title' => 'Randonnées',
+        'desc'  => 'Classements et parcours.',
+        'href'  => '/randonnee',
+    ],
+    [
+        'icon'  => 'clipboard-list',
+        'label' => 'Éditions',
+        'title' => 'Programmes',
+        'desc'  => 'Les programmes année par année.',
+        'href'  => '/archives/programmes',
+    ],
+    [
+        'icon'  => 'camera',
+        'label' => 'Souvenirs',
+        'title' => 'Photos',
+        'desc'  => 'Albums et galeries photo.',
+        'href'  => '/galerie',
+    ],
+    [
+        'icon'  => 'award',
+        'label' => 'Compétition',
+        'title' => 'Concours',
+        'desc'  => 'Résultats et inscriptions.',
+        'href'  => '/concours',
+    ],
+];
 ?>
 
 <!-- Page Hero -->
-<section class="page-hero">
+<section class="page-hero" style="text-align:center">
     <div class="page-hero-pattern"></div>
     <div class="page-hero-decoration"></div>
-    <div class="container">
+    <div class="page-hero-content" style="position:relative;z-index:2;max-width:700px;margin:0 auto;padding:5rem 2rem 4rem">
+        <nav class="breadcrumb" style="justify-content:center;margin-bottom:1.5rem" aria-label="Fil d'Ariane">
+            <a href="/">Accueil</a>
+            <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
+            <span aria-current="page">Revivez les années</span>
+        </nav>
+
         <span class="page-hero-badge">
-            <?= icon('history', 16) ?> Nos Archives
+            <?= icon('archive', 14) ?> Souvenirs
         </span>
 
-        <h1 class="page-hero-title">Toutes les <em>éditions</em></h1>
+        <h1 class="page-hero-title" style="margin-left:auto;margin-right:auto">Revivez les <em>années</em></h1>
 
-        <p class="page-hero-intro">Depuis 1989, la Fête du Cidre célèbre chaque année le terroir et le savoir-faire du Haut Anjou. Revivez les moments forts de chaque édition.</p>
+        <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">Depuis 1989, la Fête du Cidre célèbre chaque année le terroir et le savoir-faire du Haut Anjou. Plongez dans nos archives.</p>
     </div>
 </section>
 
-<!-- Grille des éditions -->
-<section class="section">
-    <div class="container">
-        <?php if (empty($editions)): ?>
-            <div class="empty-state" style="text-align:center;padding:4rem 0">
-                <?= icon('calendar', 48, '', 'var(--vert-clair)') ?>
-                <h2 style="margin-top:1rem">Aucune édition disponible</h2>
-                <p style="color:var(--brun)">Les archives seront bientôt en ligne.</p>
-            </div>
-        <?php else: ?>
-            <div class="grid grid-4">
-                <?php foreach ($editions as $edition): ?>
-                    <a href="/archives/<?= (int) $edition['year'] ?>" class="card edition-card reveal">
-                        <div class="card-body" style="text-align:center;padding:2rem">
-                            <span class="edition-year"><?= (int) $edition['year'] ?></span>
-                            <h3 style="margin-top:.75rem;font-size:1.1rem"><?= e($edition['title'] ?? 'Édition ' . $edition['year']) ?></h3>
-                            <?php if ($edition['description']): ?>
-                                <p style="margin-top:.5rem;font-size:.9rem;color:var(--brun)"><?= e(truncate($edition['description'], 100)) ?></p>
-                            <?php endif; ?>
-                            <span class="btn-sm" style="margin-top:1rem">
-                                Découvrir <?= icon('arrow-right', 14) ?>
-                            </span>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+<!-- Archive Cards -->
+<section class="arc-landing">
+    <div class="arc-grid">
+        <?php foreach ($cards as $card): ?>
+            <a href="<?= $card['href'] ?>" class="arc-card">
+                <div class="arc-card-bg"></div>
+                <div class="arc-card-content">
+                    <div class="arc-card-icon">
+                        <?= icon($card['icon'], 24) ?>
+                    </div>
+                    <span class="arc-card-label"><?= $card['label'] ?></span>
+                    <span class="arc-card-title"><?= $card['title'] ?></span>
+                    <span class="arc-card-desc"><?= $card['desc'] ?></span>
+                </div>
+                <div class="arc-card-arrow">
+                    <?= icon('arrow-up-right', 16) ?>
+                </div>
+            </a>
+        <?php endforeach; ?>
     </div>
 </section>
