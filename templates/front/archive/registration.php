@@ -1,112 +1,167 @@
 <?php
 /**
- * Template formulaire d'inscription au concours.
- * Variables : $seo
+ * Template page Inscription Concours — cartes documents + bannière contact.
+ * Variables : $seo, $contactEmail, $contactPhone
  */
+$currentYear = (int) date('Y');
 ?>
 
 <!-- Page Hero -->
-<section class="page-hero">
+<section class="page-hero" style="text-align:center">
     <div class="page-hero-pattern"></div>
     <div class="page-hero-decoration"></div>
-    <div class="container">
-        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <div class="page-hero-content" style="position:relative;z-index:2;max-width:700px;margin:0 auto;padding:5rem 2rem 4rem">
+        <nav class="breadcrumb" style="justify-content:center;margin-bottom:1.5rem" aria-label="Fil d'Ariane">
             <a href="/">Accueil</a>
             <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
-            <a href="/concours">Concours</a>
-            <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
-            <span aria-current="page">Inscription</span>
+            <span aria-current="page">Inscription concours</span>
         </nav>
 
         <span class="page-hero-badge">
-            <?= icon('pen-line', 16) ?> Inscription
+            <?= icon('trophy', 14) ?> Édition <?= $currentYear ?>
         </span>
 
-        <h1 class="page-hero-title">Inscription au <em>Concours</em></h1>
+        <h1 class="page-hero-title" style="margin-left:auto;margin-right:auto">Inscription au <em>concours</em></h1>
 
-        <p class="page-hero-intro">Inscrivez votre cidre au concours de la Fête du Cidre</p>
+        <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">Retrouvez les documents nécessaires pour participer au concours de cidre de la Fête du Cidre.</p>
     </div>
 </section>
 
-<section class="section">
-    <div class="container" style="max-width:700px">
-        <div class="card">
-            <div class="card-body" style="padding:2rem">
-                <form action="/concours/inscription" method="post">
-                    <?= csrf_field() ?>
+<!-- Cartes inscription -->
+<section class="insc-content">
 
-                    <h2 style="margin-bottom:1.5rem"><?= icon('user', 22) ?> Informations du producteur</h2>
-
-                    <div class="form-group" style="margin-bottom:1rem">
-                        <label for="producer_name">Nom du producteur / exploitation <span style="color:var(--orange-cidre)">*</span></label>
-                        <input type="text" name="producer_name" id="producer_name"
-                               value="<?= old('producer_name') ?>" required
-                               class="form-control" placeholder="Nom du producteur">
+    <div class="insc-grid">
+        <!-- Professionnels -->
+        <div class="insc-card">
+            <div class="insc-card-header">
+                <div class="insc-card-icon">
+                    <?= icon('trophy', 24) ?>
+                </div>
+                <div class="insc-card-info">
+                    <h3>Professionnels</h3>
+                    <p>Cidriculteurs &amp; producteurs</p>
+                </div>
+            </div>
+            <div class="insc-card-divider"></div>
+            <div class="insc-card-links">
+                <a href="https://www.feteducidre.fr/wp-content/uploads/2024/06/reglement-concours-2024.pdf"
+                   class="doc-link" target="_blank" rel="noopener">
+                    <div class="doc-link-icon reglement">
+                        <?= icon('scroll-text', 18) ?>
                     </div>
-
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
-                        <div class="form-group">
-                            <label for="email">Email <span style="color:var(--orange-cidre)">*</span></label>
-                            <input type="email" name="email" id="email"
-                                   value="<?= old('email') ?>" required
-                                   class="form-control" placeholder="votre@email.fr">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Téléphone</label>
-                            <input type="tel" name="phone" id="phone"
-                                   value="<?= old('phone') ?>"
-                                   class="form-control" placeholder="06 12 34 56 78">
-                        </div>
+                    <div class="doc-link-info">
+                        <strong>Règlement du concours</strong>
+                        <span>PDF — Conditions de participation</span>
                     </div>
-
-                    <div class="form-group" style="margin-bottom:1rem">
-                        <label for="producer_city">Ville / commune</label>
-                        <input type="text" name="producer_city" id="producer_city"
-                               value="<?= old('producer_city') ?>"
-                               class="form-control" placeholder="Ville">
+                    <div class="doc-link-arrow"><?= icon('download', 16) ?></div>
+                </a>
+                <a href="https://www.feteducidre.fr/wp-content/uploads/2024/06/formulaire-inscription-concours-2024.pdf"
+                   class="doc-link" target="_blank" rel="noopener">
+                    <div class="doc-link-icon inscription">
+                        <?= icon('file-pen', 18) ?>
                     </div>
-
-                    <hr style="border:none;border-top:1px solid var(--creme-fonce);margin:2rem 0">
-
-                    <h2 style="margin-bottom:1.5rem"><?= icon('wine', 22) ?> Produit présenté</h2>
-
-                    <div class="form-group" style="margin-bottom:1rem">
-                        <label for="category">Catégorie <span style="color:var(--orange-cidre)">*</span></label>
-                        <select name="category" id="category" required class="form-control">
-                            <option value="">— Sélectionnez une catégorie —</option>
-                            <option value="Cidre brut" <?= old('category') === 'Cidre brut' ? 'selected' : '' ?>>Cidre brut</option>
-                            <option value="Cidre demi-sec" <?= old('category') === 'Cidre demi-sec' ? 'selected' : '' ?>>Cidre demi-sec</option>
-                            <option value="Cidre doux" <?= old('category') === 'Cidre doux' ? 'selected' : '' ?>>Cidre doux</option>
-                            <option value="Cidre rosé" <?= old('category') === 'Cidre rosé' ? 'selected' : '' ?>>Cidre rosé</option>
-                            <option value="Poiré" <?= old('category') === 'Poiré' ? 'selected' : '' ?>>Poiré</option>
-                            <option value="Jus de pomme" <?= old('category') === 'Jus de pomme' ? 'selected' : '' ?>>Jus de pomme</option>
-                        </select>
+                    <div class="doc-link-info">
+                        <strong>Formulaire d'inscription</strong>
+                        <span>PDF — À remplir et retourner</span>
                     </div>
-
-                    <div class="form-group" style="margin-bottom:1rem">
-                        <label for="product_name">Nom du produit <span style="color:var(--orange-cidre)">*</span></label>
-                        <input type="text" name="product_name" id="product_name"
-                               value="<?= old('product_name') ?>" required
-                               class="form-control" placeholder="Nom de votre cidre">
-                    </div>
-
-                    <div class="form-group" style="margin-bottom:1.5rem">
-                        <label for="notes">Remarques / informations complémentaires</label>
-                        <textarea name="notes" id="notes" rows="4" class="form-control"
-                                  placeholder="Millésime, variétés de pommes, méthode de fabrication..."><?= old('notes') ?></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-secondary" style="width:100%;justify-content:center">
-                        <?= icon('check', 18) ?> Envoyer mon inscription
-                    </button>
-                </form>
+                    <div class="doc-link-arrow"><?= icon('download', 16) ?></div>
+                </a>
             </div>
         </div>
 
-        <div style="text-align:center;margin-top:2rem">
-            <a href="/concours" class="btn btn-outline">
-                <?= icon('arrow-left', 18) ?> Retour au concours
-            </a>
+        <!-- Amateurs -->
+        <div class="insc-card">
+            <div class="insc-card-header">
+                <div class="insc-card-icon">
+                    <?= icon('apple', 24) ?>
+                </div>
+                <div class="insc-card-info">
+                    <h3>Amateurs</h3>
+                    <p>Particuliers &amp; passionnés</p>
+                </div>
+            </div>
+            <div class="insc-card-divider"></div>
+            <div class="insc-card-links">
+                <a href="https://www.feteducidre.fr/wp-content/uploads/2024/06/reglement-concours-2024.pdf"
+                   class="doc-link" target="_blank" rel="noopener">
+                    <div class="doc-link-icon reglement">
+                        <?= icon('scroll-text', 18) ?>
+                    </div>
+                    <div class="doc-link-info">
+                        <strong>Règlement du concours</strong>
+                        <span>PDF — Conditions de participation</span>
+                    </div>
+                    <div class="doc-link-arrow"><?= icon('download', 16) ?></div>
+                </a>
+                <a href="https://www.feteducidre.fr/wp-content/uploads/2024/06/formulaire-inscription-concours-2024.pdf"
+                   class="doc-link" target="_blank" rel="noopener">
+                    <div class="doc-link-icon inscription">
+                        <?= icon('file-pen', 18) ?>
+                    </div>
+                    <div class="doc-link-info">
+                        <strong>Formulaire d'inscription</strong>
+                        <span>PDF — À remplir et retourner</span>
+                    </div>
+                    <div class="doc-link-arrow"><?= icon('download', 16) ?></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Producteurs -->
+        <div class="insc-card">
+            <div class="insc-card-header">
+                <div class="insc-card-icon">
+                    <?= icon('tree-deciduous', 24) ?>
+                </div>
+                <div class="insc-card-info">
+                    <h3>Producteurs</h3>
+                    <p>Courrier &amp; informations</p>
+                </div>
+            </div>
+            <div class="insc-card-divider"></div>
+            <div class="insc-card-links">
+                <a href="https://www.feteducidre.fr/wp-content/uploads/2024/06/courrier-producteurs-2024.pdf"
+                   class="doc-link" target="_blank" rel="noopener">
+                    <div class="doc-link-icon courrier">
+                        <?= icon('send', 18) ?>
+                    </div>
+                    <div class="doc-link-info">
+                        <strong>Courrier producteurs</strong>
+                        <span>PDF — Invitation et informations</span>
+                    </div>
+                    <div class="doc-link-arrow"><?= icon('download', 16) ?></div>
+                </a>
+                <a href="https://www.feteducidre.fr/wp-content/uploads/2024/06/reglement-concours-2024.pdf"
+                   class="doc-link" target="_blank" rel="noopener">
+                    <div class="doc-link-icon reglement">
+                        <?= icon('scroll-text', 18) ?>
+                    </div>
+                    <div class="doc-link-info">
+                        <strong>Règlement du concours</strong>
+                        <span>PDF — Conditions de participation</span>
+                    </div>
+                    <div class="doc-link-arrow"><?= icon('download', 16) ?></div>
+                </a>
+            </div>
         </div>
     </div>
+
+    <!-- Bannière contact -->
+    <div class="info-banner">
+        <div class="info-banner-inner">
+            <div class="info-banner-icon">
+                <?= icon('help-circle', 24) ?>
+            </div>
+            <div class="info-banner-text">
+                <h3>Besoin d'informations ?</h3>
+                <p>Pour toute question sur le concours, contactez-nous par téléphone au <?= e($contactPhone ?? '02 41 61 37 26') ?> ou par email.</p>
+            </div>
+            <div class="info-banner-action">
+                <a href="mailto:<?= e($contactEmail ?? 'contact@feteducidre.fr') ?>" class="btn btn-outline" style="color:var(--blanc);border-color:rgba(255,255,255,.4)">
+                    <?= icon('mail', 16) ?> Nous écrire
+                </a>
+            </div>
+        </div>
+    </div>
+
 </section>

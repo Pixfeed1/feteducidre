@@ -2328,6 +2328,201 @@ textarea.form-control {
   display: none;
 }
 
+/* ===== INSCRIPTION CONCOURS ===== */
+.insc-content {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.insc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.insc-card {
+  background: var(--blanc);
+  border-radius: 16px;
+  border: 2px solid var(--creme-fonce);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.insc-card-header {
+  padding: 1.5rem 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.insc-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.insc-card:nth-child(1) .insc-card-icon {
+  background: var(--orange-cidre);
+  color: var(--blanc);
+}
+
+.insc-card:nth-child(2) .insc-card-icon {
+  background: var(--vert-profond);
+  color: var(--blanc);
+}
+
+.insc-card:nth-child(3) .insc-card-icon {
+  background: var(--brun);
+  color: var(--blanc);
+}
+
+.insc-card-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--vert-profond);
+  margin-bottom: 0.15rem;
+}
+
+.insc-card-info p {
+  font-size: 0.85rem;
+  color: var(--brun);
+}
+
+.insc-card-divider {
+  height: 1px;
+  background: var(--creme-fonce);
+  margin: 0 1.5rem;
+}
+
+.insc-card-links {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.doc-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: var(--creme);
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.doc-link:hover {
+  background: var(--creme-fonce);
+  transform: translateX(2px);
+}
+
+.doc-link-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.doc-link-icon.reglement {
+  background: rgba(196, 107, 46, 0.12);
+  color: var(--orange-cidre);
+}
+
+.doc-link-icon.inscription {
+  background: rgba(44, 74, 46, 0.1);
+  color: var(--vert-profond);
+}
+
+.doc-link-icon.courrier {
+  background: rgba(101, 67, 33, 0.1);
+  color: var(--brun);
+}
+
+.doc-link-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.doc-link-info strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--vert-profond);
+}
+
+.doc-link-info span {
+  font-size: 0.78rem;
+  color: var(--brun);
+}
+
+.doc-link-arrow {
+  color: var(--brun);
+  opacity: 0.4;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.doc-link:hover .doc-link-arrow {
+  opacity: 1;
+}
+
+.info-banner {
+  background: var(--vert-profond);
+  border-radius: 16px;
+  padding: 2rem;
+  color: var(--blanc);
+}
+
+.info-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.info-banner-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-banner-text {
+  flex: 1;
+}
+
+.info-banner-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.info-banner-text p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.info-banner-action .btn {
+  white-space: nowrap;
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
   from {
@@ -2416,6 +2611,22 @@ textarea.form-control {
   .concours-grid {
     grid-template-columns: 1fr;
     max-width: 400px;
+  }
+
+  .insc-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .insc-content {
+    padding: 3rem 1.5rem;
+  }
+
+  .info-banner-inner {
+    flex-direction: column;
+    text-align: center;
   }
 
   .page-hero-title {
@@ -2589,6 +2800,10 @@ textarea.form-control {
 
   .concours-content {
     padding: 3rem 1.5rem;
+  }
+
+  .insc-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .years-grid {

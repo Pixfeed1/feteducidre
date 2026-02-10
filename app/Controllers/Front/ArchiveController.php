@@ -216,19 +216,30 @@ class ArchiveController extends Controller
     }
 
     /**
-     * Formulaire d'inscription au concours.
+     * Page d'inscription au concours — documents et contact.
      */
     public function registration(Request $request, array $params = []): void
     {
+        $db = $this->db();
+
+        // Récupérer les coordonnées depuis les settings
+        $rows = $db->fetchAll("SELECT `key`, value FROM settings WHERE `group` = 'general'");
+        $general = [];
+        foreach ($rows as $row) {
+            $general[$row['key']] = $row['value'];
+        }
+
         // SEO
         $seo = [
             'title'       => 'Inscription au Concours — Fête du Cidre',
-            'description' => 'Inscrivez-vous au concours de cidre de la Fête du Cidre.',
+            'description' => 'Retrouvez les documents pour participer au concours de cidre de la Fête du Cidre.',
             'canonical'   => Config::baseUrl() . '/concours/inscription',
         ];
 
         $this->render('templates/front/archive/registration.php', [
-            'seo' => $seo,
+            'seo'          => $seo,
+            'contactEmail' => $general['email'] ?? null,
+            'contactPhone' => $general['phone'] ?? null,
         ]);
     }
 
