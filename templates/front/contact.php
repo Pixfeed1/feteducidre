@@ -9,15 +9,22 @@ $phone = $settings['general']['association_phone'] ?? '';
 $siteName = $settings['general']['association_name'] ?? 'Association Fête du Cidre';
 ?>
 
-<!-- En-tête de page -->
-<section class="page-header">
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-pattern"></div>
+    <div class="page-hero-decoration"></div>
     <div class="container">
-        <h1><?= icon('mail', 32) ?> Contact</h1>
-        <p>Une question ? N'hésitez pas à nous contacter</p>
+        <span class="page-hero-badge">
+            <?= icon('mail', 16) ?> Contact
+        </span>
+
+        <h1 class="page-hero-title">Nous <em>contacter</em></h1>
+
+        <p class="page-hero-intro">Une question ? N'hésitez pas à nous écrire</p>
     </div>
 </section>
 
-<section class="section section-contact">
+<section class="section">
     <div class="container">
         <div class="contact-layout" style="display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start">
 
@@ -35,13 +42,13 @@ $siteName = $settings['general']['association_name'] ?? 'Association Fête du Ci
                                     <label for="name">Nom <span style="color:var(--orange-cidre)">*</span></label>
                                     <input type="text" name="name" id="name"
                                            value="<?= old('name') ?>" required
-                                           class="form-input" placeholder="Votre nom">
+                                           class="form-control" placeholder="Votre nom">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email <span style="color:var(--orange-cidre)">*</span></label>
                                     <input type="email" name="email" id="email"
                                            value="<?= old('email') ?>" required
-                                           class="form-input" placeholder="votre@email.fr">
+                                           class="form-control" placeholder="votre@email.fr">
                                 </div>
                             </div>
 
@@ -49,13 +56,13 @@ $siteName = $settings['general']['association_name'] ?? 'Association Fête du Ci
                                 <label for="subject">Sujet</label>
                                 <input type="text" name="subject" id="subject"
                                        value="<?= old('subject') ?>"
-                                       class="form-input" placeholder="Objet de votre message">
+                                       class="form-control" placeholder="Objet de votre message">
                             </div>
 
                             <div class="form-group" style="margin-bottom:1.5rem">
                                 <label for="message">Message <span style="color:var(--orange-cidre)">*</span></label>
                                 <textarea name="message" id="message" rows="6" required
-                                          class="form-input" placeholder="Votre message..."><?= old('message') ?></textarea>
+                                          class="form-control" placeholder="Votre message..."><?= old('message') ?></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-secondary" style="width:100%;justify-content:center">

@@ -5,11 +5,26 @@
  */
 ?>
 
-<!-- En-tête de page -->
-<section class="page-header">
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-pattern"></div>
+    <div class="page-hero-decoration"></div>
     <div class="container">
-        <h1><?= icon('award', 32) ?> Palmarès du Concours</h1>
-        <p>Résultats et classements par année et catégorie</p>
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+            <a href="/">Accueil</a>
+            <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
+            <a href="/concours">Concours</a>
+            <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
+            <span aria-current="page">Palmarès</span>
+        </nav>
+
+        <span class="page-hero-badge">
+            <?= icon('award', 16) ?> Palmarès
+        </span>
+
+        <h1 class="page-hero-title">Palmarès du <em>Concours</em></h1>
+
+        <p class="page-hero-intro">Résultats et classements par année et catégorie</p>
     </div>
 </section>
 
@@ -36,7 +51,7 @@
             <div class="empty-state" style="text-align:center;padding:4rem 0">
                 <?= icon('award', 48, '', 'var(--vert-clair)') ?>
                 <h2 style="margin-top:1rem">Aucun résultat disponible</h2>
-                <p>Les résultats pour cette année ne sont pas encore publiés.</p>
+                <p style="color:var(--brun)">Les résultats pour cette année ne sont pas encore publiés.</p>
             </div>
         <?php else: ?>
             <?php foreach ($grouped as $category => $results): ?>

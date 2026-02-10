@@ -5,11 +5,18 @@
  */
 ?>
 
-<!-- En-tête de page -->
-<section class="page-header">
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-pattern"></div>
+    <div class="page-hero-decoration"></div>
     <div class="container">
-        <h1><?= icon('trophy', 32) ?> Concours de Cidre</h1>
-        <p>Le rendez-vous incontournable des producteurs de cidre du Maine-et-Loire</p>
+        <span class="page-hero-badge">
+            <?= icon('trophy', 16) ?> Concours
+        </span>
+
+        <h1 class="page-hero-title">Concours de <em>Cidre</em></h1>
+
+        <p class="page-hero-intro">Le rendez-vous incontournable des producteurs de cidre du Maine-et-Loire</p>
     </div>
 </section>
 
@@ -50,13 +57,13 @@
 <?php if (!empty($latestResults)): ?>
 <section class="section" style="background:var(--blanc)">
     <div class="container">
-        <div class="section-title">
-            <h2>Résultats <?= $latestYear ?></h2>
-            <p>Les lauréats de la dernière édition du concours</p>
+        <div class="section-header">
+            <span class="section-label">Résultats</span>
+            <h2 class="section-title">Édition <?= $latestYear ?></h2>
+            <p class="section-subtitle">Les lauréats de la dernière édition du concours</p>
         </div>
 
         <?php
-        // Grouper par catégorie
         $byCategory = [];
         foreach ($latestResults as $result) {
             $byCategory[$result['category']][] = $result;
@@ -104,9 +111,10 @@
 <?php if (!empty($years)): ?>
 <section class="section">
     <div class="container">
-        <div class="section-title">
-            <h2>Historique du concours</h2>
-            <p>Consultez les résultats des éditions passées</p>
+        <div class="section-header">
+            <span class="section-label">Historique</span>
+            <h2 class="section-title">Éditions passées</h2>
+            <p class="section-subtitle">Consultez les résultats des éditions passées</p>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
             <?php foreach ($years as $yearRow): ?>

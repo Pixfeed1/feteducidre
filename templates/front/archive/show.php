@@ -5,8 +5,10 @@
  */
 ?>
 
-<!-- Fil d'Ariane -->
-<section class="breadcrumb-section">
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-pattern"></div>
+    <div class="page-hero-decoration"></div>
     <div class="container">
         <nav class="breadcrumb" aria-label="Fil d'Ariane">
             <a href="/">Accueil</a>
@@ -15,15 +17,14 @@
             <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
             <span aria-current="page">Édition <?= (int) $edition['year'] ?></span>
         </nav>
-    </div>
-</section>
 
-<!-- En-tête édition -->
-<section class="page-header">
-    <div class="container">
-        <span style="font-size:1rem;color:var(--orange-cidre);font-weight:600"><?= icon('calendar', 18) ?> Édition</span>
-        <h1><?= e($edition['title'] ?? 'Fête du Cidre ' . $edition['year']) ?></h1>
-        <p style="font-size:1.5rem;font-weight:300"><?= (int) $edition['year'] ?></p>
+        <span class="page-hero-badge">
+            <?= icon('calendar', 16) ?> Édition
+        </span>
+
+        <h1 class="page-hero-title"><?= e($edition['title'] ?? 'Fête du Cidre ' . $edition['year']) ?></h1>
+
+        <p class="page-hero-intro"><?= (int) $edition['year'] ?></p>
     </div>
 </section>
 
@@ -42,7 +43,7 @@
             <!-- Description et détails -->
             <div class="edition-content">
                 <?php if ($edition['description']): ?>
-                    <div class="edition-description" style="line-height:1.8;margin-bottom:2rem">
+                    <div class="cms-content" style="max-width:none;margin-bottom:2rem">
                         <?= sanitize($edition['description']) ?>
                     </div>
                 <?php endif; ?>
@@ -115,7 +116,7 @@
                                             <td style="padding:.5rem 0"><?= e($result['product_name'] ?? '') ?></td>
                                             <td style="text-align:center;padding:.5rem 0">
                                                 <?php if ($result['medal']): ?>
-                                                    <span class="medal medal-<?= e($result['medal']) ?>" style="display:inline-flex;align-items:center;gap:.25rem;font-weight:600;font-size:.85rem">
+                                                    <span style="display:inline-flex;align-items:center;gap:.25rem;font-weight:600;font-size:.85rem">
                                                         <?= icon('award', 16) ?> <?= e(ucfirst($result['medal'])) ?>
                                                     </span>
                                                 <?php endif; ?>

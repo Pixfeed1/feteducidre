@@ -5,11 +5,18 @@
  */
 ?>
 
-<!-- En-tête de page -->
-<section class="page-header">
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-pattern"></div>
+    <div class="page-hero-decoration"></div>
     <div class="container">
-        <h1><?= icon('mountain', 32) ?> Randonnée</h1>
-        <p>Parcourez les chemins du bocage angevin au coeur de la Fête du Cidre</p>
+        <span class="page-hero-badge">
+            <?= icon('mountain', 16) ?> Randonnée
+        </span>
+
+        <h1 class="page-hero-title">Randonnée du <em>Cidre</em></h1>
+
+        <p class="page-hero-intro">Parcourez les chemins du bocage angevin au coeur de la Fête du Cidre</p>
     </div>
 </section>
 
@@ -99,8 +106,9 @@
 <?php if (!empty($pastEditions) && count($pastEditions) > 1): ?>
 <section class="section" style="background:var(--blanc)">
     <div class="container">
-        <div class="section-title">
-            <h2>Historique des randonnées</h2>
+        <div class="section-header">
+            <span class="section-label">Historique</span>
+            <h2 class="section-title">Éditions passées</h2>
         </div>
 
         <div style="overflow-x:auto">
@@ -126,7 +134,7 @@
                                 <?= $pastEdition['participant_count'] ? (int) $pastEdition['participant_count'] : '—' ?>
                             </td>
                             <td style="text-align:right;padding:.75rem">
-                                <a href="/randonnee/classement?year=<?= (int) $pastEdition['year'] ?>" class="btn-link" style="font-size:.9rem;font-weight:600;color:var(--orange-cidre)">
+                                <a href="/randonnee/classement?year=<?= (int) $pastEdition['year'] ?>" style="font-size:.9rem;font-weight:600;color:var(--orange-cidre)">
                                     Classement <?= icon('arrow-right', 14) ?>
                                 </a>
                             </td>
