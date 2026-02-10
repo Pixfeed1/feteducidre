@@ -23,6 +23,7 @@ $pendingOrders = $pendingOrders ?? 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title><?= e($title ?? 'Administration') ?> — Fête du Cidre</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
     <style><?= \App\Core\Theme::cssVariables() ?></style>
     <link rel="stylesheet" href="<?= asset('assets/css/admin.css') ?>">
 </head>

@@ -43,6 +43,22 @@ class UserAdminController extends Controller
     }
 
     /**
+     * Redirige vers la liste (l'édition se fait via modal)
+     */
+    public function create(Request $request, array $params = []): void
+    {
+        $this->redirect('/admin/users');
+    }
+
+    /**
+     * Redirige vers la liste (l'édition se fait via modal)
+     */
+    public function edit(Request $request, array $params = []): void
+    {
+        $this->redirect('/admin/users');
+    }
+
+    /**
      * Enregistre un nouvel utilisateur
      */
     public function store(Request $request, array $params = []): void
