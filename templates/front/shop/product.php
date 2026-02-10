@@ -1,111 +1,193 @@
 <?php
 /**
- * Template fiche produit.
- * Variables : $product, $image, $seo
+ * Template fiche produit — design premium.
+ * Variables : $product, $image, $related, $seo
  */
+$catMeta = [
+    'cidre-brut' => ['icon' => 'wine',     'label' => 'Cidre brut',     'gradient' => 'linear-gradient(135deg, #2C4A2E 0%, #4A6B3E 50%, #7A9E6B 100%)'],
+    'cidre-doux' => ['icon' => 'wine',     'label' => 'Cidre doux',     'gradient' => 'linear-gradient(135deg, #D4833B 0%, #E8A95B 50%, #F5D6A0 100%)'],
+    'cidre-demi' => ['icon' => 'wine',     'label' => 'Cidre demi-sec', 'gradient' => 'linear-gradient(135deg, #4A6B3E 0%, #7A9E6B 50%, #E8A95B 100%)'],
+    'jus'        => ['icon' => 'cup-soda', 'label' => 'Jus',            'gradient' => 'linear-gradient(135deg, #E8A95B 0%, #F5CC6A 50%, #FAE4A0 100%)'],
+    'pommeau'    => ['icon' => 'grape',    'label' => 'Pommeau',        'gradient' => 'linear-gradient(135deg, #5C3D2E 0%, #8B6B4A 50%, #D4833B 100%)'],
+    'coffret'    => ['icon' => 'gift',     'label' => 'Coffret',        'gradient' => 'linear-gradient(135deg, #2C4A2E 0%, #D4833B 50%, #E8A95B 100%)'],
+];
+
+$cat = $product['category'] ?? 'autres';
+$meta = $catMeta[$cat] ?? ['icon' => 'package', 'label' => ucfirst($cat), 'gradient' => 'linear-gradient(135deg, var(--vert-profond), var(--vert-mousse))'];
+$hasAlcohol = !empty($product['alcohol_percentage']) && (float) $product['alcohol_percentage'] > 0;
+$currentPrice = $product['sale_price'] ?: $product['price'];
+$inStock = $product['stock'] === null || (int) $product['stock'] > 0;
 ?>
 
-<!-- Fil d'Ariane -->
-<section class="breadcrumb-section">
-    <div class="container">
-        <nav class="breadcrumb" aria-label="Fil d'Ariane">
-            <a href="/">Accueil</a>
-            <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
-            <a href="/boutique">Boutique</a>
-            <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
-            <span aria-current="page"><?= e($product['name']) ?></span>
-        </nav>
-    </div>
-</section>
+<section class="product-page" style="animation:fadeInUp .8s ease both">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="/">Accueil</a>
+        <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
+        <a href="/boutique">Boutique</a>
+        <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
+        <span aria-current="page"><?= e($product['name']) ?></span>
+    </nav>
 
-<!-- Détails du produit -->
-<section class="section section-product-detail">
-    <div class="container">
-        <div class="product-detail" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start">
+    <div class="product-layout">
+        <!-- IMAGE -->
+        <div class="product-gallery">
+            <?php if ($image): ?>
+                <?= img($image, $product['name'], 'product-gallery-img') ?>
+            <?php else: ?>
+                <div class="product-gallery-bg" style="background:<?= $meta['gradient'] ?>"></div>
+            <?php endif; ?>
+            <div class="product-gallery-badge">
+                <span class="gallery-tag">
+                    <?= icon($meta['icon'], 10) ?> <?= e($meta['label']) ?>
+                </span>
+                <?php if ($product['sale_price']): ?>
+                    <span class="gallery-tag promo">Promo</span>
+                <?php endif; ?>
+            </div>
+        </div>
 
-            <!-- Image du produit -->
-            <div class="product-detail-image">
-                <?php if ($image): ?>
-                    <?= img($image, $product['name'], 'product-img') ?>
-                <?php else: ?>
-                    <div class="product-image-placeholder" style="background:var(--creme-fonce);height:400px;border-radius:14px;display:flex;align-items:center;justify-content:center">
-                        <?= icon('wine', 64, '', 'var(--vert-clair)') ?>
-                    </div>
+        <!-- INFO -->
+        <div class="product-info">
+            <span class="p-cat">
+                <?= icon($meta['icon'], 14) ?> <?= e($meta['label']) ?>
+            </span>
+
+            <h1><?= e($product['name']) ?></h1>
+
+            <?php if ($product['description']): ?>
+                <div class="p-desc"><?= sanitize($product['description']) ?></div>
+            <?php elseif ($product['short_description']): ?>
+                <p class="p-desc"><?= e($product['short_description']) ?></p>
+            <?php endif; ?>
+
+            <!-- Specs -->
+            <?php if ($product['volume'] || $hasAlcohol): ?>
+                <div class="specs">
+                    <?php if ($product['volume']): ?>
+                        <div class="spec">
+                            <?= icon('wine', 18, '', 'var(--orange-cidre)') ?>
+                            <span class="spec-value"><?= e($product['volume']) ?></span>
+                            <span class="spec-label">Contenance</span>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($hasAlcohol): ?>
+                        <div class="spec">
+                            <?= icon('gauge', 18, '', 'var(--orange-cidre)') ?>
+                            <span class="spec-value"><?= number_format((float) $product['alcohol_percentage'], 1, ',', '') ?>%</span>
+                            <span class="spec-label">Alcool</span>
+                        </div>
+                        <div class="spec">
+                            <?= icon('thermometer', 18, '', 'var(--orange-cidre)') ?>
+                            <span class="spec-value">8-10°C</span>
+                            <span class="spec-label">Service</span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <!-- Price -->
+            <div class="price-block">
+                <?php if ($product['sale_price']): ?>
+                    <span class="price-old"><?= number_format((float) $product['price'], 2, ',', ' ') ?> €</span>
+                <?php endif; ?>
+                <span class="price-main"><?= number_format((float) $currentPrice, 2, ',', ' ') ?> €</span>
+                <?php if ($product['volume']): ?>
+                    <span class="price-unit">/ <?= e($product['volume']) ?></span>
                 <?php endif; ?>
             </div>
 
-            <!-- Informations produit -->
-            <div class="product-detail-info">
-                <?php if ($product['category']): ?>
-                    <span class="product-category" style="display:inline-block;margin-bottom:.5rem"><?= e(ucfirst($product['category'])) ?></span>
-                <?php endif; ?>
-
-                <h1 style="margin-bottom:1rem"><?= e($product['name']) ?></h1>
-
-                <!-- Prix -->
-                <div class="product-detail-price" style="margin-bottom:1.5rem">
-                    <?php if ($product['sale_price']): ?>
-                        <span class="product-price" style="font-size:1.75rem;font-weight:700;color:var(--orange-cidre)"><?= number_format((float) $product['sale_price'], 2, ',', ' ') ?> &euro;</span>
-                        <span style="text-decoration:line-through;color:var(--brun);font-size:1.1rem;margin-left:.75rem"><?= number_format((float) $product['price'], 2, ',', ' ') ?> &euro;</span>
-                    <?php else: ?>
-                        <span class="product-price" style="font-size:1.75rem;font-weight:700;color:var(--orange-cidre)"><?= number_format((float) $product['price'], 2, ',', ' ') ?> &euro;</span>
-                    <?php endif; ?>
-                </div>
-
-                <!-- Caractéristiques -->
-                <div class="product-detail-specs" style="display:flex;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap">
-                    <?php if ($product['volume']): ?>
-                        <div class="spec-item" style="display:flex;align-items:center;gap:.4rem">
-                            <?= icon('package', 18, '', 'var(--vert-mousse)') ?>
-                            <span>Volume : <strong><?= e($product['volume']) ?></strong></span>
+            <!-- Add to cart -->
+            <?php if ($inStock): ?>
+                <form action="/panier/ajouter" method="post" id="addForm">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
+                    <div class="actions">
+                        <div class="qty-selector">
+                            <button type="button" class="qty-btn" id="qtyMinus">−</button>
+                            <input type="text" class="qty-val" name="quantity" id="qtyVal" value="1" readonly>
+                            <button type="button" class="qty-btn" id="qtyPlus">+</button>
                         </div>
-                    <?php endif; ?>
-                    <?php if ($product['alcohol_percentage'] !== null): ?>
-                        <div class="spec-item" style="display:flex;align-items:center;gap:.4rem">
-                            <?= icon('wine', 18, '', 'var(--vert-mousse)') ?>
-                            <span>Alcool : <strong><?= number_format((float) $product['alcohol_percentage'], 1, ',', '') ?> %</strong></span>
-                        </div>
-                    <?php endif; ?>
-                </div>
-
-                <!-- Description -->
-                <?php if ($product['description']): ?>
-                    <div class="product-detail-description" style="margin-bottom:2rem;line-height:1.8">
-                        <?= sanitize($product['description']) ?>
+                        <button type="submit" class="add-to-cart">
+                            <?= icon('shopping-bag', 18) ?> Ajouter au panier
+                        </button>
                     </div>
-                <?php endif; ?>
+                </form>
+            <?php else: ?>
+                <div style="padding:1rem;background:var(--creme-fonce);border-radius:14px;text-align:center">
+                    <p style="font-weight:600;color:var(--brun)"><?= icon('alert-triangle', 18) ?> Produit actuellement indisponible</p>
+                </div>
+            <?php endif; ?>
 
-                <!-- Formulaire d'ajout au panier -->
-                <?php if ($product['stock'] === null || (int) $product['stock'] > 0): ?>
-                    <form action="/panier/ajouter" method="post" class="product-add-form">
-                        <?= csrf_field() ?>
-                        <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
-
-                        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
-                            <div class="quantity-selector" style="display:flex;align-items:center;gap:.5rem">
-                                <label for="quantity" style="font-weight:600">Quantité :</label>
-                                <input type="number" name="quantity" id="quantity" value="1" min="1"
-                                       <?php if ((int) $product['stock'] > 0): ?>max="<?= (int) $product['stock'] ?>"<?php endif; ?>
-                                       style="width:70px;padding:.5rem;border:2px solid var(--creme-fonce);border-radius:8px;text-align:center;font-size:1rem">
-                            </div>
-
-                            <button type="submit" class="btn btn-secondary">
-                                <?= icon('shopping-cart', 18) ?> Ajouter au panier
-                            </button>
-                        </div>
-
+            <!-- Extra info -->
+            <div class="extra-info">
+                <?php if ($inStock): ?>
+                    <div class="extra-item">
+                        <span class="extra-dot"></span>
                         <?php if ((int) $product['stock'] > 0 && (int) $product['stock'] <= 5): ?>
-                            <p style="margin-top:.75rem;color:var(--orange-cidre);font-weight:500;font-size:.9rem">
-                                <?= icon('alert-triangle', 16) ?> Plus que <?= (int) $product['stock'] ?> en stock
-                            </p>
+                            Plus que <?= (int) $product['stock'] ?> en stock — Expédition sous 48h
+                        <?php else: ?>
+                            En stock — Expédition sous 48h
                         <?php endif; ?>
-                    </form>
-                <?php else: ?>
-                    <div style="padding:1rem;background:var(--creme-fonce);border-radius:10px;text-align:center">
-                        <p style="font-weight:600;color:var(--brun)"><?= icon('alert-circle', 18) ?> Produit actuellement indisponible</p>
                     </div>
+                <?php endif; ?>
+                <div class="extra-item"><span class="extra-dot"></span> Livraison soignée en emballage renforcé</div>
+                <?php if ($hasAlcohol): ?>
+                    <div class="extra-item"><span class="extra-dot"></span> L'abus d'alcool est dangereux pour la santé</div>
                 <?php endif; ?>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Related Products -->
+<?php if (!empty($related)): ?>
+<section class="related-section">
+    <div class="related-title">Vous aimerez aussi</div>
+    <div class="related-grid">
+        <?php foreach ($related as $rel):
+            $relCat = $rel['category'] ?? 'autres';
+            $relMeta = $catMeta[$relCat] ?? $meta;
+            $relPrice = $rel['sale_price'] ?: $rel['price'];
+        ?>
+            <a href="/boutique/<?= e($rel['slug']) ?>" class="rel-card">
+                <div class="rel-thumb" style="background:<?= $relMeta['gradient'] ?>">
+                    <?php if ($rel['filename']): ?>
+                        <img src="/uploads/<?= e($rel['filename']) ?>" alt="<?= e($rel['name']) ?>">
+                    <?php else: ?>
+                        <?= icon($relMeta['icon'], 24, '', 'rgba(255,255,255,.5)') ?>
+                    <?php endif; ?>
+                </div>
+                <div>
+                    <div class="rel-name"><?= e($rel['name']) ?></div>
+                    <div class="rel-price"><?= number_format((float) $relPrice, 2, ',', ' ') ?> €</div>
+                </div>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</section>
+<?php endif; ?>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+    <?= icon('check-circle', 18, '', 'var(--orange-doux)') ?> Ajouté au panier !
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var qtyVal = document.getElementById('qtyVal');
+    var qtyMinus = document.getElementById('qtyMinus');
+    var qtyPlus = document.getElementById('qtyPlus');
+    <?php $maxStock = ((int) $product['stock'] > 0) ? (int) $product['stock'] : 99; ?>
+
+    if (qtyMinus && qtyPlus && qtyVal) {
+        qtyMinus.addEventListener('click', function() {
+            var v = parseInt(qtyVal.value) || 1;
+            qtyVal.value = Math.max(1, v - 1);
+        });
+        qtyPlus.addEventListener('click', function() {
+            var v = parseInt(qtyVal.value) || 1;
+            qtyVal.value = Math.min(<?= $maxStock ?>, v + 1);
+        });
+    }
+});
+</script>

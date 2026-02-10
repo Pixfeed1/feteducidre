@@ -102,6 +102,21 @@ class ShopController extends Controller
             );
         }
 
+        // Produits similaires (même catégorie, max 3)
+        $related = [];
+        if ($product['category']) {
+            $related = $db->fetchAll(
+                "SELECT p.id, p.name, p.slug, p.price, p.sale_price, p.category,
+                        m.filename, m.alt_text
+                 FROM products p
+                 LEFT JOIN media m ON p.image_id = m.id
+                 WHERE p.is_active = 1 AND p.category = ? AND p.id != ?
+                 ORDER BY p.sort_order ASC
+                 LIMIT 3",
+                [$product['category'], (int) $product['id']]
+            );
+        }
+
         // SEO
         $seo = [
             'title'       => $product['meta_title'] ?: $product['name'] . ' — Boutique Fête du Cidre',
@@ -112,6 +127,7 @@ class ShopController extends Controller
         $this->render('templates/front/shop/product.php', [
             'product' => $product,
             'image'   => $image,
+            'related' => $related,
             'seo'     => $seo,
         ]);
     }
