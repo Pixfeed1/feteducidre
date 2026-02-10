@@ -182,6 +182,9 @@ class App
             $r->get('/settings', [\App\Controllers\Admin\SettingsAdminController::class, 'index']);
             $r->post('/settings', [\App\Controllers\Admin\SettingsAdminController::class, 'update']);
             $r->post('/settings/colors/reset', [\App\Controllers\Admin\SettingsAdminController::class, 'resetColors']);
+            $r->post('/settings/upload/{type}', [\App\Controllers\Admin\SettingsAdminController::class, 'uploadLogo']);
+            $r->post('/settings/remove/{type}', [\App\Controllers\Admin\SettingsAdminController::class, 'removeLogo']);
+            $r->post('/settings/export-db', [\App\Controllers\Admin\SettingsAdminController::class, 'exportDb']);
 
             // Utilisateurs
             $r->resource('/users', \App\Controllers\Admin\UserAdminController::class);
