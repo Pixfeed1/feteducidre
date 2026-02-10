@@ -124,39 +124,44 @@ class ArchiveController extends Controller
     }
 
     /**
-     * Page du concours de cidre.
+     * Page du concours — grille des années par type (cidre / affiches).
      */
     public function contests(Request $request, array $params = []): void
     {
         $db = $this->db();
 
-        // Récupérer les catégories et années disponibles
-        $years = $db->fetchAll(
-            "SELECT DISTINCT year FROM contest_results ORDER BY year DESC"
+        // Récupérer les années et catégories disponibles
+        $rows = $db->fetchAll(
+            "SELECT DISTINCT year, category FROM contest_results ORDER BY year DESC"
         );
 
-        // Derniers résultats
-        $latestYear = !empty($years) ? (int) $years[0]['year'] : null;
-        $latestResults = [];
-        if ($latestYear) {
-            $latestResults = $db->fetchAll(
-                "SELECT id, category, `rank`, producer_name, producer_city, product_name, medal
-                 FROM contest_results WHERE year = ? ORDER BY category ASC, `rank` ASC",
-                [$latestYear]
-            );
+        // Séparer cidre et affiches
+        $cidreYears = [];
+        $affichesYears = [];
+        foreach ($rows as $row) {
+            $year = (int) $row['year'];
+            $cat  = mb_strtolower($row['category']);
+            if (str_contains($cat, 'affiche')) {
+                if (!in_array($year, $affichesYears, true)) {
+                    $affichesYears[] = $year;
+                }
+            } else {
+                if (!in_array($year, $cidreYears, true)) {
+                    $cidreYears[] = $year;
+                }
+            }
         }
 
         // SEO
         $seo = [
-            'title'       => 'Concours de Cidre — Fête du Cidre',
-            'description' => 'Découvrez le concours de cidre de la Fête du Cidre : catégories, règlement et palmarès.',
+            'title'       => 'Les Concours — Fête du Cidre',
+            'description' => 'Retrouvez les palmarès des concours de cidre et d\'affiches de la Fête du Cidre.',
             'canonical'   => Config::baseUrl() . '/concours',
         ];
 
         $this->render('templates/front/archive/contests.php', [
-            'years'         => $years,
-            'latestYear'    => $latestYear,
-            'latestResults' => $latestResults,
+            'cidreYears'    => $cidreYears,
+            'affichesYears' => $affichesYears,
             'seo'           => $seo,
         ]);
     }

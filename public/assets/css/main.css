@@ -2170,6 +2170,164 @@ textarea.form-control {
   transform: translateX(0);
 }
 
+/* ===== CONCOURS / PALMARÈS PAGE ===== */
+.concours-content {
+  padding: 5rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.concours-type {
+  margin-bottom: 4rem;
+}
+
+.type-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.type-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--creme);
+}
+
+.type-cidre .type-icon {
+  background: var(--vert-profond);
+}
+
+.type-affiches .type-icon {
+  background: var(--orange-cidre);
+}
+
+.type-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--vert-profond);
+}
+
+.type-info p {
+  font-size: 0.9rem;
+  color: var(--texte-leger);
+  margin-top: 2px;
+}
+
+.years-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.year-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid var(--creme-fonce);
+  text-decoration: none;
+  color: var(--texte);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.year-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--vert-mousse), var(--orange-cidre));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.year-card:hover {
+  border-color: var(--vert-clair);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(44, 74, 46, 0.1);
+}
+
+.year-card:hover::before {
+  opacity: 1;
+}
+
+.year-badge {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--vert-profond);
+  white-space: nowrap;
+}
+
+.year-card .year-arrow {
+  margin-left: auto;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: all 0.3s;
+  flex-shrink: 0;
+  color: var(--vert-mousse);
+}
+
+.year-card:hover .year-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Featured year card */
+.year-card.featured {
+  background: var(--vert-profond);
+  border-color: var(--vert-profond);
+  grid-column: span 2;
+  padding: 1.5rem 1.8rem;
+}
+
+.year-card.featured .year-badge {
+  color: var(--creme);
+  font-size: 1.5rem;
+}
+
+.year-card.featured .featured-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange-doux);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.year-card.featured .year-arrow {
+  opacity: 0.5;
+  transform: translateX(0);
+  color: var(--orange-doux);
+}
+
+.year-card.featured:hover {
+  background: var(--vert-mousse);
+  border-color: var(--vert-mousse);
+  box-shadow: 0 12px 32px rgba(44, 74, 46, 0.2);
+}
+
+.year-card.featured:hover .year-arrow {
+  opacity: 1;
+}
+
+.year-card.featured::before {
+  display: none;
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
   from {
@@ -2428,6 +2586,18 @@ textarea.form-control {
     padding: 1.5rem;
     gap: 1rem;
   }
+
+  .concours-content {
+    padding: 3rem 1.5rem;
+  }
+
+  .years-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .year-card.featured {
+    grid-column: span 2;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2437,5 +2607,13 @@ textarea.form-control {
 
   .pgm-card.featured {
     grid-column: span 2;
+  }
+
+  .years-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .year-card.featured {
+    grid-column: auto;
   }
 }

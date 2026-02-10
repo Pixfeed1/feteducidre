@@ -1,128 +1,102 @@
 <?php
 /**
- * Template page concours de cidre.
- * Variables : $years, $latestYear, $latestResults, $seo
+ * Template page concours — vue palmarès par années.
+ * Variables : $cidreYears, $affichesYears, $seo
  */
 ?>
 
 <!-- Page Hero -->
-<section class="page-hero">
+<section class="page-hero" style="text-align:center">
     <div class="page-hero-pattern"></div>
     <div class="page-hero-decoration"></div>
-    <div class="container">
+    <div class="page-hero-content" style="position:relative;z-index:2;max-width:700px;margin:0 auto;padding:5rem 2rem 4rem">
+        <nav class="breadcrumb" style="justify-content:center;margin-bottom:1.5rem" aria-label="Fil d'Ariane">
+            <a href="/">Accueil</a>
+            <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
+            <a href="/archives">Revivez les années</a>
+            <span class="breadcrumb-sep"><?= icon('chevron-right', 14) ?></span>
+            <span aria-current="page">Concours</span>
+        </nav>
+
         <span class="page-hero-badge">
-            <?= icon('trophy', 16) ?> Concours
+            <?= icon('award', 14) ?> Palmarès
         </span>
 
-        <h1 class="page-hero-title">Concours de <em>Cidre</em></h1>
+        <h1 class="page-hero-title" style="margin-left:auto;margin-right:auto">Les <em>concours</em></h1>
 
-        <p class="page-hero-intro">Le rendez-vous incontournable des producteurs de cidre du Maine-et-Loire</p>
+        <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">Retrouvez les palmarès de chaque édition : concours du meilleur cidre, jus de pommes, pommeau et concours d'affiches.</p>
     </div>
 </section>
 
-<!-- Présentation du concours -->
-<section class="section">
-    <div class="container">
-        <div class="grid grid-2" style="gap:3rem;align-items:center">
-            <div>
-                <h2>Un concours d'exception</h2>
-                <p style="margin-top:1rem;line-height:1.8">
-                    Chaque année, le concours de la Fête du Cidre réunit les meilleurs producteurs de la région
-                    pour une dégustation à l'aveugle. Un jury d'experts évalue les cidres selon des critères
-                    rigoureux : robe, nez, bouche et équilibre.
-                </p>
-                <p style="margin-top:1rem;line-height:1.8">
-                    Les médailles d'or, d'argent et de bronze récompensent les cidres d'exception qui font
-                    la fierté de notre terroir.
-                </p>
-                <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap">
-                    <a href="/concours/inscription" class="btn btn-secondary">
-                        <?= icon('edit', 18) ?> S'inscrire au concours
-                    </a>
-                    <a href="/concours/palmares" class="btn btn-outline">
-                        <?= icon('award', 18) ?> Voir le palmarès
-                    </a>
-                </div>
+<!-- Contenu concours -->
+<section class="concours-content">
+
+    <!-- Concours du meilleur cidre -->
+    <?php if (!empty($cidreYears)): ?>
+    <div class="concours-type type-cidre">
+        <div class="type-header">
+            <div class="type-icon">
+                <?= icon('trophy', 26) ?>
             </div>
-            <div class="card" style="padding:0">
-                <div style="background:var(--creme-fonce);height:300px;display:flex;align-items:center;justify-content:center;border-radius:14px">
-                    <?= icon('trophy', 64, '', 'var(--vert-clair)') ?>
-                </div>
+            <div class="type-info">
+                <h2>Concours du meilleur cidre</h2>
+                <p>Cidre, jus de pommes et pommeau</p>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- Derniers résultats -->
-<?php if (!empty($latestResults)): ?>
-<section class="section" style="background:var(--blanc)">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">Résultats</span>
-            <h2 class="section-title">Édition <?= $latestYear ?></h2>
-            <p class="section-subtitle">Les lauréats de la dernière édition du concours</p>
-        </div>
-
-        <?php
-        $byCategory = [];
-        foreach ($latestResults as $result) {
-            $byCategory[$result['category']][] = $result;
-        }
-        ?>
-
-        <div class="grid grid-2">
-            <?php foreach ($byCategory as $category => $results): ?>
-                <div class="card">
-                    <div class="card-body" style="padding:1.5rem">
-                        <h3 style="margin-bottom:1rem"><?= e($category) ?></h3>
-                        <?php foreach (array_slice($results, 0, 3) as $result): ?>
-                            <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem;padding:.5rem 0;border-bottom:1px solid var(--creme-fonce)">
-                                <?php if ($result['medal']): ?>
-                                    <?= icon('award', 20, '', match($result['medal']) { 'or' => '#FFD700', 'argent' => '#C0C0C0', 'bronze' => '#CD7F32', default => 'var(--brun)' }) ?>
-                                <?php else: ?>
-                                    <span style="display:inline-block;width:20px;text-align:center;font-weight:700;color:var(--brun)"><?= (int) $result['rank'] ?></span>
-                                <?php endif; ?>
-                                <div style="flex:1">
-                                    <strong><?= e($result['producer_name']) ?></strong>
-                                    <?php if ($result['producer_city']): ?>
-                                        <small style="color:var(--brun)"> — <?= e($result['producer_city']) ?></small>
-                                    <?php endif; ?>
-                                    <?php if ($result['product_name']): ?>
-                                        <br><small style="color:var(--brun)"><?= e($result['product_name']) ?></small>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+        <div class="years-grid">
+            <?php foreach ($cidreYears as $i => $year): ?>
+                <a href="/concours/palmares?year=<?= (int) $year ?>"
+                   class="year-card<?= $i === 0 ? ' featured' : '' ?>">
+                    <div>
+                        <?php if ($i === 0): ?>
+                            <span class="featured-label">Dernier palmarès</span>
+                        <?php endif; ?>
+                        <span class="year-badge"><?= (int) $year ?></span>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <div style="text-align:center;margin-top:2rem">
-            <a href="/concours/palmares" class="btn btn-primary">
-                Voir le palmarès complet <?= icon('arrow-right', 18) ?>
-            </a>
-        </div>
-    </div>
-</section>
-<?php endif; ?>
-
-<!-- Historique des années -->
-<?php if (!empty($years)): ?>
-<section class="section">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">Historique</span>
-            <h2 class="section-title">Éditions passées</h2>
-            <p class="section-subtitle">Consultez les résultats des éditions passées</p>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
-            <?php foreach ($years as $yearRow): ?>
-                <a href="/concours/palmares?year=<?= (int) $yearRow['year'] ?>" class="btn btn-outline btn-sm">
-                    <?= (int) $yearRow['year'] ?>
+                    <div class="year-arrow">
+                        <?= icon('arrow-right', $i === 0 ? 20 : 16) ?>
+                    </div>
                 </a>
             <?php endforeach; ?>
         </div>
     </div>
+    <?php endif; ?>
+
+    <!-- Concours d'affiches -->
+    <?php if (!empty($affichesYears)): ?>
+    <div class="concours-type type-affiches">
+        <div class="type-header">
+            <div class="type-icon">
+                <?= icon('image', 26) ?>
+            </div>
+            <div class="type-info">
+                <h2>Concours d'affiches</h2>
+                <p>Création graphique pour la Fête du Cidre</p>
+            </div>
+        </div>
+        <div class="years-grid">
+            <?php foreach ($affichesYears as $year): ?>
+                <a href="/concours/palmares?year=<?= (int) $year ?>" class="year-card">
+                    <span class="year-badge"><?= (int) $year ?></span>
+                    <div class="year-arrow">
+                        <?= icon('arrow-right', 16) ?>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <!-- État vide -->
+    <?php if (empty($cidreYears) && empty($affichesYears)): ?>
+        <div style="text-align:center;padding:4rem 0">
+            <?= icon('trophy', 48, '', 'var(--vert-clair)') ?>
+            <h2 style="margin-top:1rem">Aucun palmarès disponible</h2>
+            <p style="color:var(--brun);margin-top:.5rem">Les résultats des concours seront bientôt en ligne.</p>
+            <a href="/concours/inscription" class="btn btn-primary" style="margin-top:1.5rem">
+                <?= icon('edit', 18) ?> S'inscrire au concours
+            </a>
+        </div>
+    <?php endif; ?>
+
 </section>
-<?php endif; ?>
