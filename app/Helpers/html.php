@@ -23,12 +23,12 @@ function asset(string $path): string
     }
 
     if ($manifest && isset($manifest[$path])) {
-        return \App\Core\Config::baseUrl() . '/' . $manifest[$path];
+        return '/' . $manifest[$path];
     }
 
     // Fallback : ajouter le timestamp du fichier comme query string
     $version = file_exists($filePath) ? filemtime($filePath) : time();
-    return \App\Core\Config::baseUrl() . '/' . ltrim($path, '/') . '?v=' . $version;
+    return '/' . ltrim($path, '/') . '?v=' . $version;
 }
 
 /**
@@ -46,7 +46,6 @@ function img(array $image, string $alt = '', string $class = '', bool $aboveFold
         return '';
     }
 
-    $baseUrl = \App\Core\Config::baseUrl();
     $uploadPath = '/storage/uploads';
 
     $filename = $image['filename'];
@@ -72,10 +71,10 @@ function img(array $image, string $alt = '', string $class = '', bool $aboveFold
         $imageSizes = !empty($image['sizes']) ? json_decode($image['sizes'], true) : [];
         if (is_array($imageSizes)) {
             foreach ($imageSizes as $size) {
-                $srcsetParts[] = "{$baseUrl}{$uploadPath}/large/{$nameWithoutExt}-{$size}.avif {$size}w";
+                $srcsetParts[] = "{$uploadPath}/large/{$nameWithoutExt}-{$size}.avif {$size}w";
             }
         }
-        $srcsetParts[] = "{$baseUrl}{$uploadPath}/large/{$nameWithoutExt}.avif";
+        $srcsetParts[] = "{$uploadPath}/large/{$nameWithoutExt}.avif";
         $html .= '<source type="image/avif" srcset="' . implode(', ', $srcsetParts) . '"' . $sizesAttr . '>';
     }
 
@@ -85,15 +84,15 @@ function img(array $image, string $alt = '', string $class = '', bool $aboveFold
         $imageSizes = !empty($image['sizes']) ? json_decode($image['sizes'], true) : [];
         if (is_array($imageSizes)) {
             foreach ($imageSizes as $size) {
-                $srcsetParts[] = "{$baseUrl}{$uploadPath}/large/{$nameWithoutExt}-{$size}.webp {$size}w";
+                $srcsetParts[] = "{$uploadPath}/large/{$nameWithoutExt}-{$size}.webp {$size}w";
             }
         }
-        $srcsetParts[] = "{$baseUrl}{$uploadPath}/large/{$nameWithoutExt}.webp";
+        $srcsetParts[] = "{$uploadPath}/large/{$nameWithoutExt}.webp";
         $html .= '<source type="image/webp" srcset="' . implode(', ', $srcsetParts) . '"' . $sizesAttr . '>';
     }
 
     // Image fallback JPG
-    $src = "{$baseUrl}{$uploadPath}/large/{$filename}";
+    $src = "{$uploadPath}/large/{$filename}";
     $html .= '<img src="' . $src . '"';
     $html .= ' alt="' . $altText . '"';
     $html .= $classAttr;
