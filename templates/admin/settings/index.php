@@ -104,9 +104,10 @@ function sv(array $settings, string $group, string $key, string $default = ''): 
                 <div class="settings-card-title"><?= icon('calendar', 18) ?> Prochaine édition</div>
                 <div class="fields-grid">
                     <div class="form-group">
-                        <label class="field-label" for="next_event_date">Date de l'événement</label>
-                        <input type="date" id="next_event_date" name="next_event_date" class="form-control"
-                               value="<?= e(sv($settings, 'general', 'next_event_date')) ?>">
+                        <label class="field-label" for="next_event_date">Date(s) de l'événement</label>
+                        <input type="text" id="next_event_date" name="next_event_date" class="form-control"
+                               value="<?= e(sv($settings, 'general', 'next_event_date')) ?>"
+                               placeholder="Dimanche 14 Juin 2026">
                     </div>
                     <div class="form-group">
                         <label class="field-label" for="next_event_venue">Lieu</label>

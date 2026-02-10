@@ -240,8 +240,9 @@ $settings = [
     ['general', 'association_address', 'L\'Hôtellerie de Flée, 49500', 'text', 'Adresse'],
     ['general', 'association_email', 'contact@fetecidre.fr', 'text', 'Email de contact'],
     ['general', 'association_phone', '02 41 XX XX XX', 'text', 'Téléphone'],
-    ['general', 'next_event_date', '2025-06-14', 'text', 'Date du prochain événement'],
+    ['general', 'next_event_date', 'Dimanche 14 Juin 2026', 'text', 'Date(s) du prochain événement'],
     ['general', 'next_event_time', '10h00 - 19h00', 'text', 'Horaires'],
+    ['general', 'next_event_price', 'Gratuit', 'text', 'Tarif entrée'],
 
     // Réseaux sociaux
     ['social', 'facebook_url', 'https://facebook.com/fetecidre', 'text', 'Page Facebook'],

@@ -8,9 +8,9 @@ $address  = $settings['general']['association_address'] ?? 'Le Parc du Drugeot, 
 $email    = $settings['general']['association_email'] ?? 'contact@fetecidre.fr';
 $phone    = $settings['general']['association_phone'] ?? '06.79.96.87.54';
 
-$eventDate   = $settings['general']['event_date'] ?? '27 Juillet 2025';
-$eventHours  = $settings['general']['event_hours'] ?? '10h – 19h';
-$eventEntry  = $settings['general']['event_entry'] ?? 'Gratuite';
+$eventDate   = $settings['general']['next_event_date'] ?? 'Dimanche 14 Juin 2026';
+$eventHours  = $settings['general']['next_event_time'] ?? '10h – 19h';
+$eventEntry  = $settings['general']['next_event_price'] ?? 'Gratuite';
 
 $mapLat = (float) ($settings['general']['map_latitude'] ?? 47.695);
 $mapLng = (float) ($settings['general']['map_longitude'] ?? -0.855);

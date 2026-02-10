@@ -5,6 +5,7 @@
  */
 
 $eventDate = $settings['general']['next_event_date'] ?? '';
+$eventEntry = $settings['general']['next_event_price'] ?? 'Gratuit';
 $eventLocation = $settings['general']['event_location'] ?? 'Parc du Drugeot';
 $helloassoUrl = $settings['general']['helloasso_url'] ?? 'https://www.helloasso.com/associations/cidre-du-haut-anjou';
 $editionYear = $currentEdition['year'] ?? date('Y');
@@ -29,7 +30,7 @@ if (strlen($heroDescription) > 250) {
             </div>
             <h1 class="hero-title">La <em>Fête</em><br>du Cidre</h1>
             <?php if ($eventDate): ?>
-                <p class="hero-date">Dimanche <strong><?= date_fr($eventDate) ?></strong></p>
+                <p class="hero-date"><strong><?= e($eventDate) ?></strong></p>
             <?php endif; ?>
             <p class="hero-desc"><?= e($heroDescription) ?></p>
             <div class="hero-actions">
@@ -209,7 +210,7 @@ if (strlen($heroDescription) > 250) {
             <h3><span class="info-icon"><?= icon('map-pin', 20, '', 'var(--creme)', 2) ?></span> Accès & lieu</h3>
             <ul class="info-list">
                 <li><span class="bullet"></span><?= e($eventLocation) ?>, L'Hôtellerie de Flée, 49500</li>
-                <li><span class="bullet"></span>Accès libre et gratuit toute la journée</li>
+                <li><span class="bullet"></span>Entrée : <?= e($eventEntry) ?></li>
                 <li><span class="bullet"></span>Parking sur place</li>
                 <li><span class="bullet"></span>Restauration sur réservation via <a href="<?= e($helloassoUrl) ?>" target="_blank" rel="noopener">HelloAsso</a></li>
             </ul>
