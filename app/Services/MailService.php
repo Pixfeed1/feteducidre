@@ -70,7 +70,7 @@ class MailService
      */
     private function renderTemplate(string $template, array $data): string
     {
-        extract($data);
+        extract($data, EXTR_SKIP);
         $basePath = dirname(__DIR__, 2) . '/templates/emails';
 
         // Capturer le contenu du template

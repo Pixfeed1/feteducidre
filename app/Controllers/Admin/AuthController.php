@@ -185,11 +185,13 @@ class AuthController extends Controller
 
             try {
                 $mailer = new MailService();
-                $mailer->send($user['email'], 'Réinitialisation de mot de passe', 'reset-password', [
+                if (!$mailer->send($user['email'], 'Réinitialisation de mot de passe', 'reset-password', [
                     'email'     => $user['email'],
                     'reset_url' => $resetUrl,
                     'expiry'    => '1 heure',
-                ]);
+                ])) {
+                    error_log('Échec envoi email reset pour ' . $user['email']);
+                }
             } catch (\Exception $e) {
                 error_log('Erreur envoi email reset: ' . $e->getMessage());
             }
@@ -286,11 +288,13 @@ class AuthController extends Controller
         // Envoyer email de confirmation
         try {
             $mailer = new MailService();
-            $mailer->send($user['email'], 'Mot de passe modifié', 'password-changed', [
+            if (!$mailer->send($user['email'], 'Mot de passe modifié', 'password-changed', [
                 'email' => $user['email'],
                 'date'  => date('d/m/Y H:i'),
                 'ip'    => $request->ip(),
-            ]);
+            ])) {
+                error_log('Échec envoi email confirmation pour ' . $user['email']);
+            }
         } catch (\Exception $e) {
             error_log('Erreur envoi email confirmation: ' . $e->getMessage());
         }

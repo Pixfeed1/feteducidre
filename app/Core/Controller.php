@@ -15,7 +15,7 @@ abstract class Controller
     protected function render(string $template, array $data = [], string $layout = 'templates/front/layouts/base.php'): void
     {
         // Extraire les variables pour le template
-        extract($data);
+        extract($data, EXTR_SKIP);
 
         // Capturer le contenu du template
         ob_start();

@@ -132,9 +132,17 @@ class ImageService
                 'metadata' => $metadata,
             ];
         } catch (\Throwable $e) {
-            // Nettoyer le fichier original en cas d'erreur
+            // Nettoyer le fichier original et les variantes déjà générées
             if (file_exists($originalPath)) {
                 unlink($originalPath);
+            }
+            if (!empty($variants)) {
+                foreach ($variants as $variant) {
+                    $variantPath = $this->basePath . '/' . ltrim($variant['path'], '/');
+                    if (file_exists($variantPath)) {
+                        unlink($variantPath);
+                    }
+                }
             }
             throw new \RuntimeException(
                 'Erreur lors du traitement de l\'image : ' . $e->getMessage(),

@@ -279,7 +279,7 @@ class InvoicePdfService
 
     private static function renderTemplate(array $data): string
     {
-        extract($data); // $invoice, $order, $customer, $items, $totals, $association
+        extract($data, EXTR_SKIP); // $invoice, $order, $customer, $items, $totals, $association
         ob_start();
         require self::templatePath();
         return ob_get_clean();
