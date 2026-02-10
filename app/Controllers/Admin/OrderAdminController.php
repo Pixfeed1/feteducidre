@@ -83,8 +83,10 @@ class OrderAdminController extends Controller
         $totalPages = max(1, (int) ceil($totalFiltered / $perPage));
 
         // Récupérer les commandes paginées
+        $sqlParams[] = $perPage;
+        $sqlParams[] = $offset;
         $orders = $this->db()->fetchAll(
-            "SELECT * FROM orders" . $whereClause . " ORDER BY created_at DESC LIMIT {$perPage} OFFSET {$offset}",
+            "SELECT * FROM orders" . $whereClause . " ORDER BY created_at DESC LIMIT ? OFFSET ?",
             $sqlParams
         );
 

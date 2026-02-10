@@ -166,7 +166,8 @@ class HikeAdminController extends Controller
         }
 
         $file = $_FILES['pdf_file'];
-        if (strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)) !== 'pdf') {
+        $detectedMime = (new \finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+        if ($detectedMime !== 'application/pdf') {
             set_flash('error', 'Seuls les fichiers PDF sont acceptés.');
             $this->redirect('/admin/hikes');
             return;
@@ -247,7 +248,8 @@ class HikeAdminController extends Controller
         }
 
         $file = $_FILES['pdf_file'];
-        if (strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)) !== 'pdf') {
+        $detectedMime = (new \finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+        if ($detectedMime !== 'application/pdf') {
             set_flash('error', 'Seuls les fichiers PDF sont acceptés.');
             $this->redirect('/admin/hikes');
             return;

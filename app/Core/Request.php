@@ -94,10 +94,7 @@ class Request
      */
     public function ip(): string
     {
-        return $this->server['HTTP_X_FORWARDED_FOR']
-            ?? $this->server['HTTP_CLIENT_IP']
-            ?? $this->server['REMOTE_ADDR']
-            ?? '127.0.0.1';
+        return $this->server['REMOTE_ADDR'] ?? '127.0.0.1';
     }
 
     /**

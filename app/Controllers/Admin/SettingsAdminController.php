@@ -141,7 +141,8 @@ class SettingsAdminController extends Controller
 
         $file = $_FILES[$fileKey];
         $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml', 'image/webp', 'image/x-icon', 'image/vnd.microsoft.icon'];
-        if (!in_array($file['type'], $allowed, true)) {
+        $detectedMime = (new \finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+        if (!in_array($detectedMime, $allowed, true)) {
             set_flash('error', 'Format de fichier non autorisé.');
             $this->redirect('/admin/settings?tab=identity');
             return;
@@ -272,8 +273,9 @@ class SettingsAdminController extends Controller
             return;
         }
 
+        $safeFilename = preg_replace('/[^a-zA-Z0-9._-]/', '_', $filename);
         header('Content-Type: application/sql');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Disposition: attachment; filename="' . $safeFilename . '"');
         header('Content-Length: ' . filesize($tmpPath));
         readfile($tmpPath);
         unlink($tmpPath);

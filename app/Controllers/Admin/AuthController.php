@@ -313,38 +313,46 @@ class AuthController extends Controller
     }
 
     /**
-     * Vérifie si l'adresse IP est bloquée par la limitation de tentatives
+     * Vérifie si l'adresse IP est bloquée par la limitation de tentatives.
+     * Délègue à Security::rateLimit() (stockage fichier, indépendant de la session).
      */
     private function isRateLimited(string $ip): bool
     {
-        $key = 'login_attempts_' . md5($ip);
-        $attempts = $_SESSION[$key] ?? [];
+        $key = 'login_' . $ip;
+        $filePath = dirname(__DIR__, 3) . '/cache/ratelimit/' . md5($key) . '.json';
 
-        // Nettoyer les tentatives expirées
+        if (!file_exists($filePath)) {
+            return false;
+        }
+
+        $content = file_get_contents($filePath);
+        $data = $content !== false ? json_decode($content, true) : [];
+        if (!is_array($data)) {
+            return false;
+        }
+
         $cutoff = time() - self::LOCKOUT_DURATION;
-        $attempts = array_filter($attempts, fn(int $ts) => $ts > $cutoff);
-        $_SESSION[$key] = $attempts;
+        $recent = array_filter($data, fn(int $ts) => $ts > $cutoff);
 
-        return count($attempts) >= self::MAX_ATTEMPTS;
+        return count($recent) >= self::MAX_ATTEMPTS;
     }
 
     /**
-     * Enregistre une tentative de connexion échouée
+     * Enregistre une tentative de connexion échouée (stockage fichier).
      */
     private function recordFailedAttempt(string $ip): void
     {
-        $key = 'login_attempts_' . md5($ip);
-        $attempts = $_SESSION[$key] ?? [];
-        $attempts[] = time();
-        $_SESSION[$key] = $attempts;
+        \App\Core\Security::rateLimit('login_' . $ip, self::MAX_ATTEMPTS, self::LOCKOUT_DURATION);
     }
 
     /**
-     * Réinitialise les tentatives de connexion pour une IP
+     * Réinitialise les tentatives de connexion pour une IP.
      */
     private function clearAttempts(string $ip): void
     {
-        $key = 'login_attempts_' . md5($ip);
-        unset($_SESSION[$key]);
+        $filePath = dirname(__DIR__, 3) . '/cache/ratelimit/' . md5('login_' . $ip) . '.json';
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
     }
 }

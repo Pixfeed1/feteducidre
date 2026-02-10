@@ -231,11 +231,11 @@ class AlbumAdminController extends Controller
 
             $originalName = $files['name'][$i];
             $tmpFile = $files['tmp_name'][$i];
-            $mimeType = $files['type'][$i];
             $fileSize = $files['size'][$i];
 
-            // Vérifier le type MIME
+            // Vérifier le type MIME réel (pas celui déclaré par le client)
             $allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
+            $mimeType = (new \finfo(FILEINFO_MIME_TYPE))->file($tmpFile);
             if (!in_array($mimeType, $allowedTypes, true)) {
                 continue;
             }
