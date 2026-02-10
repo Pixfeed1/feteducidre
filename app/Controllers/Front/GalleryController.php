@@ -16,7 +16,7 @@ use App\Core\Response;
 class GalleryController extends Controller
 {
     /**
-     * Liste tous les albums actifs avec leur photo de couverture et le nombre de photos.
+     * Galerie photos — albums groupés par année avec filtre par type.
      */
     public function index(Request $request, array $params = []): void
     {
@@ -24,7 +24,7 @@ class GalleryController extends Controller
 
         // Récupérer les albums actifs avec l'image de couverture
         $albums = $db->fetchAll(
-            "SELECT a.id, a.title, a.slug, a.description, a.year, a.photo_count, a.cover_image_id,
+            "SELECT a.id, a.title, a.slug, a.description, a.type, a.year, a.photo_count, a.cover_image_id,
                     m.filename AS cover_filename, m.alt_text AS cover_alt,
                     m.width AS cover_width, m.height AS cover_height,
                     m.dominant_color AS cover_color, m.has_webp AS cover_webp,
@@ -35,7 +35,9 @@ class GalleryController extends Controller
              ORDER BY a.year DESC, a.sort_order ASC"
         );
 
-        // Construire les objets image de couverture
+        // Construire les objets image de couverture et grouper par année
+        $albumsByYear = [];
+        $typesSet = [];
         foreach ($albums as &$album) {
             $album['cover_image'] = null;
             if ($album['cover_filename']) {
@@ -50,19 +52,27 @@ class GalleryController extends Controller
                     'sizes'          => $album['cover_sizes'],
                 ];
             }
+            $year = (int) ($album['year'] ?? 0);
+            $albumsByYear[$year][] = $album;
+            if (!empty($album['type'])) {
+                $typesSet[$album['type']] = true;
+            }
         }
         unset($album);
 
+        $types = array_keys($typesSet);
+
         // SEO
         $seo = [
-            'title'       => 'Galerie — Fête du Cidre',
+            'title'       => 'Galerie Photos — Archives — Fête du Cidre',
             'description' => 'Retrouvez en images les plus beaux moments de la Fête du Cidre à L\'Hôtellerie de Flée.',
             'canonical'   => Config::baseUrl() . '/galerie',
         ];
 
         $this->render('templates/front/gallery/index.php', [
-            'albums' => $albums,
-            'seo'    => $seo,
+            'albumsByYear' => $albumsByYear,
+            'types'        => $types,
+            'seo'          => $seo,
         ]);
     }
 
