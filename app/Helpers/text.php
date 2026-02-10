@@ -56,3 +56,17 @@ function excerpt(string $html, int $length = 160): string
 {
     return truncate(strip_tags($html), $length);
 }
+
+/**
+ * Formate une taille de fichier en unité lisible
+ */
+function format_file_size(int $bytes): string
+{
+    if ($bytes < 1024) {
+        return $bytes . ' o';
+    }
+    if ($bytes < 1024 * 1024) {
+        return round($bytes / 1024) . ' Ko';
+    }
+    return number_format($bytes / (1024 * 1024), 1, ',', '') . ' Mo';
+}

@@ -152,7 +152,12 @@ class App
             $r->resource('/editions', \App\Controllers\Admin\EditionAdminController::class);
 
             // Concours
-            $r->resource('/contests', \App\Controllers\Admin\ContestAdminController::class);
+            $r->get('/contests', [\App\Controllers\Admin\ContestAdminController::class, 'index']);
+            $r->post('/contests/palmares', [\App\Controllers\Admin\ContestAdminController::class, 'storePalmares']);
+            $r->post('/contests/palmares/{id}/delete', [\App\Controllers\Admin\ContestAdminController::class, 'deletePalmares']);
+            $r->post('/contests/documents', [\App\Controllers\Admin\ContestAdminController::class, 'storeDocument']);
+            $r->post('/contests/documents/{id}/delete', [\App\Controllers\Admin\ContestAdminController::class, 'deleteDocument']);
+            $r->post('/contests/settings', [\App\Controllers\Admin\ContestAdminController::class, 'saveSettings']);
 
             // Partenaires
             $r->resource('/partners', \App\Controllers\Admin\PartnerAdminController::class);
