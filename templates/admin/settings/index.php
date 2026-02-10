@@ -13,8 +13,8 @@ function sv(array $settings, string $group, string $key, string $default = ''): 
 
 <!-- ===== Page header ===== -->
 <div class="page-header">
-    <div class="page-header-icon" style="background:linear-gradient(135deg,#374151,#111827);">
-        <?= icon('settings', 28, '', '#fff') ?>
+    <div class="page-header-icon" style="background:rgba(44,74,46,0.1);">
+        <?= icon('settings', 28, '', '#2C4A2E') ?>
     </div>
     <div>
         <h1>Paramètres</h1>
