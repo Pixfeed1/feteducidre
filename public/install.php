@@ -42,10 +42,10 @@ function checkPrerequisites(): array
     $checks = [];
 
     /* PHP version */
-    $phpOk = version_compare(PHP_VERSION, '8.2.0', '>=');
+    $phpOk = version_compare(PHP_VERSION, '8.0.0', '>=');
     $checks[] = [
         'name'     => 'PHP',
-        'detail'   => 'Version 8.2+ requise',
+        'detail'   => 'Version 8.0+ requise',
         'status'   => $phpOk ? 'pass' : 'fail',
         'value'    => PHP_VERSION,
         'badge'    => $phpOk ? 'ok' : 'ko',
