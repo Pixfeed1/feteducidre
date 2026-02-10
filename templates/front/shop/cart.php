@@ -1,143 +1,147 @@
 <?php
 /**
- * Template panier d'achat.
+ * Template panier d'achat — design premium.
  * Variables : $items, $subtotal, $shipping, $total, $seo
  */
+$catMeta = [
+    'cidre-brut' => ['icon' => 'wine',     'label' => 'Cidre brut',     'gradient' => 'linear-gradient(135deg, #2C4A2E, #4A6B3E)'],
+    'cidre-doux' => ['icon' => 'wine',     'label' => 'Cidre doux',     'gradient' => 'linear-gradient(135deg, #D4833B, #E8A95B)'],
+    'cidre-demi' => ['icon' => 'wine',     'label' => 'Cidre demi-sec', 'gradient' => 'linear-gradient(135deg, #4A6B3E, #E8A95B)'],
+    'jus'        => ['icon' => 'cup-soda', 'label' => 'Jus',            'gradient' => 'linear-gradient(135deg, #E8A95B, #F5CC6A)'],
+    'pommeau'    => ['icon' => 'grape',    'label' => 'Pommeau',        'gradient' => 'linear-gradient(135deg, #5C3D2E, #D4833B)'],
+    'coffret'    => ['icon' => 'gift',     'label' => 'Coffret',        'gradient' => 'linear-gradient(135deg, #2C4A2E, #E8A95B)'],
+];
+
+$totalQty = 0;
+foreach ($items as $item) {
+    $totalQty += $item['quantity'];
+}
+
+$freeShippingThreshold = 40;
+$freeShipping = $subtotal >= $freeShippingThreshold;
 ?>
 
-<!-- En-tête de page -->
-<section class="page-header">
-    <div class="container">
-        <h1><?= icon('shopping-cart', 32) ?> Panier</h1>
+<!-- Stepper -->
+<div class="stepper">
+    <div class="step active">
+        <span class="step-num">1</span>
+        <span class="step-label">Panier</span>
     </div>
-</section>
+    <div class="step-line"></div>
+    <div class="step">
+        <span class="step-num">2</span>
+        <span class="step-label">Livraison</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+        <span class="step-num">3</span>
+        <span class="step-label">Paiement</span>
+    </div>
+</div>
 
-<section class="section section-cart">
-    <div class="container">
-        <?php if (empty($items)): ?>
-            <!-- Panier vide -->
-            <div class="empty-state" style="text-align:center;padding:4rem 0">
-                <?= icon('shopping-cart', 48, '', 'var(--vert-clair)') ?>
-                <h2 style="margin-top:1rem">Votre panier est vide</h2>
-                <p style="margin-bottom:2rem">Parcourez notre boutique pour découvrir nos produits du terroir.</p>
-                <a href="/boutique" class="btn btn-primary">
-                    <?= icon('shopping-bag', 18) ?> Voir la boutique
-                </a>
-            </div>
-        <?php else: ?>
-            <div class="cart-layout" style="display:grid;grid-template-columns:1fr 350px;gap:2rem;align-items:start">
+<section class="cart-page" style="animation:fadeInUp .8s ease both">
 
-                <!-- Tableau du panier -->
-                <div class="cart-items">
-                    <table class="cart-table" style="width:100%;border-collapse:collapse">
-                        <thead>
-                            <tr style="border-bottom:2px solid var(--creme-fonce)">
-                                <th style="text-align:left;padding:.75rem 0;font-weight:600">Produit</th>
-                                <th style="text-align:center;padding:.75rem 0;font-weight:600">Prix unitaire</th>
-                                <th style="text-align:center;padding:.75rem 0;font-weight:600">Quantité</th>
-                                <th style="text-align:right;padding:.75rem 0;font-weight:600">Sous-total</th>
-                                <th style="width:50px"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($items as $item): ?>
-                                <tr style="border-bottom:1px solid var(--creme-fonce)">
-                                    <!-- Nom du produit -->
-                                    <td style="padding:1rem 0">
-                                        <a href="/boutique/<?= e($item['product']['slug']) ?>" style="font-weight:600;color:var(--vert-profond)">
-                                            <?= e($item['product']['name']) ?>
-                                        </a>
-                                        <?php if ($item['product']['volume']): ?>
-                                            <br><small style="color:var(--brun)"><?= e($item['product']['volume']) ?></small>
-                                        <?php endif; ?>
-                                    </td>
-
-                                    <!-- Prix unitaire -->
-                                    <td style="text-align:center;padding:1rem 0">
-                                        <?= number_format($item['unit_price'], 2, ',', ' ') ?> &euro;
-                                    </td>
-
-                                    <!-- Quantité avec boutons +/- -->
-                                    <td style="text-align:center;padding:1rem 0">
-                                        <div style="display:inline-flex;align-items:center;gap:.25rem">
-                                            <form action="/panier/modifier" method="post" style="display:inline">
-                                                <?= csrf_field() ?>
-                                                <input type="hidden" name="product_id" value="<?= (int) $item['product']['id'] ?>">
-                                                <input type="hidden" name="quantity" value="<?= $item['quantity'] - 1 ?>">
-                                                <button type="submit" class="btn btn-outline btn-sm" style="padding:.25rem .5rem;min-width:auto" <?= $item['quantity'] <= 1 ? 'disabled' : '' ?>>
-                                                    <?= icon('minus', 14) ?>
-                                                </button>
-                                            </form>
-
-                                            <span style="display:inline-block;min-width:2rem;text-align:center;font-weight:600"><?= $item['quantity'] ?></span>
-
-                                            <form action="/panier/modifier" method="post" style="display:inline">
-                                                <?= csrf_field() ?>
-                                                <input type="hidden" name="product_id" value="<?= (int) $item['product']['id'] ?>">
-                                                <input type="hidden" name="quantity" value="<?= $item['quantity'] + 1 ?>">
-                                                <button type="submit" class="btn btn-outline btn-sm" style="padding:.25rem .5rem;min-width:auto">
-                                                    <?= icon('plus', 14) ?>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-
-                                    <!-- Sous-total ligne -->
-                                    <td style="text-align:right;padding:1rem 0;font-weight:600">
-                                        <?= number_format($item['total'], 2, ',', ' ') ?> &euro;
-                                    </td>
-
-                                    <!-- Supprimer -->
-                                    <td style="text-align:center;padding:1rem 0">
-                                        <form action="/panier/supprimer" method="post">
-                                            <?= csrf_field() ?>
-                                            <input type="hidden" name="product_id" value="<?= (int) $item['product']['id'] ?>">
-                                            <button type="submit" class="btn-link" style="color:var(--brun);background:none;border:none;cursor:pointer" title="Supprimer">
-                                                <?= icon('trash-2', 18) ?>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-
-                    <div style="margin-top:1.5rem">
-                        <a href="/boutique" class="btn btn-outline">
-                            <?= icon('arrow-left', 18) ?> Continuer mes achats
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Résumé du panier -->
-                <div class="cart-summary card">
-                    <div class="card-body" style="padding:1.5rem">
-                        <h3 style="margin-bottom:1.5rem">Récapitulatif</h3>
-
-                        <div style="display:flex;justify-content:space-between;margin-bottom:.75rem">
-                            <span>Sous-total</span>
-                            <span style="font-weight:600"><?= number_format($subtotal, 2, ',', ' ') ?> &euro;</span>
-                        </div>
-
-                        <div style="display:flex;justify-content:space-between;margin-bottom:.75rem">
-                            <span><?= icon('truck', 16) ?> Livraison</span>
-                            <span style="font-weight:600"><?= number_format($shipping, 2, ',', ' ') ?> &euro;</span>
-                        </div>
-
-                        <hr style="border:none;border-top:2px solid var(--creme-fonce);margin:1rem 0">
-
-                        <div style="display:flex;justify-content:space-between;font-size:1.2rem">
-                            <strong>Total</strong>
-                            <strong style="color:var(--orange-cidre)"><?= number_format($total, 2, ',', ' ') ?> &euro;</strong>
-                        </div>
-
-                        <a href="/commande" class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:1.5rem">
-                            <?= icon('check', 18) ?> Commander
-                        </a>
-                    </div>
-                </div>
-
-            </div>
+    <h1>
+        <?= icon('shopping-bag', 28) ?> Votre panier
+        <?php if (!empty($items)): ?>
+            <span class="cart-count"><?= $totalQty ?> article<?= $totalQty > 1 ? 's' : '' ?></span>
         <?php endif; ?>
-    </div>
+    </h1>
+
+    <?php if (empty($items)): ?>
+        <!-- Empty cart -->
+        <div class="cart-empty">
+            <div style="margin-bottom:1rem"><?= icon('shopping-bag', 48, '', 'var(--vert-clair)') ?></div>
+            <h2 style="margin-bottom:.5rem">Votre panier est vide</h2>
+            <p style="color:var(--texte-leger);margin-bottom:2rem">Parcourez notre boutique pour découvrir nos produits du terroir.</p>
+            <a href="/boutique" class="checkout-btn" style="display:inline-flex;max-width:280px;margin:0 auto">
+                <?= icon('shopping-bag', 18) ?> Voir la boutique
+            </a>
+        </div>
+    <?php else: ?>
+        <!-- Cart items -->
+        <div class="cart-items">
+            <?php foreach ($items as $item):
+                $product = $item['product'];
+                $cat = $product['category'] ?? 'autres';
+                $meta = $catMeta[$cat] ?? ['icon' => 'package', 'label' => ucfirst($cat), 'gradient' => 'linear-gradient(135deg, var(--vert-profond), var(--vert-mousse))'];
+            ?>
+                <div class="cart-item">
+                    <div class="item-thumb" style="background:<?= $meta['gradient'] ?>">
+                        <?php if (!empty($product['image_id'])): ?>
+                            <?php /* Image would go here if loaded */ ?>
+                        <?php endif; ?>
+                        <?= icon($meta['icon'], 24, '', 'rgba(255,255,255,.5)') ?>
+                    </div>
+                    <div class="item-info">
+                        <span class="item-cat"><?= e($meta['label']) ?></span>
+                        <a href="/boutique/<?= e($product['slug']) ?>" class="item-name"><?= e($product['name']) ?></a>
+                        <span class="item-unit"><?= number_format($item['unit_price'], 2, ',', ' ') ?> €<?php if ($product['volume']): ?> × <?= e($product['volume']) ?><?php endif; ?></span>
+                    </div>
+                    <div class="item-actions">
+                        <span class="item-price"><?= number_format($item['total'], 2, ',', ' ') ?> €</span>
+                        <div class="item-qty">
+                            <form action="/panier/modifier" method="post" style="display:contents">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
+                                <input type="hidden" name="quantity" value="<?= $item['quantity'] - 1 ?>">
+                                <button type="submit" class="iq-btn" <?= $item['quantity'] <= 1 ? 'disabled' : '' ?>>−</button>
+                            </form>
+                            <span class="iq-val"><?= $item['quantity'] ?></span>
+                            <form action="/panier/modifier" method="post" style="display:contents">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
+                                <input type="hidden" name="quantity" value="<?= $item['quantity'] + 1 ?>">
+                                <button type="submit" class="iq-btn">+</button>
+                            </form>
+                        </div>
+                        <form action="/panier/supprimer" method="post">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
+                            <button type="submit" class="item-remove">
+                                <?= icon('trash-2', 12) ?> Retirer
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Summary -->
+        <div class="cart-summary">
+            <div class="summary-title">Récapitulatif</div>
+            <div class="summary-row">
+                <span>Sous-total (<?= $totalQty ?> article<?= $totalQty > 1 ? 's' : '' ?>)</span>
+                <span class="val"><?= number_format($subtotal, 2, ',', ' ') ?> €</span>
+            </div>
+            <div class="summary-row">
+                <span>Livraison estimée</span>
+                <span class="val" style="color:var(--texte-leger);font-size:.9rem">
+                    <?php if ($freeShipping): ?>
+                        <span style="color:var(--vert-clair);font-weight:600">Offerte</span>
+                    <?php else: ?>
+                        <?= number_format($shipping, 2, ',', ' ') ?> €
+                    <?php endif; ?>
+                </span>
+            </div>
+            <?php if (!$freeShipping): ?>
+                <div class="summary-row" style="font-size:.8rem;color:var(--vert-clair)">
+                    <span><?= icon('apple', 14) ?> Livraison offerte dès <?= $freeShippingThreshold ?> € d'achat</span>
+                </div>
+            <?php endif; ?>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span class="val"><?= number_format($freeShipping ? $subtotal : $total, 2, ',', ' ') ?> €</span>
+            </div>
+            <a href="/commande" class="checkout-btn">
+                <?= icon('lock', 16) ?> Commander
+            </a>
+            <a href="/boutique" class="continue-link">
+                <?= icon('arrow-left', 14) ?> Continuer mes achats
+            </a>
+            <div class="secure-note">
+                <?= icon('shield-check', 14, '', 'var(--vert-clair)') ?> Paiement 100% sécurisé
+            </div>
+        </div>
+    <?php endif; ?>
 </section>
