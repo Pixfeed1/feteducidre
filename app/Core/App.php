@@ -163,7 +163,14 @@ class App
             $r->resource('/partners', \App\Controllers\Admin\PartnerAdminController::class);
 
             // Randonnées
-            $r->resource('/hikes', \App\Controllers\Admin\HikeAdminController::class);
+            $r->get('/hikes', [\App\Controllers\Admin\HikeAdminController::class, 'index']);
+            $r->post('/hikes', [\App\Controllers\Admin\HikeAdminController::class, 'store']);
+            $r->post('/hikes/{id}/delete', [\App\Controllers\Admin\HikeAdminController::class, 'destroy']);
+            $r->post('/hikes/{id}/file', [\App\Controllers\Admin\HikeAdminController::class, 'uploadFile']);
+            $r->post('/hikes/file/{id}/delete', [\App\Controllers\Admin\HikeAdminController::class, 'deleteFile']);
+            $r->post('/hikes/responses', [\App\Controllers\Admin\HikeAdminController::class, 'storeResponse']);
+            $r->post('/hikes/responses/{id}/delete', [\App\Controllers\Admin\HikeAdminController::class, 'deleteResponse']);
+            $r->post('/hikes/settings', [\App\Controllers\Admin\HikeAdminController::class, 'saveSettings']);
 
             // Paramètres
             $r->get('/settings', [\App\Controllers\Admin\SettingsAdminController::class, 'index']);
