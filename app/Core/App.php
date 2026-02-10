@@ -133,6 +133,8 @@ class App
 
             // Factures
             $r->get('/invoices', [\App\Controllers\Admin\InvoiceAdminController::class, 'index']);
+            $r->get('/invoices/{id}/pdf', [\App\Controllers\Admin\InvoiceAdminController::class, 'pdf']);
+            $r->get('/invoices/{id}/stream', [\App\Controllers\Admin\InvoiceAdminController::class, 'stream']);
             $r->get('/invoices/{id}', [\App\Controllers\Admin\InvoiceAdminController::class, 'show']);
             $r->post('/invoices/{id}/generate', [\App\Controllers\Admin\InvoiceAdminController::class, 'generate']);
             $r->post('/invoices/settings', [\App\Controllers\Admin\InvoiceAdminController::class, 'saveSettings']);

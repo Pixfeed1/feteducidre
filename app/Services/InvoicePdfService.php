@@ -6,11 +6,12 @@ namespace App\Services;
 
 use App\Core\Config;
 use App\Core\Database;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
- * Service de génération de factures PDF.
- * Génère un PDF basique en HTML converti via navigateur headless ou bibliothèque.
- * En fallback : génère un HTML imprimable avec @media print optimisé.
+ * Service de génération de factures PDF via Dompdf.
+ * Gère la création, le rendu, le téléchargement et le stockage des factures.
  */
 class InvoicePdfService
 {
@@ -21,18 +22,130 @@ class InvoicePdfService
         $this->db = Database::getInstance();
     }
 
+    private static function storagePath(): string
+    {
+        return dirname(__DIR__, 2) . '/storage/invoices';
+    }
+
+    private static function templatePath(): string
+    {
+        return dirname(__DIR__, 2) . '/templates/pdf/invoice.php';
+    }
+
+    // ─── MÉTHODES PUBLIQUES ───
+
     /**
-     * Génère une facture pour une commande
-     *
-     * @return array Données de la facture créée
+     * Génère le PDF et retourne le contenu binaire.
+     */
+    public static function generatePdf(int $invoiceId): string
+    {
+        $data = self::getInvoiceData($invoiceId);
+        if (!$data) {
+            throw new \RuntimeException("Facture #{$invoiceId} introuvable.");
+        }
+
+        $html = self::renderTemplate($data);
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', false);
+        $options->set('isRemoteEnabled', false);
+        $options->set('defaultFont', 'Helvetica');
+        $options->set('isFontSubsettingEnabled', true);
+        $options->set('chroot', dirname(__DIR__, 2));
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $dompdf->addInfo('Title', "Facture {$data['invoice']['number']}");
+        $dompdf->addInfo('Author', $data['association']['name']);
+        $dompdf->addInfo('Creator', 'CMS Fête du Cidre');
+
+        return $dompdf->output();
+    }
+
+    /**
+     * Téléchargement navigateur (Content-Disposition: attachment).
+     */
+    public static function download(int $invoiceId): void
+    {
+        $data = self::getInvoiceData($invoiceId);
+        if (!$data) {
+            throw new \RuntimeException("Facture #{$invoiceId} introuvable.");
+        }
+
+        $pdf = self::generatePdf($invoiceId);
+        $filename = $data['invoice']['number'] . '.pdf';
+
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Length: ' . strlen($pdf));
+        header('Cache-Control: private, max-age=0, must-revalidate');
+        echo $pdf;
+        exit;
+    }
+
+    /**
+     * Affichage inline dans le navigateur (aperçu).
+     */
+    public static function stream(int $invoiceId): void
+    {
+        $data = self::getInvoiceData($invoiceId);
+        if (!$data) {
+            throw new \RuntimeException("Facture #{$invoiceId} introuvable.");
+        }
+
+        $pdf = self::generatePdf($invoiceId);
+        $filename = $data['invoice']['number'] . '.pdf';
+
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: inline; filename="' . $filename . '"');
+        header('Content-Length: ' . strlen($pdf));
+        echo $pdf;
+        exit;
+    }
+
+    /**
+     * Sauvegarde le PDF sur le disque et met à jour la BDD.
+     * @return string Chemin du fichier
+     */
+    public static function save(int $invoiceId): string
+    {
+        $data = self::getInvoiceData($invoiceId);
+        if (!$data) {
+            throw new \RuntimeException("Facture #{$invoiceId} introuvable.");
+        }
+
+        $dir = self::storagePath();
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        $filename = $data['invoice']['number'] . '.pdf';
+        $filepath = $dir . '/' . $filename;
+        file_put_contents($filepath, self::generatePdf($invoiceId));
+
+        // Mettre à jour le filename en BDD
+        $db = Database::getInstance();
+        $db->update('invoices', ['filename' => $filename], 'id = ?', [$invoiceId]);
+
+        return $filepath;
+    }
+
+    // ─── GÉNÉRATION DE FACTURE (instance method, used by controller) ───
+
+    /**
+     * Crée une facture pour une commande (entrée DB + fichier PDF).
+     * @return array ['id', 'number', 'filename', 'path']
      */
     public function generate(int $orderId): array
     {
-        // Récupérer la commande
         $order = $this->db->fetch(
             "SELECT id, reference, customer_first_name, customer_last_name, customer_email,
                     shipping_address, shipping_city, shipping_postal_code,
-                    subtotal, shipping_cost, tax_amount, total, created_at
+                    subtotal, shipping_cost, tax_amount, total, status, created_at
              FROM orders WHERE id = ?",
             [$orderId]
         );
@@ -41,190 +154,195 @@ class InvoicePdfService
             throw new \RuntimeException("Commande #{$orderId} introuvable");
         }
 
-        // Récupérer les items
-        $items = $this->db->fetchAll(
-            "SELECT product_name, product_sku, quantity, unit_price, total_price
-             FROM order_items WHERE order_id = ?",
-            [$orderId]
-        );
+        $invoiceNumber = self::generateNumber();
+        $invoiceStatus = in_array($order['status'], ['paid', 'delivered', 'shipped']) ? 'paid' : 'pending';
 
-        // Générer le numéro de facture
-        $invoiceNumber = $this->generateInvoiceNumber();
-
-        // Paramètres asso
-        $settings = [];
-        $rows = $this->db->fetchAll("SELECT `key`, value FROM settings WHERE `group` = 'general'");
-        foreach ($rows as $row) {
-            $settings[$row['key']] = $row['value'];
-        }
-
-        // Générer le HTML
-        $html = $this->renderInvoiceHtml($order, $items, $invoiceNumber, $settings);
-
-        // Sauvegarder le fichier HTML (imprimable en PDF)
-        $filename = "FAC-{$invoiceNumber}.html";
-        $filepath = dirname(__DIR__, 2) . '/storage/invoices/' . $filename;
-
-        $dir = dirname($filepath);
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-        file_put_contents($filepath, $html);
-
-        // Enregistrer en DB
         $invoiceId = $this->db->insert('invoices', [
             'order_id'       => $orderId,
             'invoice_number' => $invoiceNumber,
-            'filename'       => $filename,
-            'subtotal'       => $order['subtotal'],
-            'tax_amount'     => $order['tax_amount'],
-            'total'          => $order['total'],
+            'subtotal'       => (float) $order['subtotal'],
+            'tax_amount'     => (float) $order['tax_amount'],
+            'total'          => (float) $order['total'],
+            'status'         => $invoiceStatus,
+            'issued_at'      => date('Y-m-d H:i:s'),
         ]);
+
+        // Générer et sauvegarder le PDF
+        $filepath = self::save($invoiceId);
 
         return [
             'id'       => $invoiceId,
             'number'   => $invoiceNumber,
-            'filename' => $filename,
+            'filename' => basename($filepath),
             'path'     => $filepath,
         ];
     }
 
-    /**
-     * Génère un numéro de facture unique
-     */
-    private function generateInvoiceNumber(): string
-    {
-        $year = date('Y');
-        $last = $this->db->fetch(
-            "SELECT invoice_number FROM invoices WHERE invoice_number LIKE ? ORDER BY id DESC LIMIT 1",
-            ["{$year}-%"]
-        );
+    // ─── RÉCUPÉRATION DES DONNÉES ───
 
-        if ($last) {
-            $num = (int) substr($last['invoice_number'], -3) + 1;
-        } else {
-            $num = 1;
+    private static function getInvoiceData(int $invoiceId): ?array
+    {
+        $db = Database::getInstance();
+
+        $row = $db->fetch("
+            SELECT i.*, o.id AS oid, o.reference, o.status AS order_status,
+                   o.customer_first_name, o.customer_last_name, o.customer_email,
+                   o.shipping_address, o.shipping_city, o.shipping_postal_code,
+                   o.shipping_country, o.subtotal AS order_subtotal,
+                   o.shipping_cost, o.tax_amount AS order_tax,
+                   o.total AS order_total, o.payment_method, o.payment_id,
+                   o.tracking_number, o.tracking_carrier, o.created_at AS order_date
+            FROM invoices i
+            JOIN orders o ON o.id = i.order_id
+            WHERE i.id = ?
+        ", [$invoiceId]);
+
+        if (!$row) {
+            return null;
         }
 
-        return sprintf('%s-%03d', $year, $num);
+        // Lignes de commande
+        $items = $db->fetchAll("
+            SELECT oi.*, p.description AS product_description
+            FROM order_items oi
+            LEFT JOIN products p ON p.id = oi.product_id
+            WHERE oi.order_id = ?
+            ORDER BY oi.id ASC
+        ", [(int) $row['oid']]);
+
+        // Date d'échéance (+30 jours)
+        $invoiceDate = $row['issued_at'] ?? $row['created_at'];
+        $dueDate = date('Y-m-d H:i:s', strtotime($invoiceDate . ' +30 days'));
+
+        // Billing settings
+        $settingsRows = $db->fetchAll(
+            "SELECT `key`, value FROM settings WHERE `group` = 'billing'"
+        );
+        $billing = [];
+        foreach ($settingsRows as $s) {
+            $billing[$s['key']] = $s['value'];
+        }
+
+        // General settings fallback
+        $generalRows = $db->fetchAll(
+            "SELECT `key`, value FROM settings WHERE `group` = 'general'"
+        );
+        $general = [];
+        foreach ($generalRows as $s) {
+            $general[$s['key']] = $s['value'];
+        }
+
+        return [
+            'invoice' => [
+                'id'       => (int) $row['id'],
+                'number'   => $row['invoice_number'],
+                'date'     => $invoiceDate,
+                'due_date' => $dueDate,
+                'status'   => $row['status'],
+            ],
+            'order' => [
+                'id'             => (int) $row['oid'],
+                'reference'      => $row['reference'],
+                'date'           => $row['order_date'],
+                'payment_method' => $row['payment_method'] ?? '',
+                'payment_id'     => $row['payment_id'] ?? '',
+                'carrier'        => $row['tracking_carrier'] ?? '',
+                'tracking'       => $row['tracking_number'] ?? '',
+            ],
+            'customer' => [
+                'name'    => trim($row['customer_first_name'] . ' ' . $row['customer_last_name']),
+                'email'   => $row['customer_email'],
+                'address' => $row['shipping_address'] ?? '',
+                'city'    => trim(($row['shipping_postal_code'] ?? '') . ' ' . ($row['shipping_city'] ?? '')),
+                'country' => $row['shipping_country'] ?? 'France',
+            ],
+            'items'  => $items,
+            'totals' => [
+                'subtotal' => (float) ($row['order_subtotal'] ?? $row['subtotal']),
+                'shipping' => (float) ($row['shipping_cost'] ?? 0),
+                'tax'      => (float) ($row['order_tax'] ?? $row['tax_amount']),
+                'total'    => (float) ($row['order_total'] ?? $row['total']),
+            ],
+            'association' => [
+                'name'    => $billing['association_name'] ?? $general['association_name'] ?? 'La Fête du Cidre',
+                'address' => $billing['address'] ?? $general['association_address'] ?? "Parc du Drugeot, L'Hôtellerie de Flée",
+                'city'    => $general['association_city'] ?? '49500 Segré-en-Anjou Bleu',
+                'email'   => $billing['email'] ?? $general['association_email'] ?? 'facturation@fetecidre.fr',
+                'phone'   => $general['association_phone'] ?? '',
+                'siret'   => $billing['siret'] ?? '',
+                'rna'     => $general['association_rna'] ?? '',
+                'ape'     => $general['association_ape'] ?? '9499Z',
+                'site_url' => $general['site_url'] ?? Config::baseUrl(),
+            ],
+        ];
+    }
+
+    private static function renderTemplate(array $data): string
+    {
+        extract($data); // $invoice, $order, $customer, $items, $totals, $association
+        ob_start();
+        require self::templatePath();
+        return ob_get_clean();
+    }
+
+    // ─── HELPERS DE FORMATAGE (appelés dans le template) ───
+
+    public static function formatPrice(float $amount): string
+    {
+        return number_format($amount, 2, ',', "\u{202F}") . "\u{00A0}\u{20AC}";
+    }
+
+    public static function formatDate(string $datetime): string
+    {
+        $months = [
+            1 => 'janvier', 2 => 'février', 3 => 'mars', 4 => 'avril',
+            5 => 'mai', 6 => 'juin', 7 => 'juillet', 8 => 'août',
+            9 => 'septembre', 10 => 'octobre', 11 => 'novembre', 12 => 'décembre',
+        ];
+        $ts = strtotime($datetime);
+        return (int) date('j', $ts) . ' ' . $months[(int) date('n', $ts)] . ' ' . date('Y', $ts);
+    }
+
+    public static function formatPaymentMethod(string $method): string
+    {
+        return match ($method) {
+            'stripe'   => 'Carte bancaire via Stripe',
+            'cheque'   => 'Chèque',
+            'virement' => 'Virement bancaire',
+            'especes'  => 'Espèces',
+            default    => ucfirst($method ?: '—'),
+        };
+    }
+
+    public static function formatStatus(string $status): array
+    {
+        return match ($status) {
+            'paid'     => ['label' => 'PAYÉE',       'class' => 'paid'],
+            'pending'  => ['label' => 'EN ATTENTE',  'class' => 'pending'],
+            'overdue'  => ['label' => 'EN RETARD',   'class' => 'overdue'],
+            'refunded' => ['label' => 'REMBOURSÉE',  'class' => 'refunded'],
+            default    => ['label' => strtoupper($status), 'class' => 'pending'],
+        };
     }
 
     /**
-     * Rend le HTML de la facture (imprimable)
+     * Génère le prochain numéro de facture.
+     * Format : FAC-{ANNÉE}-{COMPTEUR 4 chiffres}
      */
-    private function renderInvoiceHtml(array $order, array $items, string $invoiceNumber, array $settings): string
+    public static function generateNumber(): string
     {
-        $assoName = $settings['association_name'] ?? 'Association Fête du Cidre';
-        $assoAddress = $settings['association_address'] ?? 'L\'Hôtellerie de Flée, 49500';
-        $assoEmail = $settings['association_email'] ?? 'contact@fetecidre.fr';
-        $customerName = htmlspecialchars($order['customer_first_name'] . ' ' . $order['customer_last_name']);
+        $db   = Database::getInstance();
+        $year = date('Y');
 
-        ob_start();
-        ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Facture <?= htmlspecialchars($invoiceNumber) ?></title>
-<style>
-    @page { margin: 2cm; }
-    body { font-family: -apple-system, sans-serif; color: #2A2318; font-size: 14px; line-height: 1.5; }
-    .header { display: flex; justify-content: space-between; margin-bottom: 40px; }
-    .header h1 { color: #2C4A2E; font-size: 28px; margin: 0; }
-    .header .badge { background: #2C4A2E; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
-    .info { display: flex; justify-content: space-between; margin-bottom: 30px; }
-    .info-block h3 { color: #2C4A2E; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px; }
-    .info-block p { margin: 2px 0; }
-    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-    th { background: #2C4A2E; color: #fff; padding: 10px; text-align: left; font-size: 12px; text-transform: uppercase; }
-    td { padding: 10px; border-bottom: 1px solid #F0E8D8; }
-    .text-right { text-align: right; }
-    .totals { margin-top: 20px; }
-    .totals tr td { border: none; padding: 4px 10px; }
-    .totals .total-row { font-size: 18px; font-weight: 700; color: #2C4A2E; }
-    .footer { margin-top: 60px; text-align: center; font-size: 12px; color: #5C3D2E; border-top: 1px solid #F0E8D8; padding-top: 15px; }
-</style>
-</head>
-<body>
-<div class="header">
-    <div>
-        <h1><?= htmlspecialchars($assoName) ?></h1>
-        <p style="color:#5C3D2E"><?= htmlspecialchars($assoAddress) ?></p>
-    </div>
-    <div style="text-align:right">
-        <span class="badge">FACTURE</span>
-        <p style="margin-top:8px;font-size:18px;font-weight:700">N° FAC-<?= htmlspecialchars($invoiceNumber) ?></p>
-        <p style="color:#5C3D2E">Date : <?= date('d/m/Y', strtotime($order['created_at'])) ?></p>
-    </div>
-</div>
+        $last = $db->fetch(
+            "SELECT invoice_number FROM invoices WHERE invoice_number LIKE ? ORDER BY id DESC LIMIT 1",
+            ["FAC-{$year}-%"]
+        );
 
-<div class="info">
-    <div class="info-block">
-        <h3>Émetteur</h3>
-        <p><strong><?= htmlspecialchars($assoName) ?></strong></p>
-        <p><?= htmlspecialchars($assoAddress) ?></p>
-        <p><?= htmlspecialchars($assoEmail) ?></p>
-    </div>
-    <div class="info-block" style="text-align:right">
-        <h3>Client</h3>
-        <p><strong><?= $customerName ?></strong></p>
-        <p><?= htmlspecialchars($order['shipping_address'] ?? '') ?></p>
-        <p><?= htmlspecialchars(($order['shipping_postal_code'] ?? '') . ' ' . ($order['shipping_city'] ?? '')) ?></p>
-        <p><?= htmlspecialchars($order['customer_email']) ?></p>
-    </div>
-</div>
+        $counter = $last
+            ? (int) substr($last['invoice_number'], strrpos($last['invoice_number'], '-') + 1) + 1
+            : 1;
 
-<p>Commande : <strong><?= htmlspecialchars($order['reference']) ?></strong></p>
-
-<table>
-    <thead>
-        <tr>
-            <th>Produit</th>
-            <th>Réf.</th>
-            <th class="text-right">P.U. HT</th>
-            <th class="text-right">Qté</th>
-            <th class="text-right">Total HT</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($items as $item): ?>
-        <tr>
-            <td><?= htmlspecialchars($item['product_name']) ?></td>
-            <td><?= htmlspecialchars($item['product_sku'] ?? '—') ?></td>
-            <td class="text-right"><?= number_format((float)$item['unit_price'], 2, ',', ' ') ?> €</td>
-            <td class="text-right"><?= (int)$item['quantity'] ?></td>
-            <td class="text-right"><?= number_format((float)$item['total_price'], 2, ',', ' ') ?> €</td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-
-<table class="totals" style="width:300px;margin-left:auto">
-    <tr>
-        <td>Sous-total HT</td>
-        <td class="text-right"><?= number_format((float)$order['subtotal'], 2, ',', ' ') ?> €</td>
-    </tr>
-    <tr>
-        <td>Frais de port</td>
-        <td class="text-right"><?= number_format((float)$order['shipping_cost'], 2, ',', ' ') ?> €</td>
-    </tr>
-    <tr>
-        <td>TVA (20%)</td>
-        <td class="text-right"><?= number_format((float)$order['tax_amount'], 2, ',', ' ') ?> €</td>
-    </tr>
-    <tr class="total-row">
-        <td><strong>Total TTC</strong></td>
-        <td class="text-right"><strong><?= number_format((float)$order['total'], 2, ',', ' ') ?> €</strong></td>
-    </tr>
-</table>
-
-<div class="footer">
-    <p><?= htmlspecialchars($assoName) ?> — Association loi 1901</p>
-    <p><?= htmlspecialchars($assoAddress) ?> — <?= htmlspecialchars($assoEmail) ?></p>
-</div>
-</body>
-</html>
-        <?php
-        return ob_get_clean();
+        return sprintf('FAC-%s-%04d', $year, $counter);
     }
 }

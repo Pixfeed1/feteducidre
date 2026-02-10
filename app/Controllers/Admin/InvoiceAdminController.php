@@ -6,6 +6,7 @@ namespace App\Controllers\Admin;
 
 use App\Core\Controller;
 use App\Core\Request;
+use App\Services\InvoicePdfService;
 
 /**
  * Contrôleur de gestion des factures.
@@ -171,7 +172,40 @@ class InvoiceAdminController extends Controller
     }
 
     /**
-     * Génère une facture pour une commande
+     * Télécharge le PDF d'une facture
+     * GET /admin/invoices/{id}/pdf
+     */
+    public function pdf(Request $request, array $params = []): void
+    {
+        $id = (int) ($params['id'] ?? 0);
+
+        try {
+            InvoicePdfService::download($id);
+        } catch (\RuntimeException $e) {
+            set_flash('error', $e->getMessage());
+            $this->redirect('/admin/invoices');
+        }
+    }
+
+    /**
+     * Affiche le PDF inline (aperçu navigateur)
+     * GET /admin/invoices/{id}/stream
+     */
+    public function stream(Request $request, array $params = []): void
+    {
+        $id = (int) ($params['id'] ?? 0);
+
+        try {
+            InvoicePdfService::stream($id);
+        } catch (\RuntimeException $e) {
+            set_flash('error', $e->getMessage());
+            $this->redirect('/admin/invoices');
+        }
+    }
+
+    /**
+     * Génère une facture pour une commande (DB + PDF)
+     * POST /admin/invoices/{id}/generate
      */
     public function generate(Request $request, array $params = []): void
     {
@@ -193,39 +227,15 @@ class InvoiceAdminController extends Controller
             return;
         }
 
-        // Générer le numéro de facture
-        $year = date('Y');
-        $lastInvoice = $this->db()->fetch(
-            "SELECT invoice_number FROM invoices WHERE invoice_number LIKE ? ORDER BY id DESC LIMIT 1",
-            ["FAC-{$year}-%"]
-        );
-
-        if ($lastInvoice) {
-            $lastNum = (int) substr($lastInvoice['invoice_number'], -4);
-            $nextNum = $lastNum + 1;
-        } else {
-            $nextNum = 1;
+        try {
+            $service = new InvoicePdfService();
+            $result = $service->generate($orderId);
+            set_flash('success', 'Facture ' . $result['number'] . ' générée avec succès (PDF créé).');
+            $this->redirect('/admin/invoices/' . $result['id']);
+        } catch (\Exception $e) {
+            set_flash('error', 'Erreur lors de la génération : ' . $e->getMessage());
+            $this->redirect('/admin/orders/' . $orderId);
         }
-
-        $invoiceNumber = sprintf('FAC-%s-%04d', $year, $nextNum);
-
-        // Déterminer le statut initial basé sur le statut de la commande
-        $orderStatus = $order['status'] ?? 'pending';
-        $invoiceStatus = in_array($orderStatus, ['paid', 'delivered', 'shipped']) ? 'paid' : 'pending';
-
-        // Créer la facture
-        $invoiceId = $this->db()->insert('invoices', [
-            'order_id'       => $orderId,
-            'invoice_number' => $invoiceNumber,
-            'subtotal'       => (float) $order['subtotal'],
-            'tax_amount'     => (float) $order['tax_amount'],
-            'total'          => (float) $order['total'],
-            'status'         => $invoiceStatus,
-            'issued_at'      => date('Y-m-d H:i:s'),
-        ]);
-
-        set_flash('success', 'Facture ' . $invoiceNumber . ' générée avec succès.');
-        $this->redirect('/admin/orders/' . $orderId);
     }
 
     /**
