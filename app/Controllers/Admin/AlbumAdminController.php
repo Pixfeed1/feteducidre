@@ -241,8 +241,7 @@ class AlbumAdminController extends Controller
             }
 
             // Générer un nom unique
-            $ext = pathinfo($originalName, PATHINFO_EXTENSION);
-            $filename = uniqid('photo_') . '.' . strtolower($ext);
+            $filename = upload_filename($originalName, 'photo');
             $destination = $uploadDir . '/' . $filename;
 
             if (!move_uploaded_file($tmpFile, $destination)) {

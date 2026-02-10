@@ -44,12 +44,7 @@ class AuthController extends Controller
      */
     public function login(Request $request, array $params = []): void
     {
-        // Vérifier le token CSRF
-        $token = $request->post('_csrf_token', '');
-        $sessionToken = $_SESSION['csrf_token'] ?? '';
-        if (empty($token) || !hash_equals($sessionToken, $token)) {
-            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
-            $this->redirect('/admin/login');
+        if (!$this->validateCsrf($request, '/admin/login')) {
             return;
         }
 
@@ -158,11 +153,7 @@ class AuthController extends Controller
      */
     public function forgotPassword(Request $request, array $params = []): void
     {
-        $token = $request->post('_csrf_token', '');
-        $sessionToken = $_SESSION['csrf_token'] ?? '';
-        if (empty($token) || !hash_equals($sessionToken, $token)) {
-            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
-            $this->redirect('/admin/forgot-password');
+        if (!$this->validateCsrf($request, '/admin/forgot-password')) {
             return;
         }
 
@@ -246,11 +237,7 @@ class AuthController extends Controller
      */
     public function resetPassword(Request $request, array $params = []): void
     {
-        $csrfToken = $request->post('_csrf_token', '');
-        $sessionToken = $_SESSION['csrf_token'] ?? '';
-        if (empty($csrfToken) || !hash_equals($sessionToken, $csrfToken)) {
-            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
-            $this->redirect('/admin/login');
+        if (!$this->validateCsrf($request, '/admin/login')) {
             return;
         }
 

@@ -64,6 +64,23 @@ abstract class Controller
     }
 
     /**
+     * Valide le token CSRF d'une requête POST.
+     * Redirige avec un message flash si invalide.
+     *
+     * @return bool true si valide, false si redirigé (le contrôleur doit return)
+     */
+    protected function validateCsrf(Request $request, string $redirectTo): bool
+    {
+        $token = $request->post('_csrf_token', '');
+        if (!Security::validateCsrfToken($token)) {
+            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
+            $this->redirect($redirectTo);
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Récupère l'instance de la base de données
      */
     protected function db(): Database

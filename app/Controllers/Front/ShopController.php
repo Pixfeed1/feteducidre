@@ -196,11 +196,7 @@ class ShopController extends Controller
      */
     public function addToCart(Request $request, array $params = []): void
     {
-        // Validation CSRF
-        $token = $request->post('_csrf_token');
-        if (empty($token) || !hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
-            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
-            Response::redirect('/boutique');
+        if (!$this->validateCsrf($request, '/boutique')) {
             return;
         }
 
@@ -251,10 +247,7 @@ class ShopController extends Controller
      */
     public function updateCart(Request $request, array $params = []): void
     {
-        $token = $request->post('_csrf_token');
-        if (empty($token) || !hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
-            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
-            Response::redirect('/panier');
+        if (!$this->validateCsrf($request, '/panier')) {
             return;
         }
 
@@ -276,10 +269,7 @@ class ShopController extends Controller
      */
     public function removeFromCart(Request $request, array $params = []): void
     {
-        $token = $request->post('_csrf_token');
-        if (empty($token) || !hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
-            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
-            Response::redirect('/panier');
+        if (!$this->validateCsrf($request, '/panier')) {
             return;
         }
 
@@ -358,11 +348,7 @@ class ShopController extends Controller
      */
     public function processCheckout(Request $request, array $params = []): void
     {
-        // Validation CSRF
-        $token = $request->post('_csrf_token');
-        if (empty($token) || !hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
-            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
-            Response::redirect('/commande');
+        if (!$this->validateCsrf($request, '/commande')) {
             return;
         }
 

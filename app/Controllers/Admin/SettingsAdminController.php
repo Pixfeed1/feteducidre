@@ -155,8 +155,7 @@ class SettingsAdminController extends Controller
         }
 
         $dir = $this->getUploadDir();
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $filename = $field . '_' . uniqid() . '.' . strtolower($ext);
+        $filename = upload_filename($file['name'], $field);
 
         if (!move_uploaded_file($file['tmp_name'], $dir . $filename)) {
             set_flash('error', 'Erreur lors de l\'upload.');

@@ -291,7 +291,8 @@ class PartnerAdminController extends Controller
     private function handleLogoUpload(array $file): ?string
     {
         $allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml', 'image/webp'];
-        if (!in_array($file['type'], $allowed, true)) {
+        $detectedMime = (new \finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+        if (!in_array($detectedMime, $allowed, true)) {
             return null;
         }
 
@@ -300,8 +301,7 @@ class PartnerAdminController extends Controller
         }
 
         $dir = $this->getUploadDir();
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $filename = 'logo_' . uniqid() . '.' . strtolower($ext);
+        $filename = upload_filename($file['name'], 'logo');
 
         if (move_uploaded_file($file['tmp_name'], $dir . $filename)) {
             return $filename;

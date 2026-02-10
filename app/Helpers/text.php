@@ -66,6 +66,15 @@ function excerpt(string $html, int $length = 160): string
 }
 
 /**
+ * Génère un nom de fichier unique pour un upload (prefix_uniqid.ext)
+ */
+function upload_filename(string $originalName, string $prefix = 'file'): string
+{
+    $ext = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+    return $prefix . '_' . uniqid() . '.' . $ext;
+}
+
+/**
  * Formate une taille de fichier en unité lisible
  */
 function format_file_size(int $bytes): string
