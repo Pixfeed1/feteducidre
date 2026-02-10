@@ -41,7 +41,11 @@ class App
     public function run(): void
     {
         try {
-            $this->router->dispatch($this->request);
+            // Vérifier le mode maintenance avant le routage
+            $maintenance = new \App\Middleware\MaintenanceMiddleware();
+            $maintenance->handle($this->request, function () {
+                $this->router->dispatch($this->request);
+            });
         } catch (\Exception $e) {
             if (Config::isDebug()) {
                 Response::error($e->getMessage() . "\n\n" . $e->getTraceAsString());
