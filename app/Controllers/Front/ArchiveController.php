@@ -41,6 +41,30 @@ class ArchiveController extends Controller
     }
 
     /**
+     * Liste les programmes / flyers de toutes les éditions.
+     */
+    public function programmes(Request $request, array $params = []): void
+    {
+        $db = $this->db();
+
+        $editions = $db->fetchAll(
+            "SELECT id, year, title, programme_image_id
+             FROM editions WHERE is_active = 1 ORDER BY year DESC"
+        );
+
+        $seo = [
+            'title'       => 'Programmes & Flyers — Archives Fête du Cidre',
+            'description' => 'Retrouvez les programmes et flyers de toutes les éditions de la Fête du Cidre.',
+            'canonical'   => Config::baseUrl() . '/archives/programmes',
+        ];
+
+        $this->render('templates/front/archive/programmes.php', [
+            'editions' => $editions,
+            'seo'      => $seo,
+        ]);
+    }
+
+    /**
      * Affiche une édition par année.
      */
     public function show(Request $request, array $params = []): void

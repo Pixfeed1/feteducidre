@@ -89,6 +89,7 @@ class App
 
         // Archives
         $r->get('/archives', [\App\Controllers\Front\ArchiveController::class, 'index']);
+        $r->get('/archives/programmes', [\App\Controllers\Front\ArchiveController::class, 'programmes']);
         $r->get('/archives/{year}', [\App\Controllers\Front\ArchiveController::class, 'show']);
 
         // Concours
