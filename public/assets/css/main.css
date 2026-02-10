@@ -76,9 +76,10 @@ body::after {
 }
 
 .logo-icon {
-  width: 85px;
-  height: 85px;
+  width: 100px;
+  height: 100px;
   position: relative;
+  margin: -22px 0;
 }
 
 .logo-icon svg,
