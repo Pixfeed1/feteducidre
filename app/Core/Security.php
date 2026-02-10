@@ -12,10 +12,10 @@ namespace App\Core;
 class Security
 {
     /** Longueur du token CSRF en octets (sera encodé en hex = 64 caractères) */
-    private const int CSRF_TOKEN_BYTES = 32;
+    private const CSRF_TOKEN_BYTES = 32;
 
     /** Répertoire de stockage du rate limiting */
-    private const string RATE_LIMIT_DIR = 'cache/ratelimit';
+    private const RATE_LIMIT_DIR = 'cache/ratelimit';
 
     /**
      * Génère un token CSRF et le stocke en session.

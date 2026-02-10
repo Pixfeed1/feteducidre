@@ -17,7 +17,7 @@ class Cache
     private string $cacheDir;
 
     /** Sous-répertoires disponibles */
-    private const array SUBDIRS = ['pages', 'fragments', 'queries', 'config'];
+    private const SUBDIRS = ['pages', 'fragments', 'queries', 'config'];
 
     private function __construct()
     {

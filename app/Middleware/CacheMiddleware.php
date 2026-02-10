@@ -18,7 +18,7 @@ use Closure;
 class CacheMiddleware implements Middleware
 {
     /** Routes à ne jamais mettre en cache */
-    private const array EXCLUDED_PREFIXES = [
+    private const EXCLUDED_PREFIXES = [
         '/admin',
         '/panier',
         '/commande',

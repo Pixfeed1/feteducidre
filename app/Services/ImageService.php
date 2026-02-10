@@ -17,13 +17,13 @@ use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 class ImageService
 {
     /** Largeurs des variantes générées (en pixels) */
-    private const array VARIANT_WIDTHS = [800, 400, 200];
+    private const VARIANT_WIDTHS = [800, 400, 200];
 
     /** Formats de sortie supportés */
-    private const array OUTPUT_FORMATS = ['webp', 'avif', 'jpg'];
+    private const OUTPUT_FORMATS = ['webp', 'avif', 'jpg'];
 
     /** Correspondance taille → nom du sous-dossier */
-    private const array SIZE_LABELS = [
+    private const SIZE_LABELS = [
         800 => 'large',
         400 => 'medium',
         200 => 'thumb',
