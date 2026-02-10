@@ -223,6 +223,17 @@ body {
   color: var(--texte-leger); opacity: 0.5; pointer-events: none;
 }
 
+/* Eye toggle (password visibility) */
+.field-password { position: relative; }
+.field-password input { padding-right: 2.8rem; }
+.eye-toggle {
+  position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer;
+  color: var(--texte-leger); opacity: 0.5; padding: 0.25rem;
+  display: flex; align-items: center; transition: opacity 0.2s;
+}
+.eye-toggle:hover { opacity: 1; }
+
 /* DB Test button */
 .test-btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
