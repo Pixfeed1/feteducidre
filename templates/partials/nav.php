@@ -33,6 +33,23 @@ try {
     $helloassoUrl = '';
 }
 
+// Récupérer les paramètres Actualités (redirection externe)
+try {
+    $newsRows = \App\Core\Database::getInstance()->fetchAll(
+        "SELECT `key`, value FROM settings WHERE `group` = 'news'"
+    );
+    $newsSettings = [];
+    foreach ($newsRows as $nr) {
+        $newsSettings[$nr['key']] = $nr['value'];
+    }
+} catch (\Exception) {
+    $newsSettings = [];
+}
+$newsUrl     = $newsSettings['redirect_url'] ?? '';
+$newsLabel   = $newsSettings['menu_label'] ?? 'Actualités';
+$newsVisible = ($newsSettings['show_in_menu'] ?? '1') === '1';
+$newsNewTab  = ($newsSettings['open_new_tab'] ?? '1') === '1';
+
 ?>
 
 <!-- TOPBAR -->
@@ -66,6 +83,13 @@ try {
                     </a>
                 </li>
             <?php endforeach; ?>
+            <?php if ($newsVisible && $newsUrl): ?>
+                <li>
+                    <a href="<?= e($newsUrl) ?>"<?= $newsNewTab ? ' target="_blank" rel="noopener"' : '' ?>>
+                        <?= e($newsLabel) ?>
+                    </a>
+                </li>
+            <?php endif; ?>
             <?php if ($helloassoUrl): ?>
                 <li>
                     <a href="<?= e($helloassoUrl) ?>" class="active" target="_blank" rel="noopener">

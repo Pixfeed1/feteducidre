@@ -40,14 +40,14 @@ echo "✓ Admin créé (admin@fetecidre.fr / Admin1234!)\n\n";
 // --- Pages ---
 echo "→ Insertion des pages...\n";
 $pages = [
-    ['Accueil', 'accueil', 'home', 1, 1, 'Fête du Cidre — L\'Hôtellerie de Flée', 'Découvrez la Fête du Cidre, événement incontournable du Maine-et-Loire depuis 1989.'],
-    ['Nos Origines', 'origines', 'page', 1, 2, 'Nos Origines — Fête du Cidre', 'L\'histoire de la Fête du Cidre depuis sa création en 1989 à L\'Hôtellerie de Flée.'],
-    ['Infos Pratiques', 'infos-pratiques', 'page', 1, 3, 'Infos Pratiques — Fête du Cidre', 'Horaires, tarifs, accès et informations pratiques pour la Fête du Cidre.'],
-    ['Programme 2025', 'programme-2025', 'page', 1, 4, 'Programme 2025 — Fête du Cidre', 'Le programme complet de l\'édition 2025 de la Fête du Cidre.'],
-    ['Boutique', 'boutique', 'shop', 1, 5, 'Boutique — Fête du Cidre', 'Achetez nos cidres, jus de pomme et produits du terroir en ligne.'],
-    ['Galerie Photos', 'galerie', 'gallery', 1, 6, 'Galerie Photos — Fête du Cidre', 'Retrouvez les photos des éditions passées de la Fête du Cidre.'],
-    ['Archives', 'archives', 'archive', 1, 7, 'Archives — Fête du Cidre', 'Les archives de toutes les éditions de la Fête du Cidre depuis 1989.'],
-    ['Concours', 'concours', 'contest', 1, 8, 'Concours de Cidre — Fête du Cidre', 'Le concours de cidre : règlement, inscriptions et palmarès.'],
+    ['Accueil', 'accueil', 'home', 0, 0, 'Fête du Cidre — L\'Hôtellerie de Flée', 'Découvrez la Fête du Cidre, événement incontournable du Maine-et-Loire depuis 1989.'],
+    ['Nos Origines', 'origines', 'page', 1, 1, 'Nos Origines — Fête du Cidre', 'L\'histoire de la Fête du Cidre depuis sa création en 1989 à L\'Hôtellerie de Flée.'],
+    ['Infos Pratiques', 'infos-pratiques', 'page', 1, 2, 'Infos Pratiques — Fête du Cidre', 'Horaires, tarifs, accès et informations pratiques pour la Fête du Cidre.'],
+    ['Programme 2025', 'programme-2025', 'page', 1, 3, 'Programme 2025 — Fête du Cidre', 'Le programme complet de l\'édition 2025 de la Fête du Cidre.'],
+    ['Boutique', 'boutique', 'shop', 1, 4, 'Boutique — Fête du Cidre', 'Achetez nos cidres, jus de pomme et produits du terroir en ligne.'],
+    ['Galerie Photos', 'galerie', 'gallery', 1, 5, 'Galerie Photos — Fête du Cidre', 'Retrouvez les photos des éditions passées de la Fête du Cidre.'],
+    ['Archives', 'archives', 'archive', 1, 6, 'Archives — Fête du Cidre', 'Les archives de toutes les éditions de la Fête du Cidre depuis 1989.'],
+    ['Concours', 'concours', 'contest', 1, 7, 'Concours de Cidre — Fête du Cidre', 'Le concours de cidre : règlement, inscriptions et palmarès.'],
     ['Randonnée', 'randonnee', 'hike', 0, 0, 'Randonnée — Fête du Cidre', 'La randonnée pédestre de la Fête du Cidre.'],
     ['Remerciements', 'remerciements', 'page', 0, 0, 'Remerciements — Fête du Cidre', 'Nos remerciements à tous les bénévoles et partenaires.'],
     ['Mentions Légales', 'mentions-legales', 'legal', 0, 0, 'Mentions Légales — Fête du Cidre', 'Mentions légales du site de la Fête du Cidre.'],
@@ -265,6 +265,12 @@ $settings = [
     ['colors', 'brun', '#5C3D2E', 'color', 'Brun'],
     ['colors', 'texte', '#2A2318', 'color', 'Texte'],
     ['colors', 'blanc', '#FFFDF8', 'color', 'Blanc'],
+
+    // Actualités (redirection externe)
+    ['news', 'redirect_url', 'https://www.helloasso.com/associations/cidre-du-haut-anjou', 'text', 'URL de redirection'],
+    ['news', 'open_new_tab', '1', 'boolean', 'Ouvrir dans un nouvel onglet'],
+    ['news', 'show_in_menu', '1', 'boolean', 'Afficher dans le menu'],
+    ['news', 'menu_label', 'Actualités', 'text', 'Libellé du menu'],
 
     // SEO
     ['seo', 'google_analytics', '', 'text', 'ID Google Analytics'],
