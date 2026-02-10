@@ -70,6 +70,43 @@ class PageController extends Controller
         ]);
     }
 
+    public function remerciements(Request $request, array $params = []): void
+    {
+        $db = $this->db();
+
+        $partners = $db->fetchAll(
+            "SELECT name, description, website, category
+             FROM partners
+             WHERE is_active = 1
+             ORDER BY category ASC, sort_order ASC, name ASC"
+        );
+
+        // Grouper par catégorie
+        $grouped = [];
+        foreach ($partners as $p) {
+            $grouped[$p['category']][] = $p;
+        }
+
+        // Coordonnées depuis les paramètres
+        $settings = [];
+        $rows = $db->fetchAll("SELECT `group`, `key`, value FROM settings WHERE `group` = 'general'");
+        foreach ($rows as $row) {
+            $settings[$row['key']] = $row['value'];
+        }
+
+        $seo = [
+            'title'       => 'Remerciements — Fête du Cidre',
+            'description' => 'La Fête du Cidre remercie ses partenaires, institutions et bénévoles.',
+            'canonical'   => \App\Core\Config::baseUrl() . '/remerciements',
+        ];
+
+        $this->render('templates/front/remerciements.php', [
+            'partners' => $grouped,
+            'settings' => $settings,
+            'seo'      => $seo,
+        ]);
+    }
+
     public function contact(Request $request, array $params = []): void
     {
         $db = $this->db();
