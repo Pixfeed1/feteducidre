@@ -1,110 +1,148 @@
 <?php
 /**
- * Template confirmation de commande.
+ * Template confirmation de commande — design premium.
  * Variables : $order, $orderItems, $seo
  */
+$thumbGradients = [
+    'linear-gradient(135deg, #2C4A2E, #4A6B3E)',
+    'linear-gradient(135deg, #D4833B, #E8A95B)',
+    'linear-gradient(135deg, #E8A95B, #F5CC6A)',
+    'linear-gradient(135deg, #5C3D2E, #D4833B)',
+    'linear-gradient(135deg, #4A6B3E, #E8A95B)',
+    'linear-gradient(135deg, #2C4A2E, #E8A95B)',
+];
+
+$freeShippingThreshold = 40;
+$shippingFree = (float) $order['subtotal'] >= $freeShippingThreshold;
 ?>
 
-<section class="section section-confirmation">
-    <div class="container" style="max-width:800px">
-
-        <!-- Message de succès -->
-        <div style="text-align:center;margin-bottom:3rem">
-            <div style="display:inline-flex;align-items:center;justify-content:center;width:80px;height:80px;background:#e8f5e9;border-radius:50%;margin-bottom:1.5rem">
-                <?= icon('check-circle', 40, '', '#2e7d32') ?>
-            </div>
-            <h1>Commande confirmée !</h1>
-            <p style="font-size:1.1rem;color:var(--brun);margin-top:.5rem">
-                Merci <?= e($order['customer_first_name']) ?>, votre commande a bien été enregistrée.
-            </p>
-        </div>
-
-        <!-- Référence -->
-        <div class="card" style="margin-bottom:2rem">
-            <div class="card-body" style="padding:1.5rem;text-align:center">
-                <p style="font-size:.9rem;color:var(--brun);margin-bottom:.25rem">Référence de commande</p>
-                <p style="font-size:1.5rem;font-weight:700;color:var(--vert-profond);letter-spacing:1px"><?= e($order['reference']) ?></p>
-                <p style="font-size:.85rem;color:var(--brun);margin-top:.5rem">
-                    Commande passée le <?= date_fr($order['created_at'], 'datetime') ?>
-                </p>
-            </div>
-        </div>
-
-        <!-- Récapitulatif de commande -->
-        <div class="card" style="margin-bottom:2rem">
-            <div class="card-body" style="padding:1.5rem">
-                <h2 style="margin-bottom:1.5rem"><?= icon('package', 22) ?> Détail de la commande</h2>
-
-                <table style="width:100%;border-collapse:collapse">
-                    <thead>
-                        <tr style="border-bottom:2px solid var(--creme-fonce)">
-                            <th style="text-align:left;padding:.5rem 0;font-weight:600">Produit</th>
-                            <th style="text-align:center;padding:.5rem 0;font-weight:600">Qté</th>
-                            <th style="text-align:right;padding:.5rem 0;font-weight:600">Prix</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($orderItems as $item): ?>
-                            <tr style="border-bottom:1px solid var(--creme-fonce)">
-                                <td style="padding:.75rem 0"><?= e($item['product_name']) ?></td>
-                                <td style="text-align:center;padding:.75rem 0"><?= (int) $item['quantity'] ?></td>
-                                <td style="text-align:right;padding:.75rem 0"><?= number_format((float) $item['total_price'], 2, ',', ' ') ?> &euro;</td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-
-                <hr style="border:none;border-top:1px solid var(--creme-fonce);margin:1rem 0">
-
-                <div style="display:flex;justify-content:space-between;margin-bottom:.5rem">
-                    <span>Sous-total</span>
-                    <span style="font-weight:600"><?= number_format((float) $order['subtotal'], 2, ',', ' ') ?> &euro;</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;margin-bottom:.5rem">
-                    <span><?= icon('truck', 16) ?> Livraison</span>
-                    <span style="font-weight:600"><?= number_format((float) $order['shipping_cost'], 2, ',', ' ') ?> &euro;</span>
-                </div>
-
-                <hr style="border:none;border-top:2px solid var(--creme-fonce);margin:1rem 0">
-
-                <div style="display:flex;justify-content:space-between;font-size:1.2rem">
-                    <strong>Total</strong>
-                    <strong style="color:var(--orange-cidre)"><?= number_format((float) $order['total'], 2, ',', ' ') ?> &euro;</strong>
-                </div>
-            </div>
-        </div>
-
-        <!-- Adresse de livraison -->
-        <div class="card" style="margin-bottom:2rem">
-            <div class="card-body" style="padding:1.5rem">
-                <h3 style="margin-bottom:1rem"><?= icon('map-pin', 20) ?> Adresse de livraison</h3>
-                <p>
-                    <?= e($order['customer_first_name'] . ' ' . $order['customer_last_name']) ?><br>
-                    <?= e($order['shipping_address']) ?><br>
-                    <?= e($order['shipping_postal_code'] . ' ' . $order['shipping_city']) ?>
-                </p>
-                <?php if ($order['customer_email']): ?>
-                    <p style="margin-top:.5rem">
-                        <?= icon('mail', 16) ?> <?= e($order['customer_email']) ?>
-                    </p>
-                <?php endif; ?>
-                <?php if ($order['customer_phone']): ?>
-                    <p style="margin-top:.25rem">
-                        <?= icon('phone', 16) ?> <?= e($order['customer_phone']) ?>
-                    </p>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <!-- Actions -->
-        <div style="text-align:center;margin-top:2rem">
-            <p style="color:var(--brun);margin-bottom:1.5rem">
-                Un email de confirmation sera envoyé à <strong><?= e($order['customer_email']) ?></strong>.
-            </p>
-            <a href="/boutique" class="btn btn-primary">
-                <?= icon('arrow-left', 18) ?> Retour à la boutique
-            </a>
-        </div>
-
+<!-- Stepper — all done -->
+<div class="stepper">
+    <div class="step done">
+        <span class="step-num"><?= icon('check', 14) ?></span>
+        <span class="step-label">Panier</span>
     </div>
+    <div class="step-line done"></div>
+    <div class="step done">
+        <span class="step-num"><?= icon('check', 14) ?></span>
+        <span class="step-label">Livraison</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step done">
+        <span class="step-num"><?= icon('check', 14) ?></span>
+        <span class="step-label">Paiement</span>
+    </div>
+</div>
+
+<section class="confirm-page">
+
+    <!-- Success Icon -->
+    <div class="success-icon">
+        <?= icon('check', 44, '', 'white') ?>
+    </div>
+
+    <h1>Commande confirmée !</h1>
+    <p class="subtitle">
+        Merci pour votre commande. Un e-mail de confirmation a été envoyé à <strong><?= e($order['customer_email']) ?></strong>.
+        Votre colis sera préparé avec soin.
+    </p>
+
+    <!-- Order Number -->
+    <div class="order-num">
+        <?= icon('package', 18, '', 'var(--vert-mousse)') ?>
+        Commande n° <strong><?= e($order['reference']) ?></strong>
+    </div>
+
+    <!-- Recap -->
+    <div class="recap">
+        <div class="recap-head">
+            <?= icon('receipt', 18, '', 'var(--orange-cidre)') ?> Récapitulatif
+        </div>
+        <div class="recap-items">
+            <?php foreach ($orderItems as $i => $item):
+                $gradient = $thumbGradients[$i % count($thumbGradients)];
+            ?>
+                <div class="ri">
+                    <div class="ri-thumb" style="background:<?= $gradient ?>">
+                        <?= icon('wine', 16, '', 'rgba(255,255,255,.5)') ?>
+                    </div>
+                    <div class="ri-detail">
+                        <span class="ri-name"><?= e($item['product_name']) ?></span>
+                        <span class="ri-qty">× <?= (int) $item['quantity'] ?></span>
+                    </div>
+                    <span class="ri-price"><?= number_format((float) $item['total_price'], 2, ',', ' ') ?> €</span>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="recap-divider"></div>
+        <div class="recap-row">
+            <span>Sous-total</span>
+            <span class="v"><?= number_format((float) $order['subtotal'], 2, ',', ' ') ?> €</span>
+        </div>
+        <div class="recap-row">
+            <span>Livraison</span>
+            <?php if ($shippingFree): ?>
+                <span class="v" style="color:var(--vert-clair)">Offerte</span>
+            <?php else: ?>
+                <span class="v"><?= number_format((float) $order['shipping_cost'], 2, ',', ' ') ?> €</span>
+            <?php endif; ?>
+        </div>
+        <div class="recap-row total">
+            <span>Total payé</span>
+            <span class="v"><?= number_format((float) $order['total'], 2, ',', ' ') ?> €</span>
+        </div>
+    </div>
+
+    <!-- Delivery Details -->
+    <div class="delivery-info">
+        <div class="dinfo">
+            <div class="dinfo-label">
+                <?= icon('truck', 14, '', 'var(--vert-mousse)') ?> Livraison
+            </div>
+            <div class="dinfo-value">
+                <?= e($order['customer_first_name'] . ' ' . $order['customer_last_name']) ?><br>
+                <?= e($order['shipping_address']) ?><br>
+                <?= e($order['shipping_postal_code'] . ' ' . $order['shipping_city']) ?><br>
+                France
+            </div>
+        </div>
+        <div class="dinfo">
+            <div class="dinfo-label">
+                <?= icon('credit-card', 14, '', 'var(--orange-cidre)') ?> Paiement
+            </div>
+            <div class="dinfo-value">
+                Paiement enregistré<br>
+                <?= e($order['customer_email']) ?><br>
+                <br>
+                Expédition estimée : <strong>48h</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="next-steps">
+        <div class="ns">
+            <span class="ns-num">1</span>
+            <div class="ns-text"><strong>E-mail de confirmation</strong> envoyé à votre adresse avec le détail de la commande.</div>
+        </div>
+        <div class="ns">
+            <span class="ns-num">2</span>
+            <div class="ns-text"><strong>Préparation</strong> — votre colis est préparé et emballé avec soin sous 48h.</div>
+        </div>
+        <div class="ns">
+            <span class="ns-num">3</span>
+            <div class="ns-text"><strong>Expédition</strong> — un numéro de suivi vous sera envoyé par e-mail dès l'envoi.</div>
+        </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cta-row">
+        <a href="/boutique" class="cta-primary">
+            <?= icon('store', 16) ?> Retour à la boutique
+        </a>
+        <a href="/" class="cta-secondary">
+            <?= icon('home', 16) ?> Accueil
+        </a>
+    </div>
+
 </section>
