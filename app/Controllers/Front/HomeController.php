@@ -48,7 +48,7 @@ class HomeController extends Controller
 
         // Partenaires principaux
         $partners = $db->fetchAll(
-            "SELECT id, name, slug, logo_id, category, website FROM partners WHERE is_active = 1 ORDER BY category, sort_order ASC"
+            "SELECT id, name, slug, logo_id, category_id, website FROM partners WHERE is_active = 1 ORDER BY category_id, sort_order ASC"
         );
 
         // SEO

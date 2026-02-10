@@ -75,10 +75,11 @@ class PageController extends Controller
         $db = $this->db();
 
         $partners = $db->fetchAll(
-            "SELECT name, description, website, category
-             FROM partners
-             WHERE is_active = 1
-             ORDER BY category ASC, sort_order ASC, name ASC"
+            "SELECT p.name, p.description, p.website, COALESCE(pc.slug, 'autre') AS category
+             FROM partners p
+             LEFT JOIN partner_categories pc ON p.category_id = pc.id
+             WHERE p.is_active = 1
+             ORDER BY pc.sort_order ASC, p.sort_order ASC, p.name ASC"
         );
 
         // Grouper par catégorie
