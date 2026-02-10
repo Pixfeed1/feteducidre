@@ -4157,3 +4157,364 @@ select.form-control {
         align-items: stretch;
     }
 }
+
+/* =====================================================
+   PARTNERS
+   ===================================================== */
+
+/* ── Chip category dot ── */
+.chip .cat-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ── Category group ── */
+.cat-group {
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.5s ease both;
+}
+
+.cat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.cat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--vert-profond);
+}
+
+.cat-count {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--texte-leger);
+    background: var(--creme-fonce);
+    padding: 0.15rem 0.5rem;
+    border-radius: 100px;
+}
+
+.cat-line {
+    flex: 1;
+    height: 1px;
+    background: var(--creme-fonce);
+}
+
+.cat-actions {
+    display: flex;
+    gap: 0.3rem;
+}
+
+/* ── Partner table ── */
+.partner-table {
+    background: var(--blanc);
+    border: 1.5px solid var(--creme-fonce);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.partner-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.partner-table thead th {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--texte-leger);
+    padding: 0.7rem 1rem;
+    text-align: left;
+    background: var(--creme);
+    border-bottom: 1.5px solid var(--creme-fonce);
+    white-space: nowrap;
+}
+
+.partner-table tbody td {
+    padding: 0.65rem 1rem;
+    font-size: 0.88rem;
+    border-bottom: 1px solid var(--creme-fonce);
+    vertical-align: middle;
+}
+
+.partner-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.partner-table tbody tr {
+    transition: background 0.15s;
+}
+
+.partner-table tbody tr:hover {
+    background: rgba(250, 245, 236, 0.5);
+}
+
+/* ── Partner table cells ── */
+.td-partner {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.td-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--creme);
+    border: 1.5px solid var(--creme-fonce);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.td-logo.has-logo {
+    background: white;
+}
+
+.td-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.td-name {
+    font-weight: 600;
+    color: var(--texte);
+}
+
+.td-detail {
+    font-size: 0.76rem;
+    color: var(--texte-leger);
+}
+
+.td-url {
+    font-size: 0.78rem;
+    color: var(--bleu);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.td-url:hover {
+    text-decoration: underline;
+}
+
+.td-status-partner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 100px;
+}
+
+.td-status-partner.active {
+    background: rgba(74, 107, 62, 0.1);
+    color: var(--vert-mousse);
+}
+
+.td-status-partner.inactive {
+    background: rgba(107, 93, 79, 0.1);
+    color: var(--texte-leger);
+}
+
+.td-grip {
+    color: var(--creme-fonce);
+    cursor: grab;
+    display: flex;
+    align-items: center;
+}
+
+.td-grip:hover {
+    color: var(--texte-leger);
+}
+
+/* ── Category selector (modal) ── */
+.cat-select-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+}
+
+.cat-select-item {
+    padding: 0.5rem 0.6rem;
+    border-radius: 10px;
+    border: 2px solid var(--creme-fonce);
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.cat-select-item:hover {
+    border-color: var(--vert-clair);
+}
+
+.cat-select-item.active {
+    border-color: var(--vert-profond);
+    background: rgba(44, 74, 46, 0.04);
+}
+
+.cat-select-item .csi-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat-select-item .csi-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--texte);
+}
+
+/* ── Logo upload ── */
+.logo-upload {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-preview {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background: var(--creme);
+    border: 2px dashed var(--creme-fonce);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    overflow: hidden;
+}
+
+.logo-preview:hover {
+    border-color: var(--vert-clair);
+}
+
+.logo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logo-upload-info {
+    flex: 1;
+}
+
+.logo-upload-info span {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--texte);
+}
+
+.logo-upload-info small {
+    font-size: 0.72rem;
+    color: var(--texte-leger);
+}
+
+.logo-upload-btns {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 0.4rem;
+}
+
+.upload-btn {
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--creme-fonce);
+    background: white;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--texte-leger);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.upload-btn:hover {
+    border-color: var(--vert-clair);
+    color: var(--vert-profond);
+}
+
+.upload-btn.danger {
+    color: var(--rouge);
+    border-color: rgba(217, 64, 64, 0.2);
+}
+
+.upload-btn.danger:hover {
+    border-color: var(--rouge);
+}
+
+/* ── Color picker ── */
+.color-picker {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.color-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+}
+
+.color-swatch.active {
+    border-color: var(--vert-profond);
+}
+
+/* ── Partners responsive ── */
+@media (max-width: 768px) {
+    .cat-select-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .td-logo {
+        display: none;
+    }
+
+    .logo-upload {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

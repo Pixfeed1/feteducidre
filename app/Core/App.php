@@ -160,7 +160,13 @@ class App
             $r->post('/contests/settings', [\App\Controllers\Admin\ContestAdminController::class, 'saveSettings']);
 
             // Partenaires
-            $r->resource('/partners', \App\Controllers\Admin\PartnerAdminController::class);
+            $r->get('/partners', [\App\Controllers\Admin\PartnerAdminController::class, 'index']);
+            $r->post('/partners', [\App\Controllers\Admin\PartnerAdminController::class, 'store']);
+            $r->post('/partners/{id}/update', [\App\Controllers\Admin\PartnerAdminController::class, 'update']);
+            $r->post('/partners/{id}/delete', [\App\Controllers\Admin\PartnerAdminController::class, 'destroy']);
+            $r->post('/partners/categories', [\App\Controllers\Admin\PartnerAdminController::class, 'storeCategory']);
+            $r->post('/partners/categories/{id}/update', [\App\Controllers\Admin\PartnerAdminController::class, 'updateCategory']);
+            $r->post('/partners/categories/{id}/delete', [\App\Controllers\Admin\PartnerAdminController::class, 'destroyCategory']);
 
             // Randonnées
             $r->get('/hikes', [\App\Controllers\Admin\HikeAdminController::class, 'index']);
