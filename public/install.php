@@ -559,7 +559,7 @@ $svgWarn = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-w
             <label for="db_pass">Mot de passe MySQL</label>
             <div class="field-password">
               <input type="password" id="db_pass" placeholder="••••••••">
-              <button type="button" class="eye-toggle" data-target="db_pass" aria-label="Afficher le mot de passe">
+              <button type="button" class="eye-toggle" onclick="togglePassword(this, 'db_pass')" aria-label="Afficher le mot de passe">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
               </button>
             </div>
@@ -620,7 +620,7 @@ $svgWarn = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-w
           <label for="admin_password">Mot de passe</label>
           <div class="field-password">
             <input type="password" id="admin_password" placeholder="Minimum 8 caractères">
-            <button type="button" class="eye-toggle" data-target="admin_password" aria-label="Afficher le mot de passe">
+            <button type="button" class="eye-toggle" onclick="togglePassword(this, 'admin_password')" aria-label="Afficher le mot de passe">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
             </button>
           </div>
@@ -630,7 +630,7 @@ $svgWarn = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-w
           <label for="admin_password_confirm">Confirmer le mot de passe</label>
           <div class="field-password">
             <input type="password" id="admin_password_confirm" placeholder="Retapez le mot de passe">
-            <button type="button" class="eye-toggle" data-target="admin_password_confirm" aria-label="Afficher le mot de passe">
+            <button type="button" class="eye-toggle" onclick="togglePassword(this, 'admin_password_confirm')" aria-label="Afficher le mot de passe">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
             </button>
           </div>

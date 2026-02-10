@@ -297,25 +297,20 @@
   var SVG_EYE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>';
   var SVG_EYE_OFF = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>';
 
+  /* Toggle password visibility — appelé via onclick comme les autres fonctions */
+  window.togglePassword = function (btn, inputId) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
+    var isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    btn.innerHTML = isPassword ? SVG_EYE_OFF : SVG_EYE;
+  };
+
   /* ── Initialisation ── */
   window.addEventListener('DOMContentLoaded', function () {
     /* Auto-focus sur le premier input visible */
     var firstInput = document.querySelector('.step-content.active input:not([disabled])');
     if (firstInput) firstInput.focus();
-
-    /* Initialiser tous les eye toggles */
-    var toggles = document.querySelectorAll('.eye-toggle');
-    for (var i = 0; i < toggles.length; i++) {
-      (function (btn) {
-        btn.addEventListener('click', function () {
-          var input = document.getElementById(btn.getAttribute('data-target'));
-          if (!input) return;
-          var isPassword = input.type === 'password';
-          input.type = isPassword ? 'text' : 'password';
-          btn.innerHTML = isPassword ? SVG_EYE_OFF : SVG_EYE;
-        });
-      })(toggles[i]);
-    }
   });
 
 })();
