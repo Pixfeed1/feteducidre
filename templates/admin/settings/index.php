@@ -13,9 +13,7 @@ function sv(array $settings, string $group, string $key, string $default = ''): 
 
 <!-- ===== Page header ===== -->
 <div class="page-header">
-    <div class="page-header-icon" style="background:rgba(44,74,46,0.1);">
-        <?= icon('settings', 28, '', '#2C4A2E') ?>
-    </div>
+    <?= icon('settings', 28, '', '#2C4A2E') ?>
     <div>
         <h1>Paramètres</h1>
         <p class="page-subtitle">Configuration générale du site et de l'association</p>
