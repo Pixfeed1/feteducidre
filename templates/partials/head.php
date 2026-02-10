@@ -100,6 +100,5 @@ ul,ol{list-style:none}
 @font-face{font-family:'Source Sans 3';src:url('/assets/fonts/source-sans-3-v15-latin-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
 </style>
 
-<!-- CSS principal (non-bloquant) -->
-<link rel="stylesheet" href="<?= asset('assets/css/main.css') ?>" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="<?= asset('assets/css/main.css') ?>"></noscript>
+<!-- CSS principal -->
+<link rel="stylesheet" href="<?= asset('assets/css/main.css') ?>">
