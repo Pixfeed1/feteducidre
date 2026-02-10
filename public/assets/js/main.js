@@ -19,11 +19,15 @@
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', function () {
             navLinks.classList.toggle('open');
+            menuToggle.classList.toggle('open');
+            document.body.classList.toggle('menu-open');
         });
 
         navLinks.querySelectorAll('a').forEach(function (link) {
             link.addEventListener('click', function () {
                 navLinks.classList.remove('open');
+                menuToggle.classList.remove('open');
+                document.body.classList.remove('menu-open');
             });
         });
     }
