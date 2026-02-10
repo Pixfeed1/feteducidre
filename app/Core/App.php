@@ -146,6 +146,8 @@ class App
             $r->post('/photos/{id}/delete', [\App\Controllers\Admin\AlbumAdminController::class, 'deletePhoto']);
 
             // Éditions / Archives
+            $r->post('/editions/origines', [\App\Controllers\Admin\EditionAdminController::class, 'saveOrigines']);
+            $r->post('/editions/origines/image', [\App\Controllers\Admin\EditionAdminController::class, 'uploadOriginesImage']);
             $r->resource('/editions', \App\Controllers\Admin\EditionAdminController::class);
 
             // Concours
