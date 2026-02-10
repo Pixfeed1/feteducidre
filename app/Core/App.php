@@ -135,6 +135,7 @@ class App
             $r->get('/invoices', [\App\Controllers\Admin\InvoiceAdminController::class, 'index']);
             $r->get('/invoices/{id}', [\App\Controllers\Admin\InvoiceAdminController::class, 'show']);
             $r->post('/invoices/{id}/generate', [\App\Controllers\Admin\InvoiceAdminController::class, 'generate']);
+            $r->post('/invoices/settings', [\App\Controllers\Admin\InvoiceAdminController::class, 'saveSettings']);
 
             // Actualités (redirection externe)
             $r->get('/news', [\App\Controllers\Admin\NewsAdminController::class, 'index']);
