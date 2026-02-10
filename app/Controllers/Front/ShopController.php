@@ -22,33 +22,50 @@ class ShopController extends Controller
     {
         $db = $this->db();
 
-        // Récupérer tous les produits actifs triés par catégorie puis par ordre
+        // Récupérer tous les produits actifs avec image
         $products = $db->fetchAll(
-            "SELECT id, name, slug, short_description, price, sale_price, volume, category, image_id
-             FROM products WHERE is_active = 1 ORDER BY category ASC, sort_order ASC, name ASC"
+            "SELECT p.id, p.name, p.slug, p.short_description, p.price, p.sale_price,
+                    p.volume, p.alcohol_percentage, p.category, p.is_featured,
+                    m.filename, m.alt_text, m.width, m.height,
+                    m.dominant_color, m.has_webp, m.has_avif, m.sizes
+             FROM products p
+             LEFT JOIN media m ON p.image_id = m.id
+             WHERE p.is_active = 1
+             ORDER BY p.sort_order ASC, p.name ASC"
         );
 
-        // Grouper les produits par catégorie
-        $grouped = [];
+        // Construire les objets image et extraire les catégories
         $categories = [];
-        foreach ($products as $product) {
-            $cat = $product['category'] ?: 'Autres';
-            $grouped[$cat][] = $product;
+        foreach ($products as &$product) {
+            $product['image'] = null;
+            if ($product['filename']) {
+                $product['image'] = [
+                    'filename'       => $product['filename'],
+                    'alt_text'       => $product['alt_text'],
+                    'width'          => $product['width'],
+                    'height'         => $product['height'],
+                    'dominant_color' => $product['dominant_color'],
+                    'has_webp'       => $product['has_webp'],
+                    'has_avif'       => $product['has_avif'],
+                    'sizes'          => $product['sizes'],
+                ];
+            }
+            $cat = $product['category'] ?: 'autres';
             if (!in_array($cat, $categories, true)) {
                 $categories[] = $cat;
             }
         }
+        unset($product);
 
         // SEO
         $seo = [
             'title'       => 'Boutique — Fête du Cidre',
-            'description' => 'Découvrez nos cidres artisanaux, jus de pomme et produits du terroir en vente en ligne.',
+            'description' => 'Cidres, jus de pomme, pommeau… retrouvez les saveurs du terroir du Haut Anjou.',
             'canonical'   => Config::baseUrl() . '/boutique',
         ];
 
         $this->render('templates/front/shop/index.php', [
             'products'   => $products,
-            'grouped'    => $grouped,
             'categories' => $categories,
             'seo'        => $seo,
         ]);
