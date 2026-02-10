@@ -309,7 +309,7 @@ class ShopController extends Controller
 
         foreach ($cart as $productId => $cartItem) {
             $product = $db->fetch(
-                "SELECT id, name, slug, price, sale_price, volume
+                "SELECT id, name, slug, price, sale_price, volume, category
                  FROM products WHERE id = ? AND is_active = 1",
                 [(int) $productId]
             );
