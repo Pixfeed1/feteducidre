@@ -136,6 +136,10 @@ class App
             $r->get('/invoices/{id}', [\App\Controllers\Admin\InvoiceAdminController::class, 'show']);
             $r->post('/invoices/{id}/generate', [\App\Controllers\Admin\InvoiceAdminController::class, 'generate']);
 
+            // Actualités (redirection externe)
+            $r->get('/news', [\App\Controllers\Admin\NewsAdminController::class, 'index']);
+            $r->post('/news', [\App\Controllers\Admin\NewsAdminController::class, 'update']);
+
             // Galerie
             $r->resource('/albums', \App\Controllers\Admin\AlbumAdminController::class);
             $r->post('/albums/{id}/photos', [\App\Controllers\Admin\AlbumAdminController::class, 'uploadPhotos']);

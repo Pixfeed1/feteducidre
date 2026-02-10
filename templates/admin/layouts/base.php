@@ -52,6 +52,10 @@ $pendingOrders = $pendingOrders ?? 0;
                 <?= icon('file-text', 18) ?>
                 <span>Pages</span>
             </a>
+            <a href="/admin/news" class="nav-item <?= str_starts_with($currentPath, '/admin/news') ? 'active' : '' ?>">
+                <?= icon('newspaper', 18) ?>
+                <span>Actualités</span>
+            </a>
             <a href="/admin/albums" class="nav-item <?= str_starts_with($currentPath, '/admin/albums') ? 'active' : '' ?>">
                 <?= icon('image', 18) ?>
                 <span>Galerie photos</span>
