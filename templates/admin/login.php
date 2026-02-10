@@ -87,24 +87,13 @@
         .card-header { text-align: center; margin-bottom: 2rem; }
 
         .logo-mark {
-            width: 64px; height: 64px;
+            width: 120px;
             margin: 0 auto 1.2rem;
-            border-radius: 18px;
-            background: var(--vert-profond, #2C4A2E);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             animation: fadeInUp 0.5s 0.1s ease both;
-            position: relative;
         }
 
-        .logo-mark::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 21px;
-            border: 2px solid var(--vert-clair, #7A9E6B);
-            opacity: 0.2;
+        .logo-mark img {
+            width: 100%; height: auto; display: block;
         }
 
         .card-header h1 {
@@ -351,7 +340,7 @@
 
     <div class="card-header">
         <div class="logo-mark">
-            <?= icon('apple', 36, '', '#A3C48E') ?>
+            <img src="/assets/images/logo.png" alt="Fête du Cidre">
         </div>
         <h1>Fête du Cidre</h1>
         <p>Connectez-vous à l'espace d'administration</p>

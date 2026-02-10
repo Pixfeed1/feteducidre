@@ -32,7 +32,7 @@ $pendingOrders = $pendingOrders ?? 0;
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="sidebar-header">
             <a href="/admin" class="sidebar-logo">
-                <?= icon('apple', 24, '', '#A3C48E') ?>
+                <img src="/assets/images/logo.png" alt="Fête du Cidre">
             </a>
             <div class="sidebar-brand">Fête du Cidre <small>Administration</small></div>
             <button class="sidebar-close" id="sidebarClose" aria-label="Fermer le menu">

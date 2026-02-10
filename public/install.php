@@ -435,13 +435,7 @@ $svgWarn = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-w
   <!-- Header -->
   <div class="installer-header">
     <div class="header-logo">
-      <svg viewBox="0 0 36 36" fill="none">
-        <circle cx="18" cy="20" r="14" fill="#4A6B3E"/>
-        <ellipse cx="18" cy="20" rx="10" ry="12" fill="#7A9E6B"/>
-        <ellipse cx="18" cy="18" rx="6" ry="8" fill="#A3C48E"/>
-        <path d="M18 5 C16 1, 20 -1, 22 4" stroke="#8B6B4A" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <ellipse cx="23" cy="7" rx="4" ry="2.5" fill="#7A9E6B" transform="rotate(25 23 7)"/>
-      </svg>
+      <img src="/assets/images/logo.png" alt="Fête du Cidre">
     </div>
     <h1>Installation</h1>
     <p>Configuration du CMS Fête du Cidre</p>

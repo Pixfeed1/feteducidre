@@ -352,7 +352,7 @@ $siteName = htmlspecialchars($siteName ?? 'Fête du Cidre');
     <div class="mnt-logo">
         <div class="mnt-logo-ring"></div>
         <div class="mnt-logo-circle"></div>
-        <?= icon('apple', 44, '', 'white') ?>
+        <img src="/assets/images/logo.png" alt="Fête du Cidre" style="width:60px;height:auto;">
     </div>
 
     <h1 class="mnt-title">La Fête du Cidre fait peau neuve</h1>
