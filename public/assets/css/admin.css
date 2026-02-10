@@ -1820,3 +1820,548 @@ select.form-control {
         padding: 1.2rem;
     }
 }
+
+/* ══════════════════════════════════════════════
+   Gallery — stats, toolbar, year groups, album cards, modals
+   ══════════════════════════════════════════════ */
+
+/* Stats row */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.gal-stat {
+    background: var(--blanc, #FFFDF8);
+    border: 1.5px solid var(--creme-fonce, #F0E8D8);
+    border-radius: 14px;
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s;
+}
+
+.gal-stat:hover {
+    border-color: var(--vert-clair, #7A9E6B);
+    transform: translateY(-1px);
+}
+
+.gal-stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.gal-stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--vert-profond, #2C4A2E);
+    line-height: 1;
+}
+
+.gal-stat-label {
+    font-size: 0.75rem;
+    color: var(--texte-leger, #6B5D4F);
+    font-weight: 500;
+    margin-top: 1px;
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 320px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.6rem 0.9rem 0.6rem 2.3rem;
+    border: 1.5px solid var(--creme-fonce, #F0E8D8);
+    border-radius: 10px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    color: var(--texte, #2A2318);
+    background: white;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+    border-color: var(--vert-clair, #7A9E6B);
+}
+
+.search-box .search-icon {
+    position: absolute;
+    left: 0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--texte-leger, #6B5D4F);
+    pointer-events: none;
+    display: flex;
+}
+
+.filter-chips {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 0.45rem 0.85rem;
+    border-radius: 100px;
+    border: 1.5px solid var(--creme-fonce, #F0E8D8);
+    background: white;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--texte-leger, #6B5D4F);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.chip:hover {
+    border-color: var(--vert-clair, #7A9E6B);
+    color: var(--vert-profond, #2C4A2E);
+}
+
+.chip.active {
+    background: var(--vert-profond, #2C4A2E);
+    color: white;
+    border-color: var(--vert-profond, #2C4A2E);
+}
+
+.toolbar-spacer {
+    flex: 1;
+}
+
+.view-toggle {
+    display: flex;
+    border: 1.5px solid var(--creme-fonce, #F0E8D8);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.view-toggle button {
+    padding: 0.45rem 0.7rem;
+    border: none;
+    background: white;
+    cursor: pointer;
+    color: var(--texte-leger, #6B5D4F);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.view-toggle button + button {
+    border-left: 1.5px solid var(--creme-fonce, #F0E8D8);
+}
+
+.view-toggle button.active {
+    background: var(--vert-profond, #2C4A2E);
+    color: white;
+}
+
+/* Year groups */
+.year-group {
+    margin-bottom: 2rem;
+    animation: galFadeIn 0.5s ease both;
+}
+
+.year-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.year-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--vert-profond, #2C4A2E);
+    white-space: nowrap;
+}
+
+.year-line {
+    flex: 1;
+    height: 1px;
+    background: var(--creme-fonce, #F0E8D8);
+}
+
+.year-count {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--texte-leger, #6B5D4F);
+    background: var(--creme-fonce, #F0E8D8);
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+.year-actions {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.btn-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1.5px solid var(--creme-fonce, #F0E8D8);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--texte-leger, #6B5D4F);
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-icon:hover {
+    border-color: var(--vert-clair, #7A9E6B);
+    color: var(--vert-profond, #2C4A2E);
+}
+
+/* Album grid */
+.albums-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+/* Album card */
+.album-card {
+    background: var(--blanc, #FFFDF8);
+    border: 1.5px solid var(--creme-fonce, #F0E8D8);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.album-card:hover {
+    border-color: var(--vert-clair, #7A9E6B);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(44, 74, 46, 0.08);
+}
+
+.album-cover {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.album-cover-bg {
+    position: absolute;
+    inset: 0;
+}
+
+.album-cover-bg.fete { background: linear-gradient(135deg, #4A6B3E 0%, #2C4A2E 50%, #7A9E6B 100%); }
+.album-cover-bg.rallye { background: linear-gradient(135deg, #D4833B 0%, #5C3D2E 50%, #E8A95B 100%); }
+.album-cover-bg.affiches { background: linear-gradient(135deg, #8B6B4A 0%, #5C3D2E 50%, #D4833B 100%); }
+.album-cover-bg.general { background: linear-gradient(135deg, #2C4A2E 0%, #4A6B3E 50%, #E8A95B 100%); }
+
+.album-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(42, 35, 24, 0.5) 100%);
+}
+
+.album-cover-badges {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    right: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.type-badge {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.count-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.8);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.album-cover-title {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.8rem;
+    right: 0.8rem;
+}
+
+.album-cover-title h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+.album-cover-title span {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.album-info {
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.album-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--texte-leger, #6B5D4F);
+}
+
+.album-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 100px;
+}
+
+.album-status.published {
+    background: rgba(74, 107, 62, 0.1);
+    color: var(--vert-mousse, #4A6B3E);
+}
+
+.album-status.draft {
+    background: rgba(212, 131, 59, 0.1);
+    color: var(--orange-cidre, #D4833B);
+}
+
+.album-actions {
+    display: flex;
+    gap: 0.2rem;
+}
+
+/* Add album card */
+.add-album-card {
+    background: var(--blanc, #FFFDF8);
+    border: 2px dashed var(--creme-fonce, #F0E8D8);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 200px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: var(--texte-leger, #6B5D4F);
+    text-decoration: none;
+}
+
+.add-album-card:hover {
+    border-color: var(--vert-clair, #7A9E6B);
+    color: var(--vert-profond, #2C4A2E);
+    background: rgba(122, 158, 107, 0.04);
+}
+
+.add-album-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--creme, #FAF5EC);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.add-album-card:hover .add-album-icon {
+    background: rgba(122, 158, 107, 0.15);
+}
+
+.add-album-card span {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Photo upload zone (gallery) */
+.photo-upload-zone {
+    border: 2px dashed var(--creme-fonce, #F0E8D8);
+    border-radius: 14px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: var(--creme, #FAF5EC);
+    margin-bottom: 1.2rem;
+}
+
+.photo-upload-zone:hover,
+.photo-upload-zone.dragover {
+    border-color: var(--vert-clair, #7A9E6B);
+    background: rgba(122, 158, 107, 0.06);
+}
+
+.photo-upload-zone .upload-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.6rem;
+    box-shadow: 0 2px 8px rgba(44, 74, 46, 0.06);
+}
+
+.photo-upload-zone h4 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--texte, #2A2318);
+    margin-bottom: 0.2rem;
+}
+
+.photo-upload-zone p {
+    font-size: 0.78rem;
+    color: var(--texte-leger, #6B5D4F);
+}
+
+.photo-upload-zone .browse-link {
+    color: var(--orange-cidre, #D4833B);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Gallery-specific modal enhancements */
+.modal-gallery .photos-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.modal-gallery .photos-toolbar-left {
+    font-size: 0.82rem;
+    color: var(--texte-leger, #6B5D4F);
+    font-weight: 600;
+}
+
+.modal-gallery .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.6rem;
+}
+
+.modal-gallery .photo-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: grab;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+}
+
+.modal-gallery .photo-item:hover {
+    border-color: var(--vert-clair, #7A9E6B);
+}
+
+.modal-gallery .photo-item.selected {
+    border-color: var(--orange-cidre, #D4833B);
+}
+
+.modal-gallery .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes galFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive — gallery */
+@media (max-width: 1024px) {
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .albums-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .page-header-left + .page-header-actions {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-row {
+        grid-template-columns: 1fr;
+    }
+
+    .albums-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-chips {
+        gap: 0.2rem;
+    }
+}

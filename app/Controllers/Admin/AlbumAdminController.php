@@ -13,18 +13,53 @@ use App\Core\Request;
  */
 class AlbumAdminController extends Controller
 {
+    /** Labels de type d'album */
+    private const TYPE_LABELS = [
+        'fete'     => 'Fête',
+        'rallye'   => 'Rallye',
+        'affiches' => 'Affiches',
+        'general'  => 'Édition',
+    ];
+
     /**
-     * Liste tous les albums
+     * Liste tous les albums groupés par année avec statistiques
      */
     public function index(Request $request, array $params = []): void
     {
         $albums = $this->db()->fetchAll(
-            "SELECT * FROM albums ORDER BY year DESC, title ASC"
+            "SELECT * FROM albums ORDER BY year DESC, sort_order ASC, title ASC"
         );
 
+        // Grouper par année
+        $grouped = [];
+        foreach ($albums as $album) {
+            $year = $album['year'] ?? 0;
+            $grouped[$year][] = $album;
+        }
+
+        // Stats
+        $totalAlbums = count($albums);
+        $totalPhotos = (int) ($this->db()->fetch(
+            "SELECT COALESCE(SUM(photo_count), 0) AS total FROM albums"
+        )['total'] ?? 0);
+        $yearCount = count($grouped);
+
+        // Espace disque utilisé (somme file_size des médias liés)
+        $storageBytes = (int) ($this->db()->fetch(
+            "SELECT COALESCE(SUM(m.file_size), 0) AS total
+             FROM media m
+             JOIN photos p ON p.media_id = m.id"
+        )['total'] ?? 0);
+
         $this->renderAdmin('templates/admin/albums/index.php', [
-            'title'  => 'Galerie',
-            'albums' => $albums,
+            'title'        => 'Galerie photos',
+            'albums'       => $albums,
+            'grouped'      => $grouped,
+            'totalAlbums'  => $totalAlbums,
+            'totalPhotos'  => $totalPhotos,
+            'yearCount'    => $yearCount,
+            'storageBytes' => $storageBytes,
+            'typeLabels'   => self::TYPE_LABELS,
         ]);
     }
 
@@ -65,6 +100,7 @@ class AlbumAdminController extends Controller
             'title'       => $data['title'],
             'slug'        => $slug,
             'description' => $data['description'] ?? '',
+            'type'        => $data['type'] ?? 'fete',
             'year'        => !empty($data['year']) ? (int) $data['year'] : null,
             'sort_order'  => (int) ($data['sort_order'] ?? 0),
             'is_active'   => isset($data['is_active']) ? 1 : 0,
@@ -131,6 +167,7 @@ class AlbumAdminController extends Controller
             'title'       => $data['title'],
             'slug'        => $slug,
             'description' => $data['description'] ?? '',
+            'type'        => $data['type'] ?? 'fete',
             'year'        => !empty($data['year']) ? (int) $data['year'] : null,
             'sort_order'  => (int) ($data['sort_order'] ?? 0),
             'is_active'   => isset($data['is_active']) ? 1 : 0,

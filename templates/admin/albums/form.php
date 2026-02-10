@@ -7,6 +7,9 @@
 $isEdit = $album !== null;
 $action = $isEdit ? '/admin/albums/' . (int) $album['id'] . '/update' : '/admin/albums/store';
 $photos = $photos ?? [];
+
+// Pré-remplir l'année via query string (lien "Ajouter un album" depuis index)
+$defaultYear = $_GET['year'] ?? '';
 ?>
 
 <div class="page-header">
@@ -48,20 +51,32 @@ $photos = $photos ?? [];
                 <div class="form-group">
                     <label for="year">Année</label>
                     <input type="number" id="year" name="year" class="form-control"
-                           value="<?= e($isEdit ? (string) ($album['year'] ?? '') : old('year')) ?>"
+                           value="<?= e($isEdit ? (string) ($album['year'] ?? '') : old('year', $defaultYear)) ?>"
                            min="1989" max="<?= date('Y') + 1 ?>">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type d'album</label>
+                    <select id="type" name="type" class="form-control">
+                        <?php
+                        $currentType = $isEdit ? ($album['type'] ?? 'fete') : old('type', 'fete');
+                        $types = ['fete' => 'Fête', 'rallye' => 'Rallye', 'affiches' => 'Affiches', 'general' => 'Général / Édition'];
+                        foreach ($types as $val => $label): ?>
+                            <option value="<?= $val ?>" <?= $currentType === $val ? 'selected' : '' ?>><?= $label ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="sort_order">Ordre d'affichage</label>
                     <input type="number" id="sort_order" name="sort_order" class="form-control"
                            value="<?= e($isEdit ? (string) $album['sort_order'] : old('sort_order', '0')) ?>" min="0">
                 </div>
-                <div class="form-group">
-                    <div class="form-check" style="margin-top: 1.75rem;">
-                        <input type="checkbox" id="is_active" name="is_active" value="1"
-                               <?= ($isEdit ? $album['is_active'] : old('is_active', '1')) ? 'checked' : '' ?>>
-                        <label for="is_active">Album actif (visible sur le site)</label>
-                    </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check" style="margin-top: 0.5rem;">
+                    <input type="checkbox" id="is_active" name="is_active" value="1"
+                           <?= ($isEdit ? $album['is_active'] : old('is_active', '1')) ? 'checked' : '' ?>>
+                    <label for="is_active">Album actif (visible sur le site)</label>
                 </div>
             </div>
         </div>
