@@ -8,6 +8,7 @@ use App\Core\Controller;
 use App\Core\Config;
 use App\Core\Request;
 use App\Core\Response;
+use App\Services\PaymentService;
 
 /**
  * Contrôleur de la boutique en ligne.
@@ -492,6 +493,34 @@ class ShopController extends Controller
         // Vider le panier
         unset($_SESSION['cart']);
         unset($_SESSION['_old_input']);
+
+        // Récupérer le mode de paiement choisi
+        $paymentMethod = $request->post('payment_method', 'card');
+
+        // Paiement par carte via Stripe Checkout
+        if ($paymentMethod === 'card' && PaymentService::isStripeConfigured()) {
+            try {
+                $orderData = [
+                    'id'             => $orderId,
+                    'reference'      => $reference,
+                    'customer_email' => $email,
+                ];
+                $checkoutUrl = PaymentService::createCheckoutSession($orderData, $orderItems, $shipping);
+                Response::redirect($checkoutUrl);
+                return;
+            } catch (\Exception $e) {
+                // Si Stripe échoue, on tombe sur la confirmation classique
+                set_flash('warning', 'Le paiement en ligne n\'a pas pu être initialisé. Vous pouvez régler par virement.');
+            }
+        }
+
+        // Paiement par virement ou fallback : marquer comme virement
+        $db->update(
+            'orders',
+            ['payment_method' => $paymentMethod === 'transfer' ? 'transfer' : 'pending'],
+            'id = ?',
+            [$orderId]
+        );
 
         set_flash('success', 'Votre commande a bien été enregistrée !');
         Response::redirect('/commande/confirmation/' . $reference);

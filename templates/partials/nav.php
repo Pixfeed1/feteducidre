@@ -66,7 +66,7 @@ $newsNewTab  = ($newsSettings['open_new_tab'] ?? '1') === '1';
 <nav class="main-nav" id="navbar">
     <div class="nav-inner">
         <a href="/" class="logo" aria-label="Fête du Cidre — Accueil">
-            <div class="logo-icon"><img src="/assets/images/logo.png" alt="Fête du Cidre" width="74" height="74"></div>
+            <div class="logo-icon"><img src="/assets/images/logo.png" alt="Fête du Cidre" width="85" height="85"></div>
             <div class="logo-text">
                 Fête du Cidre
                 <span>L'Hôtellerie de Flée</span>

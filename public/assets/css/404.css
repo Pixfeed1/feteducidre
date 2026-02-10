@@ -1,0 +1,336 @@
+/**
+ * Page 404 — Fête du Cidre
+ * Pomme perdue dans le verger.
+ */
+
+/* ===== FOND ===== */
+body.page-404 {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--blanc);
+  color: var(--texte);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+body.page-404::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(122,158,107,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 25%, rgba(212,131,59,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(250,245,236,0.4) 0%, transparent 80%);
+  z-index: 0;
+}
+
+/* Formes décoratives */
+.deco-shapes {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.deco-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.05;
+  animation: shapePulse 7s ease-in-out infinite;
+}
+.deco-shape:nth-child(1) { width: 280px; height: 280px; background: var(--vert-clair); top: -90px; left: -70px; animation-delay: 0s; }
+.deco-shape:nth-child(2) { width: 220px; height: 220px; background: var(--orange-cidre); bottom: -70px; right: -50px; animation-delay: 2.5s; }
+.deco-shape:nth-child(3) { width: 160px; height: 160px; background: var(--vert-mousse); top: 15%; right: -60px; animation-delay: 4.5s; }
+.deco-shape:nth-child(4) { width: 140px; height: 140px; background: var(--orange-doux); bottom: 15%; left: -50px; animation-delay: 1.5s; }
+
+@keyframes shapePulse {
+  0%, 100% { transform: scale(1); opacity: 0.05; }
+  50% { transform: scale(1.08); opacity: 0.09; }
+}
+
+/* Feuilles flottantes */
+.leaves {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.leaf {
+  position: absolute;
+  opacity: 0;
+  animation: leafFall linear infinite;
+}
+.leaf svg {
+  animation: leafSpin linear infinite;
+}
+
+@keyframes leafFall {
+  0% { opacity: 0; transform: translateY(-60px); }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(calc(100vh + 60px)); }
+}
+@keyframes leafSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(0.9); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  75% { transform: rotate(270deg) scale(0.95); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* ===== CONTENU ===== */
+.error-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 540px;
+  padding: 2rem;
+}
+
+/* Pomme SVG animée */
+.apple-scene {
+  margin-bottom: 1.8rem;
+  animation: sceneIn 0.8s ease both;
+}
+
+@keyframes sceneIn {
+  from { opacity: 0; transform: scale(0.85) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.apple-svg {
+  filter: drop-shadow(0 8px 24px rgba(44,74,46,0.12));
+}
+
+.apple-body {
+  animation: appleWobble 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes appleWobble {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-6deg); }
+  40% { transform: rotate(5deg); }
+  60% { transform: rotate(-3deg); }
+  80% { transform: rotate(2deg); }
+}
+
+.question-mark {
+  animation: questionFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes questionFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.9; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Code 404 */
+.error-code {
+  font-family: 'Playfair Display', serif;
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: var(--vert-profond);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.03em;
+  animation: codeIn 0.7s ease both 0.2s;
+  opacity: 0;
+}
+.error-code span {
+  display: inline-block;
+}
+.error-code .zero-1 {
+  color: var(--orange-cidre);
+  animation: digitBounce 0.5s ease both 0.5s;
+}
+.error-code .zero-2 {
+  color: var(--orange-cidre);
+  animation: digitBounce 0.5s ease both 0.7s;
+}
+
+@keyframes codeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes digitBounce {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* Titre */
+.error-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--vert-profond);
+  margin-bottom: 0.8rem;
+  animation: fadeUp 0.7s ease both 0.4s;
+  opacity: 0;
+}
+
+/* Sous-titre */
+.error-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--texte-leger);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.7s ease both 0.55s;
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Séparateur */
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.7s ease both 0.6s;
+  opacity: 0;
+}
+.separator .line {
+  width: 40px;
+  height: 1.5px;
+  background: var(--creme-fonce);
+}
+.separator .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange-doux);
+}
+
+/* Boutons */
+.error-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.7s ease both 0.7s;
+  opacity: 0;
+}
+
+.error-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+}
+
+.error-actions .btn-primary {
+  background: var(--vert-profond);
+  color: var(--creme);
+  box-shadow: 0 2px 8px rgba(44,74,46,0.2);
+}
+.error-actions .btn-primary:hover {
+  background: var(--vert-mousse);
+  color: var(--creme);
+  box-shadow: 0 4px 16px rgba(44,74,46,0.3);
+  transform: translateY(-2px);
+}
+
+.error-actions .btn-secondary {
+  background: transparent;
+  color: var(--vert-profond);
+  border: 1.5px solid var(--creme-fonce);
+}
+.error-actions .btn-secondary:hover {
+  border-color: var(--vert-clair);
+  background: rgba(122,158,107,0.06);
+  transform: translateY(-2px);
+}
+
+/* Suggestions */
+.suggestions {
+  margin-top: 2.5rem;
+  animation: fadeUp 0.7s ease both 0.85s;
+  opacity: 0;
+}
+.suggestions-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--texte-leger);
+  margin-bottom: 0.8rem;
+}
+.suggestions-links {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.suggestions-links a {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--creme);
+  border: 1px solid var(--creme-fonce);
+  color: var(--texte-leger);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+.suggestions-links a:hover {
+  background: var(--blanc);
+  border-color: var(--vert-clair);
+  color: var(--vert-profond);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(44,74,46,0.08);
+}
+
+/* Footer */
+.footer-note {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 1rem;
+  z-index: 1;
+  animation: fadeUp 0.7s ease both 1s;
+  opacity: 0;
+}
+.footer-note a {
+  font-size: 0.78rem;
+  color: var(--texte-leger);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.footer-note a:hover {
+  opacity: 1;
+  color: var(--vert-profond);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .error-container { padding: 1.5rem; }
+  .error-code { font-size: 4rem; }
+  .error-title { font-size: 1.3rem; }
+  .error-subtitle { font-size: 1.05rem; }
+  .apple-svg { width: 130px; height: 130px; }
+  .error-actions { flex-direction: column; align-items: center; }
+  .error-actions .btn { width: 100%; justify-content: center; max-width: 260px; }
+  .suggestions-links { flex-direction: column; align-items: center; }
+}

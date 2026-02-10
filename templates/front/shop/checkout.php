@@ -123,44 +123,41 @@ $finalTotal = $freeShipping ? $subtotal : $total;
                     </div>
                 </div>
                 <div class="form-card">
+                    <?php $stripeOk = \App\Services\PaymentService::isStripeConfigured(); ?>
                     <div class="payment-methods">
+                        <?php if ($stripeOk): ?>
                         <label class="pm selected" id="pmCb">
                             <input type="radio" name="payment_method" value="card" checked>
                             <span class="pm-dot"></span>
                             <span class="pm-icon cb"><?= icon('credit-card', 18) ?></span>
                             <span class="pm-label">
                                 Carte bancaire
-                                <small>Visa, Mastercard</small>
+                                <small>Visa, Mastercard — paiement sécurisé Stripe</small>
                             </span>
                         </label>
-                        <label class="pm" id="pmVir">
-                            <input type="radio" name="payment_method" value="transfer">
+                        <?php endif; ?>
+                        <label class="pm <?= !$stripeOk ? 'selected' : '' ?>" id="pmVir">
+                            <input type="radio" name="payment_method" value="transfer" <?= !$stripeOk ? 'checked' : '' ?>>
                             <span class="pm-dot"></span>
                             <span class="pm-icon vir"><?= icon('building', 18) ?></span>
                             <span class="pm-label">
-                                Virement
-                                <small>Virement bancaire</small>
+                                Virement bancaire
+                                <small>Virement classique</small>
                             </span>
                         </label>
                     </div>
 
-                    <div class="card-fields" id="cardFields">
-                        <div class="form-row full">
-                            <div class="field">
-                                <label for="card_number">Numéro de carte <span class="req">*</span></label>
-                                <input type="text" id="card_number" placeholder="1234 5678 9012 3456" maxlength="19">
-                            </div>
-                        </div>
-                        <div class="form-row" style="margin-bottom:0">
-                            <div class="field">
-                                <label for="card_expiry">Date d'expiration <span class="req">*</span></label>
-                                <input type="text" id="card_expiry" placeholder="MM/AA" maxlength="5">
-                            </div>
-                            <div class="field">
-                                <label for="card_cvc">CVC <span class="req">*</span></label>
-                                <input type="text" id="card_cvc" placeholder="123" maxlength="4">
-                            </div>
-                        </div>
+                    <!-- Info carte : redirection vers Stripe -->
+                    <?php if ($stripeOk): ?>
+                    <div class="card-info-stripe" id="cardFields" style="padding:1rem;background:var(--creme);border-radius:10px;margin-top:0.75rem;display:flex;align-items:center;gap:0.75rem">
+                        <?= icon('shield-check', 18, '', 'var(--vert-clair)') ?>
+                        <span style="font-size:0.88rem;color:var(--texte-leger)">Vous serez redirigé vers la page de paiement sécurisée Stripe pour entrer vos informations de carte.</span>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- Info virement -->
+                    <div class="transfer-info" id="transferInfo" style="padding:1rem;background:var(--creme);border-radius:10px;margin-top:0.75rem;display:<?= !$stripeOk ? 'block' : 'none' ?>">
+                        <p style="font-size:0.88rem;color:var(--texte-leger);margin-bottom:0.5rem"><?= icon('info', 14, '', 'var(--orange-cidre)') ?> Après validation, vous recevrez les coordonnées bancaires par email pour effectuer le virement.</p>
                     </div>
 
                     <div class="cgv-check">
@@ -232,6 +229,7 @@ $finalTotal = $freeShipping ? $subtotal : $total;
 document.addEventListener('DOMContentLoaded', function() {
     var pms = document.querySelectorAll('.pm');
     var cardFields = document.getElementById('cardFields');
+    var transferInfo = document.getElementById('transferInfo');
 
     pms.forEach(function(pm) {
         pm.addEventListener('click', function() {
@@ -239,9 +237,9 @@ document.addEventListener('DOMContentLoaded', function() {
             pm.classList.add('selected');
             var radio = pm.querySelector('input[type="radio"]');
             if (radio) radio.checked = true;
-            if (cardFields) {
-                cardFields.style.display = (radio && radio.value === 'card') ? '' : 'none';
-            }
+            var isCard = radio && radio.value === 'card';
+            if (cardFields) cardFields.style.display = isCard ? '' : 'none';
+            if (transferInfo) transferInfo.style.display = isCard ? 'none' : 'block';
         });
     });
 });

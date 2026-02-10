@@ -106,6 +106,9 @@ class App
         $r->get('/randonnee', [\App\Controllers\Front\ArchiveController::class, 'hike']);
         $r->get('/randonnee/classement', [\App\Controllers\Front\ArchiveController::class, 'hikeRanking']);
 
+        // Webhooks (paiement)
+        $r->post('/webhook/stripe', [\App\Controllers\Front\WebhookController::class, 'stripe']);
+
         // ── Routes admin ──
         $r->get('/admin/login', [\App\Controllers\Admin\AuthController::class, 'loginForm']);
         $r->post('/admin/login', [\App\Controllers\Admin\AuthController::class, 'login']);
