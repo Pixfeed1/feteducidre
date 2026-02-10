@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Boutique — catalogue produits avec filtres.
- * Variables : $products, $categories, $seo
+ * Variables : $page, $products, $categories, $seo
  */
 $catMeta = [
     'cidre-brut' => ['icon' => 'wine',     'label' => 'Cidre brut',     'filter' => 'cidre'],
@@ -50,6 +50,14 @@ foreach ($products as $p) {
         <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">Cidres, jus de pomme, pommeau… retrouvez les saveurs du terroir du Haut Anjou livrées chez vous.</p>
     </div>
 </section>
+
+<?php if (!empty($page['content'])): ?>
+<section class="section" style="padding-bottom:0">
+    <div class="container cms-content">
+        <?= sanitize($page['content']) ?>
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- Filter Bar -->
 <?php if (count($availableFilters) > 1): ?>

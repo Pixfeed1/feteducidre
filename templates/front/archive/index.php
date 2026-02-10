@@ -2,7 +2,7 @@
 /**
  * Template Archives — page d'accueil "Revivez les années".
  * Navigation vers les différentes sections d'archives.
- * Variables : $seo
+ * Variables : $page, $seo
  */
 $cards = [
     [
@@ -70,6 +70,14 @@ $cards = [
         <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">Depuis 1989, la Fête du Cidre célèbre chaque année le terroir et le savoir-faire du Haut Anjou. Plongez dans nos archives.</p>
     </div>
 </section>
+
+<?php if (!empty($page['content'])): ?>
+<section class="section" style="padding-bottom:0">
+    <div class="container cms-content">
+        <?= sanitize($page['content']) ?>
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- Archive Cards -->
 <section class="arc-landing">

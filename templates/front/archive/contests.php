@@ -1,7 +1,7 @@
 <?php
 /**
  * Template page concours — vue palmarès par années.
- * Variables : $cidreYears, $affichesYears, $seo
+ * Variables : $page, $cidreYears, $affichesYears, $seo
  */
 ?>
 
@@ -27,6 +27,14 @@
         <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">Retrouvez les palmarès de chaque édition : concours du meilleur cidre, jus de pommes, pommeau et concours d'affiches.</p>
     </div>
 </section>
+
+<?php if (!empty($page['content'])): ?>
+<section class="section" style="padding-bottom:0">
+    <div class="container cms-content">
+        <?= sanitize($page['content']) ?>
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- Contenu concours -->
 <section class="concours-content">

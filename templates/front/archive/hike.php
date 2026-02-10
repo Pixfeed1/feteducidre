@@ -1,7 +1,7 @@
 <?php
 /**
  * Template page Randonnées — Archives.
- * Variables : $seo, $classementYears (array year => [categories]), $reponseYears (int[])
+ * Variables : $page, $seo, $classementYears (array year => [categories]), $reponseYears (int[])
  */
 $catMeta = [
     'Adultes'   => ['class' => 'adultes',   'icon' => 'users'],
@@ -32,6 +32,14 @@ $catMeta = [
         <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">Résultats, classements et réponses du rallye pédestre qui accompagne chaque édition de la Fête du Cidre.</p>
     </div>
 </section>
+
+<?php if (!empty($page['content'])): ?>
+<section class="section" style="padding-bottom:0">
+    <div class="container cms-content">
+        <?= sanitize($page['content']) ?>
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- Content -->
 <section class="content-section">

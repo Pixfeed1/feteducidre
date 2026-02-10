@@ -1150,6 +1150,13 @@ body.menu-open {
   padding: 1rem 0;
 }
 
+/* ===== ARTICLE WRAPPER ===== */
+.article-wrapper {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+}
+
 /* ===== CMS CONTENT ===== */
 .cms-content {
   max-width: 800px;
@@ -5831,6 +5838,10 @@ body.lb-open { overflow: hidden; }
 
   .page-hero .breadcrumb {
     padding-top: 1.5rem;
+  }
+
+  .article-wrapper {
+    padding: 3rem 1.5rem 4rem;
   }
 
   .cms-content {

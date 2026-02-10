@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Galerie Photos — Albums groupés par année avec filtre par type.
- * Variables : $albumsByYear (array year => albums[]), $types (string[]), $seo
+ * Variables : $page, $albumsByYear (array year => albums[]), $types (string[]), $seo
  */
 $typeMeta = [
     'fete'     => ['icon' => 'party-popper', 'label' => 'Fête'],
@@ -33,6 +33,14 @@ $typeMeta = [
         <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">Retrouvez les photos des différentes éditions… depuis l'âge de la photo numérique.</p>
     </div>
 </section>
+
+<?php if (!empty($page['content'])): ?>
+<section class="section" style="padding-bottom:0">
+    <div class="container cms-content">
+        <?= sanitize($page['content']) ?>
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- Filter bar -->
 <?php if (count($types) > 1): ?>

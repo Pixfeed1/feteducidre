@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Remerciements — partenaires & carte.
- * Variables : $partners (grouped by category), $settings, $seo
+ * Variables : $page, $partners (grouped by category), $settings, $seo
  */
 $catConfig = [
     'media' => [
@@ -58,6 +58,14 @@ $address = $settings['address'] ?? "L'Hôtellerie de Flée, 49500";
         <p class="page-hero-intro" style="margin-left:auto;margin-right:auto">La Fête du Cidre n'existerait pas sans le soutien précieux de nos partenaires et la générosité de nos bénévoles.</p>
     </div>
 </section>
+
+<?php if (!empty($page['content'])): ?>
+<section class="section" style="padding-bottom:0">
+    <div class="container cms-content">
+        <?= sanitize($page['content']) ?>
+    </div>
+</section>
+<?php endif; ?>
 
 <section class="thanks-section">
 

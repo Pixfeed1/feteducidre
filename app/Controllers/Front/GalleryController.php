@@ -22,6 +22,11 @@ class GalleryController extends Controller
     {
         $db = $this->db();
 
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, meta_title, meta_description FROM pages WHERE slug = ? AND status = ?",
+            ['galerie', 'published']
+        );
+
         // Récupérer les albums actifs avec l'image de couverture
         $albums = $db->fetchAll(
             "SELECT a.id, a.title, a.slug, a.description, a.type, a.year, a.photo_count, a.cover_image_id,
@@ -70,6 +75,7 @@ class GalleryController extends Controller
         ];
 
         $this->render('templates/front/gallery/index.php', [
+            'page'         => $page,
             'albumsByYear' => $albumsByYear,
             'types'        => $types,
             'seo'          => $seo,

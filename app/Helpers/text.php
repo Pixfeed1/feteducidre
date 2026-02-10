@@ -53,7 +53,7 @@ function truncate(string $text, int $length = 160, string $suffix = '…'): stri
  */
 function sanitize(string $html): string
 {
-    $allowed = '<p><br><strong><em><b><i><u><a><ul><ol><li><h2><h3><h4><h5><h6><blockquote><img><figure><figcaption><table><thead><tbody><tr><th><td>';
+    $allowed = '<p><br><strong><em><b><i><u><a><ul><ol><li><h2><h3><h4><h5><h6><blockquote><cite><div><span><img><figure><figcaption><table><thead><tbody><tr><th><td><article><section><hr>';
     return strip_tags($html, $allowed);
 }
 

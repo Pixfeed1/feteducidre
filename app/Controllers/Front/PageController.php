@@ -95,6 +95,33 @@ class PageController extends Controller
         Response::redirect('/programme');
     }
 
+    public function origines(Request $request, array $params = []): void
+    {
+        $db = $this->db();
+
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, excerpt, meta_title, meta_description
+             FROM pages WHERE slug = ? AND status = ?",
+            ['origines', 'published']
+        );
+
+        if (!$page) {
+            Response::notFound();
+            return;
+        }
+
+        $seo = [
+            'title'       => $page['meta_title'] ?: 'Nos Origines — Fête du Cidre',
+            'description' => $page['meta_description'] ?: 'L\'histoire de la Fête du Cidre depuis 1977.',
+            'canonical'   => \App\Core\Config::baseUrl() . '/origines',
+        ];
+
+        $this->render('templates/front/origines.php', [
+            'page' => $page,
+            'seo'  => $seo,
+        ]);
+    }
+
     public function infos(Request $request, array $params = []): void
     {
         $db = $this->db();
@@ -128,6 +155,11 @@ class PageController extends Controller
     {
         $db = $this->db();
 
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, meta_title, meta_description FROM pages WHERE slug = ? AND status = ?",
+            ['remerciements', 'published']
+        );
+
         $partners = $db->fetchAll(
             "SELECT p.name, p.description, p.website, COALESCE(pc.slug, 'autre') AS category
              FROM partners p
@@ -156,6 +188,7 @@ class PageController extends Controller
         ];
 
         $this->render('templates/front/remerciements.php', [
+            'page'     => $page,
             'partners' => $grouped,
             'settings' => $settings,
             'seo'      => $seo,

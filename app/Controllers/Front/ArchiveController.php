@@ -20,6 +20,13 @@ class ArchiveController extends Controller
      */
     public function index(Request $request, array $params = []): void
     {
+        $db = $this->db();
+
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, meta_title, meta_description FROM pages WHERE slug = ? AND status = ?",
+            ['archives', 'published']
+        );
+
         $seo = [
             'title'       => 'Revivez les années — Archives — Fête du Cidre',
             'description' => 'Plongez dans les archives de la Fête du Cidre : origines, affiches, randonnées, programmes, photos et concours.',
@@ -27,7 +34,8 @@ class ArchiveController extends Controller
         ];
 
         $this->render('templates/front/archive/index.php', [
-            'seo' => $seo,
+            'page' => $page,
+            'seo'  => $seo,
         ]);
     }
 
@@ -121,6 +129,11 @@ class ArchiveController extends Controller
     {
         $db = $this->db();
 
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, meta_title, meta_description FROM pages WHERE slug = ? AND status = ?",
+            ['concours', 'published']
+        );
+
         // Récupérer les années et catégories disponibles
         $rows = $db->fetchAll(
             "SELECT DISTINCT year, category FROM contest_results ORDER BY year DESC"
@@ -151,6 +164,7 @@ class ArchiveController extends Controller
         ];
 
         $this->render('templates/front/archive/contests.php', [
+            'page'          => $page,
             'cidreYears'    => $cidreYears,
             'affichesYears' => $affichesYears,
             'seo'           => $seo,
@@ -291,6 +305,11 @@ class ArchiveController extends Controller
     {
         $db = $this->db();
 
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, meta_title, meta_description FROM pages WHERE slug = ? AND status = ?",
+            ['randonnee', 'published']
+        );
+
         // Années avec résultats, groupés par catégorie
         $rows = $db->fetchAll(
             "SELECT DISTINCT he.year, hr.category
@@ -320,6 +339,7 @@ class ArchiveController extends Controller
         ];
 
         $this->render('templates/front/archive/hike.php', [
+            'page'            => $page,
             'classementYears' => $classementYears,
             'reponseYears'    => $reponseYears,
             'seo'             => $seo,

@@ -24,6 +24,14 @@ $siteName = $settings['general']['association_name'] ?? 'Association Fête du Ci
     </div>
 </section>
 
+<?php if (!empty($page['content'])): ?>
+<section class="section" style="padding-bottom:0">
+    <div class="container cms-content">
+        <?= sanitize($page['content']) ?>
+    </div>
+</section>
+<?php endif; ?>
+
 <section class="section">
     <div class="container">
         <div class="contact-layout" style="display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start">

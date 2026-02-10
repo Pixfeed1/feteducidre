@@ -66,6 +66,15 @@ $mapLng = (float) ($settings['general']['map_longitude'] ?? -0.855);
     </div>
 </section>
 
+<?php if (!empty($page['content'])): ?>
+<!-- Contenu éditorial CMS -->
+<section class="section" style="padding-bottom:0">
+    <div class="container cms-content">
+        <?= sanitize($page['content']) ?>
+    </div>
+</section>
+<?php endif; ?>
+
 <!-- Contact + Accès -->
 <section class="section">
     <div class="container">

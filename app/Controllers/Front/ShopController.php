@@ -23,6 +23,11 @@ class ShopController extends Controller
     {
         $db = $this->db();
 
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, meta_title, meta_description FROM pages WHERE slug = ? AND status = ?",
+            ['boutique', 'published']
+        );
+
         // Récupérer tous les produits actifs avec image
         $products = $db->fetchAll(
             "SELECT p.id, p.name, p.slug, p.short_description, p.price, p.sale_price,
@@ -66,6 +71,7 @@ class ShopController extends Controller
         ];
 
         $this->render('templates/front/shop/index.php', [
+            'page'       => $page,
             'products'   => $products,
             'categories' => $categories,
             'seo'        => $seo,
