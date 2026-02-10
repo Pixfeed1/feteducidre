@@ -211,7 +211,7 @@
       if (resp.success) {
         /* Terminer toutes les étapes visuelles */
         function finishSteps() {
-          if (step <= logItems.length) {
+          if (step < logItems.length) {
             advanceVisual();
             setTimeout(finishSteps, 400);
           } else {
