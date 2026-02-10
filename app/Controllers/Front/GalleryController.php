@@ -86,7 +86,7 @@ class GalleryController extends Controller
 
         // Récupérer l'album
         $album = $db->fetch(
-            "SELECT id, title, slug, description, year, photo_count
+            "SELECT id, title, slug, description, type, year, photo_count
              FROM albums WHERE slug = ? AND is_active = 1",
             [$slug]
         );
