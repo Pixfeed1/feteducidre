@@ -235,10 +235,19 @@
         .form-options {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
             margin-bottom: 1.6rem;
             animation: fadeInUp 0.5s 0.35s ease both;
         }
+
+        .forgot-link {
+            font-size: 0.82rem;
+            color: var(--orange-cidre, #D4833B);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .forgot-link:hover { color: var(--vert-profond, #2C4A2E); }
 
         .remember {
             display: flex;
@@ -328,6 +337,7 @@
                 border-radius: 22px;
             }
             .card-header h1 { font-size: 1.4rem; }
+            .form-options { flex-direction: column; gap: 0.6rem; align-items: flex-start; }
         }
     </style>
 </head>
@@ -382,6 +392,7 @@
                 <input type="checkbox" id="remember" name="remember">
                 <span>Se souvenir de moi</span>
             </label>
+            <a href="/admin/forgot-password" class="forgot-link">Mot de passe oublié ?</a>
         </div>
 
         <button type="submit" class="submit-btn">

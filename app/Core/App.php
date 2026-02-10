@@ -110,6 +110,10 @@ class App
         $r->get('/admin/login', [\App\Controllers\Admin\AuthController::class, 'loginForm']);
         $r->post('/admin/login', [\App\Controllers\Admin\AuthController::class, 'login']);
         $r->get('/admin/logout', [\App\Controllers\Admin\AuthController::class, 'logout']);
+        $r->get('/admin/forgot-password', [\App\Controllers\Admin\AuthController::class, 'forgotPasswordForm']);
+        $r->post('/admin/forgot-password', [\App\Controllers\Admin\AuthController::class, 'forgotPassword']);
+        $r->get('/admin/reset-password/{token}', [\App\Controllers\Admin\AuthController::class, 'resetPasswordForm']);
+        $r->post('/admin/reset-password/{token}', [\App\Controllers\Admin\AuthController::class, 'resetPassword']);
 
         // Routes admin protégées par middleware
         $r->group('/admin', \App\Middleware\AuthMiddleware::class, function (Router $r) {

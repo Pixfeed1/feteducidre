@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controllers\Admin;
 
+use App\Core\Config;
 use App\Core\Controller;
 use App\Core\Request;
 use App\Core\Response;
+use App\Services\MailService;
 
 /**
  * Contrôleur d'authentification admin.
@@ -133,6 +135,180 @@ class AuthController extends Controller
         // Redémarrer une session pour le message flash
         session_start();
         set_flash('success', 'Vous avez été déconnecté.');
+        $this->redirect('/admin/login');
+    }
+
+    /**
+     * Affiche le formulaire de mot de passe oublié
+     */
+    public function forgotPasswordForm(Request $request, array $params = []): void
+    {
+        if (!empty($_SESSION['admin_user'])) {
+            $this->redirect('/admin/dashboard');
+            return;
+        }
+
+        $this->render('templates/admin/forgot-password.php', [
+            'title' => 'Mot de passe oublié',
+        ], '');
+    }
+
+    /**
+     * Traite la demande de réinitialisation de mot de passe
+     */
+    public function forgotPassword(Request $request, array $params = []): void
+    {
+        $token = $request->post('_csrf_token', '');
+        $sessionToken = $_SESSION['csrf_token'] ?? '';
+        if (empty($token) || !hash_equals($sessionToken, $token)) {
+            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
+            $this->redirect('/admin/forgot-password');
+            return;
+        }
+
+        $email = trim($request->post('email', ''));
+
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['_old_input'] = ['email' => $email];
+            set_flash('error', 'Veuillez saisir une adresse e-mail valide.');
+            $this->redirect('/admin/forgot-password');
+            return;
+        }
+
+        $user = $this->db()->fetch(
+            "SELECT id, email FROM users WHERE email = ? AND is_active = 1 LIMIT 1",
+            [$email]
+        );
+
+        // Toujours afficher le succès pour ne pas révéler si l'email existe
+        if ($user) {
+            $resetToken = bin2hex(random_bytes(32));
+            $expires = date('Y-m-d H:i:s', time() + 3600);
+
+            $this->db()->update('users', [
+                'reset_token'   => hash('sha256', $resetToken),
+                'reset_expires' => $expires,
+            ], 'id = ?', [(int) $user['id']]);
+
+            $resetUrl = Config::baseUrl() . '/admin/reset-password/' . $resetToken;
+
+            try {
+                $mailer = new MailService();
+                $mailer->send($user['email'], 'Réinitialisation de mot de passe', 'reset-password', [
+                    'email'     => $user['email'],
+                    'reset_url' => $resetUrl,
+                    'expiry'    => '1 heure',
+                ]);
+            } catch (\Exception $e) {
+                error_log('Erreur envoi email reset: ' . $e->getMessage());
+            }
+        }
+
+        $_SESSION['reset_email_sent'] = $email;
+        set_flash('success', 'Si un compte existe avec cette adresse, un e-mail de réinitialisation a été envoyé.');
+        $this->redirect('/admin/forgot-password');
+    }
+
+    /**
+     * Affiche le formulaire de réinitialisation de mot de passe
+     */
+    public function resetPasswordForm(Request $request, array $params = []): void
+    {
+        $token = $params['token'] ?? '';
+
+        if (empty($token)) {
+            set_flash('error', 'Lien de réinitialisation invalide.');
+            $this->redirect('/admin/login');
+            return;
+        }
+
+        $hashedToken = hash('sha256', $token);
+        $user = $this->db()->fetch(
+            "SELECT id, email FROM users WHERE reset_token = ? AND reset_expires > NOW() AND is_active = 1 LIMIT 1",
+            [$hashedToken]
+        );
+
+        if (!$user) {
+            set_flash('error', 'Ce lien de réinitialisation est invalide ou a expiré.');
+            $this->redirect('/admin/forgot-password');
+            return;
+        }
+
+        $this->render('templates/admin/reset-password.php', [
+            'title' => 'Nouveau mot de passe',
+            'token' => $token,
+            'email' => $user['email'],
+        ], '');
+    }
+
+    /**
+     * Traite la réinitialisation du mot de passe
+     */
+    public function resetPassword(Request $request, array $params = []): void
+    {
+        $csrfToken = $request->post('_csrf_token', '');
+        $sessionToken = $_SESSION['csrf_token'] ?? '';
+        if (empty($csrfToken) || !hash_equals($sessionToken, $csrfToken)) {
+            set_flash('error', 'Le formulaire a expiré. Veuillez réessayer.');
+            $this->redirect('/admin/login');
+            return;
+        }
+
+        $token = $params['token'] ?? '';
+        $password = $request->post('password', '');
+        $passwordConfirm = $request->post('password_confirm', '');
+
+        if (empty($token)) {
+            set_flash('error', 'Lien de réinitialisation invalide.');
+            $this->redirect('/admin/login');
+            return;
+        }
+
+        $hashedToken = hash('sha256', $token);
+        $user = $this->db()->fetch(
+            "SELECT id, email FROM users WHERE reset_token = ? AND reset_expires > NOW() AND is_active = 1 LIMIT 1",
+            [$hashedToken]
+        );
+
+        if (!$user) {
+            set_flash('error', 'Ce lien de réinitialisation est invalide ou a expiré.');
+            $this->redirect('/admin/forgot-password');
+            return;
+        }
+
+        // Validation du mot de passe
+        if (strlen($password) < 8) {
+            set_flash('error', 'Le mot de passe doit contenir au moins 8 caractères.');
+            $this->redirect('/admin/reset-password/' . $token);
+            return;
+        }
+
+        if ($password !== $passwordConfirm) {
+            set_flash('error', 'Les mots de passe ne correspondent pas.');
+            $this->redirect('/admin/reset-password/' . $token);
+            return;
+        }
+
+        // Mettre à jour le mot de passe et supprimer le token
+        $this->db()->update('users', [
+            'password'      => password_hash($password, PASSWORD_DEFAULT),
+            'reset_token'   => null,
+            'reset_expires' => null,
+        ], 'id = ?', [(int) $user['id']]);
+
+        // Envoyer email de confirmation
+        try {
+            $mailer = new MailService();
+            $mailer->send($user['email'], 'Mot de passe modifié', 'password-changed', [
+                'email' => $user['email'],
+                'date'  => date('d/m/Y H:i'),
+                'ip'    => $request->ip(),
+            ]);
+        } catch (\Exception $e) {
+            error_log('Erreur envoi email confirmation: ' . $e->getMessage());
+        }
+
+        set_flash('success', 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter.');
         $this->redirect('/admin/login');
     }
 
