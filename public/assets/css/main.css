@@ -1670,6 +1670,294 @@ textarea.form-control {
   font-size: 0.9rem;
 }
 
+/* ===== INFOS PRATIQUES PAGE ===== */
+.quick-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.quick-card {
+  background: var(--blanc);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: 0 4px 20px rgba(42, 35, 24, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.quick-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(42, 35, 24, 0.12);
+}
+
+.quick-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.quick-card-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brun);
+  margin-bottom: 0.15rem;
+}
+
+.quick-card-value {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--vert-profond);
+}
+
+/* Two-column layout */
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Info block */
+.info-block {
+  background: var(--blanc);
+  border-radius: 20px;
+  border: 1px solid var(--creme-fonce);
+  overflow: hidden;
+}
+
+.info-block-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--creme);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--vert-profond);
+  border-bottom: 1px solid var(--creme-fonce);
+}
+
+/* Contact list */
+.contact-list {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--vert-clair);
+  flex-shrink: 0;
+  margin-top: 0.4rem;
+  transition: background 0.3s;
+}
+
+.contact-item:hover .contact-dot {
+  background: var(--orange-cidre);
+}
+
+.contact-item strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brun);
+  margin-bottom: 0.15rem;
+}
+
+.contact-item p {
+  color: var(--vert-profond);
+  font-weight: 500;
+}
+
+.contact-item a {
+  color: var(--orange-cidre);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.contact-item a:hover {
+  color: var(--vert-profond);
+}
+
+/* Access list */
+.access-list {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.access-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--texte);
+  line-height: 1.6;
+}
+
+.access-item .icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--vert-mousse);
+}
+
+.access-item strong {
+  color: var(--vert-profond);
+}
+
+/* Map card */
+.map-card {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(42, 35, 24, 0.08);
+  position: relative;
+}
+
+.map-card .leaflet-container {
+  height: 400px;
+  width: 100%;
+  z-index: 1;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem 1.5rem;
+  background: rgba(250, 245, 236, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 500;
+}
+
+.map-overlay-address {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--vert-profond);
+}
+
+/* Leaflet custom popup */
+.custom-popup .leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(42, 35, 24, 0.15);
+}
+
+.custom-popup .leaflet-popup-content {
+  margin: 0.75rem 1rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.custom-popup .leaflet-popup-content strong {
+  color: var(--vert-profond);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.custom-popup .leaflet-popup-tip {
+  box-shadow: 0 4px 12px rgba(42, 35, 24, 0.1);
+}
+
+/* CTA remerciements card */
+.cta-card {
+  display: block;
+  background: linear-gradient(135deg, var(--vert-profond), var(--vert-mousse));
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--creme);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cta-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(212, 131, 59, 0.15), transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(122, 158, 107, 0.15), transparent 50%);
+}
+
+.cta-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(44, 74, 46, 0.2);
+  color: var(--creme);
+}
+
+.cta-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--creme);
+  margin: 1rem 0 0.5rem;
+  position: relative;
+}
+
+.cta-card p {
+  color: rgba(250, 245, 236, 0.8);
+  margin-bottom: 0;
+  position: relative;
+}
+
+.cta-card .icon {
+  position: relative;
+}
+
+.cta-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  margin-top: 1.25rem;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.cta-card:hover .cta-arrow {
+  background: var(--orange-cidre);
+  transform: translateX(4px);
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
   from {
@@ -1765,6 +2053,14 @@ textarea.form-control {
   }
 
   .img-duo {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .two-cols {
     grid-template-columns: 1fr;
   }
 
@@ -1885,5 +2181,22 @@ textarea.form-control {
   .video-play-btn {
     width: 56px;
     height: 56px;
+  }
+
+  .quick-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .map-card .leaflet-container {
+    height: 300px;
+  }
+
+  .map-overlay {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cta-card {
+    padding: 2rem 1.5rem;
   }
 }

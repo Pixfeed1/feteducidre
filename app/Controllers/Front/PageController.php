@@ -41,6 +41,35 @@ class PageController extends Controller
         ]);
     }
 
+    public function infos(Request $request, array $params = []): void
+    {
+        $db = $this->db();
+
+        $page = $db->fetch(
+            "SELECT id, title, slug, content, excerpt, meta_title, meta_description
+             FROM pages WHERE slug = ? AND status = ?",
+            ['infos-pratiques', 'published']
+        );
+
+        $settings = [];
+        $rows = $db->fetchAll("SELECT `group`, `key`, value FROM settings WHERE `group` = 'general'");
+        foreach ($rows as $row) {
+            $settings[$row['group']][$row['key']] = $row['value'];
+        }
+
+        $seo = [
+            'title'       => $page['meta_title'] ?? 'Infos Pratiques — Fête du Cidre',
+            'description' => $page['meta_description'] ?? 'Toutes les informations pratiques pour la Fête du Cidre : accès, horaires, contact.',
+            'canonical'   => \App\Core\Config::baseUrl() . '/infos-pratiques',
+        ];
+
+        $this->render('templates/front/infos.php', [
+            'page'     => $page,
+            'seo'      => $seo,
+            'settings' => $settings,
+        ]);
+    }
+
     public function contact(Request $request, array $params = []): void
     {
         $db = $this->db();

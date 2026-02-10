@@ -63,7 +63,7 @@ class App
 
         // Pages génériques par slug
         $r->get('/origines', [\App\Controllers\Front\PageController::class, 'show']);
-        $r->get('/infos-pratiques', [\App\Controllers\Front\PageController::class, 'show']);
+        $r->get('/infos-pratiques', [\App\Controllers\Front\PageController::class, 'infos']);
         $r->get('/remerciements', [\App\Controllers\Front\PageController::class, 'show']);
         $r->get('/mentions-legales', [\App\Controllers\Front\PageController::class, 'show']);
         $r->get('/programme-2025', [\App\Controllers\Front\PageController::class, 'show']);
