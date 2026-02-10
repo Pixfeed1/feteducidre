@@ -10,6 +10,8 @@ namespace App\Core;
  */
 class Theme
 {
+    private const HEX_COLOR_PATTERN = '/^#[0-9a-fA-F]{6}$/';
+
     /** Couleurs par défaut de la charte graphique */
     private const DEFAULT_COLORS = [
         'vert-profond'  => '#2C4A2E',
@@ -47,7 +49,7 @@ class Theme
             );
 
             foreach ($rows as $row) {
-                if (isset($colors[$row['key']]) && preg_match('/^#[0-9a-fA-F]{6}$/', $row['value'])) {
+                if (isset($colors[$row['key']]) && preg_match(self::HEX_COLOR_PATTERN,$row['value'])) {
                     $colors[$row['key']] = $row['value'];
                 }
             }
@@ -80,7 +82,7 @@ class Theme
      */
     public static function saveColor(string $name, string $hex): bool
     {
-        if (!preg_match('/^#[0-9a-fA-F]{6}$/', $hex)) {
+        if (!preg_match(self::HEX_COLOR_PATTERN,$hex)) {
             return false;
         }
 

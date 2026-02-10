@@ -20,6 +20,14 @@ function slugify(string $text): string
 }
 
 /**
+ * Nettoie un numéro de téléphone pour un lien tel: (garde chiffres et +)
+ */
+function phone_clean(string $phone): string
+{
+    return preg_replace('/[^0-9+]/', '', $phone);
+}
+
+/**
  * Tronque un texte proprement (sur un mot entier)
  */
 function truncate(string $text, int $length = 160, string $suffix = '…'): string

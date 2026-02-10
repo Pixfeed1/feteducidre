@@ -14,6 +14,8 @@ use App\Core\Config;
  */
 class AssetService
 {
+    private const HASH_PATTERN = '/\.[a-f0-9]{8,}$/';
+
     private static ?self $instance = null;
 
     /** Manifeste chargé en mémoire (chemin original → chemin versionné) */
@@ -109,7 +111,7 @@ class AssetService
 
                 // Ignorer les fichiers qui contiennent déjà un hash (pattern: name.hash.ext)
                 $basename = pathinfo($file, PATHINFO_FILENAME);
-                if (preg_match('/\.[a-f0-9]{8,}$/', $basename)) {
+                if (preg_match(self::HASH_PATTERN, $basename)) {
                     continue;
                 }
 
@@ -195,7 +197,7 @@ class AssetService
                 $basename = pathinfo($file, PATHINFO_FILENAME);
 
                 // Vérifier si c'est un fichier versionné (contient un hash)
-                if (!preg_match('/\.[a-f0-9]{8,}$/', $basename)) {
+                if (!preg_match(self::HASH_PATTERN, $basename)) {
                     continue;
                 }
 

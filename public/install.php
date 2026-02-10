@@ -16,6 +16,12 @@ declare(strict_types=1);
 $basePath = dirname(__DIR__);
 $lockFile = $basePath . '/storage/.installed';
 
+/** Assainit un nom de base de données (garde uniquement [a-zA-Z0-9_]) */
+function sanitizeDbName(string $name): string
+{
+    return preg_replace('/[^a-zA-Z0-9_]/', '', $name);
+}
+
 /* ── Rediriger si déjà installé ── */
 if (file_exists($lockFile)) {
     header('Location: /admin');
@@ -183,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isAjax) {
             $mysqlVersion = $pdo->query('SELECT VERSION()')->fetchColumn();
 
             /* Vérifier/créer la base */
-            $safeName = preg_replace('/[^a-zA-Z0-9_]/', '', $name);
+            $safeName = sanitizeDbName($name);
             $pdo->exec("CREATE DATABASE IF NOT EXISTS `{$safeName}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
             $pdo->exec("USE `{$safeName}`");
 
@@ -213,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isAjax) {
     if ($action === 'install') {
         $host     = trim($_POST['db_host'] ?? 'localhost');
         $port     = trim($_POST['db_port'] ?? '3306');
-        $dbName   = preg_replace('/[^a-zA-Z0-9_]/', '', trim($_POST['db_name'] ?? ''));
+        $dbName   = sanitizeDbName(trim($_POST['db_name'] ?? ''));
         $dbUser   = trim($_POST['db_user'] ?? '');
         $dbPass   = $_POST['db_pass'] ?? '';
 

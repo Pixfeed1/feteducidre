@@ -23,7 +23,7 @@ try {
 } catch (\Exception) {
     $phone = '06.79.96.87.54';
 }
-$phoneClean = preg_replace('/[^0-9+]/', '', $phone);
+$phoneClean = phone_clean($phone);
 
 // Récupérer HelloAsso URL
 try {
@@ -35,14 +35,6 @@ try {
     $helloassoUrl = '';
 }
 
-// Logo SVG inline
-$logoSvg = '<svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="28" cy="30" r="22" fill="#2C4A2E"/>
-  <ellipse cx="28" cy="30" rx="16" ry="18" fill="#4A6B3E"/>
-  <ellipse cx="28" cy="28" rx="10" ry="12" fill="#7A9E6B"/>
-  <path d="M28 8 C26 4, 30 2, 32 6" stroke="#5C3D2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <ellipse cx="34" cy="10" rx="5" ry="3" fill="#7A9E6B" transform="rotate(30 34 10)"/>
-</svg>';
 ?>
 
 <!-- TOPBAR -->
@@ -57,7 +49,7 @@ $logoSvg = '<svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/s
 <nav class="main-nav" id="navbar">
     <div class="nav-inner">
         <a href="/" class="logo" aria-label="Fête du Cidre — Accueil">
-            <div class="logo-icon"><?= $logoSvg ?></div>
+            <div class="logo-icon"><img src="/assets/images/logo.png" alt="Fête du Cidre" width="56" height="56"></div>
             <div class="logo-text">
                 Fête du Cidre
                 <span>L'Hôtellerie de Flée</span>

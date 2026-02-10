@@ -103,7 +103,7 @@ $siteName = $settings['general']['association_name'] ?? 'Association Fête du Ci
                                 <div>
                                     <strong>Téléphone</strong>
                                     <p style="margin-top:.25rem">
-                                        <a href="tel:<?= e(preg_replace('/\s+/', '', $phone)) ?>"><?= e($phone) ?></a>
+                                        <a href="tel:<?= e(phone_clean($phone)) ?>"><?= e($phone) ?></a>
                                     </p>
                                 </div>
                             </div>

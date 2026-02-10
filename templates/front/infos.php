@@ -97,7 +97,7 @@ $mapLng = (float) ($settings['general']['map_longitude'] ?? -0.855);
                             <span class="contact-dot"></span>
                             <div>
                                 <strong>Téléphone</strong>
-                                <p><a href="tel:<?= e(preg_replace('/[\s.]/', '', $phone)) ?>"><?= e($phone) ?></a></p>
+                                <p><a href="tel:<?= e(phone_clean($phone)) ?>"><?= e($phone) ?></a></p>
                             </div>
                         </div>
                     <?php endif; ?>

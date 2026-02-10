@@ -223,19 +223,9 @@ class ImageService
     {
         $timestamp = date('Ymd_His');
         $random = bin2hex(random_bytes(8));
-        $slug = $this->slugify(pathinfo($originalName, PATHINFO_FILENAME));
+        $slug = slugify(pathinfo($originalName, PATHINFO_FILENAME));
 
         return $timestamp . '_' . $random . '_' . $slug;
-    }
-
-    /**
-     * Transforme un nom de fichier en slug propre
-     */
-    private function slugify(string $text): string
-    {
-        $text = transliterator_transliterate('Any-Latin; Latin-ASCII; Lower()', $text);
-        $text = preg_replace('/[^a-z0-9]+/', '-', $text);
-        return trim($text, '-');
     }
 
     /**
