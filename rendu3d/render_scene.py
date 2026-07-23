@@ -13,6 +13,8 @@ GLB, VIEW, OUT = argv[0], argv[1], argv[2]
 WIDTH = int(argv[3]) if len(argv) > 3 else 1920
 SAMPLES = int(argv[4]) if len(argv) > 4 else 64
 HEIGHT = WIDTH * 10 // 16  # viewport maquette 16:10
+if len(sys.argv) and ("corner" in sys.argv or "corner2" in sys.argv):
+    HEIGHT = WIDTH * 5 // 4    # cadrage portrait comme la photo de reference
 
 def t2b(v):
     return Vector((v[0], -v[2], v[1]))
@@ -24,6 +26,8 @@ CAMS = {
     "boulangerie":  ([8.6, 1.68, -1.5], [5.15, 1.3, -4.0]),
     "plan_travail": ([2.8, 1.55, -1.5], [4.14, 1.0, -4.10]),
     "ensemble":     ([9.2, 6.6, 3.0], [0.9, 1.1, -3.2]),
+    "corner":       ([3.0, 1.5, -1.9], [4.45, 1.0, -4.9]),
+    "corner2":      ([1.55, 1.55, -1.05], [4.25, 1.0, -5.05]),
 }
 SPOTS = [[1.4, -2.0], [3.6, -4.7], [-8.6, -4.0], [-4.6, -1.4], [7.2, -4.4], [10.4, -2.4], [8.2, -6.9]]
 H = 2.70
@@ -152,6 +156,62 @@ def make_pbr(name, builder, mapping_rot=0.0):
     return mat
 
 m_sol = make_pbr("sol", MATERIALS["carrelage_sol_beige"], mapping_rot=math.radians(45))
+
+m_panneau = bpy.data.materials.new("pbr_panneau_anthracite"); m_panneau.use_nodes = True
+_nt = m_panneau.node_tree; _b = _nt.nodes["Principled BSDF"]
+_co = _nt.nodes.new("ShaderNodeTexCoord")
+_mp = _nt.nodes.new("ShaderNodeMapping")
+_nt.links.new(_co.outputs["Object"], _mp.inputs["Vector"])
+_br = _nt.nodes.new("ShaderNodeTexBrick")
+_br.offset = 0.0
+_br.inputs["Scale"].default_value = 1.0
+_br.inputs["Brick Width"].default_value = 0.85
+_br.inputs["Row Height"].default_value = 0.90
+_br.inputs["Mortar Size"].default_value = 0.004
+_br.inputs["Color1"].default_value = (0.055, 0.06, 0.065, 1)
+_br.inputs["Color2"].default_value = (0.05, 0.055, 0.06, 1)
+_br.inputs["Mortar"].default_value = (0.02, 0.02, 0.022, 1)
+_nt.links.new(_mp.outputs["Vector"], _br.inputs["Vector"])
+_nt.links.new(_br.outputs["Color"], _b.inputs["Base Color"])
+_b.inputs["Roughness"].default_value = 0.55
+_bmp = _nt.nodes.new("ShaderNodeBump"); _bmp.inputs["Strength"].default_value = 0.15; _bmp.invert = True
+_nt.links.new(_br.outputs["Fac"], _bmp.inputs["Height"])
+_nt.links.new(_bmp.outputs["Normal"], _b.inputs["Normal"])
+# tout mesh dans l'emprise de la gaine (G=4.29/-5.15, 1.50 m) -> anthracite
+for _o in bpy.data.objects:
+    if _o.type != 'MESH':
+        continue
+    _bb = [_o.matrix_world @ Vector(_c) for _c in _o.bound_box]
+    _cx = sum(_p.x for _p in _bb) / 8; _cy = sum(_p.y for _p in _bb) / 8
+    _dz = max(_p.z for _p in _bb) - min(_p.z for _p in _bb)
+    if 3.4 <= _cx <= 5.2 and 4.3 <= _cy <= 6.0 and _dz > 1.5:
+        if len(_o.data.materials) == 0:
+            _o.data.materials.append(m_panneau)
+        else:
+            for _i in range(len(_o.data.materials)):
+                _o.data.materials[_i] = m_panneau
+        print("PANNEAU ->", _o.name)
+
+# murs rouges -> bordeaux profond (reduction valeur/saturation des textures rougeatres)
+import numpy as _np
+for _m in bpy.data.materials:
+    if not _m.name.startswith("Material_") or not _m.use_nodes:
+        continue
+    for _n in _m.node_tree.nodes:
+        if _n.bl_idname == "ShaderNodeTexImage" and _n.image and _n.image.size[0] > 0:
+            _img = _n.image
+            _px = _np.array(_img.pixels[:]).reshape(-1, 4)
+            _mean = _px[:, :3].mean(axis=0)
+            if _mean[0] > 0.25 and _mean[0] > 1.8 * _mean[1]:
+                _hs = _m.node_tree.nodes.new("ShaderNodeHueSaturation")
+                _hs.inputs["Value"].default_value = 0.55
+                _hs.inputs["Saturation"].default_value = 0.9
+                for _l in list(_n.outputs["Color"].links):
+                    _to = _l.to_socket
+                    _m.node_tree.links.remove(_l)
+                    _m.node_tree.links.new(_hs.outputs["Color"], _to)
+                _m.node_tree.links.new(_n.outputs["Color"], _hs.inputs["Color"])
+                print("BORDEAUX ->", _m.name)
 m_granit = make_pbr("granit", MATERIALS["granit_pilier"])
 
 ceiling_objs = []
@@ -185,19 +245,19 @@ if VIEW in ("dessus", "ensemble"):
 for x, z in SPOTS:
     bpy.ops.object.light_add(type='AREA', location=(x, -z, H - 0.05))
     L = bpy.context.object
-    L.data.energy = 55; L.data.size = 0.35
-    L.data.color = (1.0, 0.92, 0.80)
+    L.data.energy = 70; L.data.size = 0.35
+    L.data.color = (1.0, 0.85, 0.66)
 
 # nappe douce generale (plafond lumineux)
 bpy.ops.object.light_add(type='AREA', location=(1.0, 4.0, H - 0.02))
 L = bpy.context.object
-L.data.energy = 350; L.data.size = 16
+L.data.energy = 300; L.data.size = 16
 L.data.color = (1.0, 0.96, 0.90)
 
 # lumiere du jour depuis la facade (z three = -0.65 -> y blender = 0.65)
 bpy.ops.object.light_add(type='AREA', location=(2.0, 0.75, 1.8))
 L = bpy.context.object
-L.data.energy = 260; L.data.size = 6
+L.data.energy = 130; L.data.size = 6
 L.data.color = (0.88, 0.92, 1.0)
 L.rotation_euler = (math.radians(-75), 0, 0)
 
