@@ -12,6 +12,7 @@ import grillage
 import parasols
 import nuages
 import mer
+import serviette
 import enfant
 
 # LE FORMAT. 1800 x 1350, soit du 4:3. La hauteur ne change pas : c'est elle
@@ -33,6 +34,10 @@ AVEC_GRILLAGE = "sans" not in sys.argv
 # Remis a True, tout revient - le buisson, son ombrage, et le bord de sable
 # ondule qui le suivait.
 AVEC_VERDURE = False
+
+# L'ENFANT est retire : la scene se construit d'abord comme un lieu, les
+# personnages viendront apres. Remis a True, il revient avec ses jouets.
+AVEC_ENFANT = False
 grillage.LARGEUR = LARGEUR
 
 # LE DECOUPAGE. Ciel et sable ont exactement la meme hauteur ; la verdure
@@ -168,8 +173,24 @@ coupes_abris, abris, nb_abris = parasols.engendrer(indent=4)
 #
 #   Mets-y ce que tu veux : un export d'Inkscape, un Humaaans telecharge, une
 #   figure sortie de importer_figure.py. Il est insere sans etre relu.
+# LA SERVIETTE, posee sous le parasol. Son bord loin est plus court que son
+# bord pres - c'est ce qui la couche au sol - et son lisere clair est un vrai
+# decalage a marge constante, pas une reduction vers le centre. Voir
+# serviette.py.
+# ELLE NE DOIT PAS TOUCHER LE PARASOL. Au premier essai elle etait posee
+# juste sous la toile : deux verts en contact ne font plus deux objets, ils
+# font une seule tache. Sur le modele le parasol est en haut a gauche et la
+# serviette nettement en dessous, sans contact - c'est le sable entre les
+# deux qui les separe, pas une difference de couleur.
+SERVIETTE = serviette.dessiner(cx=830, y_pres=962, largeur=470,
+                               profondeur=205, fuite=0.88, biais=-34,
+                               indent=2)
+
 import os
-if os.path.exists("personnage.svg"):
+if not AVEC_ENFANT:
+    GAMIN = "  <!-- enfant retire -->"
+    SOURCE_PERSONNAGE = "aucun"
+elif os.path.exists("personnage.svg"):
     GAMIN = ('  <!-- personnage.svg, depose tel quel - le script ne le '
              'reecrit jamais -->\n'
              + open("personnage.svg", encoding="utf-8").read())
@@ -332,6 +353,17 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 </g>
 
 
+<!-- ################## LA SERVIETTE ################## -->
+<!-- Posee sur le sable et SOUS le parasol : le mat doit passer par-dessus,
+     sinon il a l'air plante devant la serviette au lieu d'a travers. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 4 - La serviette"
+   id="coucheServiette">
+
+{SERVIETTE}
+
+</g>
+
+
 <!-- ################## LES ABRIS DE PLAGE ################## -->
 <!-- Des coupoles a FUSEAUX, pas des eventails. Les coutures sont reparties
      en azimut, pas en largeur apparente : une couture a l'azimut phi tombe
@@ -383,7 +415,7 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
            D1=DEC1, D2=DEC2, D3=DEC3,
            BORD=BORD_SABLE, COUPES=coupes, FEUILLAGE=feuillage,
            FENCE=fence, ABRIS=abris, COUPES_ABRIS=coupes_abris,
-           GAMIN=GAMIN,
+           GAMIN=GAMIN, SERVIETTE=SERVIETTE,
            HP0="%.0f" % (grillage.projeter(0,0)[1]-grillage.projeter(0,1)[1]),
            HP15="%.0f" % (grillage.projeter(15,0)[1]-grillage.projeter(15,1)[1]),
            EC0="%.0f" % (grillage.projeter(1,0)[0]-grillage.projeter(0,0)[0]),

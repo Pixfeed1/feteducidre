@@ -64,6 +64,7 @@ une fois l'image sous les yeux.
 | **Parasol, nombre** | **un seul**, planté dans un coin. Deux de part et d'autre du sujet font une composition en balance que le modèle ne fait pas. |
 | **Mer** | crête à y=562 sur 760, soit **26 % de la hauteur**. Ligne moyenne à **0,78 × H**. |
 | **Vague** | **3 ondulations** dans le cadre, amplitude ± 58 sur 1800, soit une raideur de 0,19. |
+| **Serviette** | un **quadrilatère**, bord loin ~0,88 × le bord près. Liséré clair à marge constante à l'intérieur. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
 Réglage retenu : `grainToileVerte` **0.38**, `grainToileBlanche` **1.00**,
@@ -114,6 +115,18 @@ phase de la vague est calculée pour poser un creux sur chaque bord : on voit
 alors exactement `CRETES` ondulations entières. Avec une phase libre, un bout
 de crête dépassait à droite et on en comptait quatre.
 
+**Un liséré intérieur n'est pas une homothétie.** Réduire une forme vers son
+centre rapproche d'autant plus les bords qu'ils sont loin du centre : la marge
+serait plus large en haut qu'en bas, et sur une forme en perspective ça se
+voit. `serviette.eroder()` décale chaque côté de la même distance le long de
+sa normale puis recoupe les côtés voisins — marge constante, vérifiée à
+22,00 px sur les quatre côtés.
+
+**Deux aplats de même couleur qui se touchent ne font plus deux objets.** La
+serviette posée sous le parasol se fondait avec lui. Ce n'est pas une
+question de teinte mais de contact : sur le modèle c'est le sable entre les
+deux qui les sépare.
+
 **Une forme posée sur une ligne doit y être tangente.** Les bosses des
 nuages débordaient sous la ligne de pose et le dessous devenait bosselé :
 demi-hauteur égale à la moitié de l'élévation, centre remonté d'autant.
@@ -146,10 +159,11 @@ Les décalages de contour restent donc à la charge de `trace.py`.
 | `perspective.py` | l'interrupteur `FRONTAL`. Vue de face ou point de fuite. |
 | `verdure.py` | le buisson, retiré de la version validée (`AVEC_VERDURE`) |
 | `mer.py` | la mer et sa vague, au relevé du modèle |
+| `serviette.py` | la serviette : quadrilatère fuyant + liséré à marge constante |
 | `grillage.py` | la clôture (retirée de la version validée) |
 | `nuages.py` | les nuages, au rapport du modèle |
 | `parasols.py` | `un_eventail()` — la forme du modèle. `un_parasol()` — l'ancienne coupole à fuseaux, conservée. |
-| `enfant.py` | l'enfant et ses jouets |
+| `enfant.py` | l'enfant et ses jouets, retiré de la version validée (`AVEC_ENFANT`) |
 | `trace.py` | l'épaisseur variable, l'équivalent calculé du *Power Stroke* |
 | `booleen.py` | union / différence / intersection / simplification, calculées par Inkscape |
 | `importer_figure.py` | greffer un personnage téléchargé et l'accorder à la palette |
