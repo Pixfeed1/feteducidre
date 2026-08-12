@@ -144,7 +144,7 @@
   <!-- Le grain du VERT de la toile. Cale sur le MODELE, pas sur le ciel :
        11.9 niveaux d'ecart-type mesures, contre 3.9 avant.
        La reference charge les aplats satures bien plus que ses fonds. -->
-  <filter id="grainToileVerte" x="-2%" y="-2%" width="104%" height="104%">
+  <filter id="grainToileVive" x="-2%" y="-2%" width="104%" height="104%">
     <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2"
                   seed="44" result="bruit"/>
     <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
@@ -417,7 +417,7 @@
     <g inkscape:label="Parasol 1 - gauche">
       <ellipse cx="470.0" cy="954.2" rx="70.8" ry="21.2" fill="#EDEBE0" opacity="0.55"/>
       <path d="M470.0 950.2 L344.6 764.3" stroke="#1B2026" stroke-width="10.6" stroke-linecap="round"/>
-      <g fill="#2F9E52" filter="url(#grainToileVerte)">
+      <g fill="#2F9E52" filter="url(#grainToileVive)">
           <path d="M344.6 764.3 L149.0 896.3 C135.1 875.8 124.6 853.2 117.8 829.4 C110.9 805.6 107.9 780.8 108.8 756.1 Z"/>
           <path d="M344.6 764.3 L158.7 619.0 C173.9 599.5 192.1 582.5 212.7 568.7 C233.2 554.8 255.8 544.3 279.6 537.5 Z"/>
           <path d="M344.6 764.3 L425.3 542.6 C448.6 551.0 470.4 563.1 489.9 578.4 C509.4 593.6 526.4 611.8 540.3 632.4 Z"/>

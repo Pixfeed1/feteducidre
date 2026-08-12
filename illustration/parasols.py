@@ -323,7 +323,8 @@ def un_parasol(nom, cx, cy, rx, ry, n, decalage, pied, inclinaison, indent=4,
 
 
 def engendrer(indent=4):
-    corps = [un_eventail(*p, indent=indent) for p in PARASOLS]
+    corps = [un_eventail(*p, indent=indent, pans=PANS_ACTIFS)
+             for p in PARASOLS]
     return "", "\n\n".join(corps), len(PARASOLS)
 
 
@@ -351,9 +352,31 @@ def engendrer(indent=4):
 #   inclinaison  ~34 deg      secteurs  5 (impair : colore aux deux bouts)
 #   mat          ~0.95 x R    largeur du mat  ~0.04 x R, tres fin
 
+ROUGE = "#E8433F"
+JAUNE = "#F5C542"
+
+# LES PANS, dans l'ordre, repetes en boucle. Chaque entree est un couple
+# (couleur, filtre de grain) : le grain ne peut pas etre commun, un point
+# clair sur du blanc ne se voit pas alors qu'il creve un aplat sature.
+# Le filtre est nomme d'apres la SATURATION du pan, pas d'apres sa couleur :
+# le mouchetis pose des points a opacite fixe, son effet ne depend pas de la
+# teinte. Un rouge et un vert de meme saturation prennent le meme reglage ;
+# seul le blanc en demande un autre, parce qu'un point clair sur du blanc ne
+# se voit pas.
+VIF, PALE = "grainToileVive", "grainToileBlanche"
+
+PANS_VERT      = [(VERT, VIF), (BLANC, PALE)]
+PANS_ROUGE     = [(ROUGE, VIF), (BLANC, PALE)]
+PANS_TRICOLORE = [(ROUGE, VIF), (BLANC, PALE), (VERT, VIF), (BLANC, PALE),
+                  (ROUGE, VIF)]
+
+# Celui qui sert dans la scene.
+PANS_ACTIFS = PANS_VERT
+
+
 def un_eventail(nom, cx, cy, rayon, n, inclinaison, pied=0.95,
-                largeur_mat=0.045, indent=4, couleurs=None,
-                filtre_a="grainToileVerte", filtre_b="grainToileBlanche"):
+                largeur_mat=0.045, indent=4, pans=None,
+                couleurs=None, filtre_a=None, filtre_b=None):
     u"""
     (cx, cy) est le MILIEU DU BORD DROIT, avant inclinaison - c'est le point
     ou le mat rejoint la toile, et le centre de tous les secteurs.
@@ -368,8 +391,12 @@ def un_eventail(nom, cx, cy, rayon, n, inclinaison, pied=0.95,
     def T(p):
         return tourner(p, ancre, inclinaison)
 
-    couleurs = couleurs or (VERT, BLANC)
-    groupes = ([], [])
+    # Compatibilite avec l'ancien appel a deux couleurs.
+    if pans is None:
+        pans = (PANS_VERT if couleurs is None else
+                [(couleurs[0], filtre_a or "grainToileVerte"),
+                 (couleurs[1], filtre_b or "grainToileBlanche")])
+    groupes = [[] for _ in pans]
     for k in range(n):
         # Les secteurs sont egaux EN ANGLE. C'est ce qui les distingue des
         # fuseaux d'une coupole, resserres vers les bords.
@@ -378,7 +405,7 @@ def un_eventail(nom, cx, cy, rayon, n, inclinaison, pied=0.95,
         O = T((cx, cy))
         A = T((cx + rayon * math.cos(t1), cy - rayon * math.sin(t1)))
         arc = cubiques((cx, cy), (rayon, 0.0), (0.0, -rayon), t1, t2, T)
-        groupes[k % 2].append(
+        groupes[k % len(pans)].append(
             u'%s      <path d="M%.1f %.1f L%.1f %.1f %s Z"/>'
             % (e, O[0], O[1], A[0], A[1], arc))
 
@@ -393,17 +420,17 @@ def un_eventail(nom, cx, cy, rayon, n, inclinaison, pied=0.95,
              u' opacity="0.55"/>'
              % (ancre[0], ancre[1] + 4, rayon * 0.30, rayon * 0.09, OMBRE))
 
-    return "\n".join([
-        u'%s<g inkscape:label="%s">' % (e, nom),
-        u'%s  %s' % (e, ombre),
-        u'%s  %s' % (e, mat),
-        u'%s  <g fill="%s" filter="url(#%s)">' % (e, couleurs[0], filtre_a),
-        "\n".join(groupes[0]),
-        u'%s  </g>' % e,
-        u'%s  <g fill="%s" filter="url(#%s)">' % (e, couleurs[1], filtre_b),
-        "\n".join(groupes[1]),
-        u'%s  </g>' % e,
-        u'%s</g>' % e])
+    lignes = [u'%s<g inkscape:label="%s">' % (e, nom),
+              u'%s  %s' % (e, ombre),
+              u'%s  %s' % (e, mat)]
+    for (couleur, filtre), formes in zip(pans, groupes):
+        if not formes:
+            continue
+        lignes += [u'%s  <g fill="%s" filter="url(#%s)">' % (e, couleur, filtre),
+                   "\n".join(formes),
+                   u'%s  </g>' % e]
+    lignes.append(u'%s</g>' % e)
+    return "\n".join(lignes)
 
 
 if __name__ == "__main__":

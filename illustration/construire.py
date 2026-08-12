@@ -404,7 +404,7 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
                                 "moyenne, comme le\n       vert de la toile : "
                                 "meme reglage, meme resultat.")
                       + "\n\n"
-                      + mouchetis("grainToileVerte", 44, "0.38",
+                      + mouchetis("grainToileVive", 44, "0.38",
                                 "Le grain du VERT de la toile. Cale sur le "
                                 "MODELE, pas sur le ciel :\n       11.9 niveaux "
                                 "d'ecart-type mesures, contre 3.9 avant.\n"
