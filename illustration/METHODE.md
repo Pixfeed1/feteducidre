@@ -11,6 +11,11 @@ règle ci-dessous a coûté au moins un aller-retour raté.
 
 ## La règle de travail
 
+**Un découpage se donne en fractions, pas en pixels.** `PART_CIEL`,
+`PART_SABLE`, `PART_MER` dans `construire.py` : l'horizon, le haut du sable et
+la ligne moyenne de la vague en découlent tous. Changer une fraction suffit,
+il n'y a aucun nombre à rattraper à la main ailleurs.
+
 **Par paliers.** Un élément à la fois, rendu isolé, validé, puis intégré.
 `essai_parasol.py` est le patron de ce genre de banc d'essai : il importe les
 filtres de `construire.py` pour que ce qu'on juge soit exactement ce qui ira
@@ -55,7 +60,8 @@ une fois l'image sous les yeux.
 | **Mât** | droit, perpendiculaire au diamètre, ~0,95 × le rayon, très fin (~1/22 du rayon). |
 | **Inclinaison** | ~34°, le mât partant vers le bas à droite. |
 | **Grain** | la référence **charge les aplats saturés bien plus que ses fonds**. Le parasol est franchement moucheté là où le ciel reste lisse. |
-| **Composition** | ciel, sable, mer. **Pas de bande de verdure** : notre mur vert occupait la place que le modèle donne au sable. |
+| **Composition** | ciel **30 %**, sable **44 %**, mer **26 %**, mesuré sur 760 px de haut. Pas de bande de verdure. |
+| **Parasol, nombre** | **un seul**, planté dans un coin. Deux de part et d'autre du sujet font une composition en balance que le modèle ne fait pas. |
 | **Mer** | crête à y=562 sur 760, soit **26 % de la hauteur**. Ligne moyenne à **0,78 × H**. |
 | **Vague** | **3 ondulations** dans le cadre, amplitude ± 58 sur 1800, soit une raideur de 0,19. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |

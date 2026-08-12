@@ -45,7 +45,20 @@ grillage.LARGEUR = LARGEUR
 # le ciel et le sable retrouvent des hauteurs voisines - mais ce n'est plus
 # une egalite imposee, c'est une consequence de la geometrie, et cela ne peut
 # pas etre autrement sans mentir sur l'espace.
-CIEL_BAS = int(P.FUITE_Y)
+# LE DECOUPAGE VIENT DU MODELE, pas de notre point de fuite.
+#   ciel   0   -> 230 sur 760   =  30 %
+#   sable  230 -> 562           =  44 %
+#   mer    562 -> 760           =  26 %
+# Les trois parts sont donnees ici en fractions et TOUT en decoule : la ligne
+# d'horizon, le haut du sable, et la ligne moyenne de la vague. Changer une
+# fraction suffit ; il n'y a aucun nombre de pixels a rattraper a la main.
+PART_CIEL, PART_SABLE, PART_MER = 0.30, 0.44, 0.26
+
+CIEL_BAS = int(round(PART_CIEL * HAUTEUR))
+CRETE_MER = int(round((PART_CIEL + PART_SABLE) * HAUTEUR))
+# La vague oscille AUTOUR d'une moyenne ; c'est sa CRETE qui doit tomber sur
+# la limite mesuree, donc la moyenne descend d'une amplitude.
+mer.MOYENNE = CRETE_MER + mer.AMPLITUDE
 
 CIEL = "#E4F1FA"
 NUAGE_CLAIR, NUAGE_FROID = "#FFFFFF", "#D3E5F1"

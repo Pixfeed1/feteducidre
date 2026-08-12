@@ -78,9 +78,12 @@ OMBRE = "#EDEBE0"
 # comme un motif, pas comme deux objets. Tous deux gardent un nombre IMPAIR,
 # qui met la couleur pleine aux deux extremites - c'est ce que fait la
 # reference.
+# UN SEUL. Le second, a droite, encadrait la scene de facon trop reguliere -
+# deux parasols de part et d'autre de l'enfant font une composition en
+# balance, et le modele ne fait pas cela : son parasol est seul, planté dans
+# un coin, et c'est le vide autour de lui qui fait la plage.
 PARASOLS = [
     ("Parasol 1 - gauche", 470, 726, 236, 5, -34.0),
-    ("Parasol 2 - droite", 1330, 744, 196, 7,  26.0),
 ]
 
 

@@ -8,7 +8,7 @@
   si tu comptes relancer le script.
 
   LE DECOUPAGE
-    COUCHE 1 - Le ciel        au-dessus de l'horizon, a 470
+    COUCHE 1 - Le ciel        au-dessus de l'horizon, a 405
     LE GRILLAGE               plante au sol, il fuit vers la droite
     COUCHE 2 - Le buisson     plante LE LONG du grillage, il fuit avec lui
     COUCHE 3 - Le sable       le sol devant le buisson
@@ -200,7 +200,7 @@
        ne sait pas varier dans l'espace ; on superpose donc l'aplat nu et le
        meme aplat graine, masque par ce degrade. -->
   <linearGradient id="degradeGrain" gradientUnits="userSpaceOnUse"
-                  x1="0" y1="0" x2="0" y2="470">
+                  x1="0" y1="0" x2="0" y2="405">
     <stop offset="0"    stop-color="#111111"/>
     <stop offset="0.45" stop-color="#8A8A8A"/>
     <stop offset="1"    stop-color="#FFFFFF"/>
@@ -395,7 +395,7 @@
      et les lobes de la haie qui fait lire deux matieres. -->
 <g inkscape:groupmode="layer" inkscape:label="COUCHE 3 - Le sable" id="couche3">
   <g inkscape:groupmode="layer" inkscape:label="06 Aplat" id="palier06">
-    <path fill="#FAFAF6" d="M0 470 L1800 470 L1800 1350 L0 1350 Z"/>
+    <path fill="#FAFAF6" d="M0 405 L1800 405 L1800 1350 L0 1350 Z"/>
   </g>
 </g>
 
@@ -425,22 +425,6 @@
       <g fill="#FBFCFA" filter="url(#grainToileBlanche)">
           <path d="M344.6 764.3 L108.8 756.1 C109.6 731.3 114.4 706.9 122.9 683.6 C131.3 660.3 143.4 638.5 158.7 619.0 Z"/>
           <path d="M344.6 764.3 L279.6 537.5 C303.4 530.6 328.1 527.6 352.9 528.5 C377.6 529.3 402.1 534.1 425.3 542.6 Z"/>
-      </g>
-    </g>
-
-    <g inkscape:label="Parasol 2 - droite">
-      <ellipse cx="1330.0" cy="934.2" rx="58.8" ry="17.6" fill="#EDEBE0" opacity="0.55"/>
-      <path d="M1330.0 930.2 L1411.6 762.8" stroke="#1B2026" stroke-width="8.8" stroke-linecap="round"/>
-      <g fill="#2F9E52" filter="url(#grainToileVerte)">
-          <path d="M1411.6 762.8 L1235.5 676.9 C1241.9 663.7 1249.8 651.3 1259.0 639.9 C1268.2 628.4 1278.7 618.1 1290.2 609.0 Z"/>
-          <path d="M1411.6 762.8 L1369.0 571.5 C1383.3 568.3 1397.9 566.8 1412.6 566.8 C1427.3 566.9 1441.9 568.6 1456.2 572.0 Z"/>
-          <path d="M1411.6 762.8 L1534.6 610.2 C1546.0 619.4 1556.4 629.9 1565.5 641.4 C1574.6 652.9 1582.3 665.4 1588.6 678.7 Z"/>
-          <path d="M1411.6 762.8 L1607.6 763.8 C1607.5 778.5 1605.8 793.1 1602.5 807.4 C1599.2 821.7 1594.2 835.6 1587.8 848.8 Z"/>
-      </g>
-      <g fill="#FBFCFA" filter="url(#grainToileBlanche)">
-          <path d="M1411.6 762.8 L1290.2 609.0 C1301.7 599.9 1314.2 592.1 1327.5 585.8 C1340.7 579.5 1354.6 574.7 1369.0 571.5 Z"/>
-          <path d="M1411.6 762.8 L1456.2 572.0 C1470.5 575.3 1484.4 580.2 1497.5 586.7 C1510.7 593.1 1523.2 601.0 1534.6 610.2 Z"/>
-          <path d="M1411.6 762.8 L1588.6 678.7 C1594.9 691.9 1599.7 705.9 1602.9 720.2 C1606.1 734.5 1607.7 749.1 1607.6 763.8 Z"/>
       </g>
     </g>
 
@@ -489,7 +473,7 @@
 <g inkscape:groupmode="layer" inkscape:label="COUCHE 6 - La mer" id="couche6"
    filter="url(#grainMer)">
 
-  <path d="M-600.0 1111.0 C-500.0 1111.0 -400.0 995.0 -300.0 995.0 C-200.0 995.0 -100.0 1111.0 0.0 1111.0 C100.0 1111.0 200.0 995.0 300.0 995.0 C400.0 995.0 500.0 1111.0 600.0 1111.0 C700.0 1111.0 800.0 995.0 900.0 995.0 C1000.0 995.0 1100.0 1111.0 1200.0 1111.0 C1300.0 1111.0 1400.0 995.0 1500.0 995.0 C1600.0 995.0 1700.0 1111.0 1800.0 1111.0 C1900.0 1111.0 2000.0 995.0 2100.0 995.0 C2200.0 995.0 2300.0 1111.0 2400.0 1111.0 L2400.0 1390.0 L-1800.0 1390.0 Z" fill="#3D7BE0"/>
+  <path d="M-600.0 1115.0 C-500.0 1115.0 -400.0 999.0 -300.0 999.0 C-200.0 999.0 -100.0 1115.0 0.0 1115.0 C100.0 1115.0 200.0 999.0 300.0 999.0 C400.0 999.0 500.0 1115.0 600.0 1115.0 C700.0 1115.0 800.0 999.0 900.0 999.0 C1000.0 999.0 1100.0 1115.0 1200.0 1115.0 C1300.0 1115.0 1400.0 999.0 1500.0 999.0 C1600.0 999.0 1700.0 1115.0 1800.0 1115.0 C1900.0 1115.0 2000.0 999.0 2100.0 999.0 C2200.0 999.0 2300.0 1115.0 2400.0 1115.0 L2400.0 1390.0 L-1800.0 1390.0 Z" fill="#3D7BE0"/>
 
 </g>
 
