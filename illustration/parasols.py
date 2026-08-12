@@ -79,8 +79,8 @@ OMBRE = "#EDEBE0"
 # qui met la couleur pleine aux deux extremites - c'est ce que fait la
 # reference.
 PARASOLS = [
-    ("Parasol 1 - gauche", 470, 1000, 236, 5, -34.0),
-    ("Parasol 2 - droite", 1330, 968, 196, 7,  26.0),
+    ("Parasol 1 - gauche", 470, 726, 236, 5, -34.0),
+    ("Parasol 2 - droite", 1330, 744, 196, 7,  26.0),
 ]
 
 

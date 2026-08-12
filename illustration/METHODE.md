@@ -27,6 +27,16 @@ def vert(p):
 # on balaie jusqu'à trouver un carré dont les 4 coins ET le centre sont verts
 ```
 
+**Un banc d'essai doit montrer l'élément dans son cadre réel.** La vague a
+été jugée dans des bandes de 420 px : l'épaisseur du bleu n'y voulait rien
+dire, et elle paraissait juste alors qu'elle était deux fois trop plate. Une
+proportion ne se juge qu'au format final.
+
+**Ne jamais estimer une grandeur qu'on peut mesurer.** Pour la vague, la
+longueur d'onde avait été mesurée et l'amplitude estimée à l'œil : une onde
+de bonne période mais trop plate se lit comme un bord bombé, pas comme une
+vague.
+
 **Relever le modèle avant de dessiner.** Quatre planches de variantes de
 parasol ont été produites sans que l'image de référence soit consultable :
 aucune ne ressemblait au modèle. La bonne forme a été trouvée en dix minutes
@@ -45,6 +55,9 @@ une fois l'image sous les yeux.
 | **Mât** | droit, perpendiculaire au diamètre, ~0,95 × le rayon, très fin (~1/22 du rayon). |
 | **Inclinaison** | ~34°, le mât partant vers le bas à droite. |
 | **Grain** | la référence **charge les aplats saturés bien plus que ses fonds**. Le parasol est franchement moucheté là où le ciel reste lisse. |
+| **Composition** | ciel, sable, mer. **Pas de bande de verdure** : notre mur vert occupait la place que le modèle donne au sable. |
+| **Mer** | crête à y=562 sur 760, soit **26 % de la hauteur**. Ligne moyenne à **0,78 × H**. |
+| **Vague** | **3 ondulations** dans le cadre, amplitude ± 58 sur 1800, soit une raideur de 0,19. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
 Réglage retenu : `grainToileVerte` **0.38**, `grainToileBlanche` **1.00**,
@@ -90,6 +103,11 @@ surmontée de cercles, d'où un rapport de 2,6 : 1 impossible à corriger. Il
 faut des **ellipses**, et il faut qu'elles se **chevauchent** — sinon on
 obtient une file de bulles au lieu d'une crête.
 
+**Le nombre de motifs vus ne doit pas dépendre d'où tombe le cadre.** La
+phase de la vague est calculée pour poser un creux sur chaque bord : on voit
+alors exactement `CRETES` ondulations entières. Avec une phase libre, un bout
+de crête dépassait à droite et on en comptait quatre.
+
 **Une forme posée sur une ligne doit y être tangente.** Les bosses des
 nuages débordaient sous la ligne de pose et le dessous devenait bosselé :
 demi-hauteur égale à la moitié de l'élévation, centre remonté d'autant.
@@ -120,7 +138,8 @@ Les décalages de contour restent donc à la charge de `trace.py`.
 |---|---|
 | `construire.py` | le chef d'orchestre. Format, découpage, palette, filtres de grain. |
 | `perspective.py` | l'interrupteur `FRONTAL`. Vue de face ou point de fuite. |
-| `verdure.py` | le buisson : deux rangs de lobes semés sur une graine fixe |
+| `verdure.py` | le buisson, retiré de la version validée (`AVEC_VERDURE`) |
+| `mer.py` | la mer et sa vague, au relevé du modèle |
 | `grillage.py` | la clôture (retirée de la version validée) |
 | `nuages.py` | les nuages, au rapport du modèle |
 | `parasols.py` | `un_eventail()` — la forme du modèle. `un_parasol()` — l'ancienne coupole à fuseaux, conservée. |
@@ -130,6 +149,7 @@ Les décalages de contour restent donc à la charge de `trace.py`.
 | `importer_figure.py` | greffer un personnage téléchargé et l'accorder à la palette |
 | `essai_parasol.py` | le banc d'essai — à copier pour régler un autre élément |
 | `essai_nuage.py` | le banc des nuages : les anciens en haut, les nouveaux en bas |
+| `essai_vague.py` | le banc de la vague, au format réel |
 
 ---
 

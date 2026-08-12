@@ -16,12 +16,11 @@ CE QUI EN DECOULE
   reduisent d'elles-memes vers la droite. Leur rayon est multiplie par le
   meme facteur s(u) que le reste. Rien n'est dessine en coordonnees ecran.
 
-DEUX RANGS, PAS TROIS
-  J'en avais mis trois, en pensant creuser la profondeur. Un de trop : a
-  cette echelle le rang du milieu ne se distingue plus vraiment de ses
-  voisins, il epaissit la masse verte sans rien ajouter. Deux valeurs
-  suffisent a poser un devant et un derriere - et la masse pese moins lourd
-  dans l'image, ce qui compte quand elle occupe deja un tiers du cadre.
+UN SEUL RANG
+  Trois d'abord, puis deux, maintenant un. A chaque fois la meme lecon : un
+  rang de plus epaissit la masse verte sans creuser la profondeur, parce
+  qu'a cette echelle deux verts voisins ne se distinguent pas. Les touffes
+  hautes d'ARBRES suffisent a rompre la crete.
 
 LES DEUX TONS
   Chaque rang est peint clair, puis la meme silhouette decalee VERS LE BAS et
@@ -41,9 +40,12 @@ import perspective as P
 # etait auparavant exprime directement en unites du monde, c'est-a-dire en
 # ecarts de poteaux : changer l'espacement de la cloture eclaircissait donc
 # aussi le buisson, qui n'a rien a y voir.
+# UN SEUL RANG, le fonce. Le rang clair du fond doublait la masse verte pour
+# une profondeur qu'on ne lisait plus une fois les nuages allonges et le ciel
+# degage : deux valeurs de vert empilees sur un tiers du cadre pesaient plus
+# qu'elles ne creusaient. La reference, elle, se contente d'un buisson.
 RANGS = [
-    ("Rang 1 - fond",   500, 900, 26, 50, 38, "#B4D6A0", "#96C285", 14),
-    ("Rang 2 - devant", 668, 880, 38, 74, 56, "#6BA867", "#4E9354", 22),
+    ("Rang unique", 668, 880, 38, 74, 56, "#6BA867", "#4E9354", 22),
 ]
 
 # Le pied du rang le plus proche : c'est LUI qui donnera le bord du sable,

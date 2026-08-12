@@ -11,6 +11,7 @@ import verdure
 import grillage
 import parasols
 import nuages
+import mer
 import enfant
 
 # LE FORMAT. 1800 x 1350, soit du 4:3. La hauteur ne change pas : c'est elle
@@ -25,6 +26,13 @@ verdure.LARGEUR = LARGEUR
 #     python3 construire.py sans       -> scene_sans_grillage.svg
 import sys
 AVEC_GRILLAGE = "sans" not in sys.argv
+
+# LA VERDURE EST-ELLE DANS L'IMAGE ? Elle n'y est plus : le modele n'a pas de
+# bande de haie, il a du ciel, du sable, puis la mer. Notre mur vert occupait
+# exactement la place que sa plage donne au sable.
+# Remis a True, tout revient - le buisson, son ombrage, et le bord de sable
+# ondule qui le suivait.
+AVEC_VERDURE = False
 grillage.LARGEUR = LARGEUR
 
 # LE DECOUPAGE. Ciel et sable ont exactement la meme hauteur ; la verdure
@@ -115,12 +123,20 @@ DEC1, DEC2, DEC3 = [max(5, n[2] / 46.0) for n in NUAGES]
 # buisson est plante, donc une droite qui fuit vers l'horizon comme tout le
 # reste. Une ondulation la aurait contredit la perspective - le sol ne peut
 # pas serpenter et fuir en meme temps.
-_sol = P.ligne_au_sol(verdure.PIED_DEVANT)
-BORD_SABLE = ("M%.1f %.1f " % _sol[0]
-              + " ".join("L%.1f %.1f" % q for q in _sol[1:])
-              + " L%d %d L0 %d Z" % (LARGEUR, HAUTEUR, HAUTEUR))
+if AVEC_VERDURE:
+    _sol = P.ligne_au_sol(verdure.PIED_DEVANT)
+    BORD_SABLE = ("M%.1f %.1f " % _sol[0]
+                  + " ".join("L%.1f %.1f" % q for q in _sol[1:])
+                  + " L%d %d L0 %d Z" % (LARGEUR, HAUTEUR, HAUTEUR))
+else:
+    # SANS HAIE, le sable commence a l'horizon. Son bord haut est donc une
+    # DROITE : il n'y a plus de vegetation posee dessus pour justifier une
+    # ondulation, et une ligne de sol qui serpente contredirait la fuite.
+    BORD_SABLE = ("M0 %d L%d %d L%d %d L0 %d Z"
+                  % (CIEL_BAS, LARGEUR, CIEL_BAS, LARGEUR, HAUTEUR, HAUTEUR))
 
-coupes, feuillage, _ = verdure.engendrer()
+coupes, feuillage, _ = (verdure.engendrer() if AVEC_VERDURE
+                        else ('', '  <!-- verdure retiree -->', 0))
 fence, nb_poteaux, nb_fils, _ = grillage.bloc(indent=2)
 if not AVEC_GRILLAGE:
     fence = '  <!-- grillage retire -->'
@@ -146,7 +162,7 @@ if os.path.exists("personnage.svg"):
              + open("personnage.svg", encoding="utf-8").read())
     SOURCE_PERSONNAGE = "personnage.svg"
 else:
-    GAMIN = enfant.dessiner(880, 1218, 1.05, indent=2,
+    GAMIN = enfant.dessiner(880, 950, 1.05, indent=2,
                             filtre_tissu="grainTissu")
     SOURCE_PERSONNAGE = "enfant.py (trace par le script)"
 
@@ -193,6 +209,8 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 {GRAIN_CIEL}
 
 {GRAIN_VERT}
+
+{GRAIN_MER}
 
 {GRAIN_DOUX}
 
@@ -332,6 +350,19 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 
 </g>
 
+
+<!-- ################## LA MER ################## -->
+<!-- Au PREMIER PLAN, donc dessinee en dernier : dans le modele la mer est
+     devant tout le reste, et rien ne passe par-dessus. Son bord haut est une
+     onde longue et basse - deux cretes sur la largeur - dont chaque
+     demi-periode est une seule cubique. Voir mer.py. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 6 - La mer" id="couche6"
+   filter="url(#grainMer)">
+
+{MER}
+
+</g>
+
 </svg>
 """.format(L=LARGEUR, H=HAUTEUR, CB=CIEL_BAS,
            CIEL=CIEL, NC=NUAGE_CLAIR,
@@ -376,6 +407,11 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
                                   "       differents sont la seule facon "
                                   "d'obtenir la meme matiere\n       sur les "
                                   "deux couleurs d'un meme objet."),
+           MER=mer.bloc(LARGEUR, HAUTEUR, indent=2),
+           GRAIN_MER=mouchetis("grainMer", 31, "0.38",
+                               "Le grain de la MER. Meme force que la toile "
+                               "verte du parasol :\n       la reference "
+                               "charge ses aplats satures de la meme facon."),
            GRAIN_VERT=grain("grainVert", 21, "0.50",
                             "Le grain de la verdure, deux fois plus doux que "
                             "celui du ciel.\n       A intensite egale le vert "
@@ -428,10 +464,13 @@ if __name__ == "__main__":
     print("  personnage : %s" % SOURCE_PERSONNAGE)
     print("  horizon a y=%d" % CIEL_BAS)
     print("  mode : %s" % ("VUE DE FACE" if P.FRONTAL else "perspective"))
-    for x in (150, 900, 1650):
-        u = P.u_de_x(x)
-        c = P.projeter(u, verdure.RANGS[0][1])[1]
-        s_ = P.projeter(u, verdure.PIED_DEVANT)[1]
-        print("  x=%4d : ciel %4.0f   buisson %4.0f->%4.0f   sable %4.0f (%3.0f)"
-              % (x, c, c, s_, s_, HAUTEUR - s_))
-    print("  %d poteaux, %d fils, %d abris" % (nb_poteaux, nb_fils, nb_abris))
+    import mer as _m
+    print("  ciel   0 -> %d      (%.0f%%)" % (CIEL_BAS, 100.0*CIEL_BAS/HAUTEUR))
+    print("  sable  %d -> %.0f  (%.0f%%)"
+          % (CIEL_BAS, _m.MOYENNE - _m.AMPLITUDE,
+             100.0*(_m.MOYENNE - _m.AMPLITUDE - CIEL_BAS)/HAUTEUR))
+    print("  mer    %.0f -> %d  (%.0f%% a la crete)"
+          % (_m.MOYENNE - _m.AMPLITUDE, HAUTEUR,
+             100.0*(HAUTEUR - _m.MOYENNE + _m.AMPLITUDE)/HAUTEUR))
+    print("  %d ondulations, creux sur les deux bords" % _m.CRETES)
+    print("  %d abris" % nb_abris)
