@@ -185,17 +185,18 @@
   </mask>
 
   <!-- Les silhouettes, dupliquees pour servir de decoupe aux seconds tons -->
-  <clipPath id="coupeNuage1"><path d="M118 232 h332 a34 34 0 0 0 0-68 h-332 a34 34 0 0 0 0 68 z"/>
-        <circle cx="214" cy="176" r="46"/>
-        <circle cx="306" cy="162" r="58"/>
-        <circle cx="398" cy="180" r="42"/></clipPath>
-  <clipPath id="coupeNuage2"><path d="M712 342 h250 a26 26 0 0 0 0-52 h-250 a26 26 0 0 0 0 52 z"/>
-        <circle cx="792" cy="298" r="36"/>
-        <circle cx="868" cy="288" r="44"/></clipPath>
-  <clipPath id="coupeNuage3"><path d="M1382 200 h276 a30 30 0 0 0 0-60 h-276 a30 30 0 0 0 0 60 z"/>
-        <circle cx="1454" cy="152" r="40"/>
-        <circle cx="1538" cy="138" r="50"/>
-        <circle cx="1614" cy="156" r="36"/></clipPath>
+  <clipPath id="coupeNuage1"><rect x="140.0" y="193.4" width="430.0" height="38.6" rx="19.3"/>
+        <ellipse cx="269.0" cy="209.0" rx="81.7" ry="23.0"/>
+        <ellipse cx="363.6" cy="194.9" rx="81.7" ry="37.1"/>
+        <ellipse cx="458.2" cy="204.6" rx="81.7" ry="27.4"/></clipPath>
+  <clipPath id="coupeNuage2"><rect x="760.0" y="297.7" width="360.0" height="32.3" rx="16.1"/>
+        <ellipse cx="853.6" cy="305.8" rx="68.4" ry="24.2"/>
+        <ellipse cx="932.8" cy="299.0" rx="68.4" ry="31.0"/>
+        <ellipse cx="1012.0" cy="312.0" rx="68.4" ry="18.0"/>
+        <ellipse cx="1069.6" cy="319.4" rx="68.4" ry="10.6"/></clipPath>
+  <clipPath id="coupeNuage3"><rect x="1300.0" y="160.1" width="400.0" height="35.9" rx="17.9"/>
+        <ellipse cx="1436.0" cy="166.3" rx="76.0" ry="29.7"/>
+        <ellipse cx="1540.0" cy="161.5" rx="76.0" ry="34.5"/></clipPath>
   <clipPath id="coupeVert1">
     <path d="M-60.0 503.2 L74.0 507.6 L208.0 507.2 L342.0 506.3 L476.0 508.9 L610.0 514.1 L744.0 516.8 L878.0 512.5 L1012.0 502.3 L1146.0 491.7 L1280.0 486.5 L1414.0 487.7 L1548.0 491.1 L1682.0 491.9 L1816.0 489.5 L1950.0 488.1 L1800 1350 L0 1350 Z"/>
     <circle cx="-136.0" cy="502.4" r="37.3"/>
@@ -330,35 +331,37 @@
   <g inkscape:groupmode="layer" inkscape:label="02 Nuages" id="palier02"
      filter="url(#grainCiel)">
     <g inkscape:label="Nuage 1">
-      <g fill="#D3E5F1"><path d="M118 232 h332 a34 34 0 0 0 0-68 h-332 a34 34 0 0 0 0 68 z"/>
-        <circle cx="214" cy="176" r="46"/>
-        <circle cx="306" cy="162" r="58"/>
-        <circle cx="398" cy="180" r="42"/></g>
+      <g fill="#D3E5F1"><rect x="140.0" y="193.4" width="430.0" height="38.6" rx="19.3"/>
+        <ellipse cx="269.0" cy="209.0" rx="81.7" ry="23.0"/>
+        <ellipse cx="363.6" cy="194.9" rx="81.7" ry="37.1"/>
+        <ellipse cx="458.2" cy="204.6" rx="81.7" ry="27.4"/></g>
       <g clip-path="url(#coupeNuage1)" fill="#FFFFFF"
-         transform="translate(0,-17)"><path d="M118 232 h332 a34 34 0 0 0 0-68 h-332 a34 34 0 0 0 0 68 z"/>
-        <circle cx="214" cy="176" r="46"/>
-        <circle cx="306" cy="162" r="58"/>
-        <circle cx="398" cy="180" r="42"/></g>
+         transform="translate(0,-9)"><rect x="140.0" y="193.4" width="430.0" height="38.6" rx="19.3"/>
+        <ellipse cx="269.0" cy="209.0" rx="81.7" ry="23.0"/>
+        <ellipse cx="363.6" cy="194.9" rx="81.7" ry="37.1"/>
+        <ellipse cx="458.2" cy="204.6" rx="81.7" ry="27.4"/></g>
     </g>
     <g inkscape:label="Nuage 2">
-      <g fill="#D3E5F1"><path d="M712 342 h250 a26 26 0 0 0 0-52 h-250 a26 26 0 0 0 0 52 z"/>
-        <circle cx="792" cy="298" r="36"/>
-        <circle cx="868" cy="288" r="44"/></g>
+      <g fill="#D3E5F1"><rect x="760.0" y="297.7" width="360.0" height="32.3" rx="16.1"/>
+        <ellipse cx="853.6" cy="305.8" rx="68.4" ry="24.2"/>
+        <ellipse cx="932.8" cy="299.0" rx="68.4" ry="31.0"/>
+        <ellipse cx="1012.0" cy="312.0" rx="68.4" ry="18.0"/>
+        <ellipse cx="1069.6" cy="319.4" rx="68.4" ry="10.6"/></g>
       <g clip-path="url(#coupeNuage2)" fill="#FFFFFF"
-         transform="translate(0,-13)"><path d="M712 342 h250 a26 26 0 0 0 0-52 h-250 a26 26 0 0 0 0 52 z"/>
-        <circle cx="792" cy="298" r="36"/>
-        <circle cx="868" cy="288" r="44"/></g>
+         transform="translate(0,-8)"><rect x="760.0" y="297.7" width="360.0" height="32.3" rx="16.1"/>
+        <ellipse cx="853.6" cy="305.8" rx="68.4" ry="24.2"/>
+        <ellipse cx="932.8" cy="299.0" rx="68.4" ry="31.0"/>
+        <ellipse cx="1012.0" cy="312.0" rx="68.4" ry="18.0"/>
+        <ellipse cx="1069.6" cy="319.4" rx="68.4" ry="10.6"/></g>
     </g>
     <g inkscape:label="Nuage 3">
-      <g fill="#D3E5F1"><path d="M1382 200 h276 a30 30 0 0 0 0-60 h-276 a30 30 0 0 0 0 60 z"/>
-        <circle cx="1454" cy="152" r="40"/>
-        <circle cx="1538" cy="138" r="50"/>
-        <circle cx="1614" cy="156" r="36"/></g>
+      <g fill="#D3E5F1"><rect x="1300.0" y="160.1" width="400.0" height="35.9" rx="17.9"/>
+        <ellipse cx="1436.0" cy="166.3" rx="76.0" ry="29.7"/>
+        <ellipse cx="1540.0" cy="161.5" rx="76.0" ry="34.5"/></g>
       <g clip-path="url(#coupeNuage3)" fill="#FFFFFF"
-         transform="translate(0,-15)"><path d="M1382 200 h276 a30 30 0 0 0 0-60 h-276 a30 30 0 0 0 0 60 z"/>
-        <circle cx="1454" cy="152" r="40"/>
-        <circle cx="1538" cy="138" r="50"/>
-        <circle cx="1614" cy="156" r="36"/></g>
+         transform="translate(0,-9)"><rect x="1300.0" y="160.1" width="400.0" height="35.9" rx="17.9"/>
+        <ellipse cx="1436.0" cy="166.3" rx="76.0" ry="29.7"/>
+        <ellipse cx="1540.0" cy="161.5" rx="76.0" ry="34.5"/></g>
     </g>
   </g>
 

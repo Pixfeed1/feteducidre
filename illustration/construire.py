@@ -10,6 +10,7 @@ import perspective as P
 import verdure
 import grillage
 import parasols
+import nuages
 import enfant
 
 # LE FORMAT. 1800 x 1350, soit du 4:3. La hauteur ne change pas : c'est elle
@@ -96,20 +97,19 @@ def grain(nom, graine, intensite, commentaire):
   </filter>""" % (commentaire, nom, graine, intensite)
 
 
-NUAGE1 = """<path d="M118 232 h332 a34 34 0 0 0 0-68 h-332 a34 34 0 0 0 0 68 z"/>
-        <circle cx="214" cy="176" r="46"/>
-        <circle cx="306" cy="162" r="58"/>
-        <circle cx="398" cy="180" r="42"/>"""
-NUAGE2 = """<path d="M712 342 h250 a26 26 0 0 0 0-52 h-250 a26 26 0 0 0 0 52 z"/>
-        <circle cx="792" cy="298" r="36"/>
-        <circle cx="868" cy="288" r="44"/>"""
-# Le troisieme nuage, celui que la nouvelle largeur rend possible. Il est
-# place HAUT et A DROITE, entre les deux autres en taille : trois nuages de
-# meme calibre feraient une frise, trois hauteurs differentes font un ciel.
-NUAGE3 = """<path d="M1382 200 h276 a30 30 0 0 0 0-60 h-276 a30 30 0 0 0 0 60 z"/>
-        <circle cx="1454" cy="152" r="40"/>
-        <circle cx="1538" cy="138" r="50"/>
-        <circle cx="1614" cy="156" r="36"/>"""
+# LES NUAGES. Le rapport 5.8 : 1 vient du modele - ses trois nuages y sont
+# tous, a un dixieme pres (voir nuages.py). Les notres etaient a 2.6 : 1,
+# c'est-a-dire deux fois trop hauts.
+#
+# (x, ligne de pose, longueur, profil de crete)
+# Trois longueurs et trois cretes differentes : trois nuages de meme calibre
+# feraient une frise, trois nuages differents font un ciel.
+NUAGES = [(140, 232, 430, 0), (760, 330, 360, 1), (1300, 196, 400, 2)]
+NUAGE1, NUAGE2, NUAGE3 = [nuages.nuage(*n) for n in NUAGES]
+# Le decalage du ton clair est PROPORTIONNEL a la longueur : un decalage fixe
+# donnerait une grosse lisiere froide sous le petit nuage et rien sous le
+# grand.
+DEC1, DEC2, DEC3 = [max(5, n[2] / 46.0) for n in NUAGES]
 
 # LE BORD DU SABLE. Il n'ondule plus : c'est la ligne au sol sur laquelle le
 # buisson est plante, donc une droite qui fuit vers l'horizon comme tout le
@@ -240,17 +240,17 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
     <g inkscape:label="Nuage 1">
       <g fill="{NF}">{N1}</g>
       <g clip-path="url(#coupeNuage1)" fill="{NC}"
-         transform="translate(0,-17)">{N1}</g>
+         transform="translate(0,-{D1:.0f})">{N1}</g>
     </g>
     <g inkscape:label="Nuage 2">
       <g fill="{NF}">{N2}</g>
       <g clip-path="url(#coupeNuage2)" fill="{NC}"
-         transform="translate(0,-13)">{N2}</g>
+         transform="translate(0,-{D2:.0f})">{N2}</g>
     </g>
     <g inkscape:label="Nuage 3">
       <g fill="{NF}">{N3}</g>
       <g clip-path="url(#coupeNuage3)" fill="{NC}"
-         transform="translate(0,-15)">{N3}</g>
+         transform="translate(0,-{D3:.0f})">{N3}</g>
     </g>
   </g>
 
@@ -336,6 +336,7 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 """.format(L=LARGEUR, H=HAUTEUR, CB=CIEL_BAS,
            CIEL=CIEL, NC=NUAGE_CLAIR,
            NF=NUAGE_FROID, SABLE=SABLE, N1=NUAGE1, N2=NUAGE2, N3=NUAGE3,
+           D1=DEC1, D2=DEC2, D3=DEC3,
            BORD=BORD_SABLE, COUPES=coupes, FEUILLAGE=feuillage,
            FENCE=fence, ABRIS=abris, COUPES_ABRIS=coupes_abris,
            GAMIN=GAMIN,

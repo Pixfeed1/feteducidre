@@ -45,6 +45,7 @@ une fois l'image sous les yeux.
 | **Mât** | droit, perpendiculaire au diamètre, ~0,95 × le rayon, très fin (~1/22 du rayon). |
 | **Inclinaison** | ~34°, le mât partant vers le bas à droite. |
 | **Grain** | la référence **charge les aplats saturés bien plus que ses fonds**. Le parasol est franchement moucheté là où le ciel reste lisse. |
+| **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
 Réglage retenu : `grainToileVerte` **0.38**, `grainToileBlanche` **1.00**,
 soit **11,9 niveaux** d'écart-type mesurés sur le vert (contre 3,9 quand on
@@ -83,6 +84,16 @@ chemin* est malgré tout absolu. Tout ce qui sort d'Inkscape passe donc par
 polygone à 52 côtés — c'est ce qui donne l'aspect « fait à la souris ».
 Passer par `booleen.lisser()`, qui appelle *Chemin > Simplifier*.
 
+**Une bosse faite d'un cercle ne peut pas s'aplatir.** Un cercle n'a qu'une
+dimension : dès qu'il dépasse, il gonfle. Les nuages étaient une barre
+surmontée de cercles, d'où un rapport de 2,6 : 1 impossible à corriger. Il
+faut des **ellipses**, et il faut qu'elles se **chevauchent** — sinon on
+obtient une file de bulles au lieu d'une crête.
+
+**Une forme posée sur une ligne doit y être tangente.** Les bosses des
+nuages débordaient sous la ligne de pose et le dessous devenait bosselé :
+demi-hauteur égale à la moitié de l'élévation, centre remonté d'autant.
+
 **Le sable est à `#FAFAF6`, la toile blanche à `#FBFCFA`** : un point
 d'écart. Un objet blanc posé sur le sable disparaît. Dans la référence les
 parasols se détachent toujours sur le ciel.
@@ -111,12 +122,14 @@ Les décalages de contour restent donc à la charge de `trace.py`.
 | `perspective.py` | l'interrupteur `FRONTAL`. Vue de face ou point de fuite. |
 | `verdure.py` | le buisson : deux rangs de lobes semés sur une graine fixe |
 | `grillage.py` | la clôture (retirée de la version validée) |
+| `nuages.py` | les nuages, au rapport du modèle |
 | `parasols.py` | `un_eventail()` — la forme du modèle. `un_parasol()` — l'ancienne coupole à fuseaux, conservée. |
 | `enfant.py` | l'enfant et ses jouets |
 | `trace.py` | l'épaisseur variable, l'équivalent calculé du *Power Stroke* |
 | `booleen.py` | union / différence / intersection / simplification, calculées par Inkscape |
 | `importer_figure.py` | greffer un personnage téléchargé et l'accorder à la palette |
 | `essai_parasol.py` | le banc d'essai — à copier pour régler un autre élément |
+| `essai_nuage.py` | le banc des nuages : les anciens en haut, les nouveaux en bas |
 
 ---
 
