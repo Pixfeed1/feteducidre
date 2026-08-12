@@ -82,8 +82,19 @@ OMBRE = "#EDEBE0"
 # deux parasols de part et d'autre de l'enfant font une composition en
 # balance, et le modele ne fait pas cela : son parasol est seul, planté dans
 # un coin, et c'est le vide autour de lui qui fait la plage.
+# LA PLACE, relevee sur le modele et donnee en fractions du cadre.
+#   ancrage du mat   (80, 237) sur 760   ->  0.105 de large, 0.312 de haut
+#   rayon            67 / 760            ->  0.088 de la largeur
+# L'ancrage tombe JUSTE SOUS L'HORIZON : le parasol est plante au fond de la
+# plage, et sa toile monte donc DANS LE CIEL. C'est ce qui la rend lisible -
+# le blanc de ses secteurs se detache sur le bleu, alors qu'il disparait sur
+# le sable. Rien de tout cela ne tient si on le pose au premier plan.
+#
+# (nom, x du milieu du bord droit, y de ce point, rayon, secteurs, inclinaison)
+# Le point donne est le HAUT du mat ; l'ancrage est 0.95 rayon plus bas.
+_RAYON = 0.088 * 1800
 PARASOLS = [
-    ("Parasol 1 - gauche", 470, 726, 236, 5, -34.0),
+    ("Parasol", 0.105 * 1800, 0.312 * 1350 - 0.95 * _RAYON, _RAYON, 5, -34.0),
 ]
 
 

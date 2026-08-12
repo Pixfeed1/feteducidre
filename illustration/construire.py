@@ -177,13 +177,14 @@ coupes_abris, abris, nb_abris = parasols.engendrer(indent=4)
 # bord pres - c'est ce qui la couche au sol - et son lisere clair est un vrai
 # decalage a marge constante, pas une reduction vers le centre. Voir
 # serviette.py.
-# ELLE NE DOIT PAS TOUCHER LE PARASOL. Au premier essai elle etait posee
-# juste sous la toile : deux verts en contact ne font plus deux objets, ils
-# font une seule tache. Sur le modele le parasol est en haut a gauche et la
-# serviette nettement en dessous, sans contact - c'est le sable entre les
-# deux qui les separe, pas une difference de couleur.
-SERVIETTE = serviette.dessiner(cx=830, y_pres=962, largeur=470,
-                               profondeur=205, fuite=0.88, biais=-34,
+# LA PLACE DE LA SERVIETTE, relevee sur le modele et donnee en FRACTIONS du
+# cadre, comme le decoupage. Sur l'image de 760 : x = 48 -> 352,
+# y = 258 -> 372, soit un rectangle de 0.40 de large et 0.15 de haut, centre
+# a 0.263 de la largeur et 0.414 de la hauteur.
+SERVIETTE = serviette.dessiner(cx=0.263 * LARGEUR, cy=0.414 * HAUTEUR,
+                               largeur=0.400 * LARGEUR,
+                               hauteur=0.150 * HAUTEUR,
+                               pivot=-1.5, pourtour=0.0105 * LARGEUR,
                                indent=2)
 
 import os

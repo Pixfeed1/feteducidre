@@ -64,7 +64,8 @@ une fois l'image sous les yeux.
 | **Parasol, nombre** | **un seul**, planté dans un coin. Deux de part et d'autre du sujet font une composition en balance que le modèle ne fait pas. |
 | **Mer** | crête à y=562 sur 760, soit **26 % de la hauteur**. Ligne moyenne à **0,78 × H**. |
 | **Vague** | **3 ondulations** dans le cadre, amplitude ± 58 sur 1800, soit une raideur de 0,19. |
-| **Serviette** | un **quadrilatère**, bord loin ~0,88 × le bord près. Liséré clair à marge constante à l'intérieur. |
+| **Serviette** | un **rectangle** de 0,40 × 0,15 du cadre, incliné de 1,5° à peine, **pourtour blanc extérieur**. Aucune fuite : l'image est plate. |
+| **Placement** | parasol ancré à (0,105 W ; 0,312 H) — **juste sous l'horizon, toile dans le ciel**. Serviette centrée à (0,263 W ; 0,414 H). |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
 Réglage retenu : `grainToileVerte` **0.38**, `grainToileBlanche` **1.00**,
@@ -114,6 +115,17 @@ obtient une file de bulles au lieu d'une crête.
 phase de la vague est calculée pour poser un creux sur chaque bord : on voit
 alors exactement `CRETES` ondulations entières. Avec une phase libre, un bout
 de crête dépassait à droite et on en comptait quatre.
+
+**Une vérification qui ne peut pas échouer ne vérifie rien.** `eroder()`
+dilatait au lieu de réduire — normale intérieure prise à l'envers — et le test
+mesurait une distance **non signée** : il affichait fièrement 19,00 px sur les
+quatre côtés, du mauvais côté. Il compare maintenant les **aires**, qui
+portent le signe.
+
+**Le modèle décide, pas la règle générale.** La serviette avait été construite
+en trapèze fuyant au nom du « rectangle à angles droits = plaque dressée ».
+C'est vrai dans une image en perspective ; celle-ci n'en a pas. Une forme
+fuyante au milieu d'une image plate ne fait pas plus vrai, elle fait faux.
 
 **Un liséré intérieur n'est pas une homothétie.** Réduire une forme vers son
 centre rapproche d'autant plus les bords qu'ils sont loin du centre : la marge
