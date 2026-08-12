@@ -1,0 +1,436 @@
+# -*- coding: utf-8 -*-
+"""
+Construit scene.svg en entier. Les proportions sont ici, pas eparpillees
+dans le fichier : c'est ce qui permet de tenir le decoupage au pixel.
+
+    python3 construire.py && inkscape --export-type=png \
+        --export-filename=scene.png -w 1080 scene.svg
+"""
+import perspective as P
+import verdure
+import grillage
+import parasols
+import enfant
+
+# LE FORMAT. 1800 x 1350, soit du 4:3. La hauteur ne change pas : c'est elle
+# qui porte l'egalite ciel/sable, il n'y avait aucune raison d'y toucher pour
+# elargir. Un seul nombre a changer ici si tu veux un autre cadre - la
+# verdure, le bord du sable et le degrade du ciel s'y adaptent tout seuls.
+LARGEUR, HAUTEUR = 1800, 1350
+verdure.LARGEUR = LARGEUR
+
+# Le grillage est-il dans l'image ? Passe en argument :
+#     python3 construire.py            -> scene.svg, avec
+#     python3 construire.py sans       -> scene_sans_grillage.svg
+import sys
+AVEC_GRILLAGE = "sans" not in sys.argv
+grillage.LARGEUR = LARGEUR
+
+# LE DECOUPAGE. Ciel et sable ont exactement la meme hauteur ; la verdure
+# occupe ce qui reste. C'est une contrainte, pas un reglage a l'oeil :
+#     ciel     0 -> 470   =  470
+#     verdure  470 -> 880 =  410
+#     sable    880 -> 1350 = 470
+# L'horizon, donc le point de fuite, est a 470 : c'est lui qui fixe le
+# decoupage maintenant que la scene est en perspective. Au milieu de l'image
+# le ciel et le sable retrouvent des hauteurs voisines - mais ce n'est plus
+# une egalite imposee, c'est une consequence de la geometrie, et cela ne peut
+# pas etre autrement sans mentir sur l'espace.
+CIEL_BAS = int(P.FUITE_Y)
+
+CIEL = "#E4F1FA"
+NUAGE_CLAIR, NUAGE_FROID = "#FFFFFF", "#D3E5F1"
+SABLE = "#FAFAF6"
+
+
+def mouchetis(nom, graine, force, commentaire):
+    """
+    Un grain dont l'effet NE DEPEND PAS de la couleur du fond.
+
+    "overlay" mord d'autant plus que l'aplat est de valeur moyenne : sur la
+    toile du parasol il donnait 10.8%% de contraste sur le vert et 0%% sur le
+    blanc, alors qu'on voulait la meme matiere sur les deux. Un seul reglage
+    ne peut pas y arriver, le probleme est dans le mode de fusion lui-meme.
+
+    Ici on ne fusionne pas : on POSE des points, moitie clairs moitie sombres,
+    a opacite fixe. Un point blanc a 9%% eclaircit un vert et un blanc de la
+    meme quantite absolue. Le grain devient donc constant d'un aplat a
+    l'autre - c'est ce qu'il faut pour un objet a deux couleurs.
+    """
+    return """  <!-- %s -->
+  <filter id="%s" x="-2%%" y="-2%%" width="104%%" height="104%%">
+    <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2"
+                  seed="%d" result="bruit"/>
+    <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
+    <feComponentTransfer in="alpha" result="hauts">
+      <feFuncA type="table" tableValues="0 0 %s"/>
+    </feComponentTransfer>
+    <feFlood flood-color="#FFFFFF" result="blanc"/>
+    <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
+    <feComponentTransfer in="alpha" result="bas">
+      <feFuncA type="table" tableValues="%s 0 0"/>
+    </feComponentTransfer>
+    <feFlood flood-color="#000000" result="noir"/>
+    <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
+    <feMerge result="points">
+      <feMergeNode in="sombres"/><feMergeNode in="clairs"/>
+    </feMerge>
+    <feComposite in="points" in2="SourceAlpha" operator="in" result="coupes"/>
+    <feMerge>
+      <feMergeNode in="SourceGraphic"/><feMergeNode in="coupes"/>
+    </feMerge>
+  </filter>""" % (commentaire, nom, graine, force, force)
+
+
+def grain(nom, graine, intensite, commentaire):
+    return """  <!-- %s -->
+  <filter id="%s" x="-2%%" y="-2%%" width="104%%" height="104%%">
+    <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2"
+                  seed="%d" result="bruit"/>
+    <feColorMatrix in="bruit" type="saturate" values="0" result="gris"/>
+    <feComponentTransfer in="gris" result="regle">
+      <feFuncA type="linear" slope="%s" intercept="0"/>
+    </feComponentTransfer>
+    <feComposite in="regle" in2="SourceAlpha" operator="in" result="decoupe"/>
+    <feBlend in="SourceGraphic" in2="decoupe" mode="overlay"/>
+  </filter>""" % (commentaire, nom, graine, intensite)
+
+
+NUAGE1 = """<path d="M118 232 h332 a34 34 0 0 0 0-68 h-332 a34 34 0 0 0 0 68 z"/>
+        <circle cx="214" cy="176" r="46"/>
+        <circle cx="306" cy="162" r="58"/>
+        <circle cx="398" cy="180" r="42"/>"""
+NUAGE2 = """<path d="M712 342 h250 a26 26 0 0 0 0-52 h-250 a26 26 0 0 0 0 52 z"/>
+        <circle cx="792" cy="298" r="36"/>
+        <circle cx="868" cy="288" r="44"/>"""
+# Le troisieme nuage, celui que la nouvelle largeur rend possible. Il est
+# place HAUT et A DROITE, entre les deux autres en taille : trois nuages de
+# meme calibre feraient une frise, trois hauteurs differentes font un ciel.
+NUAGE3 = """<path d="M1382 200 h276 a30 30 0 0 0 0-60 h-276 a30 30 0 0 0 0 60 z"/>
+        <circle cx="1454" cy="152" r="40"/>
+        <circle cx="1538" cy="138" r="50"/>
+        <circle cx="1614" cy="156" r="36"/>"""
+
+# LE BORD DU SABLE. Il n'ondule plus : c'est la ligne au sol sur laquelle le
+# buisson est plante, donc une droite qui fuit vers l'horizon comme tout le
+# reste. Une ondulation la aurait contredit la perspective - le sol ne peut
+# pas serpenter et fuir en meme temps.
+_sol = P.ligne_au_sol(verdure.PIED_DEVANT)
+BORD_SABLE = ("M%.1f %.1f " % _sol[0]
+              + " ".join("L%.1f %.1f" % q for q in _sol[1:])
+              + " L%d %d L0 %d Z" % (LARGEUR, HAUTEUR, HAUTEUR))
+
+coupes, feuillage, _ = verdure.engendrer()
+fence, nb_poteaux, nb_fils, _ = grillage.bloc(indent=2)
+if not AVEC_GRILLAGE:
+    fence = '  <!-- grillage retire -->'
+coupes_abris, abris, nb_abris = parasols.engendrer(indent=4)
+
+# ===================== LA PLACE DU PERSONNAGE =========================
+# S'il existe un fichier personnage.svg a cote, C'EST LUI qui est pose, tel
+# quel, et le script n'y touche jamais. Sinon seulement, on retombe sur
+# l'enfant code en Python.
+#
+# POURQUOI CE MECANISME EXISTE
+#   Parce que tu edites, et que je reconstruisais par-dessus. Un generateur
+#   qui ecrase le travail de la main est un generateur inutilisable : il
+#   oblige a choisir entre le script et le dessin. Ici les deux cohabitent -
+#   le decor se calcule, le personnage se depose.
+#
+#   Mets-y ce que tu veux : un export d'Inkscape, un Humaaans telecharge, une
+#   figure sortie de importer_figure.py. Il est insere sans etre relu.
+import os
+if os.path.exists("personnage.svg"):
+    GAMIN = ('  <!-- personnage.svg, depose tel quel - le script ne le '
+             'reecrit jamais -->\n'
+             + open("personnage.svg", encoding="utf-8").read())
+    SOURCE_PERSONNAGE = "personnage.svg"
+else:
+    GAMIN = enfant.dessiner(880, 1218, 1.05, indent=2,
+                            filtre_tissu="grainTissu")
+    SOURCE_PERSONNAGE = "enfant.py (trace par le script)"
+
+SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.0.dtd"
+     width="{L}" height="{H}" viewBox="0 0 {L} {H}">
+<!--
+  UN ETE A FRANCONVILLE - le decor, en trois couches.
+  Format {L} x {H} (4:5). Engendre par construire.py, ne pas editer a la main
+  si tu comptes relancer le script.
+
+  LE DECOUPAGE
+    COUCHE 1 - Le ciel        au-dessus de l'horizon, a {CB}
+    LE GRILLAGE               plante au sol, il fuit vers la droite
+    COUCHE 2 - Le buisson     plante LE LONG du grillage, il fuit avec lui
+    COUCHE 3 - Le sable       le sol devant le buisson
+
+  Ce ne sont plus trois bandes horizontales. Le buisson longe la cloture,
+  donc il fuit avec elle : sa crete, son pied et le bord du sable sont trois
+  lignes au sol qui convergent toutes vers le meme point. Elles ne peuvent
+  pas se croiser, et c'est cette impossibilite qui fait tenir la scene.
+
+  LE GRAIN, MATIERE PAR MATIERE
+  "overlay" mord d'autant plus que l'aplat est de valeur moyenne : a reglage
+  identique, un vert sombre recoit trois fois plus de bruit qu'un ciel pale.
+  Les intensites sont donc reglees separement, par mesure, pour que le grain
+  se VOIE sans jamais devenir du bruit.
+
+  ET LE SABLE N'EN A PAS DU TOUT. C'est un aplat pur, sans grain, sans creux,
+  sans second ton. Il occupe presque la moitie de l'image : la moindre trame
+  y devient une texture, et une texture sur une surface aussi grande tire
+  l'oeil vers le vide au lieu de le laisser aux masses colorees. La reference
+  fait exactement cela - son sable est un blanc casse parfaitement nu.
+
+  DEUX PIEGES VERIFIES, PAS SUPPOSES
+    - au-dela de baseFrequency 1.6 le bruit passe sous la resolution de rendu
+      et s'ANNULE : mesure a 0.00 partout a 2.0 ;
+    - "soft-light" n'existe pas dans Inkscape 1.2, le grain y disparait.
+      D'ou "overlay" partout.
+-->
+
+<defs>
+{GRAIN_CIEL}
+
+{GRAIN_VERT}
+
+{GRAIN_DOUX}
+
+  <!-- Le degrade qui commande la montee du grain du ciel : presque nul en
+       haut, complet en bas, la ou la verdure vient s'appuyer. Un filtre SVG
+       ne sait pas varier dans l'espace ; on superpose donc l'aplat nu et le
+       meme aplat graine, masque par ce degrade. -->
+  <linearGradient id="degradeGrain" gradientUnits="userSpaceOnUse"
+                  x1="0" y1="0" x2="0" y2="{CB}">
+    <stop offset="0"    stop-color="#111111"/>
+    <stop offset="0.45" stop-color="#8A8A8A"/>
+    <stop offset="1"    stop-color="#FFFFFF"/>
+  </linearGradient>
+  <mask id="masqueGrain">
+    <rect x="0" y="0" width="{L}" height="{H}" fill="url(#degradeGrain)"/>
+  </mask>
+
+  <!-- Les silhouettes, dupliquees pour servir de decoupe aux seconds tons -->
+  <clipPath id="coupeNuage1">{N1}</clipPath>
+  <clipPath id="coupeNuage2">{N2}</clipPath>
+  <clipPath id="coupeNuage3">{N3}</clipPath>
+{COUPES}
+{COUPES_ABRIS}
+</defs>
+
+
+<!-- ################## COUCHE 1 - LE CIEL ################## -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 1 - Le ciel" id="couche1">
+
+  <g inkscape:groupmode="layer" inkscape:label="01 Aplat" id="palier01">
+    <rect x="0" y="0" width="{L}" height="{H}" fill="{CIEL}"/>
+    <g mask="url(#masqueGrain)">
+      <rect x="0" y="0" width="{L}" height="{H}" fill="{CIEL}"
+            filter="url(#grainCiel)"/>
+    </g>
+  </g>
+
+  <!-- DEUX TONS. Le nuage entier est pose dans le ton froid, puis la MEME
+       silhouette decalee VERS LE HAUT et decoupee par elle-meme est repeinte
+       en blanc : il reste une bande froide sous le nuage. La verdure fait
+       l'inverse - decalage vers le bas, bande claire au-dessus - parce qu'un
+       nuage se voit par en dessous et une haie par au-dessus. -->
+  <g inkscape:groupmode="layer" inkscape:label="02 Nuages" id="palier02"
+     filter="url(#grainCiel)">
+    <g inkscape:label="Nuage 1">
+      <g fill="{NF}">{N1}</g>
+      <g clip-path="url(#coupeNuage1)" fill="{NC}"
+         transform="translate(0,-17)">{N1}</g>
+    </g>
+    <g inkscape:label="Nuage 2">
+      <g fill="{NF}">{N2}</g>
+      <g clip-path="url(#coupeNuage2)" fill="{NC}"
+         transform="translate(0,-13)">{N2}</g>
+    </g>
+    <g inkscape:label="Nuage 3">
+      <g fill="{NF}">{N3}</g>
+      <g clip-path="url(#coupeNuage3)" fill="{NC}"
+         transform="translate(0,-15)">{N3}</g>
+    </g>
+  </g>
+
+</g>
+
+
+<!-- ################## LE GRILLAGE ################## -->
+<!-- Entre le ciel et la verdure : la cloture est derriere la haie, dont le
+     pied la masquera. Voir grillage.py pour la projection.
+
+     Un <pattern> SVG ne pouvait pas convenir : il se repete a pas CONSTANT,
+     alors que des poteaux regulierement espaces dans le monde ne le sont pas
+     a l'ecran - leur ecart decroit comme 1/z. Le probleme etait arithmetique,
+     pas graphique. Ici tout descend d'un seul facteur s(u) = 1/(1 + k.u),
+     applique depuis le point de fuite aux deux coordonnees.
+
+     Mesure : le premier poteau fait {HP0} px de haut, le seizieme {HP15}. Et
+     leur ecart passe de {EC0} px a {EC15}. C'est ca, la perspective. -->
+<g inkscape:groupmode="layer" inkscape:label="GRILLAGE" id="grillage">
+
+{FENCE}
+
+</g>
+
+
+<!-- ################## COUCHE 2 - LA VERDURE ################## -->
+<!-- La crete n'est pas une vague mais une suite de LOBES : trois cents
+     disques semes le long de trois lignes, rayons et hauteurs tires au sort
+     sur une graine fixe (voir verdure.py). Une sinusoide reguliere se lit
+     comme de l'eau ; ce desordre mesure fait le feuillage. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 2 - La verdure"
+   id="couche2" filter="url(#grainVert)">
+
+{FEUILLAGE}
+
+</g>
+
+
+<!-- ################## COUCHE 3 - LE SABLE ################## -->
+<!-- UN APLAT PUR. Pas de grain, pas de creux, pas de second ton. Seul son
+     bord superieur ondule, et tres peu : le sable n'a ni feuilles ni vagues,
+     sa limite est une limite au sol. C'est le contraste entre ce bord calme
+     et les lobes de la haie qui fait lire deux matieres. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 3 - Le sable" id="couche3">
+  <g inkscape:groupmode="layer" inkscape:label="06 Aplat" id="palier06">
+    <path fill="{SABLE}" d="{BORD}"/>
+  </g>
+</g>
+
+
+<!-- ################## LES ABRIS DE PLAGE ################## -->
+<!-- Des coupoles a FUSEAUX, pas des eventails. Les coutures sont reparties
+     en azimut, pas en largeur apparente : une couture a l'azimut phi tombe
+     sur le bord en x = cx + rx.sin(phi), et le sinus fait le travail. Les
+     fuseaux mesurent ici 14 px sur les bords et 82 au centre - c'est ce
+     resserrement qui donne le volume. A largeurs egales, on obtient une roue
+     de loterie. Voir parasols.py. -->
+<!-- Aucun filtre sur ce calque : le grain est porte par le groupe des
+     fuseaux, a l'interieur de chaque parasol. Le mat, l'ombre et l'embout
+     doivent rester NETS - un trait sombre de 9 px de large qu'on graine ne
+     se lit pas comme une matiere mais comme une pixellisation. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 4 - Les parasols"
+   id="couche4">
+
+{ABRIS}
+
+</g>
+
+
+<!-- ################## L'ENFANT ################## -->
+<!-- Dans le vocabulaire de la reference : aucun visage - les personnages y
+     sont lisibles par leur seule posture - des membres traces au trait a
+     bouts ronds, deux tons de peau sans degrade, un seul accent sature (le
+     short), et un accessoire qui raconte le geste. Voir enfant.py. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 5 - L'enfant"
+   id="couche5" filter="url(#grainDoux)">
+
+{GAMIN}
+
+</g>
+
+</svg>
+""".format(L=LARGEUR, H=HAUTEUR, CB=CIEL_BAS,
+           CIEL=CIEL, NC=NUAGE_CLAIR,
+           NF=NUAGE_FROID, SABLE=SABLE, N1=NUAGE1, N2=NUAGE2, N3=NUAGE3,
+           BORD=BORD_SABLE, COUPES=coupes, FEUILLAGE=feuillage,
+           FENCE=fence, ABRIS=abris, COUPES_ABRIS=coupes_abris,
+           GAMIN=GAMIN,
+           HP0="%.0f" % (grillage.projeter(0,0)[1]-grillage.projeter(0,1)[1]),
+           HP15="%.0f" % (grillage.projeter(15,0)[1]-grillage.projeter(15,1)[1]),
+           EC0="%.0f" % (grillage.projeter(1,0)[0]-grillage.projeter(0,0)[0]),
+           EC15="%.0f" % (grillage.projeter(16,0)[0]-grillage.projeter(15,0)[0]),
+           GRAIN_CIEL=grain("grainCiel", 8, "1.05",
+                            "Le grain du ciel. Son intensite est celle du BAS "
+                            "du ciel ; le\n       degrade ci-dessous le fait "
+                            "monter depuis presque rien."),
+           GRAIN_DOUX=mouchetis("grainTissu", 77, "0.15",
+                                "Le grain du VETEMENT. Dans la reference le "
+                                "maillot est graine\n       comme le decor ; "
+                                "un aplat nu au milieu d'une image\n"
+                                "       entierement grainee se remarque tout "
+                                "de suite.")
+                      + "\n\n"
+                      + mouchetis("grainDoux", 61, "0.13",
+                                "Le grain de l'enfant. Sa peau est de valeur "
+                                "moyenne, comme le\n       vert de la toile : "
+                                "meme reglage, meme resultat.")
+                      + "\n\n"
+                      + mouchetis("grainToileVerte", 44, "0.38",
+                                "Le grain du VERT de la toile. Cale sur le "
+                                "MODELE, pas sur le ciel :\n       11.9 niveaux "
+                                "d'ecart-type mesures, contre 3.9 avant.\n"
+                                "       La reference charge les aplats satures "
+                                "bien plus que ses fonds.")
+                      + "\n\n"
+                      + mouchetis("grainToileBlanche", 44, "1.00",
+                                  "Le grain du BLANC de la toile. Trois fois "
+                                  "plus fort que celui du\n       vert, pour "
+                                  "un resultat IDENTIQUE : a reglage egal le "
+                                  "vert\n       recoit trois fois plus de "
+                                  "grain que le blanc. Deux reglages\n"
+                                  "       differents sont la seule facon "
+                                  "d'obtenir la meme matiere\n       sur les "
+                                  "deux couleurs d'un meme objet."),
+           GRAIN_VERT=grain("grainVert", 21, "0.50",
+                            "Le grain de la verdure, deux fois plus doux que "
+                            "celui du ciel.\n       A intensite egale le vert "
+                            "sombre recevrait 15%% de contraste,\n       "
+                            "c'est-a-dire de la neige ; a 0.50 il en recoit "
+                            "9%%."))
+
+def ecrire(nom, contenu):
+    """
+    Ecrit le fichier - SAUF s'il a ete modifie a la main depuis la derniere
+    generation. Dans ce cas il est laisse intact et la nouvelle version part
+    a cote, sous un autre nom.
+
+    Le script garde l'empreinte de ce qu'il a ecrit dans .empreintes.json. Si
+    l'empreinte du fichier trouve ne correspond plus, c'est que quelqu'un y a
+    touche - Inkscape, un editeur, peu importe - et ce quelqu'un a la
+    priorite. Un travail fait a la main ne se rattrape pas ; une generation,
+    si : elle prend une seconde.
+    """
+    import hashlib
+    import json
+    suivi = ".empreintes.json"
+    try:
+        connues = json.load(open(suivi))
+    except Exception:
+        connues = {}
+
+    if os.path.exists(nom):
+        actuelle = hashlib.sha1(open(nom, "rb").read()).hexdigest()
+        if connues.get(nom) and connues[nom] != actuelle:
+            secours = nom.replace(".svg", "_nouveau.svg")
+            open(secours, "w").write(contenu)
+            print("!! %s A ETE MODIFIE A LA MAIN - je n'y touche pas." % nom)
+            print("   La nouvelle version est dans %s." % secours)
+            print("   Compare les deux, garde ce que tu veux, puis efface")
+            print("   la ligne \"%s\" de %s pour repartir." % (nom, suivi))
+            return False
+
+    open(nom, "w").write(contenu)
+    connues[nom] = hashlib.sha1(contenu.encode("utf-8")).hexdigest()
+    json.dump(connues, open(suivi, "w"), indent=0, sort_keys=True)
+    return True
+
+
+if __name__ == "__main__":
+    nom = "scene.svg" if AVEC_GRILLAGE else "scene_sans_grillage.svg"
+    if not ecrire(nom, SVG):
+        raise SystemExit(1)
+    print("%s construit" % nom)
+    print("  personnage : %s" % SOURCE_PERSONNAGE)
+    print("  horizon a y=%d" % CIEL_BAS)
+    print("  mode : %s" % ("VUE DE FACE" if P.FRONTAL else "perspective"))
+    for x in (150, 900, 1650):
+        u = P.u_de_x(x)
+        c = P.projeter(u, verdure.RANGS[0][1])[1]
+        s_ = P.projeter(u, verdure.PIED_DEVANT)[1]
+        print("  x=%4d : ciel %4.0f   buisson %4.0f->%4.0f   sable %4.0f (%3.0f)"
+              % (x, c, c, s_, s_, HAUTEUR - s_))
+    print("  %d poteaux, %d fils, %d abris" % (nb_poteaux, nb_fils, nb_abris))
