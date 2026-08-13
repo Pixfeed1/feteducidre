@@ -196,60 +196,59 @@ def serviette_rayee_corps(dx, dy):
     return u''
 
 
-def serviette_rayee(ox, oy, k=1.3, indent=4):
+def serviette_rayee(ox, oy, k=1.0, indent=4):
     u"""
-    La serviette rayee, regardee de pres cette fois.
+    La serviette rayee, RELEVEE coin par coin - plus aucun reglage a l'oeil.
 
-    CE QUE MONTRE LE MODELE
-      Des rayures CONTINUES, FINES et SERREES : une dizaine sur la hauteur
-      du tapis, a trame presque egale - autant de vert que de blanc. De
-      loin, le tapis lit VERT RAYE ; ma version a tirets espaces sur fond
-      creme lisait creme taponne de vert, rien a voir.
+    LE RELEVE (reference de 1232 x 928, rapporte a nos 1800 x 1350)
+        pres-gauche  A (722, 836)      loin-gauche  D (762, 786)
+        pres-droit   B (938, 830)      loin-droit   C (955, 782)
 
-      Et le tapis n'est pas un rectangle : un leger BIAIS en
-      parallelogramme - le bord haut decale vers la droite - le couche au
-      sol sans vraie perspective, comme la serviette de la premiere
-      reference etait inclinee d'un degre et demi.
+      Le bord pres fait 216 px, le bord loin 193 : la serviette FUIT.
+      L'extremite gauche est inclinee de 39 degres, la droite plus raide :
+      elle fuit VERS LA DROITE, pas vers le fond de face. Et sa hauteur
+      passe de 94 px a gauche a 74 a droite : les rayures convergent.
 
-    RELEVE (1232 x 928) : ~210 x 44 px, soit 0.17 x 0.047 du cadre ;
-    une dizaine de rayures -> un pas d'environ 4.4 px la-bas, 6.5 ici.
+    LA CONSTRUCTION QUI EN DECOULE
+      Tout est interpole entre le bord pres A->B et le bord loin D->C :
+      la rayure au parametre v va de lerp(A, D, v) a lerp(B, C, v), et
+      chaque rayure est un QUADRILATERE plein - pas un trait a epaisseur
+      constante - dont les cotes suivent la meme interpolation. La
+      convergence, le resserrement et l'amincissement ne sont plus des
+      reglages : ils DECOULENT des quatre coins mesures. C'est la meme
+      lecon que le decoupage en fractions - on donne la geometrie, pas
+      ses consequences.
+
+    ox, oy : le centre du tapis. Dans la scene : (0.685 W, 0.8715 H),
+    la position du releve.
     """
     e = " " * indent
-    L2, H = 118.0, 50.0          # demi-longueur, hauteur
-    BIAIS = 10.0                 # le decalage du bord loin, vers la droite
-    FUITE = 0.86                 # le bord loin fait 0.86 fois le bord pres
+    # les offsets des coins par rapport au centre, deja a l'echelle 1800
+    A = (ox - 178.0 * k, oy + 40.5 * k)
+    B = (ox + 137.0 * k, oy + 31.5 * k)
+    C = (ox + 162.0 * k, oy - 38.5 * k)
+    D = (ox - 120.0 * k, oy - 33.5 * k)
 
-    # LA PERSPECTIVE, en deux effets qui vont ensemble :
-    #   - le bord loin est PLUS COURT (fuite) et decale (biais) ;
-    #   - les rayures se RESSERRENT vers le fond - l'espacement decroit,
-    #     et le trait s'amincit d'autant.
-    # L'un sans l'autre se voit : un trapeze aux rayures regulieres a l'air
-    # peint, des rayures resserrees sur un rectangle ont l'air d'un degrade.
-    def P(x, y):
-        t = -y / H                       # 0 devant, 1 au fond
-        return (ox + (x * (1.0 - (1.0 - FUITE) * t) + BIAIS * t) * k,
-                oy + y * k)
+    def L(v):
+        return (A[0] + (D[0] - A[0]) * v, A[1] + (D[1] - A[1]) * v)
 
-    coins = [P(-L2, -H), P(L2, -H), P(L2, 0), P(-L2, 0)]
-    out = [u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
-           u'fill="%s"/>'
-           % (coins[0][0], coins[0][1], coins[1][0], coins[1][1],
-              coins[2][0], coins[2][1], coins[3][0], coins[3][1], CREME)]
+    def R(v):
+        return (B[0] + (C[0] - B[0]) * v, B[1] + (C[1] - B[1]) * v)
 
-    # NEUF rayures continues, trame egale vert/blanc, RESSERREES vers le
-    # fond : la position suit u^0.82 - l'ecart entre deux rayures diminue
-    # a mesure qu'on s'eloigne - et le trait s'amincit du meme facteur.
+    def quad(p1, p2, p3, p4, couleur):
+        return (u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
+                u'fill="%s"/>' % (p1[0], p1[1], p2[0], p2[1],
+                                  p3[0], p3[1], p4[0], p4[1], couleur))
+
+    out = [quad(A, B, C, D, CREME)]
+
+    # neuf rayures, trame egale : chaque rayure couvre 52 %% de son pas.
     n = 9
-    pas = H / (n + 1.0)
+    demi = 0.52 / (2.0 * (n + 1))
     for i in range(1, n + 1):
-        u = i / (n + 1.0)
-        y = -H * ((1.0 - u) ** 0.82)     # u=1 -> bord pres, serre au fond
-        t = -y / H
-        A, Bp = P(-L2, y), P(L2, y)
-        out.append(u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" '
-                   u'stroke-width="%.1f" fill="none"/>'
-                   % (A[0], A[1], Bp[0], Bp[1], VERT_OBJET,
-                      pas * 0.52 * (1.0 - 0.30 * t) * k))
+        v = i / float(n + 1)
+        out.append(quad(L(v - demi), R(v - demi), R(v + demi), L(v + demi),
+                        VERT_OBJET))
 
     return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
