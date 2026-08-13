@@ -243,11 +243,13 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
     # le pli : deux ondes lentes, en phase fixe (graine du dessin)
     def pli(u):
         att = math.sin(math.pi * u) ** 0.7      # nul aux deux bouts
-        # 1.5 + 0.7 et non 4.2 + 2.1 : au premier essai la serviette
-        # FLOTTAIT comme un drapeau. Un tissu pose au sol fremit, il ne
-        # vole pas - l'amplitude juste est celle qu'on remarque a peine.
-        return att * (1.5 * math.sin(2 * math.pi * 1.35 * u + 0.9)
-                      + 0.7 * math.sin(2 * math.pi * 2.85 * u + 2.3)) * k
+        # L'amplitude a fait l'aller-retour : 4.2 flottait comme un
+        # drapeau QUAND les rayures couraient dans la longueur - l'onde
+        # serpentait le long des lignes. 1.5 etait invisible. Avec les
+        # bandes EN TRAVERS, l'onde ne deforme plus les bandes, elle
+        # souleve leur LIGNE DE POSE : a 3.4 le tissu ondule sans voler.
+        return att * (3.4 * math.sin(2 * math.pi * 1.35 * u + 0.9)
+                      + 1.5 * math.sin(2 * math.pi * 2.85 * u + 2.3)) * k
 
     def point(u, v):
         gauche = (A[0] + (D[0] - A[0]) * v, A[1] + (D[1] - A[1]) * v)
