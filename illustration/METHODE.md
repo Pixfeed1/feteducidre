@@ -136,6 +136,13 @@ mesurait une distance **non signée** : il affichait fièrement 19,00 px sur les
 quatre côtés, du mauvais côté. Il compare maintenant les **aires**, qui
 portent le signe.
 
+**La perspective d'un parasol tient dans son rebord.** Le rebord est un
+cercle ; vu d'un peu plus bas que la toile, il se projette en ellipse et son
+avant **descend sous la ligne des pointes** — de 0,15 rx sur le modèle. Un
+bord rectiligne = une toile vue exactement de profil, à plat. La jupe suit le
+même arc : chaque point des festons est décalé de la même quantité sous
+`y_bord(x)`.
+
 **À encombrement égal, un dôme rond a l'air plus gros qu'un cône.** Les
 coupoles en quarts d'ellipse paraissaient disproportionnées alors que rx et
 ry étaient justes : le modèle est une toile **tendue** — pentes presque

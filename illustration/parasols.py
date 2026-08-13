@@ -528,6 +528,28 @@ def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
     sommet = (X0, Y0 - ry)
     jupe_h = 0.17 * ry
 
+    # LA PERSPECTIVE : ON VOIT LA TOILE LEGEREMENT PAR EN DESSOUS. Le rebord
+    # d'un parasol est un cercle ; vu d'un peu plus bas que la toile, il se
+    # projette en ELLIPSE, et son avant DESCEND sous la ligne des pointes.
+    # Releve sur le modele : le milieu du bord plonge de 0.15 rx sous les
+    # extremites. Un bord rectiligne = une toile vue exactement de profil,
+    # a plat - c'est ce qui manquait.
+    r_bord = 0.15 * rx
+
+    def y_bord(x):
+        t = max(-1.0, min(1.0, (x - X0) / rx))
+        return Y0 + r_bord * math.sqrt(max(0.0, 1.0 - t * t))
+
+    def arc_bord(x_de, x_a):
+        """Le morceau de rebord entre deux coutures : une quadratique qui
+        PASSE par le point du rebord a mi-chemin - pas de commande A, pour
+        les raisons deja payees (drapeaux, rayons agrandis en silence)."""
+        xm = (x_de + x_a) / 2.0
+        A, M, B = T((x_de, y_bord(x_de))), T((xm, y_bord(xm))), T((x_a, y_bord(x_a)))
+        C = (2.0 * M[0] - (A[0] + B[0]) / 2.0,
+             2.0 * M[1] - (A[1] + B[1]) / 2.0)
+        return u'Q%.1f %.1f %.1f %.1f' % (C[0], C[1], B[0], B[1])
+
     # LA PENTE EST PRESQUE DROITE, LE SOMMET EST UNE POINTE. Le premier essai
     # prenait des quarts d'ellipse : une coupole ronde, un demi-ballon. Le
     # modele est une TOILE TENDUE - ses pentes filent droit du bord vers le
@@ -535,17 +557,19 @@ def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
     # est donc une seule quadratique dont le controle est LEGEREMENT au-dessus
     # de la corde : la fleche vaut un dixieme de la hauteur, pas la moitie.
     def meridien(x_dep, vers_sommet=True):
-        Cq = T((x_dep + (X0 - x_dep) * 0.32, Y0 - ry * 0.50))
-        cible = T(sommet) if vers_sommet else T((x_dep, Y0))
+        y0 = y_bord(x_dep)
+        Cq = T((x_dep + (X0 - x_dep) * 0.32,
+                y0 - (y0 - sommet[1]) * 0.50))
+        cible = T(sommet) if vers_sommet else T((x_dep, y0))
         return u'Q%.1f %.1f %.1f %.1f' % (Cq[0], Cq[1], cible[0], cible[1])
 
     toile, jupe = [], []
     for k in range(n):
         xa, xb = xs[k], xs[k + 1]
-        A, B = T((xa, Y0)), T((xb, Y0))
+        A = T((xa, y_bord(xa)))
         toile.append((GORES[k % len(GORES)],
-                      u'M%.1f %.1f L%.1f %.1f %s %s Z'
-                      % (A[0], A[1], B[0], B[1],
+                      u'M%.1f %.1f %s %s %s Z'
+                      % (A[0], A[1], arc_bord(xa, xb),
                          meridien(xb, True), meridien(xa, False))))
 
         # LA JUPE : le bord haut droit, puis des festons qui pendent. Le
@@ -553,16 +577,20 @@ def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
         # centre en portent trois ou quatre, les tranches un seul.
         # Quatre festons par grand fuseau, comme le modele - le
         # diviseur est la largeur d'UN feston en fraction du rayon.
+        # LA JUPE SUIT LE REBORD : son haut est l'arc, ses festons pendent
+        # sous l'arc - chaque point est decale de la meme quantite sous
+        # y_bord(x), donc la jupe est plus basse au centre qu'aux pointes,
+        # comme la toile qu'elle prolonge.
         nf = max(1, int(round((xb - xa) / (0.20 * rx))))
-        yb = Y0 + jupe_h * 0.45
-        d = u'M%.1f %.1f L%.1f %.1f' % (A[0], A[1], B[0], B[1])
-        Bb = T((xb, yb))
+        d = u'M%.1f %.1f %s' % (A[0], A[1], arc_bord(xa, xb))
+        Bb = T((xb, y_bord(xb) + jupe_h * 0.45))
         d += u' L%.1f %.1f' % (Bb[0], Bb[1])
         for i in range(nf, 0, -1):
             s1 = xa + (xb - xa) * i / nf
             s0 = xa + (xb - xa) * (i - 1) / nf
-            Cm = T(((s0 + s1) / 2.0, yb + jupe_h * 0.9))
-            P0 = T((s0, yb))
+            sm = (s0 + s1) / 2.0
+            Cm = T((sm, y_bord(sm) + jupe_h * 1.35))
+            P0 = T((s0, y_bord(s0) + jupe_h * 0.45))
             d += u' Q%.1f %.1f %.1f %.1f' % (Cm[0], Cm[1], P0[0], P0[1])
         jupe.append((JUPE[k % len(JUPE)], d + " Z"))
 
