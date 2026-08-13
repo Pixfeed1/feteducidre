@@ -53,7 +53,8 @@ une fois l'image sous les yeux.
 
 | | |
 |---|---|
-| **Parasol** | un **éventail** : demi-lune en secteurs égaux en angle, tous issus du milieu du bord droit. Pas une coupole à fuseaux. |
+| **Parasol** (4ᵉ référence, retenue) | une **coupole à festons** : 4 fuseaux par azimut (crème étroit / vert sombre / vert clair / crème), bombé **ry/rx = 0,61**, jupe à festons de 0,17 ry dans des tons **assombris** — c'est l'intérieur de la toile vu par en dessous. Mât penché d'un bloc, l'angle découle du relevé (pied et centre de toile mesurés). |
+| **Parasol** (1ʳᵉ référence, conservé en code) | un **éventail** : demi-lune en secteurs égaux issus du milieu du bord droit — `un_eventail()`. |
 | **Bord bas** | une **droite** franche. Pas de feston, pas de vaguelette. |
 | **Contours** | **aucun**. Pas de liseré, pas de couture tracée, pas d'embout. Les secteurs ne sont que des changements de couleur. |
 | **Secteurs** | nombre **impair**, ce qui met la couleur pleine aux deux extrémités. |
@@ -67,7 +68,7 @@ une fois l'image sous les yeux.
 | **Serviette** | un **rectangle** de 0,40 × 0,15 du cadre, incliné de 1,5° à peine, **pourtour blanc extérieur**. Aucune fuite : l'image est plate. |
 | **Placement** | parasol ancré à (0,105 W ; 0,312 H) — **juste sous l'horizon, toile dans le ciel**. Serviette centrée à (0,263 W ; 0,414 H). |
 | **Haie** (2ᵉ référence) | masse pleine, ciel **54 %**, haie **27 %**, sable **19 %**. Touffes de **12 à 22 px** sur 1800 — 3,3 fois plus petites que l'ancien buisson. |
-| **Herbe** (3ᵉ référence) | bande **olive** de 0,10 de la hauteur, au premier plan. Des **traits**, pas des masses : ~1 400 brins courbés. Bord haut en duvet court et dense. |
+| **Herbe** (3ᵉ référence) | bande **olive** de 0,10 de la hauteur — **retirée** de la version validée : elle mangeait le sable et prenait l'image en sandwich entre deux verts. `AVEC_HERBE`. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
 ### Le grain : un seul calque, posé sur tout

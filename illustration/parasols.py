@@ -465,3 +465,127 @@ if __name__ == "__main__":
               % (nom, rayon, nf, 180.0 / nf, inclinaison))
         print(u"  %-22s mat de %.0f px (%.2f rayon), plante en (%.0f, %.0f)"
               % ("", mat * rayon, mat, cx, cy + mat * rayon))
+
+# =====================================================================
+#  LA COUPOLE A FESTONS - la forme de la quatrieme reference
+# =====================================================================
+#
+# RELEVE SUR L'IMAGE (1232 x 928)
+#   Parasol 1 : centre de toile x=0.275, bord bas de coupole y=0.42,
+#               demi-largeur 0.244 de la largeur, bombe ry/rx = 0.61,
+#               pied du mat a (0.347, 0.857) - le mat PENCHE, la toile
+#               n'est pas a l'aplomb du pied.
+#   Parasol 2 : centre 0.81, bord y=0.53, demi-largeur 0.158,
+#               pied a (0.84, 0.83). Plus petit, plus droit.
+#   Jupe a festons sous le bord : 0.19 x ry, dans des tons ASSOMBRIS.
+#
+# QUATRE FUSEAUX, PAR AZIMUT
+#   Les coutures a l'azimut donnent creme etroit / sombre large / clair
+#   large / creme etroit - exactement la repartition du modele : le
+#   sombre a gauche du sommet, le clair a droite, les cremes en tranche.
+#
+# LA JUPE N'EST PAS LA TOILE
+#   Elle pend sous le bord, dans des tons plus sombres : c'est l'interieur
+#   de la toile qu'on voit par en dessous. Meme decoupe en fuseaux, chaque
+#   pan de jupe herite de son fuseau, assombri.
+
+CREME = "#EFE8D0"
+CREME_OMBRE = "#CBBE96"
+VERT_SOMBRE_T = "#2F6D3C"
+VERT_SOMBRE_T_OMBRE = "#153D22"
+VERT_CLAIR_T = "#7FA65C"
+VERT_CLAIR_T_OMBRE = "#4F7A39"
+MAT_COUPOLE = "#5C7A52"
+OMBRE_SABLE = "#DCD8C0"
+
+GORES = [CREME, VERT_SOMBRE_T, VERT_CLAIR_T, CREME]
+JUPE = [CREME_OMBRE, VERT_SOMBRE_T_OMBRE, VERT_CLAIR_T_OMBRE, CREME_OMBRE]
+
+# (nom, cx, y du bord bas de coupole, rx, pied_x, pied_y)
+# Tout en fractions du cadre 1800 x 1350 ; ry = 0.61 rx, comme le releve.
+COUPOLES = [
+    ("Parasol 1 - gauche", 0.275, 0.420, 0.244, 0.347, 0.857),
+    ("Parasol 2 - droite", 0.810, 0.530, 0.158, 0.840, 0.830),
+]
+
+
+def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
+    u"""
+    La coupole, construite VERTICALE sur son mat puis penchee d'un bloc
+    autour du pied - l'angle n'est pas un reglage, il DECOULE du releve :
+    c'est celui qui amene le centre de toile a sa place mesuree.
+    """
+    ry = 0.61 * rx
+    L = math.hypot(cx - fx, fy - y_bord)
+    angle = math.degrees(math.atan2(cx - fx, fy - y_bord))
+
+    def T(p):
+        return tourner(p, (fx, fy), angle)
+
+    # En repere local, le mat est vertical : centre de toile a (fx, fy - L).
+    X0, Y0 = fx, fy - L
+    xs = coutures(X0, rx, n, 0.0)
+    sommet = (X0, Y0 - ry)
+    jupe_h = 0.17 * ry
+
+    toile, jupe = [], []
+    for k in range(n):
+        xa, xb = xs[k], xs[k + 1]
+        A, B = T((xa, Y0)), T((xb, Y0))
+        montee = cubiques((X0, Y0), (xb - X0, 0.0), (0.0, -ry),
+                          0.0, math.pi / 2, T)
+        descente = cubiques((X0, Y0), (xa - X0, 0.0), (0.0, -ry),
+                            math.pi / 2, 0.0, T)
+        toile.append((GORES[k % len(GORES)],
+                      u'M%.1f %.1f L%.1f %.1f %s %s Z'
+                      % (A[0], A[1], B[0], B[1], montee, descente)))
+
+        # LA JUPE : le bord haut droit, puis des festons qui pendent. Le
+        # nombre de festons suit la largeur du fuseau - les fuseaux du
+        # centre en portent trois ou quatre, les tranches un seul.
+        # Quatre festons par grand fuseau, comme le modele - le
+        # diviseur est la largeur d'UN feston en fraction du rayon.
+        nf = max(1, int(round((xb - xa) / (0.20 * rx))))
+        yb = Y0 + jupe_h * 0.45
+        d = u'M%.1f %.1f L%.1f %.1f' % (A[0], A[1], B[0], B[1])
+        Bb = T((xb, yb))
+        d += u' L%.1f %.1f' % (Bb[0], Bb[1])
+        for i in range(nf, 0, -1):
+            s1 = xa + (xb - xa) * i / nf
+            s0 = xa + (xb - xa) * (i - 1) / nf
+            Cm = T(((s0 + s1) / 2.0, yb + jupe_h * 0.9))
+            P0 = T((s0, yb))
+            d += u' Q%.1f %.1f %.1f %.1f' % (Cm[0], Cm[1], P0[0], P0[1])
+        jupe.append((JUPE[k % len(JUPE)], d + " Z"))
+
+    # Le mat : du pied au sommet de la coupole, sous la toile.
+    S = T(sommet)
+    mat = (u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" stroke-width="11"'
+           u' stroke-linecap="round"/>' % (fx, fy, S[0], S[1], MAT_COUPOLE))
+
+    # L'ombre portee sur le sable : une longue bande couchee, decalee du
+    # cote oppose au soleil (il vient de droite sur le modele), plus un
+    # trait au pied du mat.
+    ox = fx - rx * 1.05
+    ombre = (u'<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="%.1f"'
+             u' fill="%s"/>' % (ox - rx * 0.7, fy - 26, rx * 1.5, 15, 7.5,
+                                OMBRE_SABLE))
+    pied_trait = (u'<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="4.5"'
+                  u' fill="%s"/>' % (fx, fy, 26, "#B9B49A"))
+
+    e = " " * indent
+    lignes = [u'%s<g inkscape:label="%s">' % (e, nom),
+              u'%s  %s' % (e, ombre),
+              u'%s  %s' % (e, pied_trait),
+              u'%s  %s' % (e, mat)]
+    for couleur, d in jupe + toile:
+        lignes.append(u'%s  <path d="%s" fill="%s"/>' % (e, d, couleur))
+    lignes.append(u'%s</g>' % e)
+    return "\n".join(lignes)
+
+
+def engendrer_coupoles(largeur, hauteur, indent=4):
+    corps = [une_coupole(nom, cx * largeur, yb * hauteur, rx * largeur,
+                         fx * largeur, fy * hauteur, indent=indent)
+             for nom, cx, yb, rx, fx, fy in COUPOLES]
+    return "", "\n\n".join(corps), len(COUPOLES)

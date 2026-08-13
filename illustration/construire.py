@@ -53,7 +53,7 @@ AVEC_HAIE = True
 
 # L'HERBE, au bas de l'image : le premier plan de la reference. Une bande
 # olive de brins, sous le sable. Voir herbe.py.
-AVEC_HERBE = True
+AVEC_HERBE = False
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -249,7 +249,10 @@ else:
 fence, nb_poteaux, nb_fils, _ = grillage.bloc(indent=2)
 if not AVEC_GRILLAGE:
     fence = '  <!-- grillage retire -->'
-coupes_abris, abris, nb_abris = parasols.engendrer(indent=4)
+# LES PARASOLS : les coupoles a festons de la quatrieme reference.
+# L'eventail reste disponible via parasols.engendrer().
+coupes_abris, abris, nb_abris = parasols.engendrer_coupoles(
+    LARGEUR, HAUTEUR, indent=4)
 
 # ===================== LA PLACE DU PERSONNAGE =========================
 # S'il existe un fichier personnage.svg a cote, C'EST LUI qui est pose, tel
