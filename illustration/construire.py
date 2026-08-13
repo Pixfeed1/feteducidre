@@ -580,7 +580,7 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
            PERSONNAGES=(personnages.engendrer(LARGEUR, HAUTEUR)
                         if AVEC_PERSONNAGES
                         else (personnages.serviette_rayee(
-                                  0.840 * LARGEUR, 0.852 * HAUTEUR, 1.0, 2)
+                                  0.814 * LARGEUR, 0.8595 * HAUTEUR, 1.0, 2)
                               if AVEC_SERVIETTE_RAYEE
                               else '  <!-- personnages retires -->')),
            HERBE=(herbe.engendrer(LARGEUR, HAUTEUR, PART_HERBE)[0]
