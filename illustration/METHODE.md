@@ -68,7 +68,7 @@ une fois l'image sous les yeux.
 | **Serviette** | un **rectangle** de 0,40 × 0,15 du cadre, incliné de 1,5° à peine, **pourtour blanc extérieur**. Aucune fuite : l'image est plate. |
 | **Placement** | parasol ancré à (0,105 W ; 0,312 H) — **juste sous l'horizon, toile dans le ciel**. Serviette centrée à (0,263 W ; 0,414 H). |
 | **Haie** (2ᵉ référence) | masse pleine, ciel **54 %**, haie **27 %**, sable **19 %**. Touffes de **12 à 22 px** sur 1800 — 3,3 fois plus petites que l'ancien buisson. |
-| **Serviette rayée** (5ᵉ référence) | rayures **continues, fines et serrées** : 9 traits verts au pas de H/10, trait = la moitié du pas — autant de vert que de blanc, le tapis lit *vert rayé* de loin. Léger biais en parallélogramme. ~0,17 × 0,047 du cadre. |
+| **Serviette rayée** (5ᵉ référence) | rayures **continues, fines et serrées** : 9 traits verts, trame égale vert/blanc. **En perspective** : bord loin à 0,86 du bord près + biais, rayures resserrées vers le fond (position en u^0,82) et traits amincis d'autant. Les deux effets vont ensemble : un trapèze aux rayures régulières a l'air peint, des rayures resserrées sur un rectangle ont l'air d'un dégradé. |
 | **Verge + coins d'herbe** | construits sur un contresens (« le vert au sol » désignait la serviette), **éteints** (`AVEC_SOL_VERT = False`) mais conservés dans `herbe.sol_vert()`. |
 | **Herbe pleine largeur** (3ᵉ référence) | retirée : elle fermait l'image comme un muret. `AVEC_HERBE`. |
 | **Personnages** (5ᵉ référence) | des **silhouettes** : une couleur corail, aucun visage, un accent par figure (short, haut clair). Toute la lecture est dans la **posture**. Membres fuselés + lissés, ballon en croissants par booléens, serviette rayée en bandes pleines. |

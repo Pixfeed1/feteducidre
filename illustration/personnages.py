@@ -216,11 +216,19 @@ def serviette_rayee(ox, oy, k=1.3, indent=4):
     """
     e = " " * indent
     L2, H = 118.0, 50.0          # demi-longueur, hauteur
-    BIAIS = 10.0                 # le decalage du bord haut, vers la droite
+    BIAIS = 10.0                 # le decalage du bord loin, vers la droite
+    FUITE = 0.86                 # le bord loin fait 0.86 fois le bord pres
 
+    # LA PERSPECTIVE, en deux effets qui vont ensemble :
+    #   - le bord loin est PLUS COURT (fuite) et decale (biais) ;
+    #   - les rayures se RESSERRENT vers le fond - l'espacement decroit,
+    #     et le trait s'amincit d'autant.
+    # L'un sans l'autre se voit : un trapeze aux rayures regulieres a l'air
+    # peint, des rayures resserrees sur un rectangle ont l'air d'un degrade.
     def P(x, y):
-        # y va de 0 (bord pres) a -H (bord loin) ; le decalage suit
-        return (ox + (x + BIAIS * (-y / H)) * k, oy + y * k)
+        t = -y / H                       # 0 devant, 1 au fond
+        return (ox + (x * (1.0 - (1.0 - FUITE) * t) + BIAIS * t) * k,
+                oy + y * k)
 
     coins = [P(-L2, -H), P(L2, -H), P(L2, 0), P(-L2, 0)]
     out = [u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
@@ -228,16 +236,20 @@ def serviette_rayee(ox, oy, k=1.3, indent=4):
            % (coins[0][0], coins[0][1], coins[1][0], coins[1][1],
               coins[2][0], coins[2][1], coins[3][0], coins[3][1], CREME)]
 
-    # NEUF rayures continues : le pas vaut H/10, le trait la moitie du pas -
-    # autant de vert que de blanc, c'est la trame du modele.
+    # NEUF rayures continues, trame egale vert/blanc, RESSERREES vers le
+    # fond : la position suit u^0.82 - l'ecart entre deux rayures diminue
+    # a mesure qu'on s'eloigne - et le trait s'amincit du meme facteur.
     n = 9
     pas = H / (n + 1.0)
     for i in range(1, n + 1):
-        y = -H + pas * i
+        u = i / (n + 1.0)
+        y = -H * ((1.0 - u) ** 0.82)     # u=1 -> bord pres, serre au fond
+        t = -y / H
         A, Bp = P(-L2, y), P(L2, y)
         out.append(u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" '
                    u'stroke-width="%.1f" fill="none"/>'
-                   % (A[0], A[1], Bp[0], Bp[1], VERT_OBJET, pas * 0.52 * k))
+                   % (A[0], A[1], Bp[0], Bp[1], VERT_OBJET,
+                      pas * 0.52 * (1.0 - 0.30 * t) * k))
 
     return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
