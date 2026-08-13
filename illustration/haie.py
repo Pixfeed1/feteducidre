@@ -25,6 +25,7 @@ DEUX VALEURS, ET UNE LIMITE MANGEE
   depassent dans le ciel. Une limite nette y ferait deux bandes empilees.
 """
 
+import math
 import random
 
 CLAIR = "#57A34A"
@@ -44,18 +45,43 @@ SOMBRE_TACHE = "#39833F"     # nettement plus clair que SOMBRE
 # leur nombre qui les empechent de faire des confettis, pas leur discretion.
 
 
-def frange(y, largeur, pas, rmin, rmax, saut, alea):
+def houle(largeur, amplitude, alea):
+    u"""
+    Une lente derive verticale le long de la haie.
+
+    Le frisottis est un desordre LOCAL : a l'echelle du metre, la crete de la
+    reference n'est pas droite pour autant, elle respire - quelques pixels de
+    montee et de descente sur des longueurs de plusieurs centaines. Sans
+    cette houle, la frange la plus desordonnee reste posee sur une regle.
+
+    Deux sinusoides de periodes non commensurables : assez pour ne pas se
+    repeter visiblement, sans le cout d'un vrai bruit.
+    """
+    l1 = alea.uniform(0.28, 0.40) * largeur
+    l2 = alea.uniform(0.11, 0.17) * largeur
+    p1, p2 = alea.uniform(0, 6.28), alea.uniform(0, 6.28)
+
+    def y(x):
+        return (amplitude * 0.7 * math.sin(2 * math.pi * x / l1 + p1)
+                + amplitude * 0.3 * math.sin(2 * math.pi * x / l2 + p2))
+    return y
+
+
+def frange(y, largeur, pas, rmin, rmax, saut, alea, derive=None):
     u"""
     Des disques semes le long d'une horizontale.
 
-    pas   : l'ecart moyen entre deux centres
-    saut  : de combien le centre monte ou descend au hasard. Sans lui les
-            sommets s'alignent et la frange redevient une reglette.
+    pas    : l'ecart moyen entre deux centres
+    saut   : de combien le centre monte ou descend au hasard. Sans lui les
+             sommets s'alignent et la frange redevient une reglette.
+    derive : la houle - un y(x) ajoute au centre, lent, commun a la frange.
     """
     out, x = [], -rmax
     while x < largeur + rmax:
         r = alea.uniform(rmin, rmax)
-        out.append((round(x, 1), round(y + alea.uniform(-saut, saut * 0.5), 1),
+        dy = derive(x) if derive else 0.0
+        out.append((round(x, 1),
+                    round(y + dy + alea.uniform(-saut, saut * 0.5), 1),
                     round(r, 1)))
         x += alea.uniform(pas * 0.55, pas * 1.45)
     return out
@@ -72,11 +98,27 @@ def mouchetures(y_haut, y_bas, largeur, densite, rmin, rmax, alea):
     du GRAIN ; il n'ajoute pas de FEUILLES.
 
     densite : nombre de taches pour 10 000 px carres.
+
+    PAR GRAPPES, PAS UNE A UNE. Un semis uniforme se lit comme du bruit ; le
+    feuillage de la reference va par paquets - quelques taches serrees, puis
+    du plein, puis un autre paquet. On tire donc des CENTRES de grappe, et
+    autour de chacun trois a huit taches dans une ellipse couchee (le
+    feuillage s'etale en largeur, pas en hauteur). Meme nombre total de
+    taches, tout autre dessin.
     """
     n = int(densite * (y_bas - y_haut) * largeur / 10000.0)
-    return [(round(alea.uniform(-rmax, largeur + rmax), 1),
-             round(alea.uniform(y_haut, y_bas), 1),
-             round(alea.uniform(rmin, rmax), 1)) for _ in range(n)]
+    out = []
+    while len(out) < n:
+        gx = alea.uniform(-rmax, largeur + rmax)
+        gy = alea.uniform(y_haut, y_bas)
+        etendue = alea.uniform(rmax * 1.6, rmax * 4.2)
+        for _ in range(alea.randint(3, 8)):
+            a = alea.uniform(0.0, 2 * math.pi)
+            d = etendue * math.sqrt(alea.random())
+            out.append((round(gx + d * math.cos(a), 1),
+                        round(gy + d * 0.55 * math.sin(a), 1),
+                        round(alea.uniform(rmin, rmax), 1)))
+    return out[:n]
 
 
 def _bloc(disques, y_haut, y_bas, largeur, indent):
@@ -108,13 +150,18 @@ def engendrer(largeur, crete, pied, indent=6, graine=7, densite=20.0):
     # Un seul rang, meme irregulier, garde une ligne moyenne visible : l'oeil
     # la reconstitue et la frange redevient une frise. Deux rangs qui se
     # chevauchent a des hauteurs differentes suppriment cette ligne.
-    haut = (frange(crete, largeur, pas, rmin, rmax, rmax * 0.8, alea)
+    # LA MEME houle pour la crete et pour la limite : une haie taillee garde
+    # une epaisseur a peu pres constante, donc ses deux lignes respirent
+    # ensemble. Deux houles independantes feraient varier l'epaisseur de la
+    # bande claire, et l'oeil y verrait une erreur sans savoir laquelle.
+    derive = houle(largeur, rmax * 0.9, alea)
+    haut = (frange(crete, largeur, pas, rmin, rmax, rmax * 0.8, alea, derive)
             + frange(crete + rmax * 0.75, largeur, pas * 1.1,
-                     rmin * 0.8, rmax * 0.85, rmax * 0.9, alea))
+                     rmin * 0.8, rmax * 0.85, rmax * 0.9, alea, derive))
     milieu = (frange(limite, largeur, pas * 1.05, rmin, rmax * 1.15,
-                     rmax * 1.3, alea)
+                     rmax * 1.3, alea, derive)
               + frange(limite - rmax * 1.6, largeur, pas * 2.2,
-                       rmin * 0.7, rmax * 0.9, rmax * 1.6, alea))
+                       rmin * 0.7, rmax * 0.9, rmax * 1.6, alea, derive))
 
     # Les taches du corps. Plus petites que les touffes du bord - elles ne
     # decoupent pas une silhouette, elles remplissent.

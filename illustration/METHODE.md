@@ -160,6 +160,19 @@ corps de la haie restait deux aplats nus sous le grain — de loin, deux bandes
 vertes. Il lui fallait des **mouchetures semées dans la masse** : ~1 850
 petites taches, et c'est ce piquetage, pas le filtre, qui fait la matière.
 
+**Les taches vont par grappes, pas une à une.** Un semis uniforme se lit
+comme du bruit ; le feuillage va par paquets. On tire des centres de grappe,
+puis trois à huit taches autour de chacun, dans une ellipse couchée — le
+feuillage s'étale en largeur, pas en hauteur. Même nombre total, tout autre
+dessin.
+
+**Une frange, même désordonnée, reste posée sur une règle.** Le frisottis est
+un désordre local ; à grande échelle la crête de la référence respire —
+quelques pixels de dérive sur des longueurs de plusieurs centaines. `houle()`
+ajoute cette dérive, la **même** pour la crête et pour la limite intérieure :
+une haie taillée garde une épaisseur constante, ses deux lignes respirent
+ensemble.
+
 **Des taches trop discrètes ne font rien du tout.** Premier essai avec des
 tons à peine différents de leur fond : 700 taches invisibles. Sur la référence
 elles **tranchent** ; ce sont leur petitesse et leur nombre qui les empêchent
