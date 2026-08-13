@@ -14,6 +14,7 @@ import nuages
 import mer
 import serviette
 import haie
+import herbe
 import enfant
 
 # LE FORMAT. 1800 x 1350, soit du 4:3. La hauteur ne change pas : c'est elle
@@ -49,6 +50,11 @@ AVEC_SERVIETTE = False
 # LA HAIE remplace le buisson : masse pleine a bord haut finement frisote,
 # relevee sur la seconde reference. Voir haie.py.
 AVEC_HAIE = True
+
+# L'HERBE, au bas de l'image : le premier plan de la reference. Une bande
+# olive de brins, sous le sable. Voir herbe.py.
+AVEC_HERBE = True
+PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
 # les grains par matiere sont mis en veille : c'est ce que fait la reference.
@@ -499,6 +505,18 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 </g>
 
 
+<!-- ################## L'HERBE ################## -->
+<!-- Le premier plan : une bande de brins au bas de l'image, PAR-DESSUS le
+     sable. Des traits, pas des masses - c'est la forme elementaire qui
+     distingue l'herbe de la haie. Voir herbe.py. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 7 - L'herbe"
+   id="coucheHerbe">
+
+{HERBE}
+
+</g>
+
+
 <!-- ################## LE GRAIN ################## -->
 <!-- UN SEUL calque, par-dessus tout le reste : meme densite et meme taille
      de point sur le ciel, le feuillage et le sable. C'est ce que fait la
@@ -516,6 +534,8 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
            BORD=BORD_SABLE, COUPES=coupes, FEUILLAGE=feuillage,
            FENCE=fence, ABRIS=abris, COUPES_ABRIS=coupes_abris,
            GAMIN=GAMIN, SERVIETTE=SERVIETTE,
+           HERBE=(herbe.engendrer(LARGEUR, HAUTEUR, PART_HERBE)[0]
+                  if AVEC_HERBE else '  <!-- herbe retiree -->'),
            HP0="%.0f" % (grillage.projeter(0,0)[1]-grillage.projeter(0,1)[1]),
            HP15="%.0f" % (grillage.projeter(15,0)[1]-grillage.projeter(15,1)[1]),
            EC0="%.0f" % (grillage.projeter(1,0)[0]-grillage.projeter(0,0)[0]),

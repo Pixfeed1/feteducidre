@@ -67,6 +67,7 @@ une fois l'image sous les yeux.
 | **Serviette** | un **rectangle** de 0,40 × 0,15 du cadre, incliné de 1,5° à peine, **pourtour blanc extérieur**. Aucune fuite : l'image est plate. |
 | **Placement** | parasol ancré à (0,105 W ; 0,312 H) — **juste sous l'horizon, toile dans le ciel**. Serviette centrée à (0,263 W ; 0,414 H). |
 | **Haie** (2ᵉ référence) | masse pleine, ciel **54 %**, haie **27 %**, sable **19 %**. Touffes de **12 à 22 px** sur 1800 — 3,3 fois plus petites que l'ancien buisson. |
+| **Herbe** (3ᵉ référence) | bande **olive** de 0,10 de la hauteur, au premier plan. Des **traits**, pas des masses : ~1 400 brins courbés. Bord haut en duvet court et dense. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
 ### Le grain : un seul calque, posé sur tout
@@ -160,6 +161,20 @@ corps de la haie restait deux aplats nus sous le grain — de loin, deux bandes
 vertes. Il lui fallait des **mouchetures semées dans la masse** : ~1 850
 petites taches, et c'est ce piquetage, pas le filtre, qui fait la matière.
 
+**L'herbe est faite de traits, la haie de masses.** Même vocabulaire — des
+formes semées sur une graine fixe — mais la forme élémentaire change tout :
+un brin est une quadratique courbée, pas un disque. Un brin raide est un
+bâton.
+
+**Un bord d'herbe est un duvet, pas un peigne.** Premier essai : brins de
+0,3–0,6 fois la bande, espacés de 9 px — chaque dent lisible une à une. La
+référence fait court (≈ 0,1–0,25 de la bande) et dense (≈ 4,6 px). C'est la
+proximité des brins qui fait la matière, pas leur taille.
+
+**Des brins à hauteur fixe font des rangs de poireaux.** Deux appels à
+hauteur fixe dessinaient deux rangées visibles. Le pied de chaque brin est
+tiré au hasard dans la bande.
+
 **Les taches vont par grappes, pas une à une.** Un semis uniforme se lit
 comme du bruit ; le feuillage va par paquets. On tire des centres de grappe,
 puis trois à huit taches autour de chacun, dans une ellipse couchée — le
@@ -214,6 +229,7 @@ Les décalages de contour restent donc à la charge de `trace.py`.
 | `construire.py` | le chef d'orchestre. Format, découpage, palette, filtres de grain. |
 | `perspective.py` | l'interrupteur `FRONTAL`. Vue de face ou point de fuite. |
 | `haie.py` | la haie taillée, relevée sur la 2ᵉ référence (`AVEC_HAIE`) |
+| `herbe.py` | la bande d'herbe du premier plan (`AVEC_HERBE`) |
 | `verdure.py` | l'ancien buisson à gros lobes, retiré (`AVEC_VERDURE`) |
 | `mer.py` | la mer et sa vague, retirée (`AVEC_MER`) |
 | `serviette.py` | la serviette, retirée (`AVEC_SERVIETTE`) |
