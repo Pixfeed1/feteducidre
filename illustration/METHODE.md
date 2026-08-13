@@ -53,7 +53,7 @@ une fois l'image sous les yeux.
 
 | | |
 |---|---|
-| **Parasol** (4ᵉ référence, retenue) | une **coupole à festons** : 4 fuseaux par azimut (crème étroit / vert sombre / vert clair / crème), bombé **ry/rx = 0,61**, jupe à festons de 0,17 ry dans des tons **assombris** — c'est l'intérieur de la toile vu par en dessous. Mât penché d'un bloc, l'angle découle du relevé (pied et centre de toile mesurés). |
+| **Parasol** (4ᵉ référence, retenue) | une **toile tendue en pointe**, pas un dôme : pentes presque droites (flèche ≈ 0,1 × la hauteur), sommet pointu, ry/rx = 0,61. 4 fuseaux par azimut (crème étroit / vert sombre / vert clair / crème), jupe à festons de 0,17 ry en tons **assombris** — l'intérieur de la toile vu par en dessous. Mât penché d'un bloc, l'angle découle du relevé. |
 | **Parasol** (1ʳᵉ référence, conservé en code) | un **éventail** : demi-lune en secteurs égaux issus du milieu du bord droit — `un_eventail()`. |
 | **Bord bas** | une **droite** franche. Pas de feston, pas de vaguelette. |
 | **Contours** | **aucun**. Pas de liseré, pas de couture tracée, pas d'embout. Les secteurs ne sont que des changements de couleur. |
@@ -135,6 +135,12 @@ dilatait au lieu de réduire — normale intérieure prise à l'envers — et le
 mesurait une distance **non signée** : il affichait fièrement 19,00 px sur les
 quatre côtés, du mauvais côté. Il compare maintenant les **aires**, qui
 portent le signe.
+
+**À encombrement égal, un dôme rond a l'air plus gros qu'un cône.** Les
+coupoles en quarts d'ellipse paraissaient disproportionnées alors que rx et
+ry étaient justes : le modèle est une toile **tendue** — pentes presque
+droites, sommet en pointe. Chaque méridien est une quadratique dont le
+contrôle est à peine au-dessus de la corde.
 
 **Le modèle décide, pas la règle générale.** La serviette avait été construite
 en trapèze fuyant au nom du « rectangle à angles droits = plaque dressée ».

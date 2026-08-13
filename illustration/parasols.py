@@ -528,17 +528,25 @@ def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
     sommet = (X0, Y0 - ry)
     jupe_h = 0.17 * ry
 
+    # LA PENTE EST PRESQUE DROITE, LE SOMMET EST UNE POINTE. Le premier essai
+    # prenait des quarts d'ellipse : une coupole ronde, un demi-ballon. Le
+    # modele est une TOILE TENDUE - ses pentes filent droit du bord vers le
+    # sommet, a peine bombees, et se rejoignent en pointe. Chaque meridien
+    # est donc une seule quadratique dont le controle est LEGEREMENT au-dessus
+    # de la corde : la fleche vaut un dixieme de la hauteur, pas la moitie.
+    def meridien(x_dep, vers_sommet=True):
+        Cq = T((x_dep + (X0 - x_dep) * 0.32, Y0 - ry * 0.50))
+        cible = T(sommet) if vers_sommet else T((x_dep, Y0))
+        return u'Q%.1f %.1f %.1f %.1f' % (Cq[0], Cq[1], cible[0], cible[1])
+
     toile, jupe = [], []
     for k in range(n):
         xa, xb = xs[k], xs[k + 1]
         A, B = T((xa, Y0)), T((xb, Y0))
-        montee = cubiques((X0, Y0), (xb - X0, 0.0), (0.0, -ry),
-                          0.0, math.pi / 2, T)
-        descente = cubiques((X0, Y0), (xa - X0, 0.0), (0.0, -ry),
-                            math.pi / 2, 0.0, T)
         toile.append((GORES[k % len(GORES)],
                       u'M%.1f %.1f L%.1f %.1f %s %s Z'
-                      % (A[0], A[1], B[0], B[1], montee, descente)))
+                      % (A[0], A[1], B[0], B[1],
+                         meridien(xb, True), meridien(xa, False))))
 
         # LA JUPE : le bord haut droit, puis des festons qui pendent. Le
         # nombre de festons suit la largeur du fuseau - les fuseaux du
