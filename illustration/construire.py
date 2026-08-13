@@ -15,6 +15,7 @@ import mer
 import serviette
 import haie
 import herbe
+import personnages
 import enfant
 
 # LE FORMAT. 1800 x 1350, soit du 4:3. La hauteur ne change pas : c'est elle
@@ -54,6 +55,10 @@ AVEC_HAIE = True
 # L'HERBE, au bas de l'image : le premier plan de la reference. Une bande
 # olive de brins, sous le sable. Voir herbe.py.
 AVEC_HERBE = False
+
+# LES PERSONNAGES de la cinquieme reference : l'enfant qui creuse, le
+# coureur au ballon, le couple sur la serviette rayee. Voir personnages.py.
+AVEC_PERSONNAGES = True
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -520,6 +525,17 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 </g>
 
 
+<!-- ################## LES PERSONNAGES ################## -->
+<!-- Des silhouettes : une couleur corail, aucun visage, un accent par
+     figure. Toute la lecture est dans la posture. Voir personnages.py. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 8 - Les personnages"
+   id="couchePersonnages">
+
+{PERSONNAGES}
+
+</g>
+
+
 <!-- ################## LE GRAIN ################## -->
 <!-- UN SEUL calque, par-dessus tout le reste : meme densite et meme taille
      de point sur le ciel, le feuillage et le sable. C'est ce que fait la
@@ -537,6 +553,9 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
            BORD=BORD_SABLE, COUPES=coupes, FEUILLAGE=feuillage,
            FENCE=fence, ABRIS=abris, COUPES_ABRIS=coupes_abris,
            GAMIN=GAMIN, SERVIETTE=SERVIETTE,
+           PERSONNAGES=(personnages.engendrer(LARGEUR, HAUTEUR)
+                        if AVEC_PERSONNAGES
+                        else '  <!-- personnages retires -->'),
            HERBE=(herbe.engendrer(LARGEUR, HAUTEUR, PART_HERBE)[0]
                   if AVEC_HERBE else '  <!-- herbe retiree -->'),
            HP0="%.0f" % (grillage.projeter(0,0)[1]-grillage.projeter(0,1)[1]),

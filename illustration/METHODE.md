@@ -69,6 +69,7 @@ une fois l'image sous les yeux.
 | **Placement** | parasol ancré à (0,105 W ; 0,312 H) — **juste sous l'horizon, toile dans le ciel**. Serviette centrée à (0,263 W ; 0,414 H). |
 | **Haie** (2ᵉ référence) | masse pleine, ciel **54 %**, haie **27 %**, sable **19 %**. Touffes de **12 à 22 px** sur 1800 — 3,3 fois plus petites que l'ancien buisson. |
 | **Herbe** (3ᵉ référence) | bande **olive** de 0,10 de la hauteur — **retirée** de la version validée : elle mangeait le sable et prenait l'image en sandwich entre deux verts. `AVEC_HERBE`. |
+| **Personnages** (5ᵉ référence) | des **silhouettes** : une couleur corail, aucun visage, un accent par figure (short, haut clair). Toute la lecture est dans la **posture**. Membres fuselés + lissés, ballon en croissants par booléens, serviette rayée en bandes pleines. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
 ### Le grain : un seul calque, posé sur tout
@@ -175,6 +176,19 @@ corps de la haie restait deux aplats nus sous le grain — de loin, deux bandes
 vertes. Il lui fallait des **mouchetures semées dans la masse** : ~1 850
 petites taches, et c'est ce piquetage, pas le filtre, qui fait la matière.
 
+**Une silhouette se lit par sa posture, pas par ses détails.** Le premier
+enfant détaillé (deux tons de peau, coiffure, ourlets) avait échoué ; les
+figures de la référence marchent parce qu'elles n'ont *qu'une* couleur et
+*un* accent. Ce qui les rend reproductibles par le code : le coureur est
+trois obliques parallèles (torse, jambe arrière, bras tendu), l'assis est un
+angle (torse penché contre genoux relevés), et le bras d'appui doit être
+plus fin et plus court que les jambes, sinon il en devient une troisième.
+
+**Un ballon de plage est fait de croissants, pas d'une croix.** Deux bandes
+en intersection donnent une croix de pharmacie ; le cercle **moins** le même
+cercle décalé donne le croissant, dont le bord est le bord du ballon par
+construction.
+
 **L'herbe est faite de traits, la haie de masses.** Même vocabulaire — des
 formes semées sur une graine fixe — mais la forme élémentaire change tout :
 un brin est une quadratique courbée, pas un disque. Un brin raide est un
@@ -250,7 +264,8 @@ Les décalages de contour restent donc à la charge de `trace.py`.
 | `grillage.py` | la clôture (retirée de la version validée) |
 | `nuages.py` | les nuages, au rapport du modèle |
 | `parasols.py` | `un_eventail()` — la forme du modèle. `un_parasol()` — l'ancienne coupole à fuseaux, conservée. |
-| `enfant.py` | l'enfant et ses jouets, retiré de la version validée (`AVEC_ENFANT`) |
+| `enfant.py` | l'ancien enfant détaillé, retiré (`AVEC_ENFANT`) |
+| `personnages.py` | les silhouettes de la 5ᵉ référence : creuseur, coureur au ballon, couple sur serviette rayée (`AVEC_PERSONNAGES`) |
 | `trace.py` | l'épaisseur variable, l'équivalent calculé du *Power Stroke* |
 | `booleen.py` | union / différence / intersection / simplification, calculées par Inkscape |
 | `importer_figure.py` | greffer un personnage téléchargé et l'accorder à la palette |
