@@ -243,13 +243,11 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
     # le pli : deux ondes lentes, en phase fixe (graine du dessin)
     def pli(u):
         att = math.sin(math.pi * u) ** 0.7      # nul aux deux bouts
-        # L'amplitude a fait l'aller-retour : 4.2 flottait comme un
-        # drapeau QUAND les rayures couraient dans la longueur - l'onde
-        # serpentait le long des lignes. 1.5 etait invisible. Avec les
-        # bandes EN TRAVERS, l'onde ne deforme plus les bandes, elle
-        # souleve leur LIGNE DE POSE : a 3.4 le tissu ondule sans voler.
-        return att * (3.4 * math.sin(2 * math.pi * 1.35 * u + 0.9)
-                      + 1.5 * math.sin(2 * math.pi * 2.85 * u + 2.3)) * k
+        # 2.4 : le point entre 1.5 (invisible) et 4.2 (drapeau). Les
+        # rayures courent dans la longueur, donc chaque ligne serpente
+        # avec le pli - c'est le mouvement du tissu de la reference.
+        return att * (2.4 * math.sin(2 * math.pi * 1.35 * u + 0.9)
+                      + 1.0 * math.sin(2 * math.pi * 2.85 * u + 2.3)) * k
 
     def point(u, v):
         gauche = (A[0] + (D[0] - A[0]) * v, A[1] + (D[1] - A[1]) * v)
@@ -257,44 +255,47 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
         return (gauche[0] + (droite[0] - gauche[0]) * u,
                 gauche[1] + (droite[1] - gauche[1]) * u + pli(u))
 
-    N = 14
+    N = 16
 
     def ligne(v):
         return [point(i / float(N), v) for i in range(N + 1)]
 
-    def contour(couleur):
-        haut = ligne(1.0)
-        bas = ligne(0.0)
+    def ruban(v0, v1, couleur):
+        haut = ligne(v1)
+        bas = ligne(v0)
         d = _catmull(haut)
         d += u" L%.1f %.1f" % bas[-1]
         d += _catmull(list(reversed(bas))).replace("M", "L", 1)
         return u'<path d="%s Z" fill="%s"/>' % (d, couleur)
 
-    # LE SENS DE POSE. Les rayures d'une serviette courent EN TRAVERS de sa
-    # largeur ; posee dans la longueur, elles deviennent des bandes
-    # TRANSVERSALES a l'image - je les avais couchees le long du tissu, a
-    # contresens. Chaque bande est un quadrilatere a u constant, du bord
-    # pres au bord loin ; elle MONTE ET DESCEND avec le pli de son endroit,
-    # puisque ses coins portent pli(u) : c'est ainsi qu'un tissu raye pose
-    # sur des bosses se comporte - les bandes restent droites, leur ligne
-    # de pose ondule.
-    def bande(u0, u1, couleur):
-        p1, p2 = point(u0, 0.03), point(u0, 0.97)
-        p3, p4 = point(u1, 0.97), point(u1, 0.03)
-        return (u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
-                u'fill="%s"/>' % (p1[0], p1[1], p2[0], p2[1],
-                                  p3[0], p3[1], p4[0], p4[1], couleur))
+    out = []
 
-    out = [contour(CREME)]
-    # LES LISIERES : une bande unie a chaque bout - l'ourlet du tissu -
-    # puis treize bandes alternees a trame egale, sept vertes.
-    u_min, u_max = 0.10, 0.90
-    n_bandes = 17
-    pas_u = (u_max - u_min) / n_bandes
-    for i in range(n_bandes):
-        if i % 2 == 0:
-            out.append(bande(u_min + i * pas_u, u_min + (i + 1) * pas_u,
-                             VERT_OBJET))
+    # L'EPAISSEUR DU TISSU : une ombre fine sous le bord pres, decalee de
+    # quelques pixels. Sans elle la serviette est PEINTE sur le sable ;
+    # avec elle, elle est POSEE dessus. C'est le detail qui fait la
+    # finition - le meme role que le trait au pied du mat.
+    bas_ombre = [(x + 2.5, y + 5.0) for (x, y) in ligne(0.0)]
+    haut_ombre = [(x + 2.5, y - 6.0) for (x, y) in bas_ombre]
+    d_ombre = _catmull(haut_ombre)
+    d_ombre += u" L%.1f %.1f" % bas_ombre[-1]
+    d_ombre += _catmull(list(reversed(bas_ombre))).replace("M", "L", 1)
+    out.append(u'<path d="%s Z" fill="%s" opacity="0.8"/>'
+               % (d_ombre, OMBRE_SOL))
+
+    out.append(ruban(0.0, 1.0, CREME))
+
+    # DIX RAYURES DANS LA LONGUEUR - ce que montre la reference : des
+    # lignes fines et serrees, paralleles aux grands bords, qui SERPENTENT
+    # avec le pli puisqu'elles le traversent. Les bandes transversales de
+    # la version precedente etaient une surinterpretation. Des lisieres
+    # unies le long des deux grands bords : l'ourlet.
+    n = 10
+    v_min, v_max = 0.10, 0.90
+    pas_v = (v_max - v_min) / (n - 1)
+    demi = pas_v * 0.24
+    for i in range(n):
+        v = v_min + i * pas_v
+        out.append(ruban(v - demi, v + demi, VERT_OBJET))
 
     return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
