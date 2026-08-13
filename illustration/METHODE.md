@@ -201,6 +201,14 @@ bâton.
 référence fait court (≈ 0,1–0,25 de la bande) et dense (≈ 4,6 px). C'est la
 proximité des brins qui fait la matière, pas leur taille.
 
+**Le sens de pose d'une serviette : rayures en travers.** Les rayures d'une
+serviette courent en travers de sa largeur ; posée dans la longueur, elles
+deviennent des bandes **transversales** à l'image — les coucher le long du
+tissu était un contresens. Chaque bande est un quadrilatère à u constant du
+bord près au bord loin ; elle monte et descend avec le pli de son endroit —
+les bandes restent droites, leur ligne de pose ondule. Lisières unies aux
+deux bouts (l'ourlet), 17 bandes à trame égale, 9 vertes.
+
 **Un tissu, c'est du désordre cohérent.** Les rayures droites faisaient un
 carrelage ; le mouvement juste est UN SEUL champ de plis d(u), commun au
 contour et aux neuf rayures — c'est le même pli qui les soulève toutes.

@@ -260,20 +260,39 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
     def ligne(v):
         return [point(i / float(N), v) for i in range(N + 1)]
 
-    def ruban(v0, v1, couleur):
-        haut = ligne(v1)
-        bas = ligne(v0)
+    def contour(couleur):
+        haut = ligne(1.0)
+        bas = ligne(0.0)
         d = _catmull(haut)
         d += u" L%.1f %.1f" % bas[-1]
         d += _catmull(list(reversed(bas))).replace("M", "L", 1)
         return u'<path d="%s Z" fill="%s"/>' % (d, couleur)
 
-    out = [ruban(0.0, 1.0, CREME)]
-    n = 9
-    demi = 0.52 / (2.0 * (n + 1))
-    for i in range(1, n + 1):
-        v = i / float(n + 1)
-        out.append(ruban(v - demi, v + demi, VERT_OBJET))
+    # LE SENS DE POSE. Les rayures d'une serviette courent EN TRAVERS de sa
+    # largeur ; posee dans la longueur, elles deviennent des bandes
+    # TRANSVERSALES a l'image - je les avais couchees le long du tissu, a
+    # contresens. Chaque bande est un quadrilatere a u constant, du bord
+    # pres au bord loin ; elle MONTE ET DESCEND avec le pli de son endroit,
+    # puisque ses coins portent pli(u) : c'est ainsi qu'un tissu raye pose
+    # sur des bosses se comporte - les bandes restent droites, leur ligne
+    # de pose ondule.
+    def bande(u0, u1, couleur):
+        p1, p2 = point(u0, 0.03), point(u0, 0.97)
+        p3, p4 = point(u1, 0.97), point(u1, 0.03)
+        return (u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
+                u'fill="%s"/>' % (p1[0], p1[1], p2[0], p2[1],
+                                  p3[0], p3[1], p4[0], p4[1], couleur))
+
+    out = [contour(CREME)]
+    # LES LISIERES : une bande unie a chaque bout - l'ourlet du tissu -
+    # puis treize bandes alternees a trame egale, sept vertes.
+    u_min, u_max = 0.10, 0.90
+    n_bandes = 17
+    pas_u = (u_max - u_min) / n_bandes
+    for i in range(n_bandes):
+        if i % 2 == 0:
+            out.append(bande(u_min + i * pas_u, u_min + (i + 1) * pas_u,
+                             VERT_OBJET))
 
     return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
