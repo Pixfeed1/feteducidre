@@ -2435,11 +2435,16 @@
    id="couchePersonnages">
 
   <g inkscape:label="Serviette rayee">
-    <path d="M1140.0 1141.6 L1646.8 1128.3 L1648.4 1188.1 L1141.6 1201.4 Z" fill="#F2ECD9"/>
-    <path d="M1155.9 1151.6 L1631.5 1139.1" stroke="#3F8A52" stroke-width="4.2" stroke-dasharray="33.8 14.3" stroke-dashoffset="0.0" fill="none"/>
-    <path d="M1156.2 1164.6 L1631.9 1152.1" stroke="#3F8A52" stroke-width="4.2" stroke-dasharray="33.8 14.3" stroke-dashoffset="24.1" fill="none"/>
-    <path d="M1156.6 1177.6 L1632.2 1165.1" stroke="#3F8A52" stroke-width="4.2" stroke-dasharray="33.8 14.3" stroke-dashoffset="0.0" fill="none"/>
-    <path d="M1156.9 1190.6 L1632.5 1178.1" stroke="#3F8A52" stroke-width="4.2" stroke-dasharray="33.8 14.3" stroke-dashoffset="24.1" fill="none"/>
+    <path d="M1254.6 1129.8 L1561.4 1129.8 L1548.4 1194.8 L1241.6 1194.8 Z" fill="#F2ECD9"/>
+    <path d="M1253.3 1136.2 L1560.1 1136.2" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
+    <path d="M1252.0 1142.8 L1558.8 1142.8" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
+    <path d="M1250.7 1149.2 L1557.5 1149.2" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
+    <path d="M1249.4 1155.8 L1556.2 1155.8" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
+    <path d="M1248.1 1162.2 L1554.9 1162.2" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
+    <path d="M1246.8 1168.8 L1553.6 1168.8" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
+    <path d="M1245.5 1175.2 L1552.3 1175.2" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
+    <path d="M1244.2 1181.8 L1551.0 1181.8" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
+    <path d="M1242.9 1188.2 L1549.7 1188.2" stroke="#3F8A52" stroke-width="3.4" fill="none"/>
   </g>
 
 </g>

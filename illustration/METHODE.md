@@ -68,7 +68,7 @@ une fois l'image sous les yeux.
 | **Serviette** | un **rectangle** de 0,40 × 0,15 du cadre, incliné de 1,5° à peine, **pourtour blanc extérieur**. Aucune fuite : l'image est plate. |
 | **Placement** | parasol ancré à (0,105 W ; 0,312 H) — **juste sous l'horizon, toile dans le ciel**. Serviette centrée à (0,263 W ; 0,414 H). |
 | **Haie** (2ᵉ référence) | masse pleine, ciel **54 %**, haie **27 %**, sable **19 %**. Touffes de **12 à 22 px** sur 1800 — 3,3 fois plus petites que l'ancien buisson. |
-| **Serviette rayée** (5ᵉ référence) | fond **crème**, le vert seulement en **tirets** : 4 rangées fines (trait 3,2, tiret 26 / creux 11), décalées d'une demi-période une rangée sur deux. Des bandes vertes pleines rendaient le tapis à moitié vert. |
+| **Serviette rayée** (5ᵉ référence) | rayures **continues, fines et serrées** : 9 traits verts au pas de H/10, trait = la moitié du pas — autant de vert que de blanc, le tapis lit *vert rayé* de loin. Léger biais en parallélogramme. ~0,17 × 0,047 du cadre. |
 | **Verge + coins d'herbe** | construits sur un contresens (« le vert au sol » désignait la serviette), **éteints** (`AVEC_SOL_VERT = False`) mais conservés dans `herbe.sol_vert()`. |
 | **Herbe pleine largeur** (3ᵉ référence) | retirée : elle fermait l'image comme un muret. `AVEC_HERBE`. |
 | **Personnages** (5ᵉ référence) | des **silhouettes** : une couleur corail, aucun visage, un accent par figure (short, haut clair). Toute la lecture est dans la **posture**. Membres fuselés + lissés, ballon en croissants par booléens, serviette rayée en bandes pleines. |
@@ -201,10 +201,11 @@ bâton.
 référence fait court (≈ 0,1–0,25 de la bande) et dense (≈ 4,6 px). C'est la
 proximité des brins qui fait la matière, pas leur taille.
 
-**Des rayures trop serrées fusionnent en pavés.** Cinq rangées de tirets à
-un écart inférieur au double du trait donnaient des blocs verts. Quatre
-rangées fines, espacées, et les tirets décalés d'une demi-période une rangée
-sur deux — alignés, ils font un damier.
+**Une trame se relève, elle ne s'interprète pas.** La serviette a été faite
+trois fois : bandes vertes pleines (tapis à moitié vert), puis tirets épars
+sur fond crème (crème tamponné de vert), avant de regarder vraiment : des
+rayures **continues, fines, serrées**, à trame égale vert/blanc. Compter les
+rayures du modèle aurait évité les deux premiers essais.
 
 **Le vent est global, le fouillis est local.** Les brins penchent tous du
 même côté — un biais commun de 0,30 rad — avec leur désordre individuel

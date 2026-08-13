@@ -198,49 +198,46 @@ def serviette_rayee_corps(dx, dy):
 
 def serviette_rayee(ox, oy, k=1.3, indent=4):
     u"""
-    La serviette rayee, SEULE - l'element se regle avant qu'on y rasseye
-    quiconque.
+    La serviette rayee, regardee de pres cette fois.
 
-    CE QUE MONTRE LE MODELE, regarde de pres cette fois
-      Le fond est CREME, pas vert : la serviette est claire, et le vert n'y
-      est que par TIRETS - des lignes fines et interrompues, cinq rangées,
-      qui suivent la longueur du tissu. Ma premiere version alternait des
-      bandes vertes pleines et le tapis devenait a moitie vert : c'est ce
-      vert-la qui ne correspondait a rien.
+    CE QUE MONTRE LE MODELE
+      Des rayures CONTINUES, FINES et SERREES : une dizaine sur la hauteur
+      du tapis, a trame presque egale - autant de vert que de blanc. De
+      loin, le tapis lit VERT RAYE ; ma version a tirets espaces sur fond
+      creme lisait creme taponne de vert, rien a voir.
 
-    LES TIRETS
-      Chaque rangee est un trait a stroke-dasharray : le tiret fait ~28
-      unites, le creux ~12. Le pointille est un attribut du trait, pas un
-      filtre - il ne pose aucun des problemes des filtres dans les groupes
-      tournes, et la rotation est de toute facon calculee en coordonnees.
+      Et le tapis n'est pas un rectangle : un leger BIAIS en
+      parallelogramme - le bord haut decale vers la droite - le couche au
+      sol sans vraie perspective, comme la serviette de la premiere
+      reference etait inclinee d'un degre et demi.
+
+    RELEVE (1232 x 928) : ~210 x 44 px, soit 0.17 x 0.047 du cadre ;
+    une dizaine de rayures -> un pas d'environ 4.4 px la-bas, 6.5 ici.
     """
     e = " " * indent
-    pivot = math.radians(-1.5)
-    ca, sa = math.cos(pivot), math.sin(pivot)
+    L2, H = 118.0, 50.0          # demi-longueur, hauteur
+    BIAIS = 10.0                 # le decalage du bord haut, vers la droite
 
-    def R(x, y):
-        return (ox + (x * ca - y * sa) * k, oy + (x * sa + y * ca) * k)
+    def P(x, y):
+        # y va de 0 (bord pres) a -H (bord loin) ; le decalage suit
+        return (ox + (x + BIAIS * (-y / H)) * k, oy + y * k)
 
-    L2, H = 195.0, 46.0          # demi-longueur, hauteur du tissu
-    coins = [R(-L2, -H), R(L2, -H), R(L2, 0), R(-L2, 0)]
+    coins = [P(-L2, -H), P(L2, -H), P(L2, 0), P(-L2, 0)]
     out = [u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
            u'fill="%s"/>'
            % (coins[0][0], coins[0][1], coins[1][0], coins[1][1],
               coins[2][0], coins[2][1], coins[3][0], coins[3][1], CREME)]
 
-    # Quatre rangees de tirets FINS, espacees d'un bon double du trait :
-    # serrees et epaisses, elles fusionnaient en paves verts. Et les tirets
-    # d'une rangee sur deux sont DECALES d'une demi-periode, sinon ils
-    # s'alignent en colonnes et le tissu devient un damier.
-    marge_h, marge_v = 12.0, 8.0
-    for i in range(4):
-        y = -H + marge_v + (H - 2 * marge_v) * i / 3.0
-        A, Bp = R(-L2 + marge_h, y), R(L2 - marge_h, y)
+    # NEUF rayures continues : le pas vaut H/10, le trait la moitie du pas -
+    # autant de vert que de blanc, c'est la trame du modele.
+    n = 9
+    pas = H / (n + 1.0)
+    for i in range(1, n + 1):
+        y = -H + pas * i
+        A, Bp = P(-L2, y), P(L2, y)
         out.append(u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" '
-                   u'stroke-width="%.1f" stroke-dasharray="%.1f %.1f" '
-                   u'stroke-dashoffset="%.1f" fill="none"/>'
-                   % (A[0], A[1], Bp[0], Bp[1], VERT_OBJET, 3.2 * k,
-                      26 * k, 11 * k, (i % 2) * 18.5 * k))
+                   u'stroke-width="%.1f" fill="none"/>'
+                   % (A[0], A[1], Bp[0], Bp[1], VERT_OBJET, pas * 0.52 * k))
 
     return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
