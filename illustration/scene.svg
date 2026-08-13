@@ -45,7 +45,7 @@
                   seed="8" result="bruit"/>
     <feColorMatrix in="bruit" type="saturate" values="0" result="gris"/>
     <feComponentTransfer in="gris" result="regle">
-      <feFuncA type="linear" slope="1.05" intercept="0"/>
+      <feFuncA type="linear" slope="0.10" intercept="0"/>
     </feComponentTransfer>
     <feComposite in="regle" in2="SourceAlpha" operator="in" result="decoupe"/>
     <feBlend in="SourceGraphic" in2="decoupe" mode="overlay"/>
@@ -59,7 +59,7 @@
                   seed="21" result="bruit"/>
     <feColorMatrix in="bruit" type="saturate" values="0" result="gris"/>
     <feComponentTransfer in="gris" result="regle">
-      <feFuncA type="linear" slope="0.50" intercept="0"/>
+      <feFuncA type="linear" slope="0.10" intercept="0"/>
     </feComponentTransfer>
     <feComposite in="regle" in2="SourceAlpha" operator="in" result="decoupe"/>
     <feBlend in="SourceGraphic" in2="decoupe" mode="overlay"/>
@@ -72,12 +72,12 @@
                   seed="31" result="bruit"/>
     <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
     <feComponentTransfer in="alpha" result="hauts">
-      <feFuncA type="table" tableValues="0 0 0.38"/>
+      <feFuncA type="table" tableValues="0 0 0.04"/>
     </feComponentTransfer>
     <feFlood flood-color="#FFFFFF" result="blanc"/>
     <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
     <feComponentTransfer in="alpha" result="bas">
-      <feFuncA type="table" tableValues="0.38 0 0"/>
+      <feFuncA type="table" tableValues="0.04 0 0"/>
     </feComponentTransfer>
     <feFlood flood-color="#000000" result="noir"/>
     <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
@@ -97,12 +97,12 @@
                   seed="12" result="bruit"/>
     <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
     <feComponentTransfer in="alpha" result="hauts">
-      <feFuncA type="table" tableValues="0 0 0.42"/>
+      <feFuncA type="table" tableValues="0 0 0.04"/>
     </feComponentTransfer>
     <feFlood flood-color="#FFFFFF" result="blanc"/>
     <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
     <feComponentTransfer in="alpha" result="bas">
-      <feFuncA type="table" tableValues="0.42 0 0"/>
+      <feFuncA type="table" tableValues="0.04 0 0"/>
     </feComponentTransfer>
     <feFlood flood-color="#000000" result="noir"/>
     <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
@@ -115,6 +115,26 @@
     </feMerge>
   </filter>
 
+  <!-- Le grain, pose sur toute l'image d'un seul bloc. -->
+  <filter id="grainGlobal" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.28" numOctaves="1"
+                  seed="3" result="bruit"/>
+    <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
+    <feComponentTransfer in="alpha" result="hauts">
+      <feFuncA type="table" tableValues="0 0 0.9"/>
+    </feComponentTransfer>
+    <feFlood flood-color="#FFFFFF" result="blanc"/>
+    <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
+    <feComponentTransfer in="alpha" result="bas">
+      <feFuncA type="table" tableValues="0.9 0 0"/>
+    </feComponentTransfer>
+    <feFlood flood-color="#000000" result="noir"/>
+    <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
+    <feMerge>
+      <feMergeNode in="sombres"/><feMergeNode in="clairs"/>
+    </feMerge>
+  </filter>
+
   <!-- Le grain du VETEMENT. Dans la reference le maillot est graine
        comme le decor ; un aplat nu au milieu d'une image
        entierement grainee se remarque tout de suite. -->
@@ -123,12 +143,12 @@
                   seed="77" result="bruit"/>
     <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
     <feComponentTransfer in="alpha" result="hauts">
-      <feFuncA type="table" tableValues="0 0 0.15"/>
+      <feFuncA type="table" tableValues="0 0 0.04"/>
     </feComponentTransfer>
     <feFlood flood-color="#FFFFFF" result="blanc"/>
     <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
     <feComponentTransfer in="alpha" result="bas">
-      <feFuncA type="table" tableValues="0.15 0 0"/>
+      <feFuncA type="table" tableValues="0.04 0 0"/>
     </feComponentTransfer>
     <feFlood flood-color="#000000" result="noir"/>
     <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
@@ -148,12 +168,12 @@
                   seed="61" result="bruit"/>
     <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
     <feComponentTransfer in="alpha" result="hauts">
-      <feFuncA type="table" tableValues="0 0 0.13"/>
+      <feFuncA type="table" tableValues="0 0 0.04"/>
     </feComponentTransfer>
     <feFlood flood-color="#FFFFFF" result="blanc"/>
     <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
     <feComponentTransfer in="alpha" result="bas">
-      <feFuncA type="table" tableValues="0.13 0 0"/>
+      <feFuncA type="table" tableValues="0.04 0 0"/>
     </feComponentTransfer>
     <feFlood flood-color="#000000" result="noir"/>
     <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
@@ -174,12 +194,12 @@
                   seed="44" result="bruit"/>
     <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
     <feComponentTransfer in="alpha" result="hauts">
-      <feFuncA type="table" tableValues="0 0 0.38"/>
+      <feFuncA type="table" tableValues="0 0 0.04"/>
     </feComponentTransfer>
     <feFlood flood-color="#FFFFFF" result="blanc"/>
     <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
     <feComponentTransfer in="alpha" result="bas">
-      <feFuncA type="table" tableValues="0.38 0 0"/>
+      <feFuncA type="table" tableValues="0.04 0 0"/>
     </feComponentTransfer>
     <feFlood flood-color="#000000" result="noir"/>
     <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
@@ -202,12 +222,12 @@
                   seed="44" result="bruit"/>
     <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
     <feComponentTransfer in="alpha" result="hauts">
-      <feFuncA type="table" tableValues="0 0 1.00"/>
+      <feFuncA type="table" tableValues="0 0 0.04"/>
     </feComponentTransfer>
     <feFlood flood-color="#FFFFFF" result="blanc"/>
     <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
     <feComponentTransfer in="alpha" result="bas">
-      <feFuncA type="table" tableValues="1.00 0 0"/>
+      <feFuncA type="table" tableValues="0.04 0 0"/>
     </feComponentTransfer>
     <feFlood flood-color="#000000" result="noir"/>
     <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
@@ -950,6 +970,16 @@
 
   <!-- mer retiree -->
 
+</g>
+
+
+<!-- ################## LE GRAIN ################## -->
+<!-- UN SEUL calque, par-dessus tout le reste : meme densite et meme taille
+     de point sur le ciel, le feuillage et le sable. C'est ce que fait la
+     reference, et c'est ce qui lui donne son unite. Voir grain_global(). -->
+<g inkscape:groupmode="layer" inkscape:label="LE GRAIN" id="coucheGrain">
+  <rect x="0" y="0" width="1800" height="1350" fill="#808080"
+        filter="url(#grainGlobal)"/>
 </g>
 
 </svg>

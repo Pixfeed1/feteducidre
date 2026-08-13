@@ -49,6 +49,12 @@ AVEC_SERVIETTE = False
 # LA HAIE remplace le buisson : masse pleine a bord haut finement frisote,
 # relevee sur la seconde reference. Voir haie.py.
 AVEC_HAIE = True
+
+# LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
+# les grains par matiere sont mis en veille : c'est ce que fait la reference.
+GRAIN_GLOBAL = True
+GRAIN_FINESSE = 0.28      # taille du point : 1/0.34 = 2.9 px
+GRAIN_FORCE = 0.90
 grillage.LARGEUR = LARGEUR
 
 # LE DECOUPAGE. Ciel et sable ont exactement la meme hauteur ; la verdure
@@ -91,6 +97,8 @@ SABLE = "#FAFAF6"
 
 
 def mouchetis(nom, graine, force, commentaire):
+    if GRAIN_GLOBAL:
+        force = "0.04"      # presque rien : le calque global fait le travail
     """
     Un grain dont l'effet NE DEPEND PAS de la couleur du fond.
 
@@ -129,7 +137,56 @@ def mouchetis(nom, graine, force, commentaire):
   </filter>""" % (commentaire, nom, graine, force, force)
 
 
+def grain_global(nom, graine, force, finesse, commentaire):
+    """
+    UN SEUL CALQUE DE GRAIN, pose sur toute l'image.
+
+    POURQUOI CELUI-LA REMPLACE LES AUTRES
+      Jusqu'ici chaque matiere portait son propre filtre, chacun regle
+      separement : ciel 1.05, haie 0.42, toile verte 0.38, toile blanche 1.00.
+      C'est ce qui obligeait a des reglages differents pour obtenir "la meme
+      matiere" sur deux couleurs - et ca ne marchait qu'a peu pres.
+
+      La reference ne fait pas cela. Son grain est POSE PAR-DESSUS TOUT, d'un
+      bloc : meme densite, meme taille de point sur le ciel, sur le feuillage
+      et sur le sable. C'est un tirage, pas sept textures cote a cote. D'ou
+      son unite - et d'ou le fait que notre sable, parfaitement lisse, sonnait
+      faux au milieu du reste.
+
+    LA FINESSE
+      baseFrequency est en unites de dessin : 1.2 donne des points de 0.83 px,
+      c'est-a-dire sous la resolution de l'oeil. Sur la reference les points
+      font environ 3 px, soit une frequence de 0.33. Notre grain n'etait pas
+      trop faible, il etait TROP FIN - a force egale, un bruit trop fin se
+      moyenne et disparait.
+
+    Le filtre ne lit jamais SourceGraphic : il ne produit que les points, sur
+    du transparent. On le pose donc sur un rectangle, tout en haut.
+    """
+    return """  <!-- %s -->
+  <filter id="%s" x="0%%" y="0%%" width="100%%" height="100%%">
+    <feTurbulence type="fractalNoise" baseFrequency="%s" numOctaves="1"
+                  seed="%d" result="bruit"/>
+    <feColorMatrix in="bruit" type="luminanceToAlpha" result="alpha"/>
+    <feComponentTransfer in="alpha" result="hauts">
+      <feFuncA type="table" tableValues="0 0 %s"/>
+    </feComponentTransfer>
+    <feFlood flood-color="#FFFFFF" result="blanc"/>
+    <feComposite in="blanc" in2="hauts" operator="in" result="clairs"/>
+    <feComponentTransfer in="alpha" result="bas">
+      <feFuncA type="table" tableValues="%s 0 0"/>
+    </feComponentTransfer>
+    <feFlood flood-color="#000000" result="noir"/>
+    <feComposite in="noir" in2="bas" operator="in" result="sombres"/>
+    <feMerge>
+      <feMergeNode in="sombres"/><feMergeNode in="clairs"/>
+    </feMerge>
+  </filter>""" % (commentaire, nom, finesse, graine, force, force)
+
+
 def grain(nom, graine, intensite, commentaire):
+    if GRAIN_GLOBAL:
+        intensite = "0.10"
     return """  <!-- %s -->
   <filter id="%s" x="-2%%" y="-2%%" width="104%%" height="104%%">
     <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2"
@@ -276,6 +333,8 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 {GRAIN_MER}
 
 {GRAIN_HAIE}
+
+{GRAIN_TOTAL}
 
 {GRAIN_DOUX}
 
@@ -439,6 +498,16 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 
 </g>
 
+
+<!-- ################## LE GRAIN ################## -->
+<!-- UN SEUL calque, par-dessus tout le reste : meme densite et meme taille
+     de point sur le ciel, le feuillage et le sable. C'est ce que fait la
+     reference, et c'est ce qui lui donne son unite. Voir grain_global(). -->
+<g inkscape:groupmode="layer" inkscape:label="LE GRAIN" id="coucheGrain">
+  <rect x="0" y="0" width="{L}" height="{H}" fill="#808080"
+        filter="url(#grainGlobal)"/>
+</g>
+
 </svg>
 """.format(L=LARGEUR, H=HAUTEUR, CB=CIEL_BAS,
            CIEL=CIEL, NC=NUAGE_CLAIR,
@@ -489,6 +558,9 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
                                "Le grain de la MER. Meme force que la toile "
                                "verte du parasol :\n       la reference "
                                "charge ses aplats satures de la meme facon."),
+           GRAIN_TOTAL=grain_global("grainGlobal", 3, GRAIN_FORCE,
+                                    GRAIN_FINESSE,
+                                    "Le grain, pose sur toute l'image d'un seul bloc."),
            GRAIN_HAIE=mouchetis("grainHaie", 12, "0.42",
                                 "Le grain de la HAIE. La reference y montre une "
                                 "matiere tres\n       piquee, plus forte encore que "

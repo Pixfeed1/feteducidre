@@ -59,7 +59,7 @@ une fois l'image sous les yeux.
 | **Secteurs** | nombre **impair**, ce qui met la couleur pleine aux deux extrémités. |
 | **Mât** | droit, perpendiculaire au diamètre, ~0,95 × le rayon, très fin (~1/22 du rayon). |
 | **Inclinaison** | ~34°, le mât partant vers le bas à droite. |
-| **Grain** | la référence **charge les aplats saturés bien plus que ses fonds**. Le parasol est franchement moucheté là où le ciel reste lisse. |
+| **Grain** | **un seul calque sur toute l'image**, même densité et même taille de point partout — y compris sur le sable. Points d'environ 3 px. |
 | **Composition** | ciel **30 %**, sable **44 %**, mer **26 %**, mesuré sur 760 px de haut. Pas de bande de verdure. |
 | **Parasol, nombre** | **un seul**, planté dans un coin. Deux de part et d'autre du sujet font une composition en balance que le modèle ne fait pas. |
 | **Mer** | crête à y=562 sur 760, soit **26 % de la hauteur**. Ligne moyenne à **0,78 × H**. |
@@ -69,13 +69,24 @@ une fois l'image sous les yeux.
 | **Haie** (2ᵉ référence) | masse pleine, ciel **54 %**, haie **27 %**, sable **19 %**. Touffes de **12 à 22 px** sur 1800 — 3,3 fois plus petites que l'ancien buisson. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
-Réglage retenu : `grainToileVerte` **0.38**, `grainToileBlanche` **1.00**,
-soit **11,9 niveaux** d'écart-type mesurés sur le vert (contre 3,9 quand on
-l'avait calé sur le ciel).
+### Le grain : un seul calque, posé sur tout
 
-Le rapport vert/blanc de 3,1 n'est pas arbitraire : un point clair sur du
-blanc ne se voit pas, donc le blanc a besoin de plus de points pour rendre
-la même matière.
+`GRAIN_GLOBAL = True`, `GRAIN_FINESSE = 0.28`, `GRAIN_FORCE = 0.90`.
+
+Mesuré au même réglage sur toute l'image : ciel **20,6**, haie sombre
+**18,2**, sable **20,8** niveaux d'écart-type. C'est l'unité qu'aucun réglage
+par matière n'atteignait.
+
+**Le grain n'était pas trop faible, il était trop FIN.** `baseFrequency` est
+en unités de dessin : 1,2 donne des points de 0,83 px, sous la résolution de
+l'œil, et un bruit trop fin se moyenne et disparaît. La référence a des
+points d'environ 3 px, soit une fréquence de 0,3.
+
+Au-delà de `GRAIN_FORCE` ≈ 1,3 la mesure ne bouge plus : 20,2 à 1,30 comme à
+1,80. La table `feFuncA` sature.
+
+Les filtres par matière restent dans le fichier mais sont mis en veille
+automatiquement quand `GRAIN_GLOBAL` est vrai.
 
 ---
 
