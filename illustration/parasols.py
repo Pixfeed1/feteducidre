@@ -497,6 +497,7 @@ VERT_CLAIR_T = "#7FA65C"
 VERT_CLAIR_T_OMBRE = "#4F7A39"
 MAT_COUPOLE = "#5C7A52"
 OMBRE_SABLE = "#DCD8C0"
+OMBRE_Y_MIN = None    # cale par construire.py sous la verge
 
 GORES = [CREME, VERT_SOMBRE_T, VERT_CLAIR_T, CREME]
 JUPE = [CREME_OMBRE, VERT_SOMBRE_T_OMBRE, VERT_CLAIR_T_OMBRE, CREME_OMBRE]
@@ -600,11 +601,14 @@ def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
            u' stroke-linecap="round"/>' % (fx, fy, S[0], S[1], MAT_COUPOLE))
 
     # L'ombre portee sur le sable : une longue bande couchee, decalee du
-    # cote oppose au soleil (il vient de droite sur le modele), plus un
-    # trait au pied du mat.
+    # cote oppose au soleil, plus un trait au pied du mat. Elle se pose SOUS
+    # le pied - jamais plus haut qu'OMBRE_Y_MIN, que construire.py cale sous
+    # la verge : une ombre de parasol posee sur l'herbe du fond racontait
+    # une fausse profondeur.
     ox = fx - rx * 1.05
+    y_ombre = max(fy + 6, OMBRE_Y_MIN if OMBRE_Y_MIN else 0)
     ombre = (u'<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="%.1f"'
-             u' fill="%s"/>' % (ox - rx * 0.7, fy - 26, rx * 1.5, 15, 7.5,
+             u' fill="%s"/>' % (ox - rx * 0.7, y_ombre, rx * 1.5, 15, 7.5,
                                 OMBRE_SABLE))
     pied_trait = (u'<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="4.5"'
                   u' fill="%s"/>' % (fx, fy, 26, "#B9B49A"))

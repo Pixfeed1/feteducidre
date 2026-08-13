@@ -68,7 +68,8 @@ une fois l'image sous les yeux.
 | **Serviette** | un **rectangle** de 0,40 × 0,15 du cadre, incliné de 1,5° à peine, **pourtour blanc extérieur**. Aucune fuite : l'image est plate. |
 | **Placement** | parasol ancré à (0,105 W ; 0,312 H) — **juste sous l'horizon, toile dans le ciel**. Serviette centrée à (0,263 W ; 0,414 H). |
 | **Haie** (2ᵉ référence) | masse pleine, ciel **54 %**, haie **27 %**, sable **19 %**. Touffes de **12 à 22 px** sur 1800 — 3,3 fois plus petites que l'ancien buisson. |
-| **Herbe** (3ᵉ référence) | bande **olive** de 0,10 de la hauteur — **retirée** de la version validée : elle mangeait le sable et prenait l'image en sandwich entre deux verts. `AVEC_HERBE`. |
+| **Vert au sol** (5ᵉ référence) | **trois morceaux**, pas une bande : une verge pâle au pied de la haie, deux plages d'herbe dans les coins bas (0→0,38 W et 0,60 W→bord), et entre elles **le sable passe jusqu'au bord**. Brins penchés au vent commun (+0,30 rad vers la droite). `AVEC_SOL_VERT`. |
+| **Herbe pleine largeur** (3ᵉ référence) | retirée : elle fermait l'image comme un muret. `AVEC_HERBE`. |
 | **Personnages** (5ᵉ référence) | des **silhouettes** : une couleur corail, aucun visage, un accent par figure (short, haut clair). Toute la lecture est dans la **posture**. Membres fuselés + lissés, ballon en croissants par booléens, serviette rayée en bandes pleines. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
@@ -198,6 +199,15 @@ bâton.
 0,3–0,6 fois la bande, espacés de 9 px — chaque dent lisible une à une. La
 référence fait court (≈ 0,1–0,25 de la bande) et dense (≈ 4,6 px). C'est la
 proximité des brins qui fait la matière, pas leur taille.
+
+**Le vent est global, le fouillis est local.** Les brins penchent tous du
+même côté — un biais commun de 0,30 rad — avec leur désordre individuel
+par-dessus, exactement comme la houle de la haie porte le frisottis.
+
+**Une ombre portée appartient au sol qui la reçoit.** Les ombres des
+parasols remontaient sur la verge : une ombre posée sur l'herbe du fond
+raconte une fausse profondeur. `parasols.OMBRE_Y_MIN`, calé par
+`construire.py` sous la verge.
 
 **Des brins à hauteur fixe font des rangs de poireaux.** Deux appels à
 hauteur fixe dessinaient deux rangées visibles. Le pied de chaque brin est

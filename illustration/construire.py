@@ -56,9 +56,13 @@ AVEC_HAIE = True
 # olive de brins, sous le sable. Voir herbe.py.
 AVEC_HERBE = False
 
+# LE VERT AU SOL de la cinquieme reference : la verge au pied de la haie et
+# les deux coins d'herbe en bas, penches par le vent. Voir herbe.sol_vert().
+AVEC_SOL_VERT = True
+
 # LES PERSONNAGES de la cinquieme reference : l'enfant qui creuse, le
 # coureur au ballon, le couple sur la serviette rayee. Voir personnages.py.
-AVEC_PERSONNAGES = True
+AVEC_PERSONNAGES = False
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -101,6 +105,8 @@ CRETE_MER = int(round((PART_CIEL + PART_HAIE + PART_SABLE) * HAUTEUR))
 # La vague oscille AUTOUR d'une moyenne ; c'est sa CRETE qui doit tomber sur
 # la limite mesuree, donc la moyenne descend d'une amplitude.
 mer.MOYENNE = CRETE_MER + mer.AMPLITUDE
+# Les ombres des parasols ne remontent jamais sur la verge du pied de haie.
+parasols.OMBRE_Y_MIN = HAIE_PIED + 0.032 * HAUTEUR + 8
 
 CIEL = "#E4F1FA"
 NUAGE_CLAIR, NUAGE_FROID = "#FFFFFF", "#D3E5F1"
@@ -457,6 +463,18 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 </g>
 
 
+<!-- ################## LE VERT AU SOL ################## -->
+<!-- Trois morceaux : la verge du pied de haie, les deux coins d'herbe en
+     bas - et entre eux le sable passe jusqu'au bord. Les brins penchent
+     tous vers la droite : le vent est commun, le fouillis individuel. -->
+<g inkscape:groupmode="layer" inkscape:label="COUCHE 3b - Le vert au sol"
+   id="coucheSolVert">
+
+{SOL_VERT}
+
+</g>
+
+
 <!-- ################## LA SERVIETTE ################## -->
 <!-- Posee sur le sable et SOUS le parasol : le mat doit passer par-dessus,
      sinon il a l'air plante devant la serviette au lieu d'a travers. -->
@@ -553,6 +571,9 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
            BORD=BORD_SABLE, COUPES=coupes, FEUILLAGE=feuillage,
            FENCE=fence, ABRIS=abris, COUPES_ABRIS=coupes_abris,
            GAMIN=GAMIN, SERVIETTE=SERVIETTE,
+           SOL_VERT=(herbe.sol_vert(LARGEUR, HAUTEUR, HAIE_PIED)
+                     if AVEC_SOL_VERT
+                     else '  <!-- sol vert retire -->'),
            PERSONNAGES=(personnages.engendrer(LARGEUR, HAUTEUR)
                         if AVEC_PERSONNAGES
                         else '  <!-- personnages retires -->'),
