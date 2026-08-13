@@ -155,6 +155,16 @@ deux qui les sépare.
 hasard, l'œil la reconstitue et la frange redevient une frise. Il en faut
 **deux**, décalés en hauteur et tirés indépendamment.
 
+**Un filtre de bruit ajoute du grain ; il n'ajoute pas de feuilles.** Le
+corps de la haie restait deux aplats nus sous le grain — de loin, deux bandes
+vertes. Il lui fallait des **mouchetures semées dans la masse** : ~1 850
+petites taches, et c'est ce piquetage, pas le filtre, qui fait la matière.
+
+**Des taches trop discrètes ne font rien du tout.** Premier essai avec des
+tons à peine différents de leur fond : 700 taches invisibles. Sur la référence
+elles **tranchent** ; ce sont leur petitesse et leur nombre qui les empêchent
+de faire des confettis, pas leur discrétion.
+
 **Une frange se règle par la taille des touffes, pas par leur désordre.**
 L'ancien buisson avait des lobes de 38 à 74 px : de grosses boules, une frise
 de nuages verts. À 12–22 px et trois fois plus nombreux, la même construction

@@ -30,6 +30,19 @@ import random
 CLAIR = "#57A34A"
 SOMBRE = "#1D5C2B"
 
+# LES DEUX TONS INTERMEDIAIRES, pour la mouchetures du corps.
+# Ils sont PROCHES de leur fond - un ton franchement different ferait des
+# confettis. Ce qu'on cherche n'est pas un motif mais une matiere : de tres
+# nombreuses petites taches a peine distinctes, qui ne se lisent une a une
+# qu'en s'approchant.
+CLAIR_TACHE = "#3E8438"      # nettement plus sombre que CLAIR
+SOMBRE_TACHE = "#39833F"     # nettement plus clair que SOMBRE
+
+# PREMIER ESSAI RATE : des tons a peine differents de leur fond, en pensant
+# qu'une matiere se fait de nuances. Resultat, rien ne se voyait - 700 taches
+# invisibles. Sur la reference les taches TRANCHENT ; c'est leur petitesse et
+# leur nombre qui les empechent de faire des confettis, pas leur discretion.
+
 
 def frange(y, largeur, pas, rmin, rmax, saut, alea):
     u"""
@@ -48,6 +61,24 @@ def frange(y, largeur, pas, rmin, rmax, saut, alea):
     return out
 
 
+def mouchetures(y_haut, y_bas, largeur, densite, rmin, rmax, alea):
+    u"""
+    Des taches semees DANS la masse, et non sur son bord.
+
+    C'EST CE QUI MANQUAIT. Le bord de notre haie frisottait deja, mais son
+    corps restait deux aplats nus : de loin, deux bandes vertes. Sur la
+    reference le feuillage est piquete de haut en bas - c'est ce piquetage,
+    et non le grain du filtre, qui fait la matiere. Un filtre de bruit ajoute
+    du GRAIN ; il n'ajoute pas de FEUILLES.
+
+    densite : nombre de taches pour 10 000 px carres.
+    """
+    n = int(densite * (y_bas - y_haut) * largeur / 10000.0)
+    return [(round(alea.uniform(-rmax, largeur + rmax), 1),
+             round(alea.uniform(y_haut, y_bas), 1),
+             round(alea.uniform(rmin, rmax), 1)) for _ in range(n)]
+
+
 def _bloc(disques, y_haut, y_bas, largeur, indent):
     e = " " * indent
     out = [u'%s<rect x="0" y="%.1f" width="%d" height="%.1f"/>'
@@ -57,7 +88,7 @@ def _bloc(disques, y_haut, y_bas, largeur, indent):
     return "\n".join(out)
 
 
-def engendrer(largeur, crete, pied, indent=6, graine=7):
+def engendrer(largeur, crete, pied, indent=6, graine=7, densite=20.0):
     u"""
     crete, pied : le haut et le bas de la haie, en pixels.
 
@@ -85,14 +116,33 @@ def engendrer(largeur, crete, pied, indent=6, graine=7):
               + frange(limite - rmax * 1.6, largeur, pas * 2.2,
                        rmin * 0.7, rmax * 0.9, rmax * 1.6, alea))
 
+    # Les taches du corps. Plus petites que les touffes du bord - elles ne
+    # decoupent pas une silhouette, elles remplissent.
+    rt_min, rt_max = rmin * 0.24, rmax * 0.34
+    taches_claires = mouchetures(crete + rmax, limite, largeur,
+                                 densite, rt_min, rt_max, alea)
+    taches_sombres = mouchetures(limite + rmax, pied, largeur,
+                                 densite * 1.35, rt_min, rt_max * 1.15, alea)
+
     e = " " * indent
+    ee = " " * (indent + 2)
+    pointer = lambda t: "\n".join(
+        u'%s<circle cx="%s" cy="%s" r="%s"/>' % (ee, x, y, r) for x, y, r in t)
+
     return "\n".join([
         u'%s<g fill="%s">' % (e, CLAIR),
         _bloc(haut, crete, limite + 2, largeur, indent + 2),
         u'%s</g>' % e,
+        u'%s<g fill="%s">' % (e, CLAIR_TACHE),
+        pointer(taches_claires),
+        u'%s</g>' % e,
         u'%s<g fill="%s">' % (e, SOMBRE),
         _bloc(milieu, limite, pied, largeur, indent + 2),
-        u'%s</g>' % e]), len(haut) + len(milieu)
+        u'%s</g>' % e,
+        u'%s<g fill="%s">' % (e, SOMBRE_TACHE),
+        pointer(taches_sombres),
+        u'%s</g>' % e]), (len(haut) + len(milieu)
+                          + len(taches_claires) + len(taches_sombres))
 
 
 if __name__ == "__main__":
