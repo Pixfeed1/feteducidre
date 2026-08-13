@@ -191,6 +191,61 @@ def enfant_penche(ox, oy, k=1.3, indent=4):
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
 
 
+def serviette_rayee_corps(dx, dy):
+    u"""(remplace par serviette_rayee ci-dessous - conserve pour le couple)"""
+    return u''
+
+
+def serviette_rayee(ox, oy, k=1.3, indent=4):
+    u"""
+    La serviette rayee, SEULE - l'element se regle avant qu'on y rasseye
+    quiconque.
+
+    CE QUE MONTRE LE MODELE, regarde de pres cette fois
+      Le fond est CREME, pas vert : la serviette est claire, et le vert n'y
+      est que par TIRETS - des lignes fines et interrompues, cinq rangées,
+      qui suivent la longueur du tissu. Ma premiere version alternait des
+      bandes vertes pleines et le tapis devenait a moitie vert : c'est ce
+      vert-la qui ne correspondait a rien.
+
+    LES TIRETS
+      Chaque rangee est un trait a stroke-dasharray : le tiret fait ~28
+      unites, le creux ~12. Le pointille est un attribut du trait, pas un
+      filtre - il ne pose aucun des problemes des filtres dans les groupes
+      tournes, et la rotation est de toute facon calculee en coordonnees.
+    """
+    e = " " * indent
+    pivot = math.radians(-1.5)
+    ca, sa = math.cos(pivot), math.sin(pivot)
+
+    def R(x, y):
+        return (ox + (x * ca - y * sa) * k, oy + (x * sa + y * ca) * k)
+
+    L2, H = 195.0, 46.0          # demi-longueur, hauteur du tissu
+    coins = [R(-L2, -H), R(L2, -H), R(L2, 0), R(-L2, 0)]
+    out = [u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
+           u'fill="%s"/>'
+           % (coins[0][0], coins[0][1], coins[1][0], coins[1][1],
+              coins[2][0], coins[2][1], coins[3][0], coins[3][1], CREME)]
+
+    # Quatre rangees de tirets FINS, espacees d'un bon double du trait :
+    # serrees et epaisses, elles fusionnaient en paves verts. Et les tirets
+    # d'une rangee sur deux sont DECALES d'une demi-periode, sinon ils
+    # s'alignent en colonnes et le tissu devient un damier.
+    marge_h, marge_v = 12.0, 8.0
+    for i in range(4):
+        y = -H + marge_v + (H - 2 * marge_v) * i / 3.0
+        A, Bp = R(-L2 + marge_h, y), R(L2 - marge_h, y)
+        out.append(u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" '
+                   u'stroke-width="%.1f" stroke-dasharray="%.1f %.1f" '
+                   u'stroke-dashoffset="%.1f" fill="none"/>'
+                   % (A[0], A[1], Bp[0], Bp[1], VERT_OBJET, 3.2 * k,
+                      26 * k, 11 * k, (i % 2) * 18.5 * k))
+
+    return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
+        e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
+
+
 def couple(ox, oy, k=1.3, indent=4):
     u"""
     Les deux assis sur la serviette rayee, l'ombre etalee a droite.
@@ -204,25 +259,7 @@ def couple(ox, oy, k=1.3, indent=4):
     e = " " * indent
     out = []
 
-    # L'OMBRE DU GROUPE, d'abord : elle s'etale a droite sur le sable,
-    # au-dela de la serviette - c'est elle qui couche la lumiere.
-    out.append(pose("M150 -4 C210 -12 300 -8 330 -2 C340 2 336 7 322 8 "
-                    "L156 8 C144 6 142 0 150 -4 Z", OMBRE_SOL))
-
-    # LA SERVIETTE : le parallelogramme, puis ses rayures une a une.
-    #   bords : de (-190, 0) a (190, 0), profondeur 44, fuite douce
-    haut, bas = -44.0, 0.0
-    n_rayures = 9
-    for i in range(n_rayures):
-        y0 = haut + (bas - haut) * i / n_rayures
-        y1 = haut + (bas - haut) * (i + 1) / n_rayures
-        # le bord loin est un peu plus court : la serviette est couchee
-        r0 = 0.90 + 0.10 * (i / float(n_rayures))
-        r1 = 0.90 + 0.10 * ((i + 1) / float(n_rayures))
-        couleur = VERT_OBJET if i % 2 == 0 else CREME
-        out.append(pose("M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z"
-                        % (-190 * r0, y0, 190 * r0, y0,
-                           190 * r1, y1, -190 * r1, y1), couleur))
+    out.append(serviette_rayee_corps(0, 0))
 
     # ---- LUI, a gauche, appuye en arriere, genoux releves ---------------
     # Trois choses le font tenir assis : le torse PENCHE en arriere, les

@@ -58,11 +58,14 @@ AVEC_HERBE = False
 
 # LE VERT AU SOL de la cinquieme reference : la verge au pied de la haie et
 # les deux coins d'herbe en bas, penches par le vent. Voir herbe.sol_vert().
-AVEC_SOL_VERT = True
+AVEC_SOL_VERT = False
 
 # LES PERSONNAGES de la cinquieme reference : l'enfant qui creuse, le
 # coureur au ballon, le couple sur la serviette rayee. Voir personnages.py.
 AVEC_PERSONNAGES = False
+
+# LA SERVIETTE RAYEE, seule : on la regle avant d'y rasseoir le couple.
+AVEC_SERVIETTE_RAYEE = True
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -576,7 +579,10 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
                      else '  <!-- sol vert retire -->'),
            PERSONNAGES=(personnages.engendrer(LARGEUR, HAUTEUR)
                         if AVEC_PERSONNAGES
-                        else '  <!-- personnages retires -->'),
+                        else (personnages.serviette_rayee(
+                                  0.775 * LARGEUR, 0.885 * HAUTEUR, 1.3, 2)
+                              if AVEC_SERVIETTE_RAYEE
+                              else '  <!-- personnages retires -->')),
            HERBE=(herbe.engendrer(LARGEUR, HAUTEUR, PART_HERBE)[0]
                   if AVEC_HERBE else '  <!-- herbe retiree -->'),
            HP0="%.0f" % (grillage.projeter(0,0)[1]-grillage.projeter(0,1)[1]),
