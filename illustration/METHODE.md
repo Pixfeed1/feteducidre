@@ -66,6 +66,7 @@ une fois l'image sous les yeux.
 | **Vague** | **3 ondulations** dans le cadre, amplitude ± 58 sur 1800, soit une raideur de 0,19. |
 | **Serviette** | un **rectangle** de 0,40 × 0,15 du cadre, incliné de 1,5° à peine, **pourtour blanc extérieur**. Aucune fuite : l'image est plate. |
 | **Placement** | parasol ancré à (0,105 W ; 0,312 H) — **juste sous l'horizon, toile dans le ciel**. Serviette centrée à (0,263 W ; 0,414 H). |
+| **Haie** (2ᵉ référence) | masse pleine, ciel **54 %**, haie **27 %**, sable **19 %**. Touffes de **12 à 22 px** sur 1800 — 3,3 fois plus petites que l'ancien buisson. |
 | **Nuages** | rapport **5,8 : 1** — six fois plus larges que hauts. Mesuré sur les trois : 170×30, 145×25, 140×24. Bas rigoureusement droit. |
 
 Réglage retenu : `grainToileVerte` **0.38**, `grainToileBlanche` **1.00**,
@@ -139,6 +140,15 @@ serviette posée sous le parasol se fondait avec lui. Ce n'est pas une
 question de teinte mais de contact : sur le modèle c'est le sable entre les
 deux qui les sépare.
 
+**Un seul rang de touffes garde une ligne moyenne visible.** Même semé au
+hasard, l'œil la reconstitue et la frange redevient une frise. Il en faut
+**deux**, décalés en hauteur et tirés indépendamment.
+
+**Une frange se règle par la taille des touffes, pas par leur désordre.**
+L'ancien buisson avait des lobes de 38 à 74 px : de grosses boules, une frise
+de nuages verts. À 12–22 px et trois fois plus nombreux, la même construction
+donne du feuillage.
+
 **Une forme posée sur une ligne doit y être tangente.** Les bosses des
 nuages débordaient sous la ligne de pose et le dessous devenait bosselé :
 demi-hauteur égale à la moitié de l'élévation, centre remonté d'autant.
@@ -169,9 +179,10 @@ Les décalages de contour restent donc à la charge de `trace.py`.
 |---|---|
 | `construire.py` | le chef d'orchestre. Format, découpage, palette, filtres de grain. |
 | `perspective.py` | l'interrupteur `FRONTAL`. Vue de face ou point de fuite. |
-| `verdure.py` | le buisson, retiré de la version validée (`AVEC_VERDURE`) |
-| `mer.py` | la mer et sa vague, au relevé du modèle |
-| `serviette.py` | la serviette : quadrilatère fuyant + liséré à marge constante |
+| `haie.py` | la haie taillée, relevée sur la 2ᵉ référence (`AVEC_HAIE`) |
+| `verdure.py` | l'ancien buisson à gros lobes, retiré (`AVEC_VERDURE`) |
+| `mer.py` | la mer et sa vague, retirée (`AVEC_MER`) |
+| `serviette.py` | la serviette, retirée (`AVEC_SERVIETTE`) |
 | `grillage.py` | la clôture (retirée de la version validée) |
 | `nuages.py` | les nuages, au rapport du modèle |
 | `parasols.py` | `un_eventail()` — la forme du modèle. `un_parasol()` — l'ancienne coupole à fuseaux, conservée. |

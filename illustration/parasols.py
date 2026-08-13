@@ -92,9 +92,20 @@ OMBRE = "#EDEBE0"
 #
 # (nom, x du milieu du bord droit, y de ce point, rayon, secteurs, inclinaison)
 # Le point donne est le HAUT du mat ; l'ancrage est 0.95 rayon plus bas.
+# AVEC LA HAIE, le parasol change de place : il est plante DANS LE SABLE,
+# devant la haie, et son mat est assez long pour que la toile passe au-dessus
+# d'elle. Releve sur la seconde reference :
+#   pied du mat      y = 840 sur 953   ->  0.88 de la hauteur
+#   centre de toile  y = 500           ->  0.52
+#   longueur du mat  340 px            ->  0.36 de la hauteur
+# Le mat vaut donc pres de TROIS FOIS le rayon, la ou il en valait 0.95 :
+# un parasol plante au premier plan devant une haie n'a rien a voir avec un
+# parasol pose au fond d'une plage vide.
 _RAYON = 0.088 * 1800
+_ANCRE = 0.87 * 1350
+_MAT = 0.36 * 1350
 PARASOLS = [
-    ("Parasol", 0.105 * 1800, 0.312 * 1350 - 0.95 * _RAYON, _RAYON, 5, -34.0),
+    ("Parasol", 0.20 * 1800, _ANCRE - _MAT, _RAYON, 5, -22.0, _MAT / _RAYON),
 ]
 
 
@@ -385,7 +396,7 @@ PANS_TRICOLORE = [(ROUGE, VIF), (BLANC, PALE), (VERT, VIF), (BLANC, PALE),
 PANS_ACTIFS = PANS_VERT
 
 
-def un_eventail(nom, cx, cy, rayon, n, inclinaison, pied=0.95,
+def un_eventail(nom, cx, cy, rayon, n, inclinaison, pied=None,
                 largeur_mat=0.045, indent=4, pans=None,
                 couleurs=None, filtre_a=None, filtre_b=None):
     u"""
@@ -396,7 +407,9 @@ def un_eventail(nom, cx, cy, rayon, n, inclinaison, pied=0.95,
     ainsi proportionne a lui-meme quelle que soit sa taille dans la scene.
     """
     e = " " * indent
-    L = pied * rayon
+    # pied est donne en fraction du rayon ; None reprend la longueur du
+    # premier modele, ou le mat valait 0.95 rayon.
+    L = (0.95 if pied is None else pied) * rayon
     ancre = (cx, cy + L)                 # le point plante dans le sable
 
     def T(p):
@@ -447,8 +460,8 @@ def un_eventail(nom, cx, cy, rayon, n, inclinaison, pied=0.95,
 if __name__ == "__main__":
     _, _, n = engendrer()
     print(u"%d parasols, forme du modele (eventail)" % n)
-    for nom, cx, cy, rayon, nf, inclinaison in PARASOLS:
+    for nom, cx, cy, rayon, nf, inclinaison, mat in PARASOLS:
         print(u"  %-22s rayon %3d, %d secteurs de %.0f deg, penche de %+.0f"
               % (nom, rayon, nf, 180.0 / nf, inclinaison))
-        print(u"  %-22s mat de %.0f px, plante en (%.0f, %.0f)"
-              % ("", 0.95 * rayon, cx, cy + 0.95 * rayon))
+        print(u"  %-22s mat de %.0f px (%.2f rayon), plante en (%.0f, %.0f)"
+              % ("", mat * rayon, mat, cx, cy + mat * rayon))

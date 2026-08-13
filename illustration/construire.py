@@ -13,6 +13,7 @@ import parasols
 import nuages
 import mer
 import serviette
+import haie
 import enfant
 
 # LE FORMAT. 1800 x 1350, soit du 4:3. La hauteur ne change pas : c'est elle
@@ -38,6 +39,16 @@ AVEC_VERDURE = False
 # L'ENFANT est retire : la scene se construit d'abord comme un lieu, les
 # personnages viendront apres. Remis a True, il revient avec ses jouets.
 AVEC_ENFANT = False
+
+# LA MER et LA SERVIETTE, retirees. La seconde reference ne montre ni l'une
+# ni l'autre : du ciel, une haie taillee, du sable. Les deux modules restent
+# la, il suffit de repasser a True.
+AVEC_MER = False
+AVEC_SERVIETTE = False
+
+# LA HAIE remplace le buisson : masse pleine a bord haut finement frisote,
+# relevee sur la seconde reference. Voir haie.py.
+AVEC_HAIE = True
 grillage.LARGEUR = LARGEUR
 
 # LE DECOUPAGE. Ciel et sable ont exactement la meme hauteur ; la verdure
@@ -57,10 +68,19 @@ grillage.LARGEUR = LARGEUR
 # Les trois parts sont donnees ici en fractions et TOUT en decoule : la ligne
 # d'horizon, le haut du sable, et la ligne moyenne de la vague. Changer une
 # fraction suffit ; il n'y a aucun nombre de pixels a rattraper a la main.
-PART_CIEL, PART_SABLE, PART_MER = 0.30, 0.44, 0.26
+# AVEC LA HAIE, le decoupage vient de la SECONDE reference :
+#   ciel   0   -> 515 sur 953   =  54 %
+#   haie   515 -> 770           =  27 %
+#   sable  770 -> 953           =  19 %
+# Sans elle, c'est celui de la premiere : ciel 30, sable 44, mer 26.
+if AVEC_HAIE:
+    PART_CIEL, PART_HAIE, PART_SABLE, PART_MER = 0.54, 0.27, 0.19, 0.0
+else:
+    PART_CIEL, PART_HAIE, PART_SABLE, PART_MER = 0.30, 0.0, 0.44, 0.26
 
 CIEL_BAS = int(round(PART_CIEL * HAUTEUR))
-CRETE_MER = int(round((PART_CIEL + PART_SABLE) * HAUTEUR))
+HAIE_PIED = int(round((PART_CIEL + PART_HAIE) * HAUTEUR))
+CRETE_MER = int(round((PART_CIEL + PART_HAIE + PART_SABLE) * HAUTEUR))
 # La vague oscille AUTOUR d'une moyenne ; c'est sa CRETE qui doit tomber sur
 # la limite mesuree, donc la moyenne descend d'une amplitude.
 mer.MOYENNE = CRETE_MER + mer.AMPLITUDE
@@ -150,11 +170,19 @@ else:
     # SANS HAIE, le sable commence a l'horizon. Son bord haut est donc une
     # DROITE : il n'y a plus de vegetation posee dessus pour justifier une
     # ondulation, et une ligne de sol qui serpente contredirait la fuite.
+    _haut_sable = HAIE_PIED if AVEC_HAIE else CIEL_BAS
     BORD_SABLE = ("M0 %d L%d %d L%d %d L0 %d Z"
-                  % (CIEL_BAS, LARGEUR, CIEL_BAS, LARGEUR, HAUTEUR, HAUTEUR))
+                  % (_haut_sable, LARGEUR, _haut_sable,
+                     LARGEUR, HAUTEUR, HAUTEUR))
 
-coupes, feuillage, _ = (verdure.engendrer() if AVEC_VERDURE
-                        else ('', '  <!-- verdure retiree -->', 0))
+if AVEC_VERDURE:
+    coupes, feuillage, _ = verdure.engendrer()
+elif AVEC_HAIE:
+    coupes, (feuillage, _nb_touffes) = '', haie.engendrer(LARGEUR, CIEL_BAS,
+                                                          HAIE_PIED, indent=2)
+else:
+    coupes, feuillage = '', '  <!-- verdure retiree -->'
+
 fence, nb_poteaux, nb_fils, _ = grillage.bloc(indent=2)
 if not AVEC_GRILLAGE:
     fence = '  <!-- grillage retire -->'
@@ -181,7 +209,7 @@ coupes_abris, abris, nb_abris = parasols.engendrer(indent=4)
 # cadre, comme le decoupage. Sur l'image de 760 : x = 48 -> 352,
 # y = 258 -> 372, soit un rectangle de 0.40 de large et 0.15 de haut, centre
 # a 0.263 de la largeur et 0.414 de la hauteur.
-SERVIETTE = serviette.dessiner(cx=0.263 * LARGEUR, cy=0.414 * HAUTEUR,
+SERVIETTE = '' if not AVEC_SERVIETTE else serviette.dessiner(cx=0.263 * LARGEUR, cy=0.414 * HAUTEUR,
                                largeur=0.400 * LARGEUR,
                                hauteur=0.150 * HAUTEUR,
                                pivot=-1.5, pourtour=0.0105 * LARGEUR,
@@ -246,6 +274,8 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
 {GRAIN_VERT}
 
 {GRAIN_MER}
+
+{GRAIN_HAIE}
 
 {GRAIN_DOUX}
 
@@ -335,7 +365,7 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
      sur une graine fixe (voir verdure.py). Une sinusoide reguliere se lit
      comme de l'eau ; ce desordre mesure fait le feuillage. -->
 <g inkscape:groupmode="layer" inkscape:label="COUCHE 2 - La verdure"
-   id="couche2" filter="url(#grainVert)">
+   id="couche2" filter="url(#grainHaie)">
 
 {FEUILLAGE}
 
@@ -453,11 +483,16 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
                                   "       differents sont la seule facon "
                                   "d'obtenir la meme matiere\n       sur les "
                                   "deux couleurs d'un meme objet."),
-           MER=mer.bloc(LARGEUR, HAUTEUR, indent=2),
+           MER=(mer.bloc(LARGEUR, HAUTEUR, indent=2) if AVEC_MER
+                else '  <!-- mer retiree -->'),
            GRAIN_MER=mouchetis("grainMer", 31, "0.38",
                                "Le grain de la MER. Meme force que la toile "
                                "verte du parasol :\n       la reference "
                                "charge ses aplats satures de la meme facon."),
+           GRAIN_HAIE=mouchetis("grainHaie", 12, "0.42",
+                                "Le grain de la HAIE. La reference y montre une "
+                                "matiere tres\n       piquee, plus forte encore que "
+                                "sur la toile des parasols."),
            GRAIN_VERT=grain("grainVert", 21, "0.50",
                             "Le grain de la verdure, deux fois plus doux que "
                             "celui du ciel.\n       A intensite egale le vert "
