@@ -201,6 +201,14 @@ bâton.
 référence fait court (≈ 0,1–0,25 de la bande) et dense (≈ 4,6 px). C'est la
 proximité des brins qui fait la matière, pas leur taille.
 
+**Un tissu, c'est du désordre cohérent.** Les rayures droites faisaient un
+carrelage ; le mouvement juste est UN SEUL champ de plis d(u), commun au
+contour et aux neuf rayures — c'est le même pli qui les soulève toutes.
+Éteint aux extrémités pour que les coins relevés restent en place. Et
+l'amplitude juste est celle qu'on remarque à peine : à 4 px la serviette
+flottait comme un drapeau, à 1,5 px elle repose. Même famille que la houle
+de la haie et le vent de l'herbe : le mouvement est global, le détail local.
+
 **Une perspective se relève coin par coin, elle ne s'ajuste pas par
 paramètres.** Trois essais de perspective sur la serviette (biais seul, puis
 fuite + compression réglées à l'œil) avant de relever les quatre coins du

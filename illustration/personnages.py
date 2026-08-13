@@ -196,59 +196,84 @@ def serviette_rayee_corps(dx, dy):
     return u''
 
 
+def _catmull(points):
+    u"""
+    Une courbe LISSE passant par tous les points : Catmull-Rom converti en
+    cubiques. Des segments droits entre echantillons referaient le defaut
+    Paint ; ici la tangente en chaque point est la corde de ses voisins.
+    """
+    p = [points[0]] + list(points) + [points[-1]]
+    d = u"M%.1f %.1f" % p[1]
+    for i in range(1, len(p) - 2):
+        c1 = (p[i][0] + (p[i + 1][0] - p[i - 1][0]) / 6.0,
+              p[i][1] + (p[i + 1][1] - p[i - 1][1]) / 6.0)
+        c2 = (p[i + 1][0] - (p[i + 2][0] - p[i][0]) / 6.0,
+              p[i + 1][1] - (p[i + 2][1] - p[i][1]) / 6.0)
+        d += u" C%.1f %.1f %.1f %.1f %.1f %.1f" % (c1 + c2 + p[i + 1])
+    return d
+
+
 def serviette_rayee(ox, oy, k=1.0, indent=4):
     u"""
-    La serviette rayee, RELEVEE coin par coin - plus aucun reglage a l'oeil.
+    La serviette rayee : la geometrie relevee coin par coin, et par-dessus
+    LE MOUVEMENT DU TISSU.
 
-    LE RELEVE (reference de 1232 x 928, rapporte a nos 1800 x 1350)
+    LE RELEVE (inchange - reference 1232 x 928)
         pres-gauche  A (722, 836)      loin-gauche  D (762, 786)
         pres-droit   B (938, 830)      loin-droit   C (955, 782)
 
-      Le bord pres fait 216 px, le bord loin 193 : la serviette FUIT.
-      L'extremite gauche est inclinee de 39 degres, la droite plus raide :
-      elle fuit VERS LA DROITE, pas vers le fond de face. Et sa hauteur
-      passe de 94 px a gauche a 74 a droite : les rayures convergent.
-
-    LA CONSTRUCTION QUI EN DECOULE
-      Tout est interpole entre le bord pres A->B et le bord loin D->C :
-      la rayure au parametre v va de lerp(A, D, v) a lerp(B, C, v), et
-      chaque rayure est un QUADRILATERE plein - pas un trait a epaisseur
-      constante - dont les cotes suivent la meme interpolation. La
-      convergence, le resserrement et l'amincissement ne sont plus des
-      reglages : ils DECOULENT des quatre coins mesures. C'est la meme
-      lecon que le decoupage en fractions - on donne la geometrie, pas
-      ses consequences.
-
-    ox, oy : le centre du tapis. Dans la scene : (0.685 W, 0.8715 H),
-    la position du releve.
+    LE MOUVEMENT
+      Un tissu pose sur du sable n'a pas une ligne droite : il epouse les
+      creux et les plis. Et le point capital est que TOUTES les rayures
+      ondulent AUX MEMES ENDROITS - c'est le meme pli qui les souleve
+      toutes. Le mouvement est donc UN SEUL champ d(u), commun au contour
+      et aux neuf rayures : deux sinusoides lentes, eteintes aux
+      extremites pour que les coins releves restent en place. Des
+      ondulations independantes par rayure feraient des spaghettis ; des
+      rayures droites faisaient un carrelage. Le tissu, c'est le desordre
+      COHERENT - la meme lecon que la houle de la haie et le vent de
+      l'herbe.
     """
     e = " " * indent
-    # les offsets des coins par rapport au centre, deja a l'echelle 1800
     A = (ox - 178.0 * k, oy + 40.5 * k)
     B = (ox + 137.0 * k, oy + 31.5 * k)
     C = (ox + 162.0 * k, oy - 38.5 * k)
     D = (ox - 120.0 * k, oy - 33.5 * k)
 
-    def L(v):
-        return (A[0] + (D[0] - A[0]) * v, A[1] + (D[1] - A[1]) * v)
+    # le pli : deux ondes lentes, en phase fixe (graine du dessin)
+    def pli(u):
+        att = math.sin(math.pi * u) ** 0.7      # nul aux deux bouts
+        # 1.5 + 0.7 et non 4.2 + 2.1 : au premier essai la serviette
+        # FLOTTAIT comme un drapeau. Un tissu pose au sol fremit, il ne
+        # vole pas - l'amplitude juste est celle qu'on remarque a peine.
+        return att * (1.5 * math.sin(2 * math.pi * 1.35 * u + 0.9)
+                      + 0.7 * math.sin(2 * math.pi * 2.85 * u + 2.3)) * k
 
-    def R(v):
-        return (B[0] + (C[0] - B[0]) * v, B[1] + (C[1] - B[1]) * v)
+    def point(u, v):
+        gauche = (A[0] + (D[0] - A[0]) * v, A[1] + (D[1] - A[1]) * v)
+        droite = (B[0] + (C[0] - B[0]) * v, B[1] + (C[1] - B[1]) * v)
+        return (gauche[0] + (droite[0] - gauche[0]) * u,
+                gauche[1] + (droite[1] - gauche[1]) * u + pli(u))
 
-    def quad(p1, p2, p3, p4, couleur):
-        return (u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
-                u'fill="%s"/>' % (p1[0], p1[1], p2[0], p2[1],
-                                  p3[0], p3[1], p4[0], p4[1], couleur))
+    N = 14
 
-    out = [quad(A, B, C, D, CREME)]
+    def ligne(v):
+        return [point(i / float(N), v) for i in range(N + 1)]
 
-    # neuf rayures, trame egale : chaque rayure couvre 52 %% de son pas.
+    def ruban(v0, v1, couleur):
+        haut = ligne(v1)
+        bas = ligne(v0)
+        d = _catmull(haut)
+        d += u" L%.1f %.1f" % bas[-1]
+        d += _catmull(list(reversed(bas))).replace("M", "L", 1)
+        return u'<path d="%s Z" fill="%s"/>' % (d, couleur)
+
+    out = [ruban(0.0, 1.0, CREME)]
     n = 9
     demi = 0.52 / (2.0 * (n + 1))
     for i in range(1, n + 1):
         v = i / float(n + 1)
-        out.append(quad(L(v - demi), R(v - demi), R(v + demi), L(v + demi),
-                        VERT_OBJET))
+        out.append(ruban(v - demi, v + demi, VERT_OBJET))
 
     return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
