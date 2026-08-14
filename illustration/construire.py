@@ -580,7 +580,11 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
            PERSONNAGES=(personnages.engendrer(LARGEUR, HAUTEUR)
                         if AVEC_PERSONNAGES
                         else ((personnages.serviette_rayee(
-                                   0.840 * LARGEUR, 0.858 * HAUTEUR, 1.0, 2)
+                                   # k=0.85 : le losange de la reference a
+                                   # sa taille pleine deborderait du cadre,
+                                   # notre parasol 2 etant plus a droite
+                                   # que le sien (0.84 contre 0.70)
+                                   0.840 * LARGEUR, 0.858 * HAUTEUR, 0.85, 2)
                                + "\n"
                                # le mat repasse PAR-DESSUS la serviette et
                                # s'arrete net a son premier tiers - l'effet
@@ -590,7 +594,8 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
                                + parasols.mat_sur_serviette(
                                    LARGEUR, HAUTEUR,
                                    personnages.serviette_coupe_mat(
-                                       0.840 * LARGEUR, 0.858 * HAUTEUR)))
+                                       0.840 * LARGEUR, 0.858 * HAUTEUR,
+                                       0.85)))
                               if AVEC_SERVIETTE_RAYEE
                               else '  <!-- personnages retires -->')),
            HERBE=(herbe.engendrer(LARGEUR, HAUTEUR, PART_HERBE)[0]

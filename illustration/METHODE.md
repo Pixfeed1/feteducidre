@@ -257,6 +257,18 @@ l'amplitude juste est celle qu'on remarque à peine : à 4 px la serviette
 flottait comme un drapeau, à 1,5 px elle repose. Même famille que la houle
 de la haie et le vent de l'herbe : le mouvement est global, le détail local.
 
+**Un relevé tronqué par un personnage décrit un autre objet.** Le premier
+relevé de la serviette s'arrêtait à l'homme assis : il mesurait la partie
+visible à sa gauche et prenait le bord de l'homme pour le bout du tissu —
+résultat, une bande plate de 315 × 74, une serviette vue par la tranche.
+En balayant les rayures de **toute** la zone (filtre : du crème à moins de
+6 px, pour ne pas gober le short), la serviette continue sous le couple :
+un **losange** de 407 × 84 dont le coin caché se reconstruit par
+parallélogramme (N = W + E − S, vérifié : les deux grands bords portent le
+même vecteur). On voit le *dessus* du tissu, pas sa tranche — c'était toute
+la perspective qui manquait, et aucun réglage de plis ne pouvait la
+remplacer.
+
 **Une perspective se relève coin par coin, elle ne s'ajuste pas par
 paramètres.** Trois essais de perspective sur la serviette (biais seul, puis
 fuite + compression réglées à l'œil) avant de relever les quatre coins du

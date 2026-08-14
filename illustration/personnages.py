@@ -219,11 +219,27 @@ def _serviette_champ(ox, oy, k):
     champ de plis, et point(u, v) qui interpole tout le reste entre eux.
     Extraite de serviette_rayee pour que le MAT puisse demander ou le tissu
     se trouve - sans dupliquer une seule formule.
+
+    LE RELEVE, REFAIT (reference 1232 x 928). Le premier relevé s'arretait
+    a l'homme assis : il mesurait la partie VISIBLE a sa gauche et prenait
+    son bord pour le bout du tissu - une serviette a plat, une bande. En
+    balayant les rayures de toute la zone (filtre : du creme a moins de
+    6 px, pour ne pas gober le short), la serviette CONTINUE sous le
+    couple jusqu'a x=1130 :
+
+        pointe gauche  W (723, 798)     coin bas    S (888, 834)
+        pointe droite  E (1130, 805)    coin haut   N (965, 769)
+
+    N est cache derriere la femme : reconstruit par W + E - S, et le
+    parallelogramme se verifie - les deux grands bords portent le meme
+    vecteur (242, -29). C'est un LOSANGE en perspective, profond de 84 px
+    sur 407 de large, pas une bande horizontale : on voit le DESSUS du
+    tissu, pas sa tranche.
     """
-    A = (ox - 178.0 * k, oy + 40.5 * k)
-    B = (ox + 137.0 * k, oy + 31.5 * k)
-    C = (ox + 162.0 * k, oy - 38.5 * k)
-    D = (ox - 120.0 * k, oy - 33.5 * k)
+    A = (ox - 56.0 * k, oy + 47.0 * k)      # S - coin pres, en bas
+    B = (ox + 297.0 * k, oy + 5.0 * k)      # E - la pointe droite
+    C = (ox + 56.0 * k, oy - 47.0 * k)      # N - coin loin, cache
+    D = (ox - 297.0 * k, oy - 5.0 * k)      # W - la pointe gauche
 
     # LE PLI EST UNE BOSSE, PAS UNE ONDE. Une sinusoide met ses cretes ou
     # ses phases les posent - la mienne tombait a cote du milieu - et elle
@@ -234,15 +250,18 @@ def _serviette_champ(ox, oy, k):
     #   une secondaire discrete vers la gauche, pour ne pas etre symetrique,
     #   et un fremissement minuscule par-dessus.
     def pli(u):
-        bosse1 = math.exp(-((u - 0.50) / 0.14) ** 2)
+        # sigma 0.19 et non 0.14 : sur le losange les rayures sont longues,
+        # une bosse etroite les faisait serpenter en S serres - un tissu
+        # tresse. La reference montre UNE montee douce, pas des vagues.
+        bosse1 = math.exp(-((u - 0.50) / 0.19) ** 2)
         bosse2 = math.exp(-((u - 0.21) / 0.09) ** 2)
-        frisson = 0.7 * math.sin(2 * math.pi * 3.1 * u + 1.7)
+        frisson = 0.35 * math.sin(2 * math.pi * 3.1 * u + 1.7)
         att = math.sin(math.pi * min(1.0, max(0.0, u))) ** 0.5
-        # 11 px et non 5 : sur un tapis de 70 px de haut, 5 px de bosse
-        # sont sous le seuil de l'oeil - je decrivais un relief que le rendu
-        # ne montrait pas. La regle : un accident de surface se voit a
-        # partir d'un septieme de la hauteur de l'objet.
-        return -(11.0 * bosse1 + 4.0 * bosse2 + frisson * att) * k
+        # La regle du septieme : un accident de surface se voit a partir
+        # d'un septieme de la hauteur de l'objet. Le losange fait 94 px de
+        # profondeur projetee - la bosse suit (14 px, contre 11 quand le
+        # tapis n'en faisait que 74).
+        return -(14.0 * bosse1 + 5.0 * bosse2 + frisson * att) * k
 
     def point(u, v):
         gauche = (A[0] + (D[0] - A[0]) * v, A[1] + (D[1] - A[1]) * v)
@@ -283,9 +302,9 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
     La serviette rayee : la geometrie relevee coin par coin, et par-dessus
     LE MOUVEMENT DU TISSU.
 
-    LE RELEVE (inchange - reference 1232 x 928)
-        pres-gauche  A (722, 836)      loin-gauche  D (762, 786)
-        pres-droit   B (938, 830)      loin-droit   C (955, 782)
+    LA GEOMETRIE : le losange releve dans _serviette_champ - les quatre
+    coins W, S, E, N du parallelogramme, pas la bande plate du premier
+    releve tronque par l'homme assis.
 
     LE MOUVEMENT
       Un tissu pose sur du sable n'a pas une ligne droite : il epouse les

@@ -510,7 +510,7 @@ COUPOLES = [
 ]
 
 
-def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
+def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4, au_sol=True):
     u"""
     La coupole, construite VERTICALE sur son mat puis penchee d'un bloc
     autour du pied - l'angle n'est pas un reglage, il DECOULE du releve :
@@ -613,11 +613,17 @@ def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
     pied_trait = (u'<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="4.5"'
                   u' fill="%s"/>' % (fx, fy, 26, "#B9B49A"))
 
+    # au_sol=False : le parasol de la serviette. Sa rencontre avec le sol
+    # n'est PAS la sienne - pas de bande d'ombre, pas de trait d'embase :
+    # sur la reference c'est la serviette et l'ombre du couple qui posent
+    # ce parasol-la. L'embase depassait du bord loin du tissu comme un
+    # caillou creme.
     e = " " * indent
-    lignes = [u'%s<g inkscape:label="%s">' % (e, nom),
-              u'%s  %s' % (e, ombre),
-              u'%s  %s' % (e, pied_trait),
-              u'%s  %s' % (e, mat)]
+    lignes = [u'%s<g inkscape:label="%s">' % (e, nom)]
+    if au_sol:
+        lignes.append(u'%s  %s' % (e, ombre))
+        lignes.append(u'%s  %s' % (e, pied_trait))
+    lignes.append(u'%s  %s' % (e, mat))
     for couleur, d in jupe + toile:
         lignes.append(u'%s  <path d="%s" fill="%s"/>' % (e, d, couleur))
     lignes.append(u'%s</g>' % e)
@@ -655,6 +661,7 @@ def mat_sur_serviette(largeur, hauteur, y_fin, indent=2):
 
 def engendrer_coupoles(largeur, hauteur, indent=4):
     corps = [une_coupole(nom, cx * largeur, yb * hauteur, rx * largeur,
-                         fx * largeur, fy * hauteur, indent=indent)
+                         fx * largeur, fy * hauteur, indent=indent,
+                         au_sol=("droite" not in nom))
              for nom, cx, yb, rx, fx, fy in COUPOLES]
     return "", "\n\n".join(corps), len(COUPOLES)
