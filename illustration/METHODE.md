@@ -229,6 +229,15 @@ plus haute sur le bord près que sur le bord loin. Et c'est **l'ombre du
 flanc** qui transforme la montée des lignes en relief : sans elle les
 rayures ondulent, avec elle le tissu bombe.
 
+**« Au milieu du parasol » veut dire : le centre de l'objet sous le mât.**
+Pas son bord, pas son coin d'ancrage, pas « à côté du pied » — son **centre
+géométrique** à l'aplomb du bâton. L'ancre d'un objet relevé par ses coins
+n'est pas son centre : il faut calculer le centre des quatre coins et le
+caler sur le mât, puis le **mesurer sur le rendu** (mât à x = 1512, sommet
+de la bosse à 1504, centre du tissu à ≈ 1500). Et comme la bosse principale
+est à u = 0,5, centrer le tissu place le pli sous le mât par construction —
+les deux exigences n'en font qu'une.
+
 **Un tissu, c'est du désordre cohérent.** Les rayures droites faisaient un
 carrelage ; le mouvement juste est UN SEUL champ de plis d(u), commun au
 contour et aux neuf rayures — c'est le même pli qui les soulève toutes.
