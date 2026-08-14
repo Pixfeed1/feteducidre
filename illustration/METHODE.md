@@ -212,6 +212,14 @@ bord près**, l'épaisseur du tissu, sans laquelle la serviette est peinte
 sur le sable au lieu d'être posée dessus. Le passage par des bandes
 transversales était une surinterprétation.
 
+**Un effet décrit n'existe que s'il se mesure sur le rendu.** La bosse à
+5 px sur un tapis de 70 et l'ombre à 30 % sous le grain : je décrivais un
+relief que le PNG ne montrait pas — plusieurs tours durant. Deux seuils
+payés : un accident de surface se voit à partir d'≈ 1/7 de la hauteur de
+l'objet, et une ombre doit survivre au grain qui la recouvre. La
+vérification se fait au pixel sur le rendu (bord relevé colonne par
+colonne : bosse mesurée à 12 px), jamais en relisant le code.
+
 **Un pli est une bosse, pas une onde.** Une sinusoïde met ses crêtes où ses
 phases les posent — la nôtre tombait à côté du milieu — et elle descend
 autant qu'elle monte, ce qu'un tissu posé ne fait pas : il se soulève, il ne

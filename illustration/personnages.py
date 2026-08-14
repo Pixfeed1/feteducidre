@@ -253,7 +253,11 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
         bosse2 = math.exp(-((u - 0.21) / 0.09) ** 2)
         frisson = 0.7 * math.sin(2 * math.pi * 3.1 * u + 1.7)
         att = math.sin(math.pi * min(1.0, max(0.0, u))) ** 0.5
-        return -(5.2 * bosse1 + 2.3 * bosse2 + frisson * att) * k
+        # 11 px et non 5 : sur un tapis de 70 px de haut, 5 px de bosse
+        # sont sous le seuil de l'oeil - je decrivais un relief que le rendu
+        # ne montrait pas. La regle : un accident de surface se voit a
+        # partir d'un septieme de la hauteur de l'objet.
+        return -(11.0 * bosse1 + 4.0 * bosse2 + frisson * att) * k
 
     def point(u, v):
         gauche = (A[0] + (D[0] - A[0]) * v, A[1] + (D[1] - A[1]) * v)
@@ -310,13 +314,16 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
     # tourne le dos a la lumiere, porte une bande d'ombre translucide en
     # travers du tapis. C'est elle qui transforme la montee des lignes en
     # RELIEF - sans elle les rayures ondulent, avec elle le tissu bombe.
-    fl0, fl1 = 0.545, 0.635
-    p1, p2 = point(fl0, 0.0), point(fl0, 1.0)
-    p3, p4 = point(fl1, 1.0), point(fl1, 0.0)
-    out.append(u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
-               u'fill="%s" opacity="0.30"/>'
-               % (p1[0], p1[1], p2[0], p2[1], p3[0], p3[1], p4[0], p4[1],
-                  OMBRE_SOL))
+    # Le flanc est echantillonne le long de u pour SUIVRE la bosse - un
+    # quadrilatere droit la coupait - et l'ombre est assez dense pour
+    # survivre au grain : a 0.30 elle disparaissait dessous.
+    fl0, fl1 = 0.52, 0.66
+    Np = 6
+    haut_f = [point(fl0 + (fl1 - fl0) * i / Np, 0.0) for i in range(Np + 1)]
+    bas_f = [point(fl0 + (fl1 - fl0) * i / Np, 1.0) for i in range(Np + 1)]
+    d_f = _catmull(haut_f) + u" L%.1f %.1f" % bas_f[-1]
+    d_f += _catmull(list(reversed(bas_f))).replace("M", "L", 1)
+    out.append(u'<path d="%s Z" fill="#9E9878" opacity="0.38"/>' % d_f)
 
     return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
