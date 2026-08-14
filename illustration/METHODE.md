@@ -257,6 +257,22 @@ l'amplitude juste est celle qu'on remarque à peine : à 4 px la serviette
 flottait comme un drapeau, à 1,5 px elle repose. Même famille que la houle
 de la haie et le vent de l'herbe : le mouvement est global, le détail local.
 
+**Un contour se décalque, il ne se redessine pas de mémoire.** Deux essais
+de l'homme assis « d'après le zoom » ont donné un bonhomme en cape aux
+jambes en boomerang. La chaîne qui marche : masques de couleur (peau,
+encre) dans une fenêtre → **ouverture morphologique** (érosion puis
+dilatation) sinon les mouchetures orange du grain se soudent au masque et
+gonflent le torse → plus grande composante → suivi de bord de proche en
+proche → **Douglas-Peucker** (garde les angles — le rééchantillonnage
+uniforme fond le cou, l'aisselle et le creux entre ventre et cuisse) →
+Catmull-Rom fermé. Et la preuve se fait en **superposant** le tracé sur la
+référence, pas en comparant deux rendus côte à côte. Détails de lecture :
+le bras de la femme passe devant sa cheville (exclu par une droite oblique,
+il reviendra avec elle) ; le short et l'ombre sous les genoux sont UNE
+SEULE masse d'encre dans le modèle ; le buste est à l'ombre de la toile
+(#BF4020), les jambes au soleil (#E95028) — c'est la toile qui coupe la
+couleur, pas l'anatomie.
+
 **Un relevé tronqué par un personnage décrit un autre objet.** Le premier
 relevé de la serviette s'arrêtait à l'homme assis : il mesurait la partie
 visible à sa gauche et prenait le bord de l'homme pour le bout du tissu —

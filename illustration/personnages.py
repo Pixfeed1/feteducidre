@@ -213,6 +213,155 @@ def _catmull(points):
     return d
 
 
+def _catmull_ferme(points):
+    u"""
+    La meme courbe lisse que _catmull, mais FERMEE : le dernier point se
+    raccorde au premier avec la meme continuite. Pour les silhouettes en
+    aplat - un contour ferme fait de segments droits refait le defaut
+    Paint, et une fermeture en ligne droite fait un coin qui se voit.
+    """
+    n = len(points)
+    p = list(points)
+    d = u"M%.1f %.1f" % p[0]
+    for i in range(n):
+        p0 = p[(i - 1) % n]
+        p1 = p[i]
+        p2 = p[(i + 1) % n]
+        p3 = p[(i + 2) % n]
+        c1 = (p1[0] + (p2[0] - p0[0]) / 6.0, p1[1] + (p2[1] - p0[1]) / 6.0)
+        c2 = (p2[0] - (p3[0] - p1[0]) / 6.0, p2[1] - (p3[1] - p1[1]) / 6.0)
+        d += u" C%.1f %.1f %.1f %.1f %.1f %.1f" % (c1 + c2 + p2)
+    return d + " Z"
+
+
+# ---------------------------------------------------------------------
+#  L'HOMME DE LA SERVIETTE - decalque au pixel sur la 5e reference
+# ---------------------------------------------------------------------
+#
+# LE RELEVE (reference 1232 x 928). Son point d'assise est (905, 800) ;
+# toutes les coordonnees locales sont des ecarts a ce point, en pixels de
+# la reference - le facteur k les amene a notre echelle (1350/928 fois le
+# 0.85 de la serviette).
+#
+#   pose          appuye en arriere, l'appui derriere lui, genoux releves,
+#                 il regarde a droite ; la main a plat, doigts vers le mat
+#   deux peaux    le buste est A L'OMBRE de la toile (#BF4020), les jambes
+#                 depassent AU SOLEIL (#E95028) - c'est la toile qui coupe
+#                 la couleur, pas l'anatomie
+#   une encre     cheveux et short dans le meme vert-noir (#203014), et le
+#                 short CONTINUE sous les genoux en ombre portee : dans la
+#                 reference c'est une seule masse sombre
+#
+PEAU_OMBRE_H = "#BF4020"    # buste, bras, tete - sous la toile
+PEAU_SOLEIL_H = "#E95028"   # cuisses, tibias, pieds - au soleil
+ENCRE_H = "#203014"         # cheveux ET short - la meme encre
+
+# Les contours DECALQUES de la reference (masques de couleur,
+# ouverture morphologique contre les mouchetures du grain, suivi de
+# bord, simplification Douglas-Peucker). Coordonnees locales en pixels
+# de la reference, relatives au point d'assise (905, 800). Le bras de
+# la femme, qui passe devant la cheville, est exclu : il reviendra
+# avec elle. Voir METHODE.md - un contour se decalque, il ne se
+# redessine pas de memoire.
+_H_SILHOUETTE = [  # 27 points
+    (5.0, -78.0),
+    (0.0, -74.0),
+    (-3.0, -68.0),
+    (-8.0, -67.0),
+    (-7.0, -62.0),
+    (-9.0, -60.0),
+    (-17.0, -58.0),
+    (-24.0, -23.0),
+    (-24.0, -5.0),
+    (-29.0, 0.0),
+    (-24.0, 1.0),
+    (-20.0, -2.0),
+    (-16.0, -25.0),
+    (-13.0, -33.0),
+    (-9.0, -19.0),
+    (-6.0, -15.0),
+    (-3.0, -15.0),
+    (23.0, -31.0),
+    (30.0, -31.0),
+    (20.0, -40.0),
+    (15.0, -57.0),
+    (11.0, -61.0),
+    (1.0, -61.0),
+    (-1.0, -63.0),
+    (-1.0, -65.0),
+    (4.0, -68.0),
+    (6.0, -73.0),
+]
+_H_JAMBES_SOLEIL = [  # 19 points
+    (47.0, -34.0),
+    (57.0, -27.0),
+    (62.0, -12.0),
+    (65.0, -13.0),
+    (66.0, -18.0),
+    (71.0, -10.0),
+    (66.0, -4.0),
+    (61.0, 8.0),
+    (49.0, 8.0),
+    (48.0, 6.0),
+    (48.0, 4.0),
+    (57.0, 3.0),
+    (60.0, -6.0),
+    (53.0, -9.0),
+    (54.0, -11.0),
+    (50.0, -15.0),
+    (49.0, -21.0),
+    (42.0, -21.0),
+    (31.0, -29.0),
+]
+_H_SHORT = [  # 11 points
+    (23.0, -29.0),
+    (33.0, -27.0),
+    (46.0, -16.0),
+    (35.0, 0.0),
+    (26.0, -1.0),
+    (22.0, 2.0),
+    (17.0, 2.0),
+    (1.0, -1.0),
+    (-1.0, -3.0),
+    (0.0, -5.0),
+    (-7.0, -12.0),
+]
+_H_CHEVEUX = [  # 10 points
+    (-4.0, -89.0),
+    (-8.0, -88.0),
+    (-12.0, -84.0),
+    (-13.0, -80.0),
+    (-12.0, -72.0),
+    (-7.0, -69.0),
+    (-5.0, -70.0),
+    (-3.0, -70.0),
+    (0.0, -76.0),
+    (8.0, -82.0),
+]
+
+
+def homme_serviette(ox, oy, k=1.0, indent=4):
+    u"""
+    L'homme assis de la reference, a l'identique : quatre aplats fermes
+    (silhouette a l'ombre, jambes au soleil, encre du short et son ombre,
+    encre des cheveux), chacun un contour decalque lisse par Catmull-Rom.
+
+    (ox, oy) : le point d'assise sur la serviette. k : l'echelle.
+    """
+    e = " " * indent
+
+    def aplat(pts, couleur):
+        P = [(ox + x * k, oy + y * k) for (x, y) in pts]
+        return u'<path d="%s" fill="%s"/>' % (_catmull_ferme(P), couleur)
+
+    out = [aplat(_H_SILHOUETTE, PEAU_OMBRE_H),
+           aplat(_H_JAMBES_SOLEIL, PEAU_SOLEIL_H),
+           aplat(_H_SHORT, ENCRE_H),
+           aplat(_H_CHEVEUX, ENCRE_H)]
+    return u"%s<g inkscape:label=\"Homme de la serviette\">\n%s\n%s</g>" % (
+        e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
+
+
 def _serviette_champ(ox, oy, k):
     u"""
     La geometrie de la serviette, partagee : les quatre coins releves, le
