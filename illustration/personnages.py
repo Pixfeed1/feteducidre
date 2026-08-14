@@ -240,20 +240,29 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
     C = (ox + 162.0 * k, oy - 38.5 * k)
     D = (ox - 120.0 * k, oy - 33.5 * k)
 
-    # le pli : deux ondes lentes, en phase fixe (graine du dessin)
+    # LE PLI EST UNE BOSSE, PAS UNE ONDE. Une sinusoide met ses cretes ou
+    # ses phases les posent - la mienne tombait a cote du milieu - et elle
+    # descend autant qu'elle monte, ce qu'un tissu pose ne fait pas : il se
+    # SOULEVE par endroits, il ne s'enfonce pas sous le sable. Le champ est
+    # donc une somme de bosses gaussiennes, toutes vers le haut :
+    #   la principale AU MILIEU du tapis - la ou l'on s'assoit -
+    #   une secondaire discrete vers la gauche, pour ne pas etre symetrique,
+    #   et un fremissement minuscule par-dessus.
     def pli(u):
-        att = math.sin(math.pi * u) ** 0.7      # nul aux deux bouts
-        # 2.4 : le point entre 1.5 (invisible) et 4.2 (drapeau). Les
-        # rayures courent dans la longueur, donc chaque ligne serpente
-        # avec le pli - c'est le mouvement du tissu de la reference.
-        return att * (2.4 * math.sin(2 * math.pi * 1.35 * u + 0.9)
-                      + 1.0 * math.sin(2 * math.pi * 2.85 * u + 2.3)) * k
+        bosse1 = math.exp(-((u - 0.50) / 0.14) ** 2)
+        bosse2 = math.exp(-((u - 0.21) / 0.09) ** 2)
+        frisson = 0.7 * math.sin(2 * math.pi * 3.1 * u + 1.7)
+        att = math.sin(math.pi * min(1.0, max(0.0, u))) ** 0.5
+        return -(5.2 * bosse1 + 2.3 * bosse2 + frisson * att) * k
 
     def point(u, v):
         gauche = (A[0] + (D[0] - A[0]) * v, A[1] + (D[1] - A[1]) * v)
         droite = (B[0] + (C[0] - B[0]) * v, B[1] + (C[1] - B[1]) * v)
+        # la bosse est plus haute sur le bord pres que sur le bord loin :
+        # c'est la perspective du relief, comme celle du contour
         return (gauche[0] + (droite[0] - gauche[0]) * u,
-                gauche[1] + (droite[1] - gauche[1]) * u + pli(u))
+                gauche[1] + (droite[1] - gauche[1]) * u
+                + pli(u) * (1.12 - 0.45 * v))
 
     N = 16
 
@@ -296,6 +305,18 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
     for i in range(n):
         v = v_min + i * pas_v
         out.append(ruban(v - demi, v + demi, VERT_OBJET))
+
+    # L'OMBRE DU PLI : le flanc droit de la bosse principale, celui qui
+    # tourne le dos a la lumiere, porte une bande d'ombre translucide en
+    # travers du tapis. C'est elle qui transforme la montee des lignes en
+    # RELIEF - sans elle les rayures ondulent, avec elle le tissu bombe.
+    fl0, fl1 = 0.545, 0.635
+    p1, p2 = point(fl0, 0.0), point(fl0, 1.0)
+    p3, p4 = point(fl1, 1.0), point(fl1, 0.0)
+    out.append(u'<path d="M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z" '
+               u'fill="%s" opacity="0.30"/>'
+               % (p1[0], p1[1], p2[0], p2[1], p3[0], p3[1], p4[0], p4[1],
+                  OMBRE_SOL))
 
     return u"%s<g inkscape:label=\"Serviette rayee\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)

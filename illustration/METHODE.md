@@ -212,6 +212,15 @@ bord près**, l'épaisseur du tissu, sans laquelle la serviette est peinte
 sur le sable au lieu d'être posée dessus. Le passage par des bandes
 transversales était une surinterprétation.
 
+**Un pli est une bosse, pas une onde.** Une sinusoïde met ses crêtes où ses
+phases les posent — la nôtre tombait à côté du milieu — et elle descend
+autant qu'elle monte, ce qu'un tissu posé ne fait pas : il se soulève, il ne
+s'enfonce pas sous le sable. Le champ de plis est une somme de **bosses
+gaussiennes vers le haut**, la principale placée où on la veut (au milieu),
+plus haute sur le bord près que sur le bord loin. Et c'est **l'ombre du
+flanc** qui transforme la montée des lignes en relief : sans elle les
+rayures ondulent, avec elle le tissu bombe.
+
 **Un tissu, c'est du désordre cohérent.** Les rayures droites faisaient un
 carrelage ; le mouvement juste est UN SEUL champ de plis d(u), commun au
 contour et aux neuf rayures — c'est le même pli qui les soulève toutes.
