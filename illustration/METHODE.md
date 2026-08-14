@@ -273,6 +273,16 @@ SEULE masse d'encre dans le modèle ; le buste est à l'ombre de la toile
 (#BF4020), les jambes au soleil (#E95028) — c'est la toile qui coupe la
 couleur, pas l'anatomie.
 
+**Un personnage se pose par son point de contact, pas par son centre.**
+L'homme est ancré par sa MAIN à plat : le bout des doigts au bord droit du
+mât coupé (relevé : doigts à 869, mât 863-871), l'assise 36 px de
+référence à droite, le y demandé à la serviette pli compris
+(`serviette_pose`). Et le mât s'arrête **à hauteur de cette main** — c'est
+elle qui donne le sens du trait coupé. Deux corrections de position ont été
+jugées à l'œil dans un sens… et mesurées dans l'autre : l'écart doigt-mât
+se mesure sur le rendu (détecteur pollué par l'ombre sarcelle → fenêtres
+serrées), jamais à l'estime sur un zoom.
+
 **Un relevé tronqué par un personnage décrit un autre objet.** Le premier
 relevé de la serviette s'arrêtait à l'homme assis : il mesurait la partie
 visible à sa gauche et prenait le bord de l'homme pour le bout du tissu —

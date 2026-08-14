@@ -255,14 +255,19 @@ def _catmull_ferme(points):
 PEAU_OMBRE_H = "#BF4020"    # buste, bras, tete - sous la toile
 PEAU_SOLEIL_H = "#E95028"   # cuisses, tibias, pieds - au soleil
 ENCRE_H = "#203014"         # cheveux ET short - la meme encre
+OMBRE_SERVIETTE = "#2E5E50"  # son ombre sur le tissu - sarcelle profond
 
-# Les contours DECALQUES de la reference (masques de couleur,
-# ouverture morphologique contre les mouchetures du grain, suivi de
-# bord, simplification Douglas-Peucker). Coordonnees locales en pixels
-# de la reference, relatives au point d'assise (905, 800). Le bras de
-# la femme, qui passe devant la cheville, est exclu : il reviendra
-# avec elle. Voir METHODE.md - un contour se decalque, il ne se
-# redessine pas de memoire.
+# Les contours DECALQUES de la reference (masques de couleur, ouverture
+# morphologique contre les mouchetures du grain, suivi de bord,
+# simplification Douglas-Peucker). Coordonnees locales en pixels de la
+# reference, relatives au point d'assise (905, 800).
+#
+# CE QUI N'EST PAS A LUI, appris en se trompant : la MAIN de la femme se
+# plante juste sous son tibia - le paquet orange en bas a droite est a
+# elle, pas un pied a lui. Ses jambes a lui disparaissent sous l'encre
+# (l'ombre sous ses genoux) puis sous cette main : le decalque s'arrete
+# donc sur l'encre, et elle reviendra avec la femme.
+
 _H_SILHOUETTE = [  # 27 points
     (5.0, -78.0),
     (0.0, -74.0),
@@ -292,35 +297,25 @@ _H_SILHOUETTE = [  # 27 points
     (4.0, -68.0),
     (6.0, -73.0),
 ]
-_H_JAMBES_SOLEIL = [  # 19 points
+_H_JAMBES_SOLEIL = [  # 7 points
     (47.0, -34.0),
-    (57.0, -27.0),
-    (62.0, -12.0),
-    (65.0, -13.0),
-    (66.0, -18.0),
-    (71.0, -10.0),
-    (66.0, -4.0),
-    (61.0, 8.0),
-    (49.0, 8.0),
-    (48.0, 6.0),
-    (48.0, 4.0),
-    (57.0, 3.0),
-    (60.0, -6.0),
-    (53.0, -9.0),
-    (54.0, -11.0),
-    (50.0, -15.0),
-    (49.0, -21.0),
+    (56.0, -28.0),
+    (61.0, -17.0),
+    (50.0, -16.0),
+    (50.0, -20.0),
     (42.0, -21.0),
     (31.0, -29.0),
 ]
-_H_SHORT = [  # 11 points
+_H_SHORT = [  # 13 points
     (23.0, -29.0),
     (33.0, -27.0),
-    (46.0, -16.0),
-    (35.0, 0.0),
+    (45.0, -17.0),
+    (36.0, -14.0),
+    (36.0, -3.0),
+    (34.0, -1.0),
     (26.0, -1.0),
-    (22.0, 2.0),
-    (17.0, 2.0),
+    (19.0, 2.0),
+    (10.0, 2.0),
     (1.0, -1.0),
     (-1.0, -3.0),
     (0.0, -5.0),
@@ -342,22 +337,38 @@ _H_CHEVEUX = [  # 10 points
 
 def homme_serviette(ox, oy, k=1.0, indent=4):
     u"""
-    L'homme assis de la reference, a l'identique : quatre aplats fermes
-    (silhouette a l'ombre, jambes au soleil, encre du short et son ombre,
-    encre des cheveux), chacun un contour decalque lisse par Catmull-Rom.
+    L'homme assis de la reference, a l'identique : ses OMBRES d'abord
+    (le sarcelle profond releve sur la serviette : #4F806A), puis quatre
+    aplats fermes - silhouette a l'ombre de la toile, jambes au soleil,
+    encre du short et de l'ombre sous les genoux, encre des cheveux.
 
     (ox, oy) : le point d'assise sur la serviette. k : l'echelle.
     """
     e = " " * indent
 
-    def aplat(pts, couleur):
+    def aplat(pts, couleur, opacite=None):
         P = [(ox + x * k, oy + y * k) for (x, y) in pts]
-        return u'<path d="%s" fill="%s"/>' % (_catmull_ferme(P), couleur)
+        o = u' opacity="%.2f"' % opacite if opacite else u''
+        return u'<path d="%s" fill="%s"%s/>' % (_catmull_ferme(P), couleur, o)
 
-    out = [aplat(_H_SILHOUETTE, PEAU_OMBRE_H),
-           aplat(_H_JAMBES_SOLEIL, PEAU_SOLEIL_H),
-           aplat(_H_SHORT, ENCRE_H),
-           aplat(_H_CHEVEUX, ENCRE_H)]
+    out = []
+
+    # SES OMBRES SUR LE TISSU, decalquees de la reference : la grande
+    # tombe a sa DROITE (le soleil vient de gauche dans cette image, comme
+    # la toile au-dessus), la petite sous son bras d'appui. Translucides :
+    # dans le modele les rayures restent lisibles DANS l'ombre.
+    out.append(aplat([(-10.0, 5.0), (12.0, -6.0), (40.0, -8.0),
+                      (68.0, -2.0), (84.0, 7.0), (76.0, 16.0),
+                      (48.0, 22.0), (14.0, 19.0), (-4.0, 12.0)],
+                     OMBRE_SERVIETTE, 0.55))
+    out.append(aplat([(-43.0, 1.5), (-16.0, -0.5), (-11.0, 6.5),
+                      (-25.0, 10.5), (-41.0, 8.0)],
+                     OMBRE_SERVIETTE, 0.50))
+
+    out.append(aplat(_H_SILHOUETTE, PEAU_OMBRE_H))
+    out.append(aplat(_H_JAMBES_SOLEIL, PEAU_SOLEIL_H))
+    out.append(aplat(_H_SHORT, ENCRE_H))
+    out.append(aplat(_H_CHEVEUX, ENCRE_H))
     return u"%s<g inkscape:label=\"Homme de la serviette\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
 
@@ -424,18 +435,15 @@ def _serviette_champ(ox, oy, k):
     return A, B, C, D, pli, point
 
 
-def serviette_coupe_mat(ox, oy, k=1.0, x_mat=None):
+def serviette_pose(ox, oy, k=1.0, x=None, v=0.5):
     u"""
-    Le y ou le mat doit S'ARRETER sur la serviette.
-
-    Sur la reference le mat ne se plante pas derriere le tissu : il continue
-    PAR-DESSUS les premieres rayures et s'arrete net au premier tiers de la
-    profondeur (releve : 18 px sur 54). C'est la serviette qui sait ou est
-    son tiers - le pli compris - donc c'est elle qu'on interroge.
+    Le y DU TISSU, pli compris, a l'abscisse x et a la fraction v de la
+    profondeur (0 = bord pres, 1 = bord loin). C'est la serviette qu'on
+    interroge pour poser quoi que ce soit dessus - le mat comme l'homme.
     """
     _, _, _, _, _, point = _serviette_champ(ox, oy, k)
-    x = ox if x_mat is None else x_mat
-    v = 2.0 / 3.0                       # un tiers depuis le bord loin (v=1)
+    if x is None:
+        x = ox
     lo, hi = 0.0, 1.0                   # x(u, v) est monotone en u
     for _ in range(40):
         mid = (lo + hi) / 2.0
@@ -444,6 +452,18 @@ def serviette_coupe_mat(ox, oy, k=1.0, x_mat=None):
         else:
             hi = mid
     return point((lo + hi) / 2.0, v)[1]
+
+
+def serviette_coupe_mat(ox, oy, k=1.0, x_mat=None):
+    u"""
+    Le y ou le mat doit S'ARRETER sur la serviette.
+
+    Sur la reference le mat ne se plante pas derriere le tissu : il continue
+    PAR-DESSUS les rayures et s'arrete net A HAUTEUR DE LA MAIN posee de
+    l'homme (releve : coupe a y=800, main a 795-802) - c'est elle qui
+    donne le sens du trait coupe.
+    """
+    return serviette_pose(ox, oy, k, x_mat, v=0.52)
 
 
 def serviette_rayee(ox, oy, k=1.0, indent=4):

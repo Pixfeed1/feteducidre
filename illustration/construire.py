@@ -66,6 +66,11 @@ AVEC_PERSONNAGES = False
 
 # LA SERVIETTE RAYEE, seule : on la regle avant d'y rasseoir le couple.
 AVEC_SERVIETTE_RAYEE = True
+
+# L'HOMME sur la serviette - le premier personnage, decalque de la
+# reference. Sa MAIN se plante a cote du mat coupe, comme dans le modele :
+# c'est elle qui fixe sa place, pas le centre du tissu.
+AVEC_HOMME = True
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -294,6 +299,39 @@ SERVIETTE = '' if not AVEC_SERVIETTE else serviette.dessiner(cx=0.263 * LARGEUR,
                                hauteur=0.150 * HAUTEUR,
                                pivot=-1.5, pourtour=0.0105 * LARGEUR,
                                indent=2)
+
+
+def bloc_serviette_rayee():
+    u"""
+    La serviette rayee, le mat coupe par-dessus, et l'homme si demande.
+
+    k=0.85 : le losange de la reference a sa taille pleine deborderait du
+    cadre, notre parasol 2 etant plus a droite que le sien (0.84 contre
+    0.70). L'echelle des personnages suit LA MEME reduction : un homme a
+    l'echelle 1 sur une serviette a 0.85 serait un geant sur un mouchoir.
+    """
+    ox, oy, kt = 0.840 * LARGEUR, 0.858 * HAUTEUR, 0.85
+    morceaux = [personnages.serviette_rayee(ox, oy, kt, 2)]
+
+    # le mat repasse PAR-DESSUS la serviette et s'arrete net a son premier
+    # tiers - l'effet stylise de la reference : le tissu n'est pas au pied
+    # du parasol, le parasol se plante dedans
+    morceaux.append(parasols.mat_sur_serviette(
+        LARGEUR, HAUTEUR, personnages.serviette_coupe_mat(ox, oy, kt)))
+
+    if AVEC_HOMME:
+        # pixels de la reference -> notre cadre, fois le 0.85 du tissu
+        K = (HAUTEUR / 928.0) * kt
+        # SA PLACE : la main a plat a cote du mat coupe, comme le modele -
+        # le bout des doigts au bord droit du trait (releve : doigts a 869,
+        # mat 863-871 ; MESURE sur notre rendu, pas regle a l'oeil - l'oeil
+        # s'etait trompe de sens). Le y s'interroge aupres de la serviette,
+        # pli compris.
+        assise_x = ox + 36.0 * K
+        assise_y = personnages.serviette_pose(ox, oy, kt, assise_x, v=0.50)
+        morceaux.append(personnages.homme_serviette(assise_x, assise_y, K, 2))
+
+    return "\n".join(morceaux)
 
 import os
 if not AVEC_ENFANT:
@@ -579,23 +617,7 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
                      else '  <!-- sol vert retire -->'),
            PERSONNAGES=(personnages.engendrer(LARGEUR, HAUTEUR)
                         if AVEC_PERSONNAGES
-                        else ((personnages.serviette_rayee(
-                                   # k=0.85 : le losange de la reference a
-                                   # sa taille pleine deborderait du cadre,
-                                   # notre parasol 2 etant plus a droite
-                                   # que le sien (0.84 contre 0.70)
-                                   0.840 * LARGEUR, 0.858 * HAUTEUR, 0.85, 2)
-                               + "\n"
-                               # le mat repasse PAR-DESSUS la serviette et
-                               # s'arrete net a son premier tiers - l'effet
-                               # stylise de la reference : le tissu n'est
-                               # pas au pied du parasol, le parasol se
-                               # plante dedans
-                               + parasols.mat_sur_serviette(
-                                   LARGEUR, HAUTEUR,
-                                   personnages.serviette_coupe_mat(
-                                       0.840 * LARGEUR, 0.858 * HAUTEUR,
-                                       0.85)))
+                        else (bloc_serviette_rayee()
                               if AVEC_SERVIETTE_RAYEE
                               else '  <!-- personnages retires -->')),
            HERBE=(herbe.engendrer(LARGEUR, HAUTEUR, PART_HERBE)[0]
