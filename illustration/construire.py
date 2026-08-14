@@ -579,8 +579,18 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
                      else '  <!-- sol vert retire -->'),
            PERSONNAGES=(personnages.engendrer(LARGEUR, HAUTEUR)
                         if AVEC_PERSONNAGES
-                        else (personnages.serviette_rayee(
-                                  0.840 * LARGEUR, 0.858 * HAUTEUR, 1.0, 2)
+                        else ((personnages.serviette_rayee(
+                                   0.840 * LARGEUR, 0.858 * HAUTEUR, 1.0, 2)
+                               + "\n"
+                               # le mat repasse PAR-DESSUS la serviette et
+                               # s'arrete net a son premier tiers - l'effet
+                               # stylise de la reference : le tissu n'est
+                               # pas au pied du parasol, le parasol se
+                               # plante dedans
+                               + parasols.mat_sur_serviette(
+                                   LARGEUR, HAUTEUR,
+                                   personnages.serviette_coupe_mat(
+                                       0.840 * LARGEUR, 0.858 * HAUTEUR)))
                               if AVEC_SERVIETTE_RAYEE
                               else '  <!-- personnages retires -->')),
            HERBE=(herbe.engendrer(LARGEUR, HAUTEUR, PART_HERBE)[0]

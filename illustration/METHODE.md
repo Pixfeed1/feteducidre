@@ -238,6 +238,17 @@ de la bosse à 1504, centre du tissu à ≈ 1500). Et comme la bosse principale
 est à u = 0,5, centrer le tissu place le pli sous le mât par construction —
 les deux exigences n'en font qu'une.
 
+**Le mât ne se plante pas derrière la serviette : il se coupe dessus.**
+Arrêter le trait au bord du tissu racontait une serviette posée *au pied*
+du parasol. Sur la référence le mât continue **par-dessus** les premières
+rayures et s'arrête **net** au premier tiers de la profondeur (relevé :
+18 px sur 54) — pas de pied, pas d'embase, un trait coupé
+(`stroke-linecap="butt"`). C'est un effet stylisé assumé de l'image.
+Techniquement : un second segment sur la même droite, dessiné *après* la
+serviette (`parasols.mat_sur_serviette`), qui repart 12 px en amont du pied
+pour une couture invisible ; c'est la serviette qui donne le y du tiers,
+pli compris (`personnages.serviette_coupe_mat`).
+
 **Un tissu, c'est du désordre cohérent.** Les rayures droites faisaient un
 carrelage ; le mouvement juste est UN SEUL champ de plis d(u), commun au
 contour et aux neuf rayures — c'est le même pli qui les soulève toutes.

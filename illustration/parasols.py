@@ -624,6 +624,35 @@ def une_coupole(nom, cx, y_bord, rx, fx, fy, indent=4, n=4):
     return "\n".join(lignes)
 
 
+def mat_sur_serviette(largeur, hauteur, y_fin, indent=2):
+    u"""
+    Le prolongement du mat du parasol 2 PAR-DESSUS la serviette.
+
+    Sur la reference le mat ne se plante pas derriere le tissu : il continue
+    sur les premieres rayures et s'arrete NET au premier tiers de la
+    profondeur - pas de pied, pas d'embase, le trait coupe. C'est un effet
+    stylise assume de l'image. Dessine APRES la serviette pour passer
+    dessus ; il repart 12 px en amont du pied, sur la meme droite, pour que
+    la couture avec le trait deja pose soit invisible.
+
+    stroke-linecap="butt" et non "round" : c'est la coupe franche qui fait
+    l'effet - un bout arrondi raconterait un baton pose sur le tissu.
+    """
+    nom, cxf, ybf, rxf, fxf, fyf = COUPOLES[1]
+    cx, yb = cxf * largeur, ybf * hauteur
+    fx, fy = fxf * largeur, fyf * hauteur
+    a = math.atan2(cx - fx, fy - yb)          # le meme angle que la coupole
+    bas = (-math.sin(a), math.cos(a))         # le long du mat, vers le bas
+    t0 = -12.0
+    t1 = (y_fin - fy) / bas[1]
+    p0 = (fx + bas[0] * t0, fy + bas[1] * t0)
+    p1 = (fx + bas[0] * t1, fy + bas[1] * t1)
+    e = " " * indent
+    return (u'%s<path d="M%.1f %.1f L%.1f %.1f" stroke="%s"'
+            u' stroke-width="11" stroke-linecap="butt"/>'
+            % (e, p0[0], p0[1], p1[0], p1[1], MAT_COUPOLE))
+
+
 def engendrer_coupoles(largeur, hauteur, indent=4):
     corps = [une_coupole(nom, cx * largeur, yb * hauteur, rx * largeur,
                          fx * largeur, fy * hauteur, indent=indent)

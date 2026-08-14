@@ -213,28 +213,13 @@ def _catmull(points):
     return d
 
 
-def serviette_rayee(ox, oy, k=1.0, indent=4):
+def _serviette_champ(ox, oy, k):
     u"""
-    La serviette rayee : la geometrie relevee coin par coin, et par-dessus
-    LE MOUVEMENT DU TISSU.
-
-    LE RELEVE (inchange - reference 1232 x 928)
-        pres-gauche  A (722, 836)      loin-gauche  D (762, 786)
-        pres-droit   B (938, 830)      loin-droit   C (955, 782)
-
-    LE MOUVEMENT
-      Un tissu pose sur du sable n'a pas une ligne droite : il epouse les
-      creux et les plis. Et le point capital est que TOUTES les rayures
-      ondulent AUX MEMES ENDROITS - c'est le meme pli qui les souleve
-      toutes. Le mouvement est donc UN SEUL champ d(u), commun au contour
-      et aux neuf rayures : deux sinusoides lentes, eteintes aux
-      extremites pour que les coins releves restent en place. Des
-      ondulations independantes par rayure feraient des spaghettis ; des
-      rayures droites faisaient un carrelage. Le tissu, c'est le desordre
-      COHERENT - la meme lecon que la houle de la haie et le vent de
-      l'herbe.
+    La geometrie de la serviette, partagee : les quatre coins releves, le
+    champ de plis, et point(u, v) qui interpole tout le reste entre eux.
+    Extraite de serviette_rayee pour que le MAT puisse demander ou le tissu
+    se trouve - sans dupliquer une seule formule.
     """
-    e = " " * indent
     A = (ox - 178.0 * k, oy + 40.5 * k)
     B = (ox + 137.0 * k, oy + 31.5 * k)
     C = (ox + 162.0 * k, oy - 38.5 * k)
@@ -267,6 +252,55 @@ def serviette_rayee(ox, oy, k=1.0, indent=4):
         return (gauche[0] + (droite[0] - gauche[0]) * u,
                 gauche[1] + (droite[1] - gauche[1]) * u
                 + pli(u) * (1.12 - 0.45 * v))
+
+    return A, B, C, D, pli, point
+
+
+def serviette_coupe_mat(ox, oy, k=1.0, x_mat=None):
+    u"""
+    Le y ou le mat doit S'ARRETER sur la serviette.
+
+    Sur la reference le mat ne se plante pas derriere le tissu : il continue
+    PAR-DESSUS les premieres rayures et s'arrete net au premier tiers de la
+    profondeur (releve : 18 px sur 54). C'est la serviette qui sait ou est
+    son tiers - le pli compris - donc c'est elle qu'on interroge.
+    """
+    _, _, _, _, _, point = _serviette_champ(ox, oy, k)
+    x = ox if x_mat is None else x_mat
+    v = 2.0 / 3.0                       # un tiers depuis le bord loin (v=1)
+    lo, hi = 0.0, 1.0                   # x(u, v) est monotone en u
+    for _ in range(40):
+        mid = (lo + hi) / 2.0
+        if point(mid, v)[0] < x:
+            lo = mid
+        else:
+            hi = mid
+    return point((lo + hi) / 2.0, v)[1]
+
+
+def serviette_rayee(ox, oy, k=1.0, indent=4):
+    u"""
+    La serviette rayee : la geometrie relevee coin par coin, et par-dessus
+    LE MOUVEMENT DU TISSU.
+
+    LE RELEVE (inchange - reference 1232 x 928)
+        pres-gauche  A (722, 836)      loin-gauche  D (762, 786)
+        pres-droit   B (938, 830)      loin-droit   C (955, 782)
+
+    LE MOUVEMENT
+      Un tissu pose sur du sable n'a pas une ligne droite : il epouse les
+      creux et les plis. Et le point capital est que TOUTES les rayures
+      ondulent AUX MEMES ENDROITS - c'est le meme pli qui les souleve
+      toutes. Le mouvement est donc UN SEUL champ d(u), commun au contour
+      et aux neuf rayures : deux sinusoides lentes, eteintes aux
+      extremites pour que les coins releves restent en place. Des
+      ondulations independantes par rayure feraient des spaghettis ; des
+      rayures droites faisaient un carrelage. Le tissu, c'est le desordre
+      COHERENT - la meme lecon que la houle de la haie et le vent de
+      l'herbe.
+    """
+    e = " " * indent
+    A, B, C, D, pli, point = _serviette_champ(ox, oy, k)
 
     N = 16
 
