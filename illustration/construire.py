@@ -71,6 +71,10 @@ AVEC_SERVIETTE_RAYEE = True
 # reference. Sa MAIN se plante a cote du mat coupe, comme dans le modele :
 # c'est elle qui fixe sa place, pas le centre du tissu.
 AVEC_HOMME = True
+
+# LA FEMME a sa droite, meme methode. Sa nappe d'ombre est celle du
+# COUPLE : quand elle est la, la grande ombre de l'homme s'eteint.
+AVEC_FEMME = True
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -331,7 +335,24 @@ def bloc_serviette_rayee():
         # le bout des doigts vise le bord droit du trait, pas son axe
         assise_x = ox + 42.5 * K
         assise_y = personnages.serviette_pose(ox, oy, kt, assise_x, v=0.50)
-        morceaux.append(personnages.homme_serviette(assise_x, assise_y, K, 2))
+
+        if AVEC_FEMME:
+            # SA PLACE A ELLE : dans la reference, 105 px les separent et
+            # ses orteils restent SUR la serviette. Notre serviette etant
+            # centree sur le mat (pas a 0.36 comme le modele), garder les
+            # deux a la fois est impossible - on garde les orteils sur le
+            # tissu et le couple se resserre de ~4 %. Pas moins de 101 :
+            # en dessous, son bras plante tombait dans le V de fond entre
+            # ventre et cuisse de l'homme, puis mordait son genou - il doit
+            # passer A DROITE du genou, comme le modele. Elle avant lui.
+            assise_fx = assise_x + 101.0 * K
+            assise_fy = personnages.serviette_pose(ox, oy, kt, assise_fx,
+                                                   v=0.50)
+            morceaux.append(personnages.femme_serviette(
+                assise_fx, assise_fy, K, 2))
+
+        morceaux.append(personnages.homme_serviette(
+            assise_x, assise_y, K, 2, grande_ombre=not AVEC_FEMME))
 
     return "\n".join(morceaux)
 

@@ -304,6 +304,19 @@ l'autre — le Catmull ne peut plus couper. Et le rendu 1800 px ne fait que
 Le verdict se rend sur un export à 5400 px (le SVG est la vérité, le
 raster de travail est un brouillon).
 
+**La femme, même méthode — et trois choses en plus.** (1) Le débardeur et
+le short **coupent la peau en morceaux** : le décalque sort trois
+composantes (jambes+bras droit, bras planté, tête-cou), chacune son aplat,
+et l'ordre de peinture recoud le tout. (2) L'ombre est **une seule nappe
+pour le couple** : quand elle est là, la grande ombre de l'homme s'éteint
+(`grande_ombre=False`) — deux nappes translucides superposées feraient une
+couture plus sombre. (3) L'écart entre eux ne se choisit pas : à 87 px de
+référence, son bras plantée tombait dans le **V de fond** entre le ventre
+et la cuisse de l'homme, puis mordait son genou ; à **101 px** le bras
+retrouve son couloir à droite du genou, comme le modèle. Le couple se
+resserre de 4 % pour garder ses orteils sur le tissu et dans le cadre —
+notre serviette étant centrée sur le mât, pas à 0,36 comme la sienne.
+
 **Un relevé tronqué par un personnage décrit un autre objet.** Le premier
 relevé de la serviette s'arrêtait à l'homme assis : il mesurait la partie
 visible à sa gauche et prenait le bord de l'homme pour le bout du tissu —

@@ -347,7 +347,7 @@ _H_CHEVEUX = [  # 10 points
 ]
 
 
-def homme_serviette(ox, oy, k=1.0, indent=4):
+def homme_serviette(ox, oy, k=1.0, indent=4, grande_ombre=True):
     u"""
     L'homme assis de la reference, a l'identique : ses OMBRES d'abord
     (le sarcelle profond releve sur la serviette : #4F806A), puis quatre
@@ -369,10 +369,13 @@ def homme_serviette(ox, oy, k=1.0, indent=4):
     # tombe a sa DROITE (le soleil vient de gauche dans cette image, comme
     # la toile au-dessus), la petite sous son bras d'appui. Translucides :
     # dans le modele les rayures restent lisibles DANS l'ombre.
-    out.append(aplat([(-10.0, 5.0), (12.0, -6.0), (40.0, -8.0),
-                      (68.0, -2.0), (84.0, 7.0), (76.0, 16.0),
-                      (48.0, 22.0), (14.0, 19.0), (-4.0, 12.0)],
-                     OMBRE_SERVIETTE, 0.55))
+    if grande_ombre:
+        # sa nappe a lui seul - quand la femme est la, c'est la nappe du
+        # COUPLE (dans femme_serviette) qui fait tout le travail
+        out.append(aplat([(-10.0, 5.0), (12.0, -6.0), (40.0, -8.0),
+                          (68.0, -2.0), (84.0, 7.0), (76.0, 16.0),
+                          (48.0, 22.0), (14.0, 19.0), (-4.0, 12.0)],
+                         OMBRE_SERVIETTE, 0.55))
     out.append(aplat([(-43.0, 1.5), (-16.0, -0.5), (-11.0, 6.5),
                       (-25.0, 10.5), (-41.0, 8.0)],
                      OMBRE_SERVIETTE, 0.50))
@@ -387,6 +390,172 @@ def homme_serviette(ox, oy, k=1.0, indent=4):
     out.append(aplat(_H_SHORT, ENCRE_H))
     out.append(aplat(_H_CHEVEUX, ENCRE_H))
     return u"%s<g inkscape:label=\"Homme de la serviette\">\n%s\n%s</g>" % (
+        e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
+
+
+# ---------------------------------------------------------------------
+#  LA FEMME DE LA SERVIETTE - meme methode que lui, decalquee au pixel
+# ---------------------------------------------------------------------
+#
+# LE RELEVE (reference 1232 x 928). Son point d'assise est (1010, 800).
+#
+#   pose         assise, jambes ALLONGEES vers la droite, orteils
+#                releves ; le bras gauche plante vers l'homme, la main
+#                posee pres de son tibia a lui ; elle regarde a droite
+#   bob auburn   #B43F1E couvre la tete, la joue reste en encoche claire
+#   debardeur    #659382 - presque la couleur de l'ombre sur le tissu :
+#                les fenetres des masques les separent, pas les seuils
+#   la peau      en TROIS morceaux (le debardeur et le short la coupent) :
+#                jambes + bras droit / bras plante / tete-cou
+#   l'ombre      UNE SEULE nappe pour le couple, qui s'etale a droite
+#                sur la serviette puis le sable - quand elle est la, la
+#                grande ombre de l'homme s'eteint (grande_ombre=False)
+#
+PEAU_F_JAMBES = "#F35932"   # jambes et bras droit, au soleil
+PEAU_F_BRAS = "#E9805B"     # le bras plante, plus clair
+PEAU_F_TETE = "#D84A28"     # la base de la tete - la joue en encoche
+CHEVEUX_F = "#B43F1E"       # le bob auburn
+HAUT_F = "#659382"          # le debardeur teal
+SHORT_F = "#142B11"
+
+# composante 0 : 770 px, x 1019..1082, y 745..802
+_F_PEAU_0 = [  # 16 points
+    (11.0, -55.0),
+    (17.0, -49.0),
+    (25.0, -22.0),
+    (57.0, -8.0),
+    (66.0, -19.0),
+    (71.0, -11.0),
+    (72.0, -1.0),
+    (69.0, 1.0),
+    (28.0, 1.0),
+    (26.0, -1.0),
+    (27.0, -8.0),
+    (25.0, -14.0),
+    (20.0, -15.0),
+    (17.0, -18.0),
+    (10.0, -32.0),
+    (9.0, -53.0),
+]
+# composante 1 : 455 px, x 952..987, y 745..810
+_F_PEAU_1 = [  # 22 points
+    (-25.0, -55.0),
+    (-30.0, -50.0),
+    (-41.0, -16.0),
+    (-53.0, -16.0),
+    (-55.0, -14.0),
+    (-51.0, -7.0),
+    (-46.0, -6.0),
+    (-47.0, 1.0),
+    (-51.0, 3.0),
+    (-55.0, 2.0),
+    (-58.0, 6.0),
+    (-55.0, 10.0),
+    (-46.0, 10.0),
+    (-41.0, 5.0),
+    (-36.0, -8.0),
+    (-34.0, -10.0),
+    (-30.0, -8.0),
+    (-26.0, -13.0),
+    (-31.0, -18.0),
+    (-26.0, -28.0),
+    (-26.0, -43.0),
+    (-23.0, -51.0),
+]
+# composante 2 : 231 px, x 994..1016, y 719..743
+_F_PEAU_2 = [  # 11 points
+    (-6.0, -81.0),
+    (-15.0, -72.0),
+    (-16.0, -64.0),
+    (-12.0, -62.0),
+    (-9.0, -57.0),
+    (-5.0, -57.0),
+    (-1.0, -59.0),
+    (-1.0, -62.0),
+    (4.0, -61.0),
+    (6.0, -67.0),
+    (4.0, -72.0),
+]
+_F_HAUT = [  # 12 points
+    (-14.0, -58.0),
+    (-20.0, -57.0),
+    (-23.0, -54.0),
+    (-27.0, -18.0),
+    (-24.0, -15.0),
+    (-3.0, -17.0),
+    (4.0, -18.0),
+    (8.0, -21.0),
+    (10.0, -33.0),
+    (8.0, -48.0),
+    (10.0, -55.0),
+    (2.0, -58.0),
+]
+_F_SHORT = [  # 18 points
+    (9.0, -19.0),
+    (6.0, -15.0),
+    (-3.0, -18.0),
+    (-25.0, -15.0),
+    (-27.0, -13.0),
+    (-29.0, 0.0),
+    (-23.0, 4.0),
+    (-11.0, 4.0),
+    (9.0, 5.0),
+    (13.0, 3.0),
+    (16.0, 5.0),
+    (19.0, 2.0),
+    (18.0, -1.0),
+    (20.0, 3.0),
+    (26.0, -1.0),
+    (26.0, -12.0),
+    (23.0, -15.0),
+    (12.0, -16.0),
+]
+_F_CHEVEUX = [  # 10 points
+    (-6.0, -81.0),
+    (-14.0, -73.0),
+    (-14.0, -64.0),
+    (-8.0, -57.0),
+    (-5.0, -57.0),
+    (-2.0, -59.0),
+    (-3.0, -61.0),
+    (2.0, -62.0),
+    (5.0, -67.0),
+    (1.0, -75.0),
+]
+
+
+def femme_serviette(ox, oy, k=1.0, indent=4):
+    u"""
+    La femme assise de la reference, a l'identique - memes outils que
+    l'homme : contours decalques, Catmull-Rom ferme, ombres d'abord.
+
+    (ox, oy) : le point d'assise sur la serviette. k : l'echelle.
+    """
+    e = " " * indent
+
+    def aplat(pts, couleur, opacite=None):
+        P = [(ox + x * k, oy + y * k) for (x, y) in pts]
+        o = u' opacity="%.2f"' % opacite if opacite else u''
+        return u'<path d="%s" fill="%s"%s/>' % (_catmull_ferme(P), couleur, o)
+
+    out = []
+
+    # LA NAPPE D'OMBRE DU COUPLE, relevee sur le patch teal du modele :
+    # elle part de sous le genou de l'homme, court sous ses jambes a elle
+    # et deborde a droite sur le sable, au-dela des orteils.
+    # bornee a +92 : plus loin, la nappe sortait du cadre
+    out.append(aplat([(-36.0, -2.0), (5.0, 0.0), (42.0, 1.0),
+                      (70.0, 0.0), (92.0, 7.0), (86.0, 16.0),
+                      (56.0, 17.0), (18.0, 15.0), (-22.0, 10.0)],
+                     OMBRE_SERVIETTE, 0.55))
+
+    out.append(aplat(_F_PEAU_0, PEAU_F_JAMBES))    # jambes + bras droit
+    out.append(aplat(_F_PEAU_1, PEAU_F_BRAS))      # le bras plante
+    out.append(aplat(_F_PEAU_2, PEAU_F_TETE))      # tete et cou
+    out.append(aplat(_F_SHORT, SHORT_F))
+    out.append(aplat(_F_HAUT, HAUT_F))
+    out.append(aplat(_F_CHEVEUX, CHEVEUX_F))
+    return u"%s<g inkscape:label=\"Femme de la serviette\">\n%s\n%s</g>" % (
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
 
 
