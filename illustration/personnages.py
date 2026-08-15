@@ -142,6 +142,76 @@ def coureur(ox, oy, k=1.3, indent=4):
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
 
 
+def coureur_anime(ox, oy, k=1.3, allure="a", panche=0.0, indent=4):
+    u"""
+    Le coureur au ballon en PANTIN PAPIER DECOUPE - l'animation qui va a
+    notre style : pas un cycle de course realiste, deux foulees alternees
+    et une pose de frappe, comme des silhouettes decoupees qu'on permute.
+
+      allure "a"      la foulee du coureur() d'origine (jambe arriere
+                      tendue, bras avant tendu)
+      allure "b"      la foulee inverse : jambes et bras permutes
+      allure "frappe" la jambe avant SWING vers le ballon, le buste
+                      redresse, les bras ouverts
+      panche          l'inclinaison du corps entier (degres), le caller
+                      s'en sert pour l'elan - le groupe entier tourne
+                      autour du pied d'appui, aucun filtre dedans donc
+                      la rotation est sure
+
+    Sans ballon ni pelle : le ballon vit sa vie dans la scene animee.
+    """
+    pose, membre, rond, ellipse = _aides(ox, oy, k)
+    e = " " * indent
+    out = [ellipse((6, 2), 42, 7, OMBRE_SOL, 0.5)]
+
+    if allure == "a":
+        jambes = [([(-2, -52), (-16, -42), (-30, -28), (-38, -14)],
+                   B.ellipse(-42, -13, 8.5, 5)),
+                  ([(2, -52), (14, -42), (24, -26), (30, -8)],
+                   B.ellipse(34, -6, 9, 5))]
+        bras = [([(8, -96), (0, -89), (-8, -80), (-14, -70)],
+                 B.ellipse(-16, -68, 5, 5)),
+                ([(16, -94), (27, -89), (38, -83), (46, -76)],
+                 B.ellipse(49, -74, 5.5, 5.5))]
+    elif allure == "b":
+        jambes = [([(-2, -52), (8, -40), (14, -24), (16, -8)],
+                   B.ellipse(20, -6, 9, 5)),
+                  ([(2, -52), (-10, -44), (-20, -34), (-24, -22)],
+                   B.ellipse(-28, -20, 8.5, 5))]
+        bras = [([(8, -96), (18, -90), (28, -84), (36, -78)],
+                 B.ellipse(39, -76, 5.5, 5.5)),
+                ([(16, -94), (6, -86), (-4, -78), (-10, -70)],
+                 B.ellipse(-12, -68, 5, 5))]
+    else:  # la FRAPPE : la jambe avant part en swing vers le ballon
+        jambes = [([(-2, -52), (-10, -38), (-14, -22), (-16, -6)],
+                   B.ellipse(-18, -4, 8.5, 5)),
+                  ([(2, -52), (18, -48), (34, -44), (46, -38)],
+                   B.ellipse(51, -37, 9, 5))]
+        bras = [([(8, -96), (-2, -92), (-12, -86), (-20, -78)],
+                 B.ellipse(-23, -76, 5, 5)),
+                ([(16, -94), (28, -92), (38, -88), (44, -82)],
+                 B.ellipse(47, -80, 5.5, 5.5))]
+
+    for controle, bout in jambes:
+        out.append(membre(controle, [(0.0, 17), (0.5, 12), (1.0, 8)],
+                          PEAU, avec=bout))
+    torse = [(-2, -50), (4, -72), (10, -88), (14, -102)] \
+        if allure != "frappe" else [(-4, -50), (0, -72), (4, -90), (6, -104)]
+    out.append(membre(torse, [(0.0, 30), (0.6, 26), (1.0, 20)], PEAU))
+    for controle, bout in bras:
+        out.append(membre(controle, [(0.0, 10), (1.0, 7)], PEAU, avec=bout))
+    tete = (20, -114) if allure != "frappe" else (10, -116)
+    out.append(rond(tete, 15, PEAU))
+    out.append(rond((tete[0] - 12, tete[1] - 10), 5.5, PEAU))
+    out.append(pose("M-14 -58 C-9 -63 7 -63 12 -56 C13 -49 10 -44 4 -42 "
+                    "C-3 -41 -11 -43 -13 -49 Z", VERT_OBJET))
+
+    corps = u"\n".join(u"%s  %s" % (e, x) for x in out)
+    return (u'%s<g inkscape:label="Coureur anime" '
+            u'transform="rotate(%.1f %.1f %.1f)">\n%s\n%s</g>'
+            % (e, panche, ox, oy, corps, e))
+
+
 def enfant_penche(ox, oy, k=1.3, indent=4):
     u"""
     L'enfant qui creuse : fesses hautes, torse plonge, pelle plantee.

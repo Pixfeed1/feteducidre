@@ -77,6 +77,31 @@ def ballon(cx, cy, r, indent=2):
     return u"\n".join(u"%s%s" % (e, x) for x in out)
 
 
+def ballon_mobile(x, y_sol, r, hauteur=0.0, angle=0.0, indent=2):
+    u"""
+    Le ballon qui VOLE : la boule est construite UNE FOIS a l'origine
+    (les booleens se mettent en cache une seule fois), puis posee par
+    transform translate+rotate - il n'y a aucun filtre dedans, la
+    rotation est donc sure (la lecon des filtres ne s'applique qu'aux
+    groupes filtres). L'ombre reste AU SOL : elle retrecit et
+    s'eclaircit quand le ballon monte - c'est elle qui dit la hauteur.
+    """
+    e = " " * indent
+    balle = B.ellipse(0, 0, r, r)
+    cg = B.difference(balle, B.ellipse(-r * 0.52, 0, r * 1.02, r * 1.10))
+    cd = B.difference(balle, B.ellipse(r * 0.52, 0, r * 1.02, r * 1.10))
+    f = max(0.35, 1.0 - hauteur / 260.0)
+    out = [ombre(x + r * 0.25 + hauteur * 0.18, y_sol + 2,
+                 r * 1.15 * f, r * 0.26 * f, 0.5 * f),
+           u'<g transform="translate(%.1f %.1f) rotate(%.1f)">' % (
+               x, y_sol - r - hauteur, angle),
+           u'  <path d="%s" fill="%s"/>' % (balle, CREME),
+           u'  <path d="%s" fill="%s"/>' % (cg, ROUGE),
+           u'  <path d="%s" fill="%s"/>' % (cd, VERT),
+           u'</g>']
+    return u"\n".join(u"%s%s" % (e, x) for x in out)
+
+
 def seau(cx, cy, h, indent=2):
     u"""
     Le seau du bac a sable, travaille comme le reste de la scene :

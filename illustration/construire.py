@@ -38,6 +38,7 @@ AVEC_GRILLAGE = "sans" not in sys.argv
 # sont identiques, la boucle n'a pas de couture. Chaque image reste un SVG
 # complet rendu par Inkscape - aucun contour ne respire, le grain est stable.
 ANIM_T = float(os.environ.get("ANIM_T", "-1"))
+ANIM_SCENE = os.environ.get("ANIM_SCENE", "boucle")
 ANIME = ANIM_T >= 0.0
 _t = max(0.0, ANIM_T)
 import math as _math
@@ -420,9 +421,63 @@ def bloc_serviette_rayee():
             52, 2, phase=_t if ANIME else None))
         # le seau au pied du parasol de gauche, pelle plantee
         morceaux.append(objets.seau(0.425 * LARGEUR, 0.897 * HAUTEUR, 64, 2))
-        # le ballon, arrete au milieu du sable vide
-        morceaux.append(objets.ballon(0.556 * LARGEUR, 0.905 * HAUTEUR,
-                                      46, 2))
+        # le ballon, arrete au milieu du sable vide - ou EN VOL dans la
+        # scene du gamin : course d'elan, frappe, parabole, rebond, sortie
+        # a droite, et quelqu'un hors-champ le renvoie rouler a sa place
+        # pour que l'image 192 soit exactement l'image 0
+        if ANIME and ANIM_SCENE == "gamin":
+            import math
+            s = _t * 8.0                       # le temps en secondes
+            xr, ys, rb = 0.556 * LARGEUR, 0.905 * HAUTEUR + 46, 46.0
+            sk = 4.55                          # l'instant de la frappe
+            dessine = True
+            if s < sk:
+                bx, bh, ba = xr, 0.0, 0.0
+            elif s < sk + 0.977:               # l'envol
+                dt = s - sk
+                bx = xr + 640.0 * dt
+                bh = 430.0 * dt - 440.0 * dt * dt
+                ba = (bx - xr) / rb * 34.0
+            elif s < sk + 0.977 + 0.489:       # le rebond
+                dt = s - sk - 0.977
+                bx = xr + 625.0 + 545.0 * dt
+                bh = 215.0 * dt - 440.0 * dt * dt
+                ba = (bx - xr) / rb * 34.0
+            elif s < 6.9:                      # sorti du cadre
+                dessine = False
+                bx, bh, ba = 0.0, 0.0, 0.0
+            else:                              # le retour roule, decelere
+                u = (s - 6.9) / 1.1
+                bx = 1900.0 - 899.2 * (1.0 - (1.0 - u) ** 2)
+                bh = 0.0
+                ba = (bx - xr) / rb * 57.3
+            if dessine:
+                morceaux.append(objets.ballon_mobile(bx, ys, rb, bh, ba, 2))
+
+            # LE GAMIN : il entre a gauche, court (foulees alternees a
+            # 3 Hz avec son rebond vertical), FRAPPE, puis poursuit le
+            # ballon et sort du cadre - absent au debut et a la fin, la
+            # boucle se referme sans lui
+            oy_g = ys + 4.0
+            if 1.5 <= s < 4.4:
+                xg = -140.0 + (s - 1.5) / 2.9 * 1080.0
+                foulee = "a" if int((s - 1.5) * 6.0) % 2 == 0 else "b"
+                bob = 6.0 * abs(math.sin(2 * math.pi * 3.0 * (s - 1.5)))
+                morceaux.append(personnages.coureur_anime(
+                    xg, oy_g - bob, 1.28, foulee, panche=6.0, indent=2))
+            elif 4.4 <= s < 4.75:
+                morceaux.append(personnages.coureur_anime(
+                    940.0, oy_g, 1.28, "frappe", panche=-4.0, indent=2))
+            elif 4.75 <= s < 7.2:
+                xg = 940.0 + (s - 4.75) * 500.0
+                foulee = "a" if int((s - 4.75) * 6.0) % 2 == 0 else "b"
+                bob = 6.0 * abs(math.sin(2 * math.pi * 3.0 * (s - 4.75)))
+                if xg < 2000.0:
+                    morceaux.append(personnages.coureur_anime(
+                        xg, oy_g - bob, 1.28, foulee, panche=7.0, indent=2))
+        else:
+            morceaux.append(objets.ballon(0.556 * LARGEUR, 0.905 * HAUTEUR,
+                                          46, 2))
         # les tongs quittees en vitesse, en chemin vers la serviette
         morceaux.append(objets.tongs(0.756 * LARGEUR, 0.921 * HAUTEUR,
                                      48, indent=2))
