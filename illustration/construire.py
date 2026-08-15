@@ -487,41 +487,48 @@ def bloc_serviette_rayee():
             # (+30), avec un passage rapide ; un sinus symetrique courait
             # faux. 12 phases = une foulee complete (deux pas), la jambe
             # opposee est decalee d'une demi-foulee.
-            TABLE = [30.0, 22.0, 8.0, -12.0, -34.0, -48.0,
-                     -44.0, -28.0, -8.0, 10.0, 24.0, 30.0]
+            # (cuisse, GENOU) par phase - c'est le genou qui fait la
+            # course : replie quand la jambe passe sous le corps (110),
+            # tendu quand elle va chercher l'appui (12)
+            TABLE = [(30.0, 30.0), (22.0, 55.0), (5.0, 95.0),
+                     (-18.0, 110.0), (-38.0, 80.0), (-48.0, 35.0),
+                     (-44.0, 12.0), (-28.0, 18.0), (-8.0, 24.0),
+                     (10.0, 16.0), (24.0, 12.0), (30.0, 20.0)]
 
             def foulee(sd, cadence=2.8):
                 ph = (sd * cadence * 12.0) % 12.0
                 i = int(ph)
                 fr = ph - i
-                a1 = TABLE[i] * (1 - fr) + TABLE[(i + 1) % 12] * fr
-                j = (i + 6) % 12
-                a2 = TABLE[j] * (1 - fr) + TABLE[(j + 1) % 12] * fr
-                # le rebond : deux appuis par foulee, plus marque a
-                # l'appui - lu sur la planche aussi
+                def melange(j):
+                    a0, g0 = TABLE[j % 12]
+                    a1, g1 = TABLE[(j + 1) % 12]
+                    return (a0 * (1 - fr) + a1 * fr,
+                            g0 * (1 - fr) + g1 * fr)
+                av = melange(i)
+                ar = melange(i + 6)
                 bob = 6.0 * abs(math.sin(math.pi * ph / 6.0))
-                return a1, a2, bob
+                return av, ar, bob
 
             K_G = 1.75          # le bonhomme AGRANDI : 180 px debout
             oy_g = ys + 4.0
             if 1.5 <= s < 4.4:
                 xg = -170.0 + (s - 1.5) / 2.9 * 1110.0
-                a_av, a_arr, bob = foulee(s - 1.5)
+                (a_av, g_av), (a_arr, g_arr), bob = foulee(s - 1.5)
                 morceaux.append(personnages.pantin_coureur(
                     xg, oy_g - bob, K_G, a_arr=a_arr, a_av=a_av,
-                    panche=8.0, indent=2))
+                    g_arr=g_arr, g_av=g_av, panche=8.0, indent=2))
             elif 4.4 <= s < 4.75:
                 # la FRAPPE : la jambe avant en swing vers le ballon
                 morceaux.append(personnages.pantin_coureur(
                     940.0, oy_g, K_G, a_arr=24.0, a_av=-66.0,
-                    panche=-4.0, indent=2))
+                    g_arr=35.0, g_av=12.0, panche=-4.0, indent=2))
             elif 4.75 <= s < 7.2:
                 xg = 940.0 + (s - 4.75) * 520.0
-                a_av, a_arr, bob = foulee(s - 4.75)
+                (a_av, g_av), (a_arr, g_arr), bob = foulee(s - 4.75)
                 if xg < 2050.0:
                     morceaux.append(personnages.pantin_coureur(
                         xg, oy_g - bob, K_G, a_arr=a_arr, a_av=a_av,
-                        panche=9.0, indent=2))
+                        g_arr=g_arr, g_av=g_av, panche=9.0, indent=2))
         else:
             # le centre remonte pour garder la MEME ligne de sol
             morceaux.append(objets.ballon(0.556 * LARGEUR,

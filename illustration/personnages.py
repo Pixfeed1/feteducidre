@@ -155,41 +155,75 @@ def _pantin_piece(fichier):
     return _PANTIN_CACHE[fichier]
 
 
-def pantin_coureur(ox, oy, k=1.0, a_arr=0.0, a_av=0.0, panche=0.0, indent=4):
+def _jambe_pliee(hx, hy, theta, genou, lt=15.0, ls=14.0):
     u"""
-    LE COUREUR DE LA REFERENCE EN PANTIN ARTICULE - papier decoupe a la
-    Terry Gilliam : le personnage AUTHENTIQUE (decoupe dans la 5e image,
-    accorde a nos tons), coupe en trois pieces qui tournent aux hanches.
+    Une jambe qui PLIE AU GENOU - c'est le genou qui fait la course, pas
+    l'angle de hanche : une jambe rigide qui pivote reste une palette de
+    marionnette, quelle que soit sa table d'angles.
 
-      pantin_coeur  tete + torse + bras + short + pelle (87x75)
-      pantin_jarr   la jambe arriere, pivot hanche (-22, -27)
-      pantin_jav    la jambe avant, pivot hanche (-10, -27)
+      theta   l'angle de la cuisse depuis la verticale (degres,
+              NEGATIF = vers l'avant, il court vers la droite)
+      genou   la flexion du tibia derriere la cuisse (0 = tendue)
 
-    La coupe passe SOUS le short (y=793) avec 6 px de chevauchement :
-    c'est le short qui cache la couture quand la jambe tourne. La pelle
-    reste dans la main (elle appartient au coeur). Angles en degres,
-    NEGATIF = la jambe part vers l'avant (il court vers la droite).
-    L'ombre au sol reste A PLAT, hors du groupe incline.
-    (ox, oy) : le pied au sol. Aucun filtre dans le groupe : les
-    rotations sont sures.
+    Retourne le chemin d'une jambe en capsule effilee (cuisse -> genou ->
+    cheville) plus le pied, en coordonnees du pantin (hanche donnee).
+    """
+    t = math.radians(theta)
+    g = math.radians(theta + genou)
+    kx, ky = hx + lt * math.sin(t), hy + lt * math.cos(t)
+    ax, ay = kx + ls * math.sin(g), ky + ls * math.cos(g)
+
+    def perp(a):
+        return (math.cos(a), -math.sin(a))
+    p1, p2 = perp(t), perp(g)
+    w_h, w_g, w_c = 4.6, 3.4, 2.4          # largeurs hanche/genou/cheville
+    ext = [(hx + p1[0] * w_h, hy + p1[1] * w_h),
+           (kx + p1[0] * w_g * 1.05, ky + p1[1] * w_g * 1.05),
+           (kx + p2[0] * w_g, ky + p2[1] * w_g),
+           (ax + p2[0] * w_c, ay + p2[1] * w_c)]
+    inte = [(ax - p2[0] * w_c, ay - p2[1] * w_c),
+            (kx - p2[0] * w_g, ky - p2[1] * w_g),
+            (kx - p1[0] * w_g * 1.05, ky - p1[1] * w_g * 1.05),
+            (hx - p1[0] * w_h, hy - p1[1] * w_h)]
+    # le PIED : un petit coin dans l'axe du tibia, pointe vers l'avant
+    fa = math.radians(theta + genou - 80)   # presque perpendiculaire
+    fx, fy = ax + 6.5 * math.sin(fa), ay + 6.5 * math.cos(fa)
+    d = u"M%.1f %.1f " % ext[0]
+    d += u"L" + u" L".join(u"%.1f %.1f" % p for p in ext[1:])
+    d += u" L%.1f %.1f L%.1f %.1f" % (fx + p2[0] * 1.6, fy + p2[1] * 1.6,
+                                      fx - p2[0] * 2.2, fy - p2[1] * 2.2)
+    d += u" L" + u" L".join(u"%.1f %.1f" % p for p in inte)
+    return d + u" Z"
+
+
+PEAU_PANTIN = "#C8593B"     # la couleur mesuree des jambes de la decoupe
+
+
+def pantin_coureur(ox, oy, k=1.0, a_arr=0.0, a_av=0.0, panche=0.0,
+                   g_arr=None, g_av=None, indent=4):
+    u"""
+    LE COUREUR DE LA REFERENCE, articule : le coeur (tete + torse + bras
+    + short + pelle) reste la DECOUPE authentique de la 5e image ; les
+    jambes sont VECTORIELLES et plient au genou (_jambe_pliee), dans la
+    couleur mesuree de ses jambes - le grain global fond les deux.
+
+    a_arr / a_av : angles de cuisse (degres, negatif = avant)
+    g_arr / g_av : flexions de genou (defaut : estimees de l'angle)
+    L'ombre au sol reste a plat, hors du groupe incline.
     """
     e = " " * indent
-    # 2 px de marge transparente dans chaque PNG : les bords du
-    # rectangle sont alpha=0, l'etirement du bord en rotation ne
-    # dessine plus de filet fantome
-    pieces = ((u'pantin_jarr.png', -47.0, -29.0, 36, 21, a_arr, -22.0, -27.0),
-              (u'pantin_jav.png', -21.0, -29.0, 23, 33, a_av, -10.0, -27.0),
-              (u'pantin_coeur.png', -46.0, -98.0, 91, 79, None, 0, 0))
-    dedans = []
-    for fichier, dx, dy, w, h, angle, px, py in pieces:
-        img = (u'<image x="%.1f" y="%.1f" width="%d" height="%d"'
-               u' xlink:href="data:image/png;base64,%s"/>'
-               % (dx, dy, w, h, _pantin_piece(fichier)))
-        if angle is not None:
-            dedans.append(u'<g transform="rotate(%.1f %.1f %.1f)">%s</g>'
-                          % (angle, px, py, img))
-        else:
-            dedans.append(img)
+    if g_arr is None:
+        g_arr = max(10.0, 28.0 - a_arr * 0.5)
+    if g_av is None:
+        g_av = max(8.0, 30.0 + a_av * 0.9)
+    dedans = [
+        u'<path d="%s" fill="%s"/>' % (
+            _jambe_pliee(-22.0, -27.0, a_arr, g_arr), PEAU_PANTIN),
+        u'<path d="%s" fill="%s"/>' % (
+            _jambe_pliee(-10.0, -27.0, a_av, g_av), PEAU_PANTIN),
+        u'<image x="-46.0" y="-98.0" width="91" height="79"'
+        u' xlink:href="data:image/png;base64,%s"/>'
+        % _pantin_piece(u'pantin_coeur.png')]
     corps = u"\n".join(u"%s    %s" % (e, x) for x in dedans)
     return (u'%s<g inkscape:label="Pantin coureur">\n'
             u'%s  <ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f"'
