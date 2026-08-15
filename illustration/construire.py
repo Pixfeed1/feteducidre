@@ -16,6 +16,7 @@ import serviette
 import haie
 import herbe
 import personnages
+import objets
 import enfant
 
 # LE FORMAT. 1800 x 1350, soit du 4:3. La hauteur ne change pas : c'est elle
@@ -70,21 +71,36 @@ AVEC_SERVIETTE_RAYEE = True
 # L'HOMME sur la serviette - le premier personnage, decalque de la
 # reference. Sa MAIN se plante a cote du mat coupe, comme dans le modele :
 # c'est elle qui fixe sa place, pas le centre du tissu.
-AVEC_HOMME = True
+AVEC_HOMME = False
 
 # LA FEMME a sa droite, meme methode. Sa nappe d'ombre est celle du
 # COUPLE : quand elle est la, la grande ombre de l'homme s'eteint.
-AVEC_FEMME = True
+AVEC_FEMME = False
 
 # LES VRAIS PERSONNAGES : a True, le couple est DECOUPE dans la reference
 # elle-meme (accorde a nos tons) au lieu des decalques vectoriels - c'est
 # le rendu le plus fidele. A False, les aplats vectoriels reviennent.
-AVEC_VRAIS_PERSOS = True
+AVEC_VRAIS_PERSOS = False
 
 # LES ENFANTS AUX SEAUX et LE COUREUR AU BALLON, decoupes eux aussi,
 # ancres au pied du parasol de GAUCHE comme dans le modele (leur groupe
 # est a -183 px de reference du mat, le coureur a +177).
-AVEC_ENFANTS = True
+AVEC_ENFANTS = False
+
+# LA NATURE MORTE - la proposition : l'ete raconte par les objets, tout
+# le monde est a l'eau. COMPOSITION ETUDIEE (affiche mid-century + riso) :
+#   un seul dominant  le groupe parasol 2 + serviette + chapeau, ancre au
+#                     tiers droit ; le parasol 1, coupe par le cadre a
+#                     gauche, sert de repoussoir - il cadre, il ne parle pas
+#   la diagonale      cerf-volant (tiers haut-gauche) -> nuages -> toile du
+#                     parasol 2 -> le mat est une FLECHE vers la serviette
+#                     -> chapeau -> tongs -> ballon -> seau : un Z de lecture
+#   l'accent rouge    ~10 %, reparti LE LONG du chemin : moitie du
+#                     cerf-volant, noeuds de sa queue, croissant du ballon,
+#                     brides des tongs, seau terre cuite
+#   l'espace negatif  le centre du sable reste VIDE - c'est la respiration ;
+#                     le ciel n'a que le cerf-volant et trois nuages
+AVEC_NATURE_MORTE = True
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -377,6 +393,25 @@ def bloc_serviette_rayee():
         if not (AVEC_FEMME and AVEC_VRAIS_PERSOS):
             morceaux.append(personnages.homme_serviette(
                 assise_x, assise_y, K, 2, grande_ombre=not AVEC_FEMME))
+
+    if AVEC_NATURE_MORTE:
+        morceaux.append(u'  <g inkscape:label="Nature morte">')
+        # le cerf-volant dans le CIEL OUVERT entre les deux parasols -
+        # au premier essai il se noyait dans la toile du grand
+        morceaux.append(objets.cerf_volant(0.588 * LARGEUR, 0.155 * HAUTEUR,
+                                           52, 2))
+        # le seau au pied du parasol de gauche, pelle plantee
+        morceaux.append(objets.seau(0.425 * LARGEUR, 0.897 * HAUTEUR, 64, 2))
+        # le ballon, arrete au milieu du sable vide
+        morceaux.append(objets.ballon(0.556 * LARGEUR, 0.905 * HAUTEUR,
+                                      46, 2))
+        # les tongs quittees en vitesse, en chemin vers la serviette
+        morceaux.append(objets.tongs(0.756 * LARGEUR, 0.921 * HAUTEUR,
+                                     48, indent=2))
+        # le chapeau pose sur la serviette - le point d'arrivee du regard
+        morceaux.append(objets.chapeau(0.882 * LARGEUR, 0.852 * HAUTEUR,
+                                       46, 2))
+        morceaux.append(u'  </g>')
 
     if AVEC_ENFANTS and AVEC_VRAIS_PERSOS:
         # le pied du parasol de gauche, la reference de leurs places

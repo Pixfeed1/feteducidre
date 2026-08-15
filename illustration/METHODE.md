@@ -317,6 +317,22 @@ retrouve son couloir à droite du genou, comme le modèle. Le couple se
 resserre de 4 % pour garder ses orteils sur le tissu et dans le cadre —
 notre serviette étant centrée sur le mât, pas à 0,36 comme la sienne.
 
+**« Tout le monde est à l'eau » — la composition se décide avant de
+dessiner.** La proposition en nature morte applique trois lois de
+l'affiche mid-century et de la riso (recherche faite avant le premier
+trait) : **un seul dominant** — le groupe parasol-serviette-chapeau au
+tiers droit, le grand parasol coupé par le cadre n'étant qu'un repoussoir ;
+**une diagonale de lecture** — cerf-volant → toile → le mât est une flèche
+vers la serviette → chapeau → tongs → ballon → seau, un Z ; **l'espace
+négatif** — le centre du sable reste vide, c'est la respiration. L'accent
+rouge (~10 %) est réparti *le long* du chemin de lecture, jamais en tas.
+Trois fautes de métier corrigées au premier rendu : le cerf-volant se
+noyait dans la toile (il faut du ciel ouvert autour d'un objet de ciel),
+les tongs crème disparaissaient sur le sable crème (leçon déjà payée),
+le manche vert sombre de la pelle montait dans la haie vert sombre —
+couché à 55°, il se lit sur le sable. Et l'anse tombée du seau est ce qui
+le sépare d'un pot de fleurs : chaque objet a UN détail qui le nomme.
+
 **Les vrais personnages étaient dans la référence.** Les décalques
 vectoriels restaient en dessous du modèle ; la version qui rend, c'est le
 couple **découpé dans la 5ᵉ référence elle-même** (`decouper_persos.py`) et
