@@ -458,23 +458,33 @@ def bloc_serviette_rayee():
             # 3 Hz avec son rebond vertical), FRAPPE, puis poursuit le
             # ballon et sort du cadre - absent au debut et a la fin, la
             # boucle se referme sans lui
+            # LE PANTIN AUTHENTIQUE : le coureur de la reference decoupe
+            # en pieces articulees - jambes en ANTI-PHASE a 3.2 Hz (quand
+            # l'une avance l'autre recule), rebond vertical au meme
+            # rythme, corps penche dans la course
             oy_g = ys + 4.0
             if 1.5 <= s < 4.4:
                 xg = -140.0 + (s - 1.5) / 2.9 * 1080.0
-                foulee = "a" if int((s - 1.5) * 6.0) % 2 == 0 else "b"
-                bob = 6.0 * abs(math.sin(2 * math.pi * 3.0 * (s - 1.5)))
-                morceaux.append(personnages.coureur_anime(
-                    xg, oy_g - bob, 1.28, foulee, panche=6.0, indent=2))
+                phi = 2 * math.pi * 3.2 * (s - 1.5)
+                bob = 5.0 * abs(math.sin(phi))
+                morceaux.append(personnages.pantin_coureur(
+                    xg, oy_g - bob, 1.28,
+                    a_arr=22.0 * math.sin(phi),
+                    a_av=-20.0 * math.sin(phi), panche=7.0, indent=2))
             elif 4.4 <= s < 4.75:
-                morceaux.append(personnages.coureur_anime(
-                    940.0, oy_g, 1.28, "frappe", panche=-4.0, indent=2))
+                # la FRAPPE : la jambe avant en swing vers le ballon
+                morceaux.append(personnages.pantin_coureur(
+                    940.0, oy_g, 1.28, a_arr=18.0, a_av=-70.0,
+                    panche=-4.0, indent=2))
             elif 4.75 <= s < 7.2:
                 xg = 940.0 + (s - 4.75) * 500.0
-                foulee = "a" if int((s - 4.75) * 6.0) % 2 == 0 else "b"
-                bob = 6.0 * abs(math.sin(2 * math.pi * 3.0 * (s - 4.75)))
+                phi = 2 * math.pi * 3.2 * (s - 4.75)
+                bob = 5.0 * abs(math.sin(phi))
                 if xg < 2000.0:
-                    morceaux.append(personnages.coureur_anime(
-                        xg, oy_g - bob, 1.28, foulee, panche=7.0, indent=2))
+                    morceaux.append(personnages.pantin_coureur(
+                        xg, oy_g - bob, 1.28,
+                        a_arr=22.0 * math.sin(phi),
+                        a_av=-20.0 * math.sin(phi), panche=8.0, indent=2))
         else:
             morceaux.append(objets.ballon(0.556 * LARGEUR, 0.905 * HAUTEUR,
                                           46, 2))

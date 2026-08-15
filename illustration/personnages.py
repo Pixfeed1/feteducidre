@@ -142,6 +142,64 @@ def coureur(ox, oy, k=1.3, indent=4):
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
 
 
+_PANTIN_CACHE = {}
+
+
+def _pantin_piece(fichier):
+    if fichier not in _PANTIN_CACHE:
+        import base64
+        import os
+        ici = os.path.dirname(os.path.abspath(__file__))
+        _PANTIN_CACHE[fichier] = base64.b64encode(
+            open(os.path.join(ici, fichier), "rb").read()).decode("ascii")
+    return _PANTIN_CACHE[fichier]
+
+
+def pantin_coureur(ox, oy, k=1.0, a_arr=0.0, a_av=0.0, panche=0.0, indent=4):
+    u"""
+    LE COUREUR DE LA REFERENCE EN PANTIN ARTICULE - papier decoupe a la
+    Terry Gilliam : le personnage AUTHENTIQUE (decoupe dans la 5e image,
+    accorde a nos tons), coupe en trois pieces qui tournent aux hanches.
+
+      pantin_coeur  tete + torse + bras + short + pelle (87x75)
+      pantin_jarr   la jambe arriere, pivot hanche (-22, -27)
+      pantin_jav    la jambe avant, pivot hanche (-10, -27)
+
+    La coupe passe SOUS le short (y=793) avec 6 px de chevauchement :
+    c'est le short qui cache la couture quand la jambe tourne. La pelle
+    reste dans la main (elle appartient au coeur). Angles en degres,
+    NEGATIF = la jambe part vers l'avant (il court vers la droite).
+    L'ombre au sol reste A PLAT, hors du groupe incline.
+    (ox, oy) : le pied au sol. Aucun filtre dans le groupe : les
+    rotations sont sures.
+    """
+    e = " " * indent
+    # 2 px de marge transparente dans chaque PNG : les bords du
+    # rectangle sont alpha=0, l'etirement du bord en rotation ne
+    # dessine plus de filet fantome
+    pieces = ((u'pantin_jarr.png', -47.0, -29.0, 36, 21, a_arr, -22.0, -27.0),
+              (u'pantin_jav.png', -21.0, -29.0, 23, 33, a_av, -10.0, -27.0),
+              (u'pantin_coeur.png', -46.0, -98.0, 91, 79, None, 0, 0))
+    dedans = []
+    for fichier, dx, dy, w, h, angle, px, py in pieces:
+        img = (u'<image x="%.1f" y="%.1f" width="%d" height="%d"'
+               u' xlink:href="data:image/png;base64,%s"/>'
+               % (dx, dy, w, h, _pantin_piece(fichier)))
+        if angle is not None:
+            dedans.append(u'<g transform="rotate(%.1f %.1f %.1f)">%s</g>'
+                          % (angle, px, py, img))
+        else:
+            dedans.append(img)
+    corps = u"\n".join(u"%s    %s" % (e, x) for x in dedans)
+    return (u'%s<g inkscape:label="Pantin coureur">\n'
+            u'%s  <ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f"'
+            u' fill="%s" opacity="0.5"/>\n'
+            u'%s  <g transform="translate(%.1f %.1f) scale(%.3f)'
+            u' rotate(%.1f 0 0)">\n%s\n%s  </g>\n%s</g>'
+            % (e, e, ox + 6 * k, oy + 2 * k, 46 * k, 7 * k, OMBRE_SOL,
+               e, ox, oy, k, panche, corps, e, e))
+
+
 def coureur_anime(ox, oy, k=1.3, allure="a", panche=0.0, indent=4):
     u"""
     Le coureur au ballon en PANTIN PAPIER DECOUPE - l'animation qui va a
