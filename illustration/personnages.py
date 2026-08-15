@@ -568,6 +568,43 @@ def vrais_persos(ox_h, oy_h, ox_f, oy_f, k=1.0, indent=2):
         e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
 
 
+def enfants_et_coureur(ox_e, oy_e, ox_c, oy_c, k=1.0, indent=2):
+    u"""
+    LES ENFANTS AUX SEAUX (les trois, un seul morceau - leurs espacements
+    sont ceux du modele) et LE COUREUR AU BALLON, decoupes par
+    decouper_persos.py comme le couple. Chacun arrive avec sa nappe
+    d'ombre au sol, relevee sur les pools teal du modele.
+
+    Ancres du decoupeur : enfants 259x85 a (-125, -84) de l'ancre
+    (le pied du groupe) ; coureur 97x99 a (-38, -96).
+    """
+    import base64
+    import os
+    e = " " * indent
+    ici = os.path.dirname(os.path.abspath(__file__))
+
+    def nappe(ox, oy, pts, opacite):
+        P = [(ox + x * k, oy + y * k) for (x, y) in pts]
+        return (u'<path d="%s" fill="%s" opacity="%.2f"/>'
+                % (_catmull_ferme(P), OMBRE_SERVIETTE, opacite))
+
+    out = [nappe(ox_e, oy_e, [(-95.0, -6.0), (-40.0, -14.0), (40.0, -20.0),
+                              (110.0, -16.0), (150.0, -4.0), (130.0, 6.0),
+                              (40.0, 8.0), (-50.0, 6.0)], 0.45),
+           nappe(ox_c, oy_c, [(-48.0, -4.0), (-12.0, -9.0), (22.0, -4.0),
+                              (12.0, 5.0), (-32.0, 7.0)], 0.45)]
+    for fichier, ox, oy, dx, dy, w, h in (
+            ("perso_enfants.png", ox_e, oy_e, -125, -84, 259, 85),
+            ("perso_coureur.png", ox_c, oy_c, -38, -96, 97, 99)):
+        donnees = base64.b64encode(
+            open(os.path.join(ici, fichier), "rb").read()).decode("ascii")
+        out.append(u'<image x="%.1f" y="%.1f" width="%.1f" height="%.1f"'
+                   u' xlink:href="data:image/png;base64,%s"/>'
+                   % (ox + dx * k, oy + dy * k, w * k, h * k, donnees))
+    return u"%s<g inkscape:label=\"Enfants et coureur\">\n%s\n%s</g>" % (
+        e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
+
+
 def femme_serviette(ox, oy, k=1.0, indent=4):
     u"""
     La femme assise de la reference, a l'identique - memes outils que

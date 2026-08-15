@@ -97,3 +97,35 @@ def decouper(nom, m, seat):
 
 decouper('perso_homme.png', lui, (905, 800))
 decouper('perso_femme.png', elle, (1010, 800))
+
+
+# =====================================================================
+#  LE GROUPE D'ENFANTS (les trois, avec seaux) et LE COUREUR AU BALLON
+# =====================================================================
+#
+# Les trois enfants se decoupent EN UN SEUL morceau : leurs espacements
+# sont ceux du modele, un seul ancrage. Classes en plus : le short VERT
+# (b<115 le separe de la nappe teal, b=125), les seaux TERRE CUITE, le
+# maillot creme de l'enfant 1 (r-b>40 : 46 contre 34 pour le sable - la
+# marge est fine, les residus meurent par taille ou se fondent dans notre
+# sable), le maillot tan de l'enfant 3, son bandana gris-bleu. Le BALLON
+# entre par son disque entier : ses quartiers creme se confondent avec le
+# sable, mais poses sur NOTRE sable les pixels voles sont invisibles.
+
+verte = (g > r + 25) & (g > 75) & (r < 150) & (b < 115)
+rouge = (r > 140) & (r < 225) & (r - g > 55) & (g < 130)
+creme_top = (r > 235) & (r - b > 40) & (g > 195) & \
+            (xs > 108) & (xs < 178) & (ys > 748) & (ys < 798)
+tan_top = (r > 200) & (r < 245) & (r - g > 30) & (r - g < 65) & \
+          (g - b > 18) & (xs > 288) & (xs < 340) & (ys > 740) & (ys < 790)
+bandana = (np.abs(r - g) < 30) & (g > 150) & (b > 140) & (r < 225) & \
+          (xs > 295) & (xs < 340) & (ys > 728) & (ys < 752)
+boule = (xs - 631) ** 2 + (ys - 763) ** 2 <= 17 ** 2
+
+enfants = (peau | encre | verte | rouge | creme_top | tan_top | bandana) \
+          & (ys >= 730) & (ys < 838) & (xs >= 92) & (xs < 372)
+coureur = ((peau | encre | verte | rouge) &
+           (ys >= 718) & (ys < 834) & (xs >= 552) & (xs < 662)) | boule
+
+decouper('perso_enfants.png', enfants, (230, 828))
+decouper('perso_coureur.png', coureur, (590, 820))

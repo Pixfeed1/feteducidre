@@ -80,6 +80,11 @@ AVEC_FEMME = True
 # elle-meme (accorde a nos tons) au lieu des decalques vectoriels - c'est
 # le rendu le plus fidele. A False, les aplats vectoriels reviennent.
 AVEC_VRAIS_PERSOS = True
+
+# LES ENFANTS AUX SEAUX et LE COUREUR AU BALLON, decoupes eux aussi,
+# ancres au pied du parasol de GAUCHE comme dans le modele (leur groupe
+# est a -183 px de reference du mat, le coureur a +177).
+AVEC_ENFANTS = True
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -372,6 +377,14 @@ def bloc_serviette_rayee():
         if not (AVEC_FEMME and AVEC_VRAIS_PERSOS):
             morceaux.append(personnages.homme_serviette(
                 assise_x, assise_y, K, 2, grande_ombre=not AVEC_FEMME))
+
+    if AVEC_ENFANTS and AVEC_VRAIS_PERSOS:
+        # le pied du parasol de gauche, la reference de leurs places
+        p1x, p1y = 0.347 * LARGEUR, 0.857 * HAUTEUR
+        K = (HAUTEUR / 928.0) * 0.85
+        morceaux.append(personnages.enfants_et_coureur(
+            p1x - 183.0 * K, p1y + 6.0 * K,
+            p1x + 177.0 * K, p1y - 2.0 * K, K, 2))
 
     return "\n".join(morceaux)
 
