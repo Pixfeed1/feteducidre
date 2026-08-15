@@ -79,85 +79,187 @@ def ballon(cx, cy, r, indent=2):
 
 def seau(cx, cy, h, indent=2):
     u"""
-    Le seau pose, la pelle plantee dedans. (cx, cy) : le milieu du fond.
-    Le corps est un trapeze aux flancs presque droits ; la levre est une
-    ellipse vue d'un peu au-dessus, comme le rebord des parasols.
+    Le seau du bac a sable, travaille comme le reste de la scene :
+
+      DEUX TONS      la panse a sa face eclairee et sa face a l'ombre,
+                     separees par une couture courbe - exactement le
+                     vocabulaire des fuseaux du parasol ;
+      DES COURBES    les flancs bombent legerement, le cul est une
+                     ellipse - aucune ligne droite, un seau est souffle ;
+      LA MATIERE     la levre roulee (deux ellipses), l'interieur sombre,
+                     la moulure sous la levre, le reflet du bord ;
+      CE QUI LE NOMME l'anse tombee sur le flanc avec ses deux oreilles,
+                     la pelle plantee dont l'anneau se detache sur le
+                     sable, et le sable remue a son pied.
     """
     e = " " * indent
-    r_haut = h * 0.62
-    r_bas = h * 0.46
-    ry = r_haut * 0.30
+    rh = h * 0.60                 # demi-largeur en haut
+    rb = h * 0.46                 # demi-largeur au cul
+    ry = rh * 0.26                # l'aplat de l'ellipse de la levre
     yh = cy - h
+    CLAIR = "#CE6B3E"
+    SOMBRE_P = "#A34B28"
+    INTERIEUR = "#7E3A20"
 
-    # la PELLE d'abord : plantee dans le seau, elle passe derriere la levre.
-    # COUCHEE a 55 degres : dressee, son manche vert sombre montait dans la
-    # haie vert sombre et n'existait plus - sur le sable, il se lit
-    ang = math.radians(-55)
-    lx, ly = math.sin(ang), -math.cos(ang)
-    x0, y0 = cx + r_haut * 0.1, yh + ry * 0.2
-    manche = h * 1.30
-    xm, ym = x0 + lx * manche, y0 + ly * manche
-    pelle = [u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" stroke-width="%.1f"'
-             u' stroke-linecap="round"/>' % (x0, y0, xm, ym, VERT_SOMBRE,
-                                             h * 0.10),
-             # la poignee en anneau
-             u'<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="%s"'
-             u' stroke-width="%.1f"/>' % (xm + lx * h * 0.10,
-                                          ym + ly * h * 0.10, h * 0.14,
-                                          VERT_SOMBRE, h * 0.09)]
+    out = [ombre(cx + rh * 0.45, cy + 2, rh * 1.45, ry * 0.95)]
 
-    corps = (u'M%.1f %.1f L%.1f %.1f L%.1f %.1f L%.1f %.1f Z'
-             % (cx - r_haut, yh, cx + r_haut, yh,
-                cx + r_bas, cy, cx - r_bas, cy))
-    levre = (u'<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s"/>'
-             % (cx, yh, r_haut, ry, TERRE_SOMBRE))
+    # LA PELLE d'abord (elle passe derriere la levre) : manche couche vers
+    # le sable - dresse, il se perdait dans la haie - anneau, et un
+    # COLLET plus large la ou le manche plonge dans le seau.
+    ang = math.radians(-60)      # couche un peu plus : l'anneau restait
+    lx, ly = math.sin(ang), -math.cos(ang)   # a froler la haie
+    x0, y0 = cx + rh * 0.12, yh + ry * 0.1
+    xm, ym = x0 + lx * h * 1.18, y0 + ly * h * 1.18
+    out += [u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" stroke-width="%.1f"'
+            u' stroke-linecap="round"/>' % (x0, y0, xm, ym, VERT_SOMBRE,
+                                            h * 0.105),
+            u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" stroke-width="%.1f"'
+            u' stroke-linecap="round"/>'
+            % (x0 - lx * h * 0.06, y0 - ly * h * 0.06,
+               x0 + lx * h * 0.16, y0 + ly * h * 0.16, VERT_SOMBRE, h * 0.17),
+            u'<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="%s"'
+            u' stroke-width="%.1f"/>' % (xm + lx * h * 0.13,
+                                         ym + ly * h * 0.13, h * 0.15,
+                                         VERT_SOMBRE, h * 0.095)]
 
-    out = [ombre(cx + r_haut * 0.35, cy + 2, r_haut * 1.35, ry * 0.9)]
-    out += pelle
-    out += [u'<path d="%s" fill="%s"/>' % (corps, TERRE_CUITE), levre]
-    # L'ANSE, tombee sur le flanc : c'est elle qui dit "seau" et pas
-    # "pot de fleurs" - un arc du bord gauche au bord droit, couche
-    out.append(u'<path d="M%.1f %.1f C%.1f %.1f %.1f %.1f %.1f %.1f"'
-               u' stroke="%s" stroke-width="%.1f" fill="none"'
-               u' stroke-linecap="round"/>'
-               % (cx - r_haut * 0.92, yh + ry * 0.4,
-                  cx - r_haut * 1.55, yh + h * 0.55,
-                  cx - r_haut * 0.9, cy + 2,
-                  cx + r_haut * 0.2, cy + ry * 0.5,
-                  TERRE_SOMBRE, h * 0.07))
+    # LA PANSE : les flancs bombent (controles pousses dehors), le cul est
+    # une ellipse - puis la face A L'OMBRE, une couture courbe comme un
+    # meridien de parasol.
+    panse = (u'M%.1f %.1f C%.1f %.1f %.1f %.1f %.1f %.1f '
+             u'Q%.1f %.1f %.1f %.1f C%.1f %.1f %.1f %.1f %.1f %.1f Z'
+             % (cx - rh, yh,
+                cx - rh * 1.04, yh + h * 0.45, cx - rb * 1.06, cy - h * 0.18,
+                cx - rb, cy,
+                cx, cy + h * 0.075, cx + rb, cy,
+                cx + rb * 1.06, cy - h * 0.18, cx + rh * 1.04, yh + h * 0.45,
+                cx + rh, yh))
+    out.append(u'<path d="%s" fill="%s"/>' % (panse, CLAIR))
+    flanc_ombre = (u'M%.1f %.1f C%.1f %.1f %.1f %.1f %.1f %.1f '
+                   u'Q%.1f %.1f %.1f %.1f C%.1f %.1f %.1f %.1f %.1f %.1f Z'
+                   % (cx + rh * 0.22, yh,
+                      cx + rh * 0.02, yh + h * 0.4, cx + rb * 0.05,
+                      cy - h * 0.15, cx + rb * 0.14, cy + h * 0.02,
+                      cx + rb * 0.6, cy + h * 0.055, cx + rb, cy,
+                      cx + rb * 1.06, cy - h * 0.18, cx + rh * 1.04,
+                      yh + h * 0.45, cx + rh, yh))
+    out.append(u'<path d="%s" fill="%s"/>' % (flanc_ombre, SOMBRE_P))
+    # LA MOULURE sous la levre : le petit bourrelet des seaux moules -
+    # un arc qui suit la courbure de l'ellipse, cote face seulement
+    ym0 = yh + h * 0.15
+    out.append(u'<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f" stroke="%s"'
+               u' stroke-width="%.1f" fill="none" opacity="0.5"/>'
+               % (cx - rh * 0.94, ym0, cx, ym0 + ry * 1.5,
+                  cx + rh * 0.94, ym0, SOMBRE_P, h * 0.045))
+
+    # LA LEVRE ROULEE : l'ellipse exterieure, l'interieur sombre, et le
+    # reflet du bord avant - c'est lui qui fait le plastique
+    out += [u'<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s"/>'
+            % (cx, yh, rh * 1.06, ry * 1.15, SOMBRE_P),
+            u'<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s"/>'
+            % (cx, yh - ry * 0.12, rh * 0.88, ry * 0.82, INTERIEUR),
+            u'<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f" stroke="%s"'
+            u' stroke-width="%.1f" fill="none" opacity="0.85"/>'
+            % (cx - rh * 0.9, yh + ry * 0.4, cx, yh + ry * 1.75,
+               cx + rh * 0.9, yh + ry * 0.4, "#E8935F", h * 0.05)]
+
+    # L'ANSE tombee, avec ses deux OREILLES aux flancs
+    out += [u'<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s"/>'
+            % (cx - rh * 1.0, yh + ry * 0.5, h * 0.075, SOMBRE_P),
+            u'<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s"/>'
+            % (cx + rh * 1.0, yh + ry * 0.5, h * 0.075, SOMBRE_P),
+            u'<path d="M%.1f %.1f C%.1f %.1f %.1f %.1f %.1f %.1f"'
+            u' stroke="%s" stroke-width="%.1f" fill="none"'
+            u' stroke-linecap="round"/>'
+            % (cx - rh * 1.0, yh + ry * 0.5,
+               cx - rh * 1.75, yh + h * 0.6,
+               cx - rh * 1.15, cy + ry * 1.1,
+               cx + rh * 0.15, cy + ry * 0.75,
+               TERRE_SOMBRE, h * 0.075),
+            # le reflet de l'anse
+            u'<path d="M%.1f %.1f C%.1f %.1f %.1f %.1f %.1f %.1f"'
+            u' stroke="%s" stroke-width="%.1f" fill="none" opacity="0.6"'
+            u' stroke-linecap="round"/>'
+            % (cx - rh * 1.02, yh + ry * 0.7,
+               cx - rh * 1.6, yh + h * 0.62,
+               cx - rh * 1.1, cy + ry * 0.75,
+               cx - rh * 0.2, cy + ry * 0.55,
+               "#E8935F", h * 0.028)]
+
+    # (les tas de sable remue lisaient comme du lait renverse - retires :
+    # l'ombre au sol suffit a poser l'objet)
     return u"\n".join(u"%s%s" % (e, x) for x in out)
 
 
 def tongs(cx, cy, l, ecart=None, indent=2):
     u"""
-    Les deux tongs quittees en vitesse : jamais paralleles - l'une part
-    de travers, c'est le desordre qui raconte le depart.
+    Les claquettes quittees en vitesse - jamais paralleles, l'une chevauche
+    presque l'autre. Travaillees comme des objets, pas des symboles :
+
+      L'EPAISSEUR    chaque semelle a sa TRANCHE (la meme forme decalee
+                     vers le bas, un ton plus sombre) - sans elle la
+                     claquette est peinte sur le sable, pas posee dessus ;
+      L'EMPREINTE    le lit de pied, une forme interieure plus claire -
+                     la trace du pied qui l'a portee tout l'ete ;
+      LA BRIDE       un vrai Y PLEIN : deux lanieres effilees qui se
+                     rejoignent au teton d'orteil, et leur ombre fine
+                     sur la semelle.
     """
     e = " " * indent
     if ecart is None:
-        ecart = l * 0.75
-    out = [ombre(cx + ecart * 0.5, cy + 3, l * 1.35, l * 0.30, 0.45)]
-    for dx, ang, sens in ((0.0, -14.0, 1), (ecart, 22.0, -1)):
+        ecart = l * 0.80
+    out = [ombre(cx + ecart * 0.5, cy + 4, l * 1.30, l * 0.30, 0.45)]
+
+    def semelle(x0, y0, ang, sens):
         a = math.radians(ang)
         ca, sa = math.cos(a), math.sin(a)
-        x0, y0 = cx + dx, cy
 
         def T(px, py):
             return (x0 + px * ca - py * sa, y0 + px * sa + py * ca)
-        # la semelle : une goutte (large a l'avant, etroite au talon)
-        w = l * 0.42
-        pts = [T(0, -l * 0.5), T(w * 0.5, -l * 0.28), T(w * 0.52, l * 0.05),
-               T(w * 0.34, l * 0.46), T(-w * 0.34, l * 0.46),
-               T(-w * 0.52, l * 0.05), T(-w * 0.5, -l * 0.28)]
-        out.append(u'<path d="%s" fill="%s"/>' % (_catmull_ferme(pts), PAILLE))
-        # la bride en V, du milieu vers les deux bords
-        m = T(0, -l * 0.12)
-        b1 = T(-w * 0.46 * sens, l * 0.16)
-        b2 = T(w * 0.40 * sens, l * 0.22)
-        for bx in (b1, b2):
-            out.append(u'<path d="M%.1f %.1f L%.1f %.1f" stroke="%s"'
-                       u' stroke-width="%.1f" stroke-linecap="round"/>'
-                       % (m[0], m[1], bx[0], bx[1], ROUGE, l * 0.09))
+        w = l * 0.46
+        forme = [T(0, -l * 0.52), T(w * 0.52, -l * 0.30), T(w * 0.55, l * 0.02),
+                 T(w * 0.40, l * 0.44), T(0, l * 0.52),
+                 T(-w * 0.40, l * 0.44), T(-w * 0.55, l * 0.02),
+                 T(-w * 0.52, -l * 0.30)]
+        morceaux = []
+        # LA TRANCHE : la meme forme, 3 px plus bas, un ton plus sombre
+        tranche = [(px, py + l * 0.09) for (px, py) in forme]
+        morceaux.append(u'<path d="%s" fill="%s"/>'
+                        % (_catmull_ferme(tranche), "#B89B62"))
+        # LE DESSUS
+        morceaux.append(u'<path d="%s" fill="%s"/>'
+                        % (_catmull_ferme(forme), PAILLE))
+        # L'EMPREINTE du pied : la forme interieure, plus claire
+        dedans = [T(0, -l * 0.36), T(w * 0.33, -l * 0.18),
+                  T(w * 0.36, l * 0.06), T(w * 0.26, l * 0.33),
+                  T(0, l * 0.40), T(-w * 0.26, l * 0.33),
+                  T(-w * 0.36, l * 0.06), T(-w * 0.33, -l * 0.18)]
+        morceaux.append(u'<path d="%s" fill="%s" opacity="0.65"/>'
+                        % (_catmull_ferme(dedans), "#F2E7C2"))
+        # LA BRIDE en Y plein : l'ombre d'abord, puis les deux lanieres
+        # effilees vers le teton, et le teton d'orteil
+        teton = T(0, -l * 0.16)
+        for cote in (-1, 1):
+            attache = T(cote * w * 0.50, l * 0.14)
+            milieu = T(cote * w * 0.30, l * 0.015 - 0.04 * l)
+            morceaux.append(u'<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f"'
+                            u' stroke="%s" stroke-width="%.1f" fill="none"'
+                            u' opacity="0.35"/>'
+                            % (teton[0] + 1.2, teton[1] + 2.2,
+                               milieu[0] + 1.2, milieu[1] + 2.4,
+                               attache[0] + 0.8, attache[1] + 1.6,
+                               "#8A7B4E", l * 0.075))
+            morceaux.append(u'<path d="M%.1f %.1f Q%.1f %.1f %.1f %.1f"'
+                            u' stroke="%s" stroke-width="%.1f" fill="none"'
+                            u' stroke-linecap="round"/>'
+                            % (teton[0], teton[1], milieu[0], milieu[1],
+                               attache[0], attache[1], ROUGE, l * 0.085))
+        morceaux.append(u'<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s"/>'
+                        % (teton[0], teton[1], l * 0.055, ROUGE))
+        return morceaux
+
+    # la premiere bien posee, la seconde de travers qui la chevauche presque
+    out += semelle(cx, cy, -12.0, 1)
+    out += semelle(cx + ecart, cy - l * 0.10, 27.0, -1)
     return u"\n".join(u"%s%s" % (e, x) for x in out)
 
 
