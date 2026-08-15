@@ -317,6 +317,17 @@ retrouve son couloir à droite du genou, comme le modèle. Le couple se
 resserre de 4 % pour garder ses orteils sur le tissu et dans le cadre —
 notre serviette étant centrée sur le mât, pas à 0,36 comme la sienne.
 
+**Le module : dès qu'une figure humaine entre dans l'image, tout objet se
+mesure par rapport à elle.** Le ballon faisait 0,71 fois l'enfant — un
+ballon de 78 cm — quand la référence le tient à 0,34 (mesuré : ballon
+32 px, coureur 95 px). Les objets de la nature morte avaient été calibrés
+pour la composition, sans règle graduée humaine ; l'arrivée du gamin a
+cassé l'échelle. Désormais `MODULE = 130.5` (l'enfant debout à l'échelle
+de la scène) et tout s'en déduit : ballon d = 0,33 M, seau h = 0,30 M,
+tongs l = 0,24 M, chapeau r = 0,26 M. Seul le cerf-volant y échappe : il
+est en l'air, sa profondeur est libre. Et quand une taille change, sa
+**ligne de sol ne bouge pas** — c'est le centre qui remonte.
+
 **« Tout le monde est à l'eau » — la composition se décide avant de
 dessiner.** La proposition en nature morte applique trois lois de
 l'affiche mid-century et de la riso (recherche faite avant le premier

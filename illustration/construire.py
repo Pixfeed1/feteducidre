@@ -411,6 +411,20 @@ def bloc_serviette_rayee():
                 assise_x, assise_y, K, 2, grande_ombre=not AVEC_FEMME))
 
     if AVEC_NATURE_MORTE:
+        # LE MODULE. Des qu'une figure humaine entre dans l'image, tout
+        # objet se mesure par rapport a ELLE - c'est la regle graduee du
+        # graphiste, et c'est elle qui manquait : le ballon faisait 0.71
+        # fois l'enfant (un ballon de 78 cm !) quand la reference le tient
+        # a 0.34 (mesure : ballon 32 px, coureur 95 px). L'enfant debout
+        # fait 130.5 px a l'echelle de la scene (102 px de reference
+        # x 1.28) ; les rapports ci-dessous sont MESURES sur la reference
+        # ou sur l'objet reel :
+        #   ballon   d = 0.33 M   (32/95 releve)
+        #   seau     h = 0.30 M   (les seaux de la reference)
+        #   tongs    l = 0.24 M   (un pied d'adulte, ~26 cm)
+        #   chapeau  r = 0.26 M   (un bord de ~57 cm)
+        # Le cerf-volant est en l'air, sa profondeur est libre.
+        MODULE = 130.5
         morceaux.append(u'  <g inkscape:label="Nature morte">')
         # le cerf-volant dans le CIEL OUVERT entre les deux parasols -
         # au premier essai il se noyait dans la toile du grand
@@ -420,7 +434,8 @@ def bloc_serviette_rayee():
             0.155 * HAUTEUR + 8.0 * math.sin(4 * math.pi * _t + 1.3),
             52, 2, phase=_t if ANIME else None))
         # le seau au pied du parasol de gauche, pelle plantee
-        morceaux.append(objets.seau(0.425 * LARGEUR, 0.897 * HAUTEUR, 64, 2))
+        morceaux.append(objets.seau(0.425 * LARGEUR, 0.897 * HAUTEUR,
+                                    0.30 * MODULE, 2))
         # le ballon, arrete au milieu du sable vide - ou EN VOL dans la
         # scene du gamin : course d'elan, frappe, parabole, rebond, sortie
         # a droite, et quelqu'un hors-champ le renvoie rouler a sa place
@@ -428,7 +443,9 @@ def bloc_serviette_rayee():
         if ANIME and ANIM_SCENE == "gamin":
             import math
             s = _t * 8.0                       # le temps en secondes
-            xr, ys, rb = 0.556 * LARGEUR, 0.905 * HAUTEUR + 46, 46.0
+            # la ligne de sol du ballon ne bouge pas ; son rayon vient
+            # du module (0.165 M = un ballon de 36 cm pour cet enfant)
+            xr, ys, rb = 0.556 * LARGEUR, 0.905 * HAUTEUR + 46, 0.165 * MODULE
             sk = 4.55                          # l'instant de la frappe
             dessine = True
             if s < sk:
@@ -486,14 +503,17 @@ def bloc_serviette_rayee():
                         a_arr=22.0 * math.sin(phi),
                         a_av=-20.0 * math.sin(phi), panche=8.0, indent=2))
         else:
-            morceaux.append(objets.ballon(0.556 * LARGEUR, 0.905 * HAUTEUR,
-                                          46, 2))
+            # le centre remonte pour garder la MEME ligne de sol
+            morceaux.append(objets.ballon(0.556 * LARGEUR,
+                                          0.905 * HAUTEUR + 46.0
+                                          - 0.165 * MODULE,
+                                          0.165 * MODULE, 2))
         # les tongs quittees en vitesse, en chemin vers la serviette
         morceaux.append(objets.tongs(0.756 * LARGEUR, 0.921 * HAUTEUR,
-                                     48, indent=2))
+                                     0.24 * MODULE, indent=2))
         # le chapeau pose sur la serviette - le point d'arrivee du regard
         morceaux.append(objets.chapeau(0.882 * LARGEUR, 0.852 * HAUTEUR,
-                                       46, 2))
+                                       0.26 * MODULE, 2))
         morceaux.append(u'  </g>')
 
     if AVEC_ENFANTS and AVEC_VRAIS_PERSOS:
