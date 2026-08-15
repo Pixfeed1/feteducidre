@@ -418,13 +418,15 @@ def bloc_serviette_rayee():
         # a 0.34 (mesure : ballon 32 px, coureur 95 px). L'enfant debout
         # fait 130.5 px a l'echelle de la scene (102 px de reference
         # x 1.28) ; les rapports ci-dessous sont MESURES sur la reference
-        # ou sur l'objet reel :
+        # ou sur l'objet reel. ET C'EST LE BONHOMME QU'ON A GRANDI
+        # (130 -> 180) pour etre credible face au ballon - pas le ballon
+        # qu'on a rapetisse une seconde fois :
         #   ballon   d = 0.33 M   (32/95 releve)
         #   seau     h = 0.30 M   (les seaux de la reference)
         #   tongs    l = 0.24 M   (un pied d'adulte, ~26 cm)
         #   chapeau  r = 0.26 M   (un bord de ~57 cm)
         # Le cerf-volant est en l'air, sa profondeur est libre.
-        MODULE = 130.5
+        MODULE = 180.0
         morceaux.append(u'  <g inkscape:label="Nature morte">')
         # le cerf-volant dans le CIEL OUVERT entre les deux parasols -
         # au premier essai il se noyait dans la toile du grand
@@ -479,29 +481,47 @@ def bloc_serviette_rayee():
             # en pieces articulees - jambes en ANTI-PHASE a 3.2 Hz (quand
             # l'une avance l'autre recule), rebond vertical au meme
             # rythme, corps penche dans la course
+            # LA FOULEE ROTOSCOPEE sur la planche 62 de Muybridge
+            # (1887) : les angles de cuisse par phase sont ASYMETRIQUES -
+            # la jambe monte haut DEVANT (-48) et revient court DERRIERE
+            # (+30), avec un passage rapide ; un sinus symetrique courait
+            # faux. 12 phases = une foulee complete (deux pas), la jambe
+            # opposee est decalee d'une demi-foulee.
+            TABLE = [30.0, 22.0, 8.0, -12.0, -34.0, -48.0,
+                     -44.0, -28.0, -8.0, 10.0, 24.0, 30.0]
+
+            def foulee(sd, cadence=2.8):
+                ph = (sd * cadence * 12.0) % 12.0
+                i = int(ph)
+                fr = ph - i
+                a1 = TABLE[i] * (1 - fr) + TABLE[(i + 1) % 12] * fr
+                j = (i + 6) % 12
+                a2 = TABLE[j] * (1 - fr) + TABLE[(j + 1) % 12] * fr
+                # le rebond : deux appuis par foulee, plus marque a
+                # l'appui - lu sur la planche aussi
+                bob = 6.0 * abs(math.sin(math.pi * ph / 6.0))
+                return a1, a2, bob
+
+            K_G = 1.75          # le bonhomme AGRANDI : 180 px debout
             oy_g = ys + 4.0
             if 1.5 <= s < 4.4:
-                xg = -140.0 + (s - 1.5) / 2.9 * 1080.0
-                phi = 2 * math.pi * 3.2 * (s - 1.5)
-                bob = 5.0 * abs(math.sin(phi))
+                xg = -170.0 + (s - 1.5) / 2.9 * 1110.0
+                a_av, a_arr, bob = foulee(s - 1.5)
                 morceaux.append(personnages.pantin_coureur(
-                    xg, oy_g - bob, 1.28,
-                    a_arr=22.0 * math.sin(phi),
-                    a_av=-20.0 * math.sin(phi), panche=7.0, indent=2))
+                    xg, oy_g - bob, K_G, a_arr=a_arr, a_av=a_av,
+                    panche=8.0, indent=2))
             elif 4.4 <= s < 4.75:
                 # la FRAPPE : la jambe avant en swing vers le ballon
                 morceaux.append(personnages.pantin_coureur(
-                    940.0, oy_g, 1.28, a_arr=18.0, a_av=-70.0,
+                    940.0, oy_g, K_G, a_arr=24.0, a_av=-66.0,
                     panche=-4.0, indent=2))
             elif 4.75 <= s < 7.2:
-                xg = 940.0 + (s - 4.75) * 500.0
-                phi = 2 * math.pi * 3.2 * (s - 4.75)
-                bob = 5.0 * abs(math.sin(phi))
-                if xg < 2000.0:
+                xg = 940.0 + (s - 4.75) * 520.0
+                a_av, a_arr, bob = foulee(s - 4.75)
+                if xg < 2050.0:
                     morceaux.append(personnages.pantin_coureur(
-                        xg, oy_g - bob, 1.28,
-                        a_arr=22.0 * math.sin(phi),
-                        a_av=-20.0 * math.sin(phi), panche=8.0, indent=2))
+                        xg, oy_g - bob, K_G, a_arr=a_arr, a_av=a_av,
+                        panche=9.0, indent=2))
         else:
             # le centre remonte pour garder la MEME ligne de sol
             morceaux.append(objets.ballon(0.556 * LARGEUR,
