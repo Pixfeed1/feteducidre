@@ -282,15 +282,19 @@ def chapeau(cx, cy, r, indent=2):
     return u"\n".join(u"%s%s" % (e, x) for x in out)
 
 
-def cerf_volant(cx, cy, t, indent=2):
+def cerf_volant(cx, cy, t, indent=2, phase=None):
     u"""
     Le cerf-volant : un losange coupe par sa diagonale - une moitie rouge,
     une moitie creme - deux barres fines en croix, et la queue qui
     serpente avec ses noeuds. Le seul personnage de l'image est le vent.
     """
     e = " " * indent
-    # le losange, un peu penche
-    a = math.radians(18)
+    # le losange, un peu penche - et s'il est anime, il se BALANCE :
+    # l'angle respire de +/-6 degres, periodique en phase (la boucle
+    # revient exactement sur elle-meme)
+    bal = 6.0 * math.sin(2 * math.pi * phase + 0.9) if phase is not None \
+        else 0.0
+    a = math.radians(18 + bal)
     ca, sa = math.cos(a), math.sin(a)
 
     def T(px, py):
@@ -310,7 +314,9 @@ def cerf_volant(cx, cy, t, indent=2):
         s = i / 5.0
         q.append((bas[0] - t * (0.5 + 2.6 * s) * sa - t * 2.2 * s * 0.55,
                   bas[1] + t * (0.9 + 2.4 * s) * ca * 0.55
-                  + t * 0.5 * math.sin(s * 6.0)))
+                  + t * 0.5 * math.sin(s * 6.0
+                  - (2 * math.pi * 2 * phase if phase is not None
+                     else 0.0))))
     out.append(u'<path d="%s" stroke="%s" stroke-width="1.8" fill="none"/>'
                % (_catmull_ouvert(q), VERT_SOMBRE))
     # les noeuds de la queue : des petits papillons

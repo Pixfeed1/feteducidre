@@ -30,7 +30,22 @@ verdure.LARGEUR = LARGEUR
 #     python3 construire.py            -> scene.svg, avec
 #     python3 construire.py sans       -> scene_sans_grillage.svg
 import sys
+import os
 AVEC_GRILLAGE = "sans" not in sys.argv
+
+# L'ANIMATION : ANIM_T dans [0,1[ est la phase de la boucle. Tout mouvement
+# est PERIODIQUE en t (sinus de k*2*pi*t, k entier) : l'image 0 et l'image N
+# sont identiques, la boucle n'a pas de couture. Chaque image reste un SVG
+# complet rendu par Inkscape - aucun contour ne respire, le grain est stable.
+ANIM_T = float(os.environ.get("ANIM_T", "-1"))
+ANIME = ANIM_T >= 0.0
+_t = max(0.0, ANIM_T)
+import math as _math
+# la derive des nuages : lente, faible, dephasee - une oscillation de
+# quelques pixels lit comme du flottement, pas comme un vent qui tourne
+DX1 = 10.0 * _math.sin(2 * _math.pi * _t)
+DX2 = 7.0 * _math.sin(2 * _math.pi * _t + 2.1)
+DX3 = 12.0 * _math.sin(2 * _math.pi * _t + 4.2)
 
 # LA VERDURE EST-ELLE DANS L'IMAGE ? Elle n'y est plus : le modele n'a pas de
 # bande de haie, il a du ciel, du sable, puis la mer. Notre mur vert occupait
@@ -398,8 +413,11 @@ def bloc_serviette_rayee():
         morceaux.append(u'  <g inkscape:label="Nature morte">')
         # le cerf-volant dans le CIEL OUVERT entre les deux parasols -
         # au premier essai il se noyait dans la toile du grand
-        morceaux.append(objets.cerf_volant(0.588 * LARGEUR, 0.155 * HAUTEUR,
-                                           52, 2))
+        import math
+        morceaux.append(objets.cerf_volant(
+            0.588 * LARGEUR + 14.0 * math.sin(2 * math.pi * _t),
+            0.155 * HAUTEUR + 8.0 * math.sin(4 * math.pi * _t + 1.3),
+            52, 2, phase=_t if ANIME else None))
         # le seau au pied du parasol de gauche, pelle plantee
         morceaux.append(objets.seau(0.425 * LARGEUR, 0.897 * HAUTEUR, 64, 2))
         # le ballon, arrete au milieu du sable vide
@@ -531,17 +549,17 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
        nuage se voit par en dessous et une haie par au-dessus. -->
   <g inkscape:groupmode="layer" inkscape:label="02 Nuages" id="palier02"
      filter="url(#grainCiel)">
-    <g inkscape:label="Nuage 1">
+    <g inkscape:label="Nuage 1" transform="translate({DX1:.1f},0)">
       <g fill="{NF}">{N1}</g>
       <g clip-path="url(#coupeNuage1)" fill="{NC}"
          transform="translate(0,-{D1:.0f})">{N1}</g>
     </g>
-    <g inkscape:label="Nuage 2">
+    <g inkscape:label="Nuage 2" transform="translate({DX2:.1f},0)">
       <g fill="{NF}">{N2}</g>
       <g clip-path="url(#coupeNuage2)" fill="{NC}"
          transform="translate(0,-{D2:.0f})">{N2}</g>
     </g>
-    <g inkscape:label="Nuage 3">
+    <g inkscape:label="Nuage 3" transform="translate({DX3:.1f},0)">
       <g fill="{NF}">{N3}</g>
       <g clip-path="url(#coupeNuage3)" fill="{NC}"
          transform="translate(0,-{D3:.0f})">{N3}</g>
@@ -700,6 +718,7 @@ SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
            CIEL=CIEL, NC=NUAGE_CLAIR,
            NF=NUAGE_FROID, SABLE=SABLE, N1=NUAGE1, N2=NUAGE2, N3=NUAGE3,
            D1=DEC1, D2=DEC2, D3=DEC3,
+           DX1=DX1, DX2=DX2, DX3=DX3,
            BORD=BORD_SABLE, COUPES=coupes, FEUILLAGE=feuillage,
            FENCE=fence, ABRIS=abris, COUPES_ABRIS=coupes_abris,
            GAMIN=GAMIN, SERVIETTE=SERVIETTE,
@@ -808,6 +827,10 @@ def ecrire(nom, contenu):
 
 if __name__ == "__main__":
     nom = "scene.svg" if AVEC_GRILLAGE else "scene_sans_grillage.svg"
+    if ANIME:
+        nom = "scene_anim.svg"
+        open(nom, "w").write(SVG.encode("utf-8") if str is bytes else SVG)
+        sys.exit(0)
     if not ecrire(nom, SVG):
         raise SystemExit(1)
     print("%s construit" % nom)
