@@ -277,10 +277,20 @@ _H_SILHOUETTE = [  # 27 points
     (-9.0, -60.0),
     (-17.0, -58.0),
     (-24.0, -23.0),
-    (-24.0, -5.0),
-    (-29.0, 0.0),
-    (-24.0, 1.0),
-    (-20.0, -2.0),
+    # la main a plat, re-relevee au zoom x30 (crop 860-905 x 780-812) :
+    # l'avant-bras descend, le poignet plie, la paume s'etend vers le mat
+    # sur 15 px et finit en bout arrondi - pas un moignon de 4 points
+    (-27.5, -12.0),
+    (-29.5, -5.5),      # le poignet, cote exterieur
+    (-31.3, -4.1),      # (point de renfort : il tient l'angle du pli
+    (-32.5, -3.2),      # le talon de la main - sous le Catmull)
+    (-34.8, -2.4),
+    (-35.2, -0.8),      # le bout des doigts, arrondi
+    (-34.0, 0.8),
+    (-28.0, 1.9),       # la paume a plat sur le tissu
+    (-22.0, 2.4),
+    (-20.3, -0.5),      # le poignet, cote interieur
+    (-18.8, -8.0),
     (-16.0, -25.0),
     (-13.0, -33.0),
     (-9.0, -19.0),
@@ -366,6 +376,11 @@ def homme_serviette(ox, oy, k=1.0, indent=4):
                      OMBRE_SERVIETTE, 0.50))
 
     out.append(aplat(_H_SILHOUETTE, PEAU_OMBRE_H))
+    # le cheveu d'ombre sous les doigts - 2 px dans la reference, c'est
+    # lui qui colle la main au tissu au lieu de la laisser flotter
+    out.append(aplat([(-35.2, 0.9), (-28.0, 2.1), (-21.5, 2.7),
+                      (-21.5, 4.2), (-28.5, 3.8), (-35.0, 2.4)],
+                     "#234A40", 0.55))
     out.append(aplat(_H_JAMBES_SOLEIL, PEAU_SOLEIL_H))
     out.append(aplat(_H_SHORT, ENCRE_H))
     out.append(aplat(_H_CHEVEUX, ENCRE_H))

@@ -327,7 +327,9 @@ def bloc_serviette_rayee():
         # mat 863-871 ; MESURE sur notre rendu, pas regle a l'oeil - l'oeil
         # s'etait trompe de sens). Le y s'interroge aupres de la serviette,
         # pli compris.
-        assise_x = ox + 36.0 * K
+        # 42.5 et non 36 : la main refaite est plus longue de 6 px -
+        # le bout des doigts vise le bord droit du trait, pas son axe
+        assise_x = ox + 42.5 * K
         assise_y = personnages.serviette_pose(ox, oy, kt, assise_x, v=0.50)
         morceaux.append(personnages.homme_serviette(assise_x, assise_y, K, 2))
 

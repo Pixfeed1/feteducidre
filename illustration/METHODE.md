@@ -283,6 +283,17 @@ jugées à l'œil dans un sens… et mesurées dans l'autre : l'écart doigt-mâ
 se mesure sur le rendu (détecteur pollué par l'ombre sarcelle → fenêtres
 serrées), jamais à l'estime sur un zoom.
 
+**Un détail de 5 px se re-relève au zoom ×30, et Catmull mange ses
+angles.** Le décalque automatique (eps 1,4) réduisait la main posée à
+4 points — un moignon. Le modèle dessine un « L » : l'avant-bras descend,
+le poignet plie, la paume s'étend à plat sur 15 px vers le mât, bout
+arrondi, et un **cheveu d'ombre de 2 px sous les doigts** qui colle la
+main au tissu. Re-relevé point par point au zoom ×30. Deux pièges : le
+lissage Catmull-Rom arrondit le pli du poignet — un **point de renfort**
+à mi-angle le tient ; et une main rallongée de 6 px pénétrait dans le
+mât — l'assise se recale pour que le bout des doigts vise le **bord** du
+trait, pas son axe.
+
 **Un relevé tronqué par un personnage décrit un autre objet.** Le premier
 relevé de la serviette s'arrêtait à l'homme assis : il mesurait la partie
 visible à sa gauche et prenait le bord de l'homme pour le bout du tissu —
