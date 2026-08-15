@@ -281,14 +281,16 @@ _H_SILHOUETTE = [  # 27 points
     # l'avant-bras descend, le poignet plie, la paume s'etend vers le mat
     # sur 15 px et finit en bout arrondi - pas un moignon de 4 points
     (-27.5, -12.0),
-    (-29.5, -5.5),      # le poignet, cote exterieur
-    (-31.3, -4.1),      # (point de renfort : il tient l'angle du pli
-    (-32.5, -3.2),      # le talon de la main - sous le Catmull)
-    (-34.8, -2.4),
-    (-35.2, -0.8),      # le bout des doigts, arrondi
-    (-34.0, 0.8),
-    (-28.0, 1.9),       # la paume a plat sur le tissu
-    (-22.0, 2.4),
+    (-28.4, -7.0),      # l'avant-bras tombe presque vertical...
+    (-28.9, -5.4),      # LE DECROCHE DU POIGNET : deux paires de points
+    (-29.8, -4.7),      # serres verrouillent l'angle - sans elles le
+    (-33.8, -3.6),      # Catmull chanfreine le pli en rampe a 45 degres
+    (-34.4, -2.6),      # ...et la main est une BARRE posee : dos presque
+    (-34.6, -1.0),      # plat, petite face verticale au bout des doigts,
+    (-34.1, 0.4),       # finie net - ni pointe ni sabot
+    (-31.5, 1.0),       # (point de calme : le dessous ne pique pas du nez)
+    (-28.5, 1.3),       # le dessous suit la pente de la rayure
+    (-22.0, 2.2),
     (-20.3, -0.5),      # le poignet, cote interieur
     (-18.8, -8.0),
     (-16.0, -25.0),
@@ -378,8 +380,8 @@ def homme_serviette(ox, oy, k=1.0, indent=4):
     out.append(aplat(_H_SILHOUETTE, PEAU_OMBRE_H))
     # le cheveu d'ombre sous les doigts - 2 px dans la reference, c'est
     # lui qui colle la main au tissu au lieu de la laisser flotter
-    out.append(aplat([(-35.2, 0.9), (-28.0, 2.1), (-21.5, 2.7),
-                      (-21.5, 4.2), (-28.5, 3.8), (-35.0, 2.4)],
+    out.append(aplat([(-34.5, 0.7), (-28.0, 1.6), (-21.5, 2.5),
+                      (-21.5, 4.0), (-28.0, 3.3), (-34.3, 2.3)],
                      "#234A40", 0.55))
     out.append(aplat(_H_JAMBES_SOLEIL, PEAU_SOLEIL_H))
     out.append(aplat(_H_SHORT, ENCRE_H))

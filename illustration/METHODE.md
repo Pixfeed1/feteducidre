@@ -294,6 +294,16 @@ lissage Catmull-Rom arrondit le pli du poignet — un **point de renfort**
 mât — l'assise se recale pour que le bout des doigts vise le **bord** du
 trait, pas son axe.
 
+**Un angle sous Catmull se verrouille par une paire de points serrés — et
+un détail se juge sur un export HD.** Le sabot au bout de la main venait
+de trois choses mesurées : bout aussi épais que la paume, dessous qui
+remonte, et surtout le pli du poignet chanfreiné en rampe par le lissage.
+La règle : à chaque angle voulu, DEUX points à moins de 1,5 px l'un de
+l'autre — le Catmull ne peut plus couper. Et le rendu 1800 px ne fait que
+6 px pour toute la main : le grain y noie n'importe quelle géométrie.
+Le verdict se rend sur un export à 5400 px (le SVG est la vérité, le
+raster de travail est un brouillon).
+
 **Un relevé tronqué par un personnage décrit un autre objet.** Le premier
 relevé de la serviette s'arrêtait à l'homme assis : il mesurait la partie
 visible à sa gauche et prenait le bord de l'homme pour le bout du tissu —
