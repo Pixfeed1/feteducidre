@@ -75,6 +75,11 @@ AVEC_HOMME = True
 # LA FEMME a sa droite, meme methode. Sa nappe d'ombre est celle du
 # COUPLE : quand elle est la, la grande ombre de l'homme s'eteint.
 AVEC_FEMME = True
+
+# LES VRAIS PERSONNAGES : a True, le couple est DECOUPE dans la reference
+# elle-meme (accorde a nos tons) au lieu des decalques vectoriels - c'est
+# le rendu le plus fidele. A False, les aplats vectoriels reviennent.
+AVEC_VRAIS_PERSOS = True
 PART_HERBE = 0.10
 
 # LE GRAIN GLOBAL. A True, un seul calque de points couvre toute l'image et
@@ -336,7 +341,20 @@ def bloc_serviette_rayee():
         assise_x = ox + 42.5 * K
         assise_y = personnages.serviette_pose(ox, oy, kt, assise_x, v=0.50)
 
-        if AVEC_FEMME:
+        if AVEC_FEMME and AVEC_VRAIS_PERSOS:
+            # les personnages de la reference, decoupes ; l'ancre du mat
+            # est reglee pour le bout des doigts de la decoupe (37.5, pas
+            # 42.5 : dans la reference meme, les doigts s'arretent 5 px
+            # plus tot que ce que mon releve x30 avait lu)
+            assise_x = ox + 37.5 * K
+            assise_y = personnages.serviette_pose(ox, oy, kt, assise_x,
+                                                  v=0.50)
+            assise_fx = assise_x + 101.0 * K
+            assise_fy = personnages.serviette_pose(ox, oy, kt, assise_fx,
+                                                   v=0.50)
+            morceaux.append(personnages.vrais_persos(
+                assise_x, assise_y, assise_fx, assise_fy, K, 2))
+        elif AVEC_FEMME:
             # SA PLACE A ELLE : dans la reference, 105 px les separent et
             # ses orteils restent SUR la serviette. Notre serviette etant
             # centree sur le mat (pas a 0.36 comme le modele), garder les
@@ -351,8 +369,9 @@ def bloc_serviette_rayee():
             morceaux.append(personnages.femme_serviette(
                 assise_fx, assise_fy, K, 2))
 
-        morceaux.append(personnages.homme_serviette(
-            assise_x, assise_y, K, 2, grande_ombre=not AVEC_FEMME))
+        if not (AVEC_FEMME and AVEC_VRAIS_PERSOS):
+            morceaux.append(personnages.homme_serviette(
+                assise_x, assise_y, K, 2, grande_ombre=not AVEC_FEMME))
 
     return "\n".join(morceaux)
 
@@ -372,6 +391,7 @@ else:
 
 SVG = u"""<svg xmlns="http://www.w3.org/2000/svg"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
      xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.0.dtd"
      width="{L}" height="{H}" viewBox="0 0 {L} {H}">
 <!--

@@ -524,6 +524,50 @@ _F_CHEVEUX = [  # 10 points
 ]
 
 
+def ombre_couple(ox, oy, k=1.0):
+    u"""
+    LA NAPPE D'OMBRE DU COUPLE, relevee sur le patch teal du modele : elle
+    part de sous le genou de l'homme, court sous les jambes de la femme et
+    deborde a droite sur le sable. Bornee a +92 pour rester dans le cadre.
+    (ox, oy) : l'assise de la femme. Partagee entre la voie vectorielle et
+    les personnages decoupes.
+    """
+    pts = [(-36.0, -2.0), (5.0, 0.0), (42.0, 1.0), (70.0, 0.0),
+           (92.0, 7.0), (86.0, 16.0), (56.0, 17.0), (18.0, 15.0),
+           (-22.0, 10.0)]
+    P = [(ox + x * k, oy + y * k) for (x, y) in pts]
+    return (u'<path d="%s" fill="%s" opacity="0.55"/>'
+            % (_catmull_ferme(P), OMBRE_SERVIETTE))
+
+
+def vrais_persos(ox_h, oy_h, ox_f, oy_f, k=1.0, indent=2):
+    u"""
+    LES PERSONNAGES DE LA REFERENCE EUX-MEMES : decoupes au pixel dans la
+    5e image (classes de couleur, mouchetures tuees par taille, fermeture
+    morphologique), accordes a nos tons par balance des blancs (leur sable
+    rose -> notre #FAFAF6), et embarques en base64. Le grain global de la
+    scene les recouvre comme le reste.
+
+    Ancres relevees par le decoupeur : lui, boite 92x90 posee a
+    (-29, -88) de son assise ; elle, 139x90 a (-60, -80).
+    """
+    import base64
+    import os
+    e = " " * indent
+    ici = os.path.dirname(os.path.abspath(__file__))
+    out = [ombre_couple(ox_f, oy_f, k)]
+    for fichier, ox, oy, dx, dy, w, h in (
+            ("perso_femme.png", ox_f, oy_f, -60, -80, 139, 90),
+            ("perso_homme.png", ox_h, oy_h, -29, -88, 92, 90)):
+        donnees = base64.b64encode(
+            open(os.path.join(ici, fichier), "rb").read()).decode("ascii")
+        out.append(u'<image x="%.1f" y="%.1f" width="%.1f" height="%.1f"'
+                   u' xlink:href="data:image/png;base64,%s"/>'
+                   % (ox + dx * k, oy + dy * k, w * k, h * k, donnees))
+    return u"%s<g inkscape:label=\"Couple decoupe\">\n%s\n%s</g>" % (
+        e, "\n".join(u"%s  %s" % (e, x) for x in out), e)
+
+
 def femme_serviette(ox, oy, k=1.0, indent=4):
     u"""
     La femme assise de la reference, a l'identique - memes outils que
@@ -540,14 +584,7 @@ def femme_serviette(ox, oy, k=1.0, indent=4):
 
     out = []
 
-    # LA NAPPE D'OMBRE DU COUPLE, relevee sur le patch teal du modele :
-    # elle part de sous le genou de l'homme, court sous ses jambes a elle
-    # et deborde a droite sur le sable, au-dela des orteils.
-    # bornee a +92 : plus loin, la nappe sortait du cadre
-    out.append(aplat([(-36.0, -2.0), (5.0, 0.0), (42.0, 1.0),
-                      (70.0, 0.0), (92.0, 7.0), (86.0, 16.0),
-                      (56.0, 17.0), (18.0, 15.0), (-22.0, 10.0)],
-                     OMBRE_SERVIETTE, 0.55))
+    out.append(ombre_couple(ox, oy, k))
 
     out.append(aplat(_F_PEAU_0, PEAU_F_JAMBES))    # jambes + bras droit
     out.append(aplat(_F_PEAU_1, PEAU_F_BRAS))      # le bras plante

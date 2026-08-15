@@ -317,6 +317,19 @@ retrouve son couloir à droite du genou, comme le modèle. Le couple se
 resserre de 4 % pour garder ses orteils sur le tissu et dans le cadre —
 notre serviette étant centrée sur le mât, pas à 0,36 comme la sienne.
 
+**Les vrais personnages étaient dans la référence.** Les décalques
+vectoriels restaient en dessous du modèle ; la version qui rend, c'est le
+couple **découpé dans la 5ᵉ référence elle-même** (`decouper_persos.py`) et
+accordé à nos tons par **balance des blancs** (leur sable rose → notre
+`#FAFAF6`), embarqué en base64 dans le SVG (`xlink:href` — Inkscape 1.2
+ignore le `href` SVG2), posé aux mêmes ancres et recouvert par le grain
+global comme le reste. Trois pièges de découpe payés : l'encre vraie se
+sépare des rayures à l'ombre par le **canal bleu** (b<45 contre 60-95) ;
+le débardeur se sépare du mât et de l'ombre par son bleu **élevé**
+(b>108) ; et les mouchetures du grain se tuent **par taille de
+composante**, jamais par érosion — l'érosion mange les doigts de 3 px.
+La voie vectorielle reste commutable (`AVEC_VRAIS_PERSOS=False`).
+
 **Un relevé tronqué par un personnage décrit un autre objet.** Le premier
 relevé de la serviette s'arrêtait à l'homme assis : il mesurait la partie
 visible à sa gauche et prenait le bord de l'homme pour le bout du tissu —
