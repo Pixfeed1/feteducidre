@@ -203,6 +203,21 @@ def alpha(ob, image, valeur, interp="SINE", easing="EASE_OUT"):
                     kp.easing = easing
 
 
+def teinte(ob, image, couleur, interp="SINE", easing="EASE_OUT"):
+    """N'anime que les trois composantes de couleur, sans toucher l'alpha."""
+    c = list(ob.color)
+    c[0:3] = srgb(couleur)
+    ob.color = c
+    for i in (0, 1, 2):
+        ob.keyframe_insert("color", frame=int(round(image)), index=i)
+    for fc in ob.animation_data.action.fcurves:
+        if fc.data_path == "color" and fc.array_index in (0, 1, 2):
+            for kp in fc.keyframe_points:
+                if abs(kp.co.x - round(image)) < 0.5:
+                    kp.interpolation = interp
+                    kp.easing = easing
+
+
 def apparaitre(ob, debut, fin, y_repos, duree=None):
     """
     L'incrustation : translation verticale courte PLUS fondu, sur six
@@ -384,29 +399,36 @@ def animer(cfg, tailles, hauteurs_txt):
 
     # -- les six incrustations, une seule visible à la fois ----------------
     bandes = []
-    for cle_phase, prefixe, (p0, p1) in (("avant", "TXT_A", (av0, bas0)),
-                                         ("apres", "TXT_B", (ap0, sor0))):
+    for prefixe, teinte_bande, (p0, p1) in (
+            ("TXT_A", G.VOILE, (av0, bas0)),
+            ("TXT_B", G.VOILE_APRES, (ap0, sor0))):
         pas = (p1 - p0) / 3.0
         for i in range(3):
-            ob = O["%s%d" % (prefixe, i + 1)]
+            nom = "%s%d" % (prefixe, i + 1)
             d = p0 + i * pas + 2
             f = p0 + (i + 1) * pas - 2
-            apparaitre(ob, d, f, G.INCRUST_Y)
-            bandes.append((d, f, hauteurs_txt["%s%d" % (prefixe, i + 1)]))
-    bandes.append((hook_d, hook_f, hauteurs_txt["TXT_HOOK"]))
+            apparaitre(O[nom], d, f, G.INCRUST_Y)
+            bandes.append((d, f, hauteurs_txt[nom], teinte_bande))
+    bandes.append((hook_d, hook_f, hauteurs_txt["TXT_HOOK"], G.VOILE))
     bandes.sort()
 
     # -- le voile : présent dès qu'une incrustation l'est ------------------
     alpha(voile, f0, 0.0)
+    teinte(voile, f0, G.VOILE, "LINEAR")
     cle(voile, "scale", f0, (1.0, 1.0, 1.0), "LINEAR")
-    for d, f, h in bandes:
+    for d, f, h, coul in bandes:
         k = voile_pour(h)
         cle(voile, "scale", d, (1.0, k, 1.0), "SINE", "EASE_OUT")
         cle(voile, "scale", f, (1.0, k, 1.0), "SINE", "EASE_OUT")
+        #  La teinte change PENDANT que le bandeau est éteint : on ne voit
+        #  jamais le noir virer au violet, on voit deux bandeaux différents.
+        teinte(voile, d, coul, "LINEAR")
+        teinte(voile, f, coul, "LINEAR")     # tenue pendant toute la bande
         alpha(voile, d, 0.0)
         alpha(voile, d + G.INCRUST_ENTREE, G.VOILE_OPACITE)
         alpha(voile, f - G.INCRUST_ENTREE, G.VOILE_OPACITE)
         alpha(voile, f, 0.0, "SINE", "EASE_IN")
+    teinte(voile, f9, G.VOILE, "LINEAR")
     alpha(voile, f9, 0.0)
 
     # -- le carton de sortie ----------------------------------------------

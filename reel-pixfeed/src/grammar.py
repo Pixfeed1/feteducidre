@@ -77,8 +77,16 @@ ENCRE = (0.038, 0.038, 0.050)          # #0A0A0D — le fond
 BLANC = (0.925, 0.925, 0.945)          # #ECECF1 — le texte principal
 VIOLET = (0.580, 0.260, 0.980)         # #9442FA — la marque, et l'« après »
 GRIS = (0.430, 0.430, 0.478)           # #6E6E7A — le secondaire, et l'« avant »
-VOILE = (0.020, 0.020, 0.030)          # le bandeau sous les incrustations
-VOILE_OPACITE = 0.82
+VOILE = (0.020, 0.020, 0.030)          # le bandeau de l'accroche et de l'« avant »
+VOILE_APRES = (0.145, 0.045, 0.265)    # le même, teinté marque, pour l'« après »
+
+#  0,94 et non 0,82. La composition se fait en LUMIÈRE LINÉAIRE : un voile
+#  annoncé à 0,82 laisse encore passer 18 % d'une luminance linéaire, ce qui
+#  sur un fond clair se relit en sRGB comme un voile à 0,45 seulement.
+#  Mesuré sur le rendu : le site passait de 128 à 58, très insuffisant pour
+#  porter un texte. À 0,94 il tombe à 32, soit sept fois moins lumineux que
+#  le blanc de la charte.
+VOILE_OPACITE = 0.94
 
 #  Règle absolue : on n'emprunte JAMAIS les couleurs du client. Le cadre est
 #  aux couleurs PixFeed, le site du client vit à l'intérieur de l'écran.
@@ -280,8 +288,13 @@ COUL_CLIENT = BLANC
 COUL_SECTEUR = GRIS
 COUL_ANNEE = GRIS
 COUL_HOOK = BLANC
+#  Les deux séries d'incrustations sont en BLANC : c'est le BANDEAU qui
+#  change de couleur, pas le texte. Du violet #9442FA posé sur un bandeau
+#  donne 3,3:1 de contraste — acceptable pour un gros titre, risqué pour une
+#  phrase lue au défilement. Du blanc sur bandeau violet en donne plus de
+#  sept, et l'association « violet = après » se lit encore mieux.
 COUL_AVANT = BLANC
-COUL_APRES = VIOLET
+COUL_APRES = BLANC
 COUL_NUM = VIOLET
 COUL_NUM_LEG = GRIS
 COUL_SORTIE = GRIS

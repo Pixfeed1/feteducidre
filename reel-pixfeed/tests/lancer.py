@@ -174,8 +174,13 @@ def t_couleurs():
     from PIL import Image
     import numpy as np
 
+    #  On se place à l'image où le défilement DÉMARRE : le haut de la page
+    #  est alors aligné sur le haut de l'écran, et la correspondance entre
+    #  un pixel de la capture et un pixel du rendu est exacte, sans avoir à
+    #  refaire le calcul du défilement dans le test.
+    image = G.TEMPS["apres"][0]
     src = _exiger_fichier(os.path.join(_dossier(), "apres.png"), "capturez")
-    frame = os.path.join(_dossier(), "frames", "0400.png")
+    frame = os.path.join(_dossier(), "frames", "%04d.png" % image)
     _exiger_fichier(frame, "lancez `make demo`")
 
     def dominante(a):
@@ -183,25 +188,37 @@ def t_couleurs():
         cles, comptes = np.unique(q, axis=0, return_counts=True)
         return cles[comptes.argmax()] * 4 + 2, comptes.max() / float(len(q))
 
-    a_src = np.asarray(Image.open(src).convert("RGB"), dtype=int)
-    c_src, part_src = dominante(a_src)
+    #  La fenêtre d'écran, en pixels de l'image finale. On rentre de 30 px
+    #  pour rester loin des coins arrondis et du bandeau d'incrustation.
+    marge = 30
+    x0 = int(G.LARGEUR_PX / 2 - G.ECRAN_LARGEUR / 2 * G.PX_PAR_UNITE) + marge
+    x1 = int(G.LARGEUR_PX / 2 + G.ECRAN_LARGEUR / 2 * G.PX_PAR_UNITE) - marge
+    y0 = int((G.DEMI_HAUTEUR - G.ECRAN_Y_HAUT) * G.PX_PAR_UNITE) + marge
+    y1 = y0 + int(G.ECRAN_HAUTEUR * G.PX_PAR_UNITE / 2)   # moitié haute
 
-    #  La fenêtre d'écran, en pixels de l'image finale
-    x0 = int(G.LARGEUR_PX / 2 - G.ECRAN_LARGEUR / 2 * G.PX_PAR_UNITE) + 20
-    x1 = int(G.LARGEUR_PX / 2 + G.ECRAN_LARGEUR / 2 * G.PX_PAR_UNITE) - 20
-    yc = int((G.DEMI_HAUTEUR - G.APPAREIL_CENTRE_Y) * G.PX_PAR_UNITE)
-    dh = int(G.ECRAN_HAUTEUR / 2 * G.PX_PAR_UNITE) - 20
     a_ren = np.asarray(Image.open(frame).convert("RGB"),
-                       dtype=int)[yc - dh:yc + dh, x0:x1]
+                       dtype=int)[y0:y1, x0:x1]
     c_ren, part_ren = dominante(a_ren)
+
+    #  La MÊME région, prise dans la capture source. Le facteur vient du
+    #  rapport entre la largeur de la texture et celle de l'écran à l'image.
+    img = Image.open(src).convert("RGB")
+    k = img.width / (G.ECRAN_LARGEUR * G.PX_PAR_UNITE)
+    a_src = np.asarray(img, dtype=int)[
+        int((y0 - int((G.DEMI_HAUTEUR - G.ECRAN_Y_HAUT) * G.PX_PAR_UNITE))
+            * k):int((y1 - int((G.DEMI_HAUTEUR - G.ECRAN_Y_HAUT)
+                               * G.PX_PAR_UNITE)) * k),
+        int(marge * k):int((G.ECRAN_LARGEUR * G.PX_PAR_UNITE - marge) * k)]
+    c_src, part_src = dominante(a_src)
 
     ecart = int(np.abs(c_src - c_ren).max())
     if ecart > 4:
         raise Echec("aplat source %s, aplat rendu %s — écart %d/255"
                     % (c_src.tolist(), c_ren.tolist(), ecart))
-    return ("aplat source %s (%.0f %% de la capture) = aplat rendu %s, "
-            "écart %d/255" % (c_src.tolist(), part_src * 100,
-                              c_ren.tolist(), ecart))
+    return ("région haute de l'écran à l'image %d : aplat source %s "
+            "(%.0f %%) = aplat rendu %s (%.0f %%), écart %d/255"
+            % (image, c_src.tolist(), part_src * 100, c_ren.tolist(),
+               part_ren * 100, ecart))
 
 
 #  Ce qu'on ne cherche PAS : 0, 1, 2, 3… écrire `1.0` dans un calcul n'est
