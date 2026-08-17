@@ -1,0 +1,32 @@
+{
+  "_note": "Projet réel. Demande un accès réseau sortant vers tenakoe.fr et web.archive.org : la politique réseau des sessions Claude Code sur le web refuse les hôtes arbitraires, ce projet ne peut donc pas être capturé depuis là. Il se rend normalement depuis un poste de travail.",
+
+  "slug": "tenakoe",
+  "client": "Tenakoe",
+  "secteur": "Bureau d'études RGE",
+  "annee": 2026,
+  "anonyme": false,
+
+  "url_avant": "https://web.archive.org/web/2024id_/https://tenakoe.fr/",
+  "url_apres": "https://tenakoe.fr/",
+
+  "hook": "Ce site n'avait pas bougé depuis six ans.",
+
+  "avant": [
+    "Aucun contact visible avant le bas de page",
+    "Illisible sur mobile",
+    "4,8 s de chargement"
+  ],
+  "apres": [
+    "Contact dès le premier écran",
+    "Pensé mobile d'abord",
+    "1,1 s de chargement"
+  ],
+
+  "chiffre": { "valeur": "1,1 s", "legende": "au chargement" },
+
+  "sortie": "Refonte complète, site livré et maintenu.",
+  "cta": "Votre site a plus de trois ans ? Envoyez-le moi.",
+
+  "flouter": []
+}

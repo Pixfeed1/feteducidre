@@ -1,0 +1,39 @@
+{
+  "_note": "GABARIT COMMENTÉ ET PROJET DE DÉMONSTRATION. Le client « Atelier Peyrat » est FICTIF : les deux URL pointent sur les pages de demo/ servies en local par `make demo-serveur`. C'est ce projet qui sert à valider le pipeline de bout en bout sans dépendre d'un site tiers.",
+
+  "slug": "exemple",
+  "client": "Atelier Peyrat",
+  "secteur": "Menuiserie sur mesure",
+  "annee": 2026,
+
+  "_anonyme": "true remplace le nom du client par le secteur et retire son logo",
+  "anonyme": false,
+
+  "_urls": "http(s):// pour un site en ligne, file:// pour une page locale",
+  "url_avant": "http://127.0.0.1:8777/avant.html",
+  "url_apres": "http://127.0.0.1:8777/apres.html",
+
+  "_hook": "60 caractères maximum — c'est la phrase qui retient au défilement",
+  "hook": "Ce site n'avait pas bougé depuis 2019.",
+
+  "_points": "exactement 3 entrées de chaque côté, 42 caractères maximum",
+  "avant": [
+    "Illisible sur mobile, aucun zoom prévu",
+    "Le téléphone seulement en pied de page",
+    "Un devis promis sous quinze jours"
+  ],
+  "apres": [
+    "Le numéro appelable dès le premier écran",
+    "Pensé pour le pouce, pas pour la souris",
+    "Devis annoncé sous quarante-huit heures"
+  ],
+
+  "_chiffre": "affiché seul et en très grand, jamais dans une phrase",
+  "chiffre": { "valeur": "48 h", "legende": "pour recevoir son devis" },
+
+  "sortie": "Refonte complète, site livré et maintenu.",
+  "cta": "Votre site a plus de trois ans ? Écrivez-moi.",
+
+  "_flouter": "sélecteurs CSS floutés avant capture — adresses, noms, identifiants",
+  "flouter": []
+}

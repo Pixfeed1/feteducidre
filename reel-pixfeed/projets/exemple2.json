@@ -1,0 +1,32 @@
+{
+  "_note": "FIXTURE DE TEST — sert uniquement au critère « deux projets aux hauteurs de page différentes défilent à la même vitesse apparente ». Les deux pages de démonstration sont ici INVERSÉES : la page longue devient l'avant et la courte l'après, ce qui donne un couple de hauteurs différent de celui du projet `exemple`. À ne pas publier.",
+
+  "slug": "exemple2",
+  "client": "Bureau d'études",
+  "secteur": "Bureau d'études thermiques",
+  "annee": 2026,
+  "anonyme": true,
+
+  "url_avant": "http://127.0.0.1:8777/apres.html",
+  "url_apres": "http://127.0.0.1:8777/avant.html",
+
+  "hook": "Six ans sans une seule mise à jour.",
+
+  "avant": [
+    "Trois clics pour trouver un numéro",
+    "Rien ne tenait sur un écran de poche",
+    "4,8 s avant le premier affichage"
+  ],
+  "apres": [
+    "Le contact au premier écran",
+    "Conçu pour le pouce d'abord",
+    "1,1 s avant le premier affichage"
+  ],
+
+  "chiffre": { "valeur": "1,1 s", "legende": "au chargement" },
+
+  "sortie": "Refonte complète, site livré et maintenu.",
+  "cta": "Votre site a plus de trois ans ? Écrivez-moi.",
+
+  "flouter": []
+}

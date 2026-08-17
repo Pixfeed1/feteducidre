@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier Peyrat — Menuiserie sur mesure en Val-d'Oise</title>
+<style>
+  :root {
+    --encre:#16150F; --papier:#FBFAF6; --bois:#B4762E; --bois-fonce:#8A5A20;
+    --gris:#6B675C; --trait:#E3DFD3;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--papier); color:var(--encre);
+         font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  .enrobe { max-width:1100px; margin:0 auto; padding:0 22px; }
+
+  header { position:sticky; top:0; z-index:20; background:rgba(251,250,246,.94);
+           backdrop-filter:blur(10px); border-bottom:1px solid var(--trait); }
+  .barre { display:flex; align-items:center; gap:14px; padding:14px 0; }
+  .marque { font-weight:800; letter-spacing:-.4px; font-size:17px; }
+  .marque span { color:var(--bois); }
+  .barre nav { display:none; }
+  .appel { margin-left:auto; display:inline-block; background:var(--encre); color:#fff;
+           text-decoration:none; font-weight:700; font-size:14px; padding:11px 17px;
+           border-radius:999px; }
+
+  .une { padding:34px 0 30px; }
+  .etiq { display:inline-block; font-size:12px; font-weight:700; letter-spacing:.10em;
+          text-transform:uppercase; color:var(--bois-fonce); background:#F3E9DA;
+          padding:6px 12px; border-radius:999px; }
+  h1 { font-size:40px; line-height:1.08; letter-spacing:-1.2px; margin:16px 0 12px;
+       font-weight:800; }
+  .chapo { font-size:17px; color:var(--gris); margin:0 0 22px; max-width:34ch; }
+  .actions { display:flex; flex-direction:column; gap:10px; }
+  .btn { display:block; text-align:center; text-decoration:none; font-weight:700;
+         font-size:16px; padding:16px 20px; border-radius:14px; }
+  .btn-p { background:var(--bois); color:#fff; }
+  .btn-s { background:#fff; color:var(--encre); border:1.5px solid var(--trait); }
+  .rassure { display:flex; gap:18px; flex-wrap:wrap; margin-top:20px;
+             font-size:13px; color:var(--gris); }
+  .rassure b { color:var(--encre); }
+
+  .visuel { height:250px; border-radius:20px; margin:24px 0 6px;
+            background:linear-gradient(150deg,#C79A5C,#8A5A20 60%,#5B3B15); }
+  .visuel.b { background:linear-gradient(150deg,#8FA274,#4F6337 60%,#33422A); height:210px; }
+  .visuel.c { background:linear-gradient(150deg,#C0AA93,#7E6B57 60%,#4E4136); height:210px; }
+
+  section { padding:34px 0; border-top:1px solid var(--trait); }
+  h2 { font-size:27px; line-height:1.15; letter-spacing:-.7px; margin:0 0 8px; font-weight:800; }
+  .sous { color:var(--gris); margin:0 0 20px; }
+  .cartes { display:grid; gap:14px; }
+  .carte { background:#fff; border:1px solid var(--trait); border-radius:16px; padding:20px; }
+  .carte h3 { margin:0 0 6px; font-size:17px; font-weight:750; }
+  .carte p { margin:0; color:var(--gris); font-size:14.5px; }
+  .carte .prix { display:block; margin-top:12px; font-weight:800; font-size:14px; color:var(--bois-fonce); }
+
+  .chiffres { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .chiffre { background:var(--encre); color:#fff; border-radius:16px; padding:20px; }
+  .chiffre b { display:block; font-size:34px; letter-spacing:-1px; line-height:1; }
+  .chiffre span { font-size:13px; color:#B8B3A5; }
+
+  .avis { background:#F3EFE4; border-radius:16px; padding:22px; margin-bottom:12px; }
+  .avis p { margin:0 0 12px; font-size:16px; }
+  .avis footer { font-size:13px; color:var(--gris); }
+  .etoiles { color:var(--bois); letter-spacing:3px; margin-bottom:8px; }
+
+  .etapes { counter-reset:e; }
+  .etape { display:flex; gap:15px; padding:16px 0; border-bottom:1px solid var(--trait); }
+  .etape::before { counter-increment:e; content:counter(e); flex:0 0 34px; height:34px;
+                   border-radius:50%; background:var(--encre); color:#fff; font-weight:800;
+                   display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .etape h3 { margin:4px 0 3px; font-size:16px; }
+  .etape p { margin:0; color:var(--gris); font-size:14.5px; }
+
+  .zone { display:flex; flex-wrap:wrap; gap:8px; }
+  .puce { font-size:13px; background:#fff; border:1px solid var(--trait);
+          padding:7px 12px; border-radius:999px; }
+
+  .final { background:var(--encre); color:#fff; border-radius:22px; padding:30px 24px;
+           margin:12px 0 30px; }
+  .final h2 { color:#fff; }
+  .final .sous { color:#B8B3A5; }
+  .final .btn-p { background:var(--bois); }
+  .final .btn-s { background:transparent; color:#fff; border-color:#3B382E; }
+
+  footer.pied { border-top:1px solid var(--trait); padding:24px 0 110px;
+                font-size:13px; color:var(--gris); }
+  .pied a { color:var(--encre); }
+
+  .quai { position:fixed; left:0; right:0; bottom:0; z-index:30; padding:10px 14px;
+          background:rgba(251,250,246,.96); border-top:1px solid var(--trait);
+          display:flex; gap:9px; }
+  .quai .btn { flex:1; padding:14px 10px; font-size:15px; }
+
+  #cookie-banner { position:fixed; inset:auto 12px 12px 12px; z-index:40; background:#fff;
+             border:1px solid var(--trait); border-radius:16px; padding:16px;
+             box-shadow:0 12px 40px rgba(0,0,0,.14); font-size:13.5px; }
+  #cookie-banner button { margin-top:10px; margin-right:8px; border:0; border-radius:10px;
+                    padding:10px 15px; font-weight:700; background:var(--encre); color:#fff; }
+  .lazy { display:block; width:100%; border-radius:16px; background:#EDE9DE; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="enrobe barre">
+    <div class="marque">Atelier <span>Peyrat</span></div>
+    <a class="appel" href="tel:+33100000000">Appeler</a>
+  </div>
+</header>
+
+<div class="enrobe une">
+  <span class="etiq">Menuiserie · Val-d'Oise</span>
+  <h1>Vos menuiseries bois, fabriquées à Franconville.</h1>
+  <p class="chapo">Fenêtres, escaliers, dressings et agencement sur mesure.
+     Étude, fabrication en atelier et pose par nos équipes.</p>
+  <div class="actions">
+    <a class="btn btn-p" href="#devis">Demander un devis — réponse sous 48 h</a>
+    <a class="btn btn-s" href="tel:+33100000000">01 XX XX XX XX</a>
+  </div>
+  <div class="rassure">
+    <div><b>38 ans</b> d'atelier</div>
+    <div><b>Garantie décennale</b></div>
+    <div><b>Devis gratuit</b></div>
+  </div>
+  <div class="visuel"></div>
+</div>
+
+<section class="enrobe">
+  <h2>Ce que nous fabriquons</h2>
+  <p class="sous">Tout est dessiné, puis usiné dans notre atelier de 400 m².</p>
+  <div class="cartes">
+    <div class="carte"><h3>Fenêtres &amp; portes</h3><p>Chêne, frêne ou sapin du Nord. Double
+      vitrage, dépose totale, finitions en atelier.</p><span class="prix">à partir de 890 €</span></div>
+    <div class="carte"><h3>Escaliers</h3><p>Droits, quart tournant, deux quarts tournants.
+      Relevé laser, pose en une journée.</p><span class="prix">à partir de 4 200 €</span></div>
+    <div class="carte"><h3>Dressings &amp; bibliothèques</h3><p>Toute hauteur, adaptés aux
+      murs anciens et aux passages de porte.</p><span class="prix">à partir de 1 650 €</span></div>
+    <div class="carte"><h3>Parquets massifs</h3><p>Pose clouée ou collée, ponçage et
+      vitrification, rénovation d'anciens parquets.</p><span class="prix">à partir de 78 €/m²</span></div>
+  </div>
+  <div class="visuel b"></div>
+</section>
+
+<section class="enrobe">
+  <h2>En quelques chiffres</h2>
+  <p class="sous">Relevés sur les douze derniers mois.</p>
+  <div class="chiffres">
+    <div class="chiffre"><b>48 h</b><span>délai de réponse à un devis</span></div>
+    <div class="chiffre"><b>312</b><span>chantiers livrés</span></div>
+    <div class="chiffre"><b>4,8/5</b><span>note moyenne sur 96 avis</span></div>
+    <div class="chiffre"><b>100 %</b><span>bois de forêts gérées durablement</span></div>
+  </div>
+</section>
+
+<section class="enrobe">
+  <h2>Nos chantiers</h2>
+  <p class="sous">Un aperçu des réalisations récentes.</p>
+  <img class="lazy" data-src="1" height="200" alt="">
+  <div style="height:12px"></div>
+  <img class="lazy" data-src="2" height="200" alt="">
+  <div style="height:12px"></div>
+  <img class="lazy" data-src="3" height="200" alt="">
+</section>
+
+<section class="enrobe">
+  <h2>Ce qu'en disent nos clients</h2>
+  <div class="avis">
+    <div class="etoiles">★★★★★</div>
+    <p>« Devis clair reçu le lendemain, chantier tenu au jour près. L'escalier
+       est magnifique et la pose s'est faite sans un grain de poussière. »</p>
+    <footer>Hélène M. — Ermont, mars 2026</footer>
+  </div>
+  <div class="avis">
+    <div class="etoiles">★★★★★</div>
+    <p>« Nous avions trois devis. Le leur était le seul à expliquer pourquoi tel
+       bois plutôt que tel autre. Ça a fait la différence. »</p>
+    <footer>Karim B. — Taverny, janvier 2026</footer>
+  </div>
+  <div class="visuel c"></div>
+</section>
+
+<section class="enrobe">
+  <h2>Comment ça se passe</h2>
+  <p class="sous">Quatre étapes, aucune surprise.</p>
+  <div class="etapes">
+    <div class="etape"><div><h3>Visite et relevé</h3><p>Sur place, sous huit jours.
+      Gratuit et sans engagement.</p></div></div>
+    <div class="etape"><div><h3>Devis détaillé</h3><p>Sous 48 h, poste par poste,
+      avec le choix des essences.</p></div></div>
+    <div class="etape"><div><h3>Fabrication</h3><p>Dans notre atelier, avec un point
+      d'avancement en photo.</p></div></div>
+    <div class="etape"><div><h3>Pose et réception</h3><p>Par nos équipes, chantier
+      nettoyé, garantie décennale.</p></div></div>
+  </div>
+</section>
+
+<section class="enrobe">
+  <h2>Où nous intervenons</h2>
+  <p class="sous">Val-d'Oise et nord-ouest des Yvelines.</p>
+  <div class="zone">
+    <span class="puce">Franconville</span><span class="puce">Ermont</span>
+    <span class="puce">Sannois</span><span class="puce">Taverny</span>
+    <span class="puce">Beauchamp</span><span class="puce">Herblay</span>
+    <span class="puce">Cormeilles</span><span class="puce">Argenteuil</span>
+    <span class="puce">Eaubonne</span><span class="puce">Montmorency</span>
+    <span class="puce">Saint-Leu</span><span class="puce">Conflans</span>
+  </div>
+</section>
+
+<div class="enrobe" id="devis">
+  <div class="final">
+    <h2>Un projet en tête ?</h2>
+    <p class="sous">Envoyez-nous vos dimensions ou une simple photo,
+       nous vous répondons sous 48 h.</p>
+    <div class="actions">
+      <a class="btn btn-p" href="#">Demander un devis gratuit</a>
+      <a class="btn btn-s" href="tel:+33100000000">01 XX XX XX XX</a>
+    </div>
+  </div>
+</div>
+
+<footer class="pied enrobe">
+  <b>Atelier Peyrat</b> — 14 rue des Tilleuls, 95130<br>
+  Lundi au vendredi, 8 h – 17 h 30 · <a href="#">contact@exemple.invalid</a><br><br>
+  SIRET 000 000 000 00000 · <a href="#">Mentions légales</a> ·
+  <a href="#">Confidentialité</a>
+</footer>
+
+<div class="quai">
+  <a class="btn btn-s" href="tel:+33100000000">Appeler</a>
+  <a class="btn btn-p" href="#devis">Devis gratuit</a>
+</div>
+
+<div id="cookie-banner">
+  Nous utilisons uniquement des cookies de mesure d'audience anonyme.
+  <div><button>Tout accepter</button><button style="background:#fff;color:#16150F;border:1px solid #E3DFD3">Refuser</button></div>
+</div>
+
+<script>
+var teintes = ["%23A9762F","%23566B3C","%23806A55"];
+var obs = new IntersectionObserver(function (es) {
+  es.forEach(function (e) {
+    if (!e.isIntersecting) return;
+    var i = parseInt(e.target.getAttribute("data-src"), 10);
+    e.target.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'"
+      + " width='800' height='200' preserveAspectRatio='none'>"
+      + "<rect width='800' height='200' fill='" + teintes[(i-1)%3] + "'/></svg>";
+    obs.unobserve(e.target);
+  });
+});
+document.querySelectorAll(".lazy").forEach(function (n) { obs.observe(n); });
+</script>
+</body>
+</html>

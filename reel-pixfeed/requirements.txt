@@ -1,0 +1,12 @@
+# Générateur de Reels PixFeed — dépendances Python
+#
+# Blender et ffmpeg ne s'installent pas par pip : ils doivent être présents
+# sur la machine (Blender 4.0 ou plus, ffmpeg avec ffprobe).
+#
+# Après installation :  python -m playwright install chromium
+# — sauf si l'environnement fournit déjà un Chromium, que capture.py sait
+# détecter tout seul (ou qu'on lui indique par la variable CHROMIUM_BIN).
+
+playwright>=1.40
+pillow>=10.0
+numpy>=1.24

@@ -1,0 +1,6 @@
+#  Tout ce que `make reel` produit est régénérable : rien de out/ n'est
+#  versionné. Le dépôt ne contient que ce qui FABRIQUE la vidéo.
+out/
+__pycache__/
+*.pyc
+*.blend1
