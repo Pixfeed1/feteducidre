@@ -113,7 +113,13 @@ INTERLIGNE = 1.26                       # multiple de la taille
 #  Largeur utile d'une ligne de texte. Volontairement plus large que
 #  l'appareil : une incrustation pleine largeur se lit mieux qu'une
 #  incrustation coincée dans l'écran du téléphone.
-TEXTE_LARGEUR = 9.00
+#
+#  Elle est DÉDUITE de la zone sûre, jamais choisie. Les textes sont centrés
+#  sur x = 0 alors que la zone sûre est asymétrique (la colonne de boutons
+#  d'Instagram mange plus à droite qu'à gauche) : la demi-largeur utilisable
+#  est donc celle du côté LE PLUS ÉTROIT. Écrite en dur à 9,00, elle faisait
+#  dépasser de 31 px à droite le premier nom de client un peu long.
+TEXTE_LARGEUR = 2.0 * min(abs(SUR_X_GAUCHE), SUR_X_DROITE)
 
 #  Blender ne sait ni couper les lignes ni gérer une mise en forme riche :
 #  le retour à la ligne est décidé par le script, à ce nombre de caractères.

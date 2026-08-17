@@ -93,16 +93,22 @@ def t_boucle():
                         "lancez `make demo`")
     b = _exiger_fichier(os.path.join(d, "%04d.png" % G.IMAGE_DERNIERE),
                         "lancez `make demo`")
-    ha = hashlib.sha256(open(a, "rb").read()).hexdigest()
-    hb = hashlib.sha256(open(b, "rb").read()).hexdigest()
+    #  On hache les PIXELS DÉCODÉS, pas les octets du fichier. Deux PNG
+    #  peuvent porter exactement la même image et différer d'un octet dans
+    #  leur en-tête ou leur choix de filtre de compression : le critère
+    #  porte sur l'image, pas sur l'encodage.
+    from PIL import Image
+    import numpy as np
+    x = np.asarray(Image.open(a).convert("RGB"))
+    y = np.asarray(Image.open(b).convert("RGB"))
+    ha = hashlib.sha256(x.tobytes()).hexdigest()
+    hb = hashlib.sha256(y.tobytes()).hexdigest()
     if ha != hb:
-        from PIL import Image
-        import numpy as np
-        x = np.asarray(Image.open(a).convert("RGB"), dtype=int)
-        y = np.asarray(Image.open(b).convert("RGB"), dtype=int)
+        d = np.abs(x.astype(int) - y.astype(int))
         raise Echec("écart maximal %d/255 sur %d pixels"
-                    % (abs(x - y).max(), (abs(x - y).sum(2) > 0).sum()))
-    return "sha256 identique : %s…" % ha[:16]
+                    % (d.max(), (d.sum(2) > 0).sum()))
+    return "%d × %d pixels, sha256 identique : %s…" % (x.shape[1],
+                                                       x.shape[0], ha[:16])
 
 
 def t_zone_sure():

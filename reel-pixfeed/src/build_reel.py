@@ -13,6 +13,7 @@ Options après le nom du projet :
     --images A,B,C   rend seulement ces images-là
     --pas-de-rendu   construit et vérifie seulement
     --sortie CHEMIN  dossier de sortie des images
+    --echantillons N force le nombre d'échantillons (profilage seulement)
 """
 
 import os
@@ -250,7 +251,7 @@ def defilement(ob, hauteur_plan, debut, fin):
         cle(ob, "location", debut, (0.0, y0, 0.0), "LINEAR")
         cle(ob, "location", fin, (0.0, y0, 0.0), "LINEAR")
         return {"course": 0.0, "duree": t, "croisiere": None,
-                "palier": False}
+                "palier": False, "y_fin": y0}
 
     d_max = v * (t - 2 * a) + 2 * marge        # course faisable dans le temps
     if D <= d_max:
@@ -271,7 +272,7 @@ def defilement(ob, hauteur_plan, debut, fin):
             "LINEAR")
         cle(ob, "location", fin, (0.0, y0 + course, 0.0), "LINEAR")
         return {"course": course / A, "duree": 2 * demi, "croisiere": v / A,
-                "palier": False}
+                "palier": False, "y_fin": y0 + course}
 
     ya, yb = y0 + marge, y0 + course - marge
     fa, fb = debut + s(a), debut + s(a + t_lin)
@@ -287,7 +288,7 @@ def defilement(ob, hauteur_plan, debut, fin):
     #  que les deux défilements avancent au même rythme.
     croisiere = (yb - ya) / ((fb - fa) / float(G.IMAGES_PAR_SECONDE)) / A
     return {"course": course / A, "duree": 2 * a + t_lin,
-            "croisiere": croisiere, "palier": True}
+            "croisiere": croisiere, "palier": True, "y_fin": y0 + course}
 
 
 def voile_pour(hauteur_texte):
@@ -433,13 +434,30 @@ def animer(cfg, tailles, hauteurs_txt):
     #  fermeture de boucle ramènerait bien les mêmes pistes, mais en les
     #  faisant dériver lentement sur les quatre-vingts dernières images —
     #  correct au compteur, sale dans la fabrique.
-    r_tot = bou0 - 2                    # appareil et incrustations : éteints
+    r_tot = bou0 - 2                    # incrustations : éteintes
     r_fin = f9 - 2                      # carton de sortie : éteint depuis 592
-    cle(O["SCREEN_BEFORE"], "location", r_tot,
+
+    #  L'APPAREIL D'ABORD, ET SEULEMENT UNE FOIS ÉTEINT.
+    #
+    #  Sans les clés de MAINTIEN ci-dessous, la remise à zéro tirait la
+    #  rotation depuis la fin de la bascule (image 270) jusqu'à l'image 583 :
+    #  la carte se dé-basculait lentement pendant TOUTE la séquence « après ».
+    #  Relevé à l'image 400 : 105° au lieu de 180°, soit le site du client
+    #  écrasé au tiers de sa largeur pendant les huit secondes les plus
+    #  importantes du film. Attrapé par le critère « couleurs », qui ne
+    #  retrouvait plus l'aplat de la page dans la fenêtre de l'écran.
+    r_ecr = sor0 + 12                   # l'échelle de l'appareil vaut 0 ici
+    cle(pivot, "rotation_euler", r_ecr, (0.0, math.pi, 0.0), "LINEAR")
+    cle(O["SCREEN_BEFORE"], "location", r_ecr,
+        (0.0, rapport["avant"]["y_fin"], 0.0), "LINEAR")
+    cle(O["SCREEN_AFTER"], "location", r_ecr,
+        (0.0, rapport["apres"]["y_fin"], 0.0), "LINEAR")
+
+    cle(pivot, "rotation_euler", r_ecr + 2, (0.0, 0.0, 0.0), "LINEAR")
+    cle(O["SCREEN_BEFORE"], "location", r_ecr + 2,
         (0.0, (G.ECRAN_HAUTEUR - tailles["avant"]) / 2.0, 0.0), "LINEAR")
-    cle(O["SCREEN_AFTER"], "location", r_tot,
+    cle(O["SCREEN_AFTER"], "location", r_ecr + 2,
         (0.0, (G.ECRAN_HAUTEUR - tailles["apres"]) / 2.0, 0.0), "LINEAR")
-    cle(pivot, "rotation_euler", r_tot, (0.0, 0.0, 0.0), "LINEAR")
     cle(voile, "scale", r_tot, (1.0, 1.0, 1.0), "LINEAR")
     for nom in (["TXT_HOOK"] + ["TXT_A%d" % i for i in (1, 2, 3)]
                 + ["TXT_B%d" % i for i in (1, 2, 3)]):
@@ -496,6 +514,10 @@ def verifier_zone_sure():
     englobante EN COORDONNÉES DU MONDE, et on tient compte du décalage
     d'apparition : c'est pendant l'entrée que le texte est le plus bas.
     """
+    #  Un pixel de tolérance : un texte ajusté pile à la largeur utile
+    #  arrive à la limite au flottant près, et « dépasser d'un demi-pixel »
+    #  n'est pas dépasser.
+    tol = 1.0 / G.PX_PAR_UNITE
     fautes = []
     noms = [n for n in bpy.data.objects.keys()
             if n.startswith("TXT_")] + ["LOGO"]
@@ -509,16 +531,16 @@ def verifier_zone_sure():
         bas = min(ys) - G.INCRUST_MONTEE          # position basse d'entrée
         haut, gauche, droite = max(ys), min(xs), max(xs)
         d = []
-        if haut > G.SUR_Y_HAUT:
+        if haut > G.SUR_Y_HAUT + tol:
             d.append("dépasse en haut de %.0f px"
                      % ((haut - G.SUR_Y_HAUT) * G.PX_PAR_UNITE))
-        if bas < G.SUR_Y_BAS:
+        if bas < G.SUR_Y_BAS - tol:
             d.append("dépasse en bas de %.0f px"
                      % ((G.SUR_Y_BAS - bas) * G.PX_PAR_UNITE))
-        if gauche < G.SUR_X_GAUCHE:
+        if gauche < G.SUR_X_GAUCHE - tol:
             d.append("dépasse à gauche de %.0f px"
                      % ((G.SUR_X_GAUCHE - gauche) * G.PX_PAR_UNITE))
-        if droite > G.SUR_X_DROITE:
+        if droite > G.SUR_X_DROITE + tol:
             d.append("dépasse à droite de %.0f px"
                      % ((droite - G.SUR_X_DROITE) * G.PX_PAR_UNITE))
         if d:
@@ -579,6 +601,14 @@ def main():
                        in argv[argv.index("--images") + 1].split(",")]
     if "--sortie" in argv:
         sortie = argv[argv.index("--sortie") + 1]
+    if "--echantillons" in argv:
+        #  Pour profiler le coût de l'anticrénelage. La valeur retenue vit
+        #  dans grammar.py, celle-ci ne sert qu'à la mesure.
+        n = int(argv[argv.index("--echantillons") + 1])
+        try:
+            bpy.context.scene.eevee.taa_render_samples = n
+        except AttributeError:
+            pass
 
     cfg = C.charger(os.path.join(RACINE, projet)
                     if not os.path.isabs(projet) else projet)
