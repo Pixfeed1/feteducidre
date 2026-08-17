@@ -194,6 +194,27 @@ make test
 Un critère qui ne peut pas être évalué faute d'artefact n'est **pas** compté
 comme réussi : il est annoncé « non évaluable » et fait échouer la série.
 
+### Résultat mesuré sur le projet de démonstration
+
+**8 critères sur 9.** Le seul qui échoue est `rendu`, et il est borné par la
+machine, pas par le code : **769 s pour 600 images**, soit 1,28 s l'image.
+
+Le coût de l'anticrénelage a été profilé : il est linéaire, **60 ms par
+échantillon et par image**. Passer de 16 à 8 échantillons ramènerait le rendu
+à 6,5 min et ferait passer le critère — mais dégrade 6,5 % des pixels jusqu'à
+84/255, et **93 % de cette perte tombe à l'intérieur de l'écran du site**,
+c'est-à-dire sur ce que la vidéo est précisément censée montrer. On garde 16
+et on rend un chiffre au-dessus du seuil plutôt qu'une image dégradée.
+
+Cette mesure a été prise sur une machine **sans carte graphique**, où EEVEE
+tourne en rastérisation logicielle. Sur un poste de travail équipé d'un GPU,
+le même rendu est d'un tout autre ordre de grandeur — mais ça n'a pas pu être
+vérifié ici, donc ce n'est pas présenté comme acquis.
+
+Le critère `couleurs` passe avec un **écart de 0/255** : l'aplat `#FBFAF6`
+de la page source ressort du rendu à l'identique. C'est la preuve que la
+transformation de vue et l'espace colorimétrique des textures sont justes.
+
 ---
 
 ## La démonstration
