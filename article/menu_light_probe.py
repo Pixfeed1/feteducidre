@@ -90,6 +90,14 @@ ANCIENS_API = {
 VERSION_RENOMMAGE = "4.1"
 VERSION_EEVEE_NEXT = "4.2"
 
+#  --capture <png> : monte une VRAIE capture d'écran à la place du menu
+#  redessiné. Le fichier se produit avec `capturer_menu.py`, sur un poste
+#  doté d'une interface graphique. Tout le reste de la mise en page — les
+#  anciens noms barrés, la note de version, le renommage de l'API — est
+#  strictement identique dans les deux cas.
+CAPTURE = (sys.argv[sys.argv.index("--capture") + 1]
+           if "--capture" in sys.argv else None)
+
 
 def police(chemin, taille):
     try:
@@ -190,7 +198,13 @@ def principal():
     NX, NL = 872, 636                    # le menu actuel
 
     panneau(d, AX, PY, AL, PH, "", actif=False)
-    panneau(d, NX, PY, NL, PH, "", actif=True)
+    if CAPTURE is None:
+        panneau(d, NX, PY, NL, PH, "", actif=True)
+    else:
+        d.rounded_rectangle([NX, PY, NX + NL, PY + PH], 8,
+                            fill=(24, 24, 27), outline=(48, 48, 56), width=2)
+        d.rounded_rectangle([NX, PY, NX + NL, PY + 46], 8, fill=(30, 30, 34))
+        d.rectangle([NX, PY + 34, NX + NL, PY + 46], fill=(30, 30, 34))
 
     d.text((AX + 22, PY + 13), "JUSQU'À BLENDER 4.0   ·   EEVEE LEGACY",
            font=f_tete, fill=GRIS_SOMBRE)
@@ -205,10 +219,48 @@ def principal():
     d.text((lt + 26, PY + 13), "BLENDER %s +" % VERSION_RENOMMAGE,
            font=f_tete, fill=TEAL)
 
+    # -- la vraie capture, si on en a une ----------------------------------
+    if CAPTURE is not None:
+        if not os.path.exists(CAPTURE):
+            raise SystemExit(
+                "capture introuvable : %s\n"
+                "        produisez-la avec :\n"
+                "        blender --python article/capturer_menu.py" % CAPTURE)
+        cap = Image.open(CAPTURE).convert("RGBA")
+        zl, zh = NL - 48, PH - 46 - 40
+        #  On ne dépasse JAMAIS l'échelle 1 : agrandir une capture d'écran
+        #  la rend floue, et une image d'article floue décrédibilise tout le
+        #  reste. Si elle est trop petite, refaites-la avec une échelle
+        #  d'interface plus grande — voir ECHELLE dans capturer_menu.py.
+        k = min(zl / cap.width, zh / cap.height, 1.0)
+        if k < 1.0:
+            cap = cap.resize((int(cap.width * k), int(cap.height * k)),
+                             Image.LANCZOS)
+        cx = NX + (NL - cap.width) // 2
+        cy = PY + 46 + (PH - 46 - cap.height) // 2
+        im.paste(cap, (cx, cy), cap)
+
+        #  Une seule flèche : avec une vraie capture, on ne connaît pas la
+        #  position de chaque ligne dans l'image, et inventer trois flèches
+        #  qui tomberaient à peu près en face serait pire que rien.
+        fy = PY + PH // 2
+        fx0, fx1 = AX + AL + 44, NX - 44
+        d.line([fx0, fy, fx1 - 14, fy], fill=(78, 78, 90), width=3)
+        d.polygon([(fx1, fy), (fx1 - 17, fy - 10), (fx1 - 17, fy + 10)],
+                  fill=(120, 120, 134))
+
+        for i, (cle, _nom) in enumerate(entrees):
+            yl = PY + 78 + i * 76
+            ancien = ANCIENS.get(cle, "?")
+            d.text((AX + 30, yl), ancien, font=f_menu, fill=GRIS_SOMBRE)
+            la = d.textlength(ancien, font=f_menu)
+            d.line([AX + 26, yl + 13, AX + 34 + la, yl + 13], fill=ROUGE,
+                   width=3)
+
     # -- les trois lignes, alignées deux à deux ----------------------------
     y = PY + 78
     PAS = 76
-    for i, (cle, nom) in enumerate(entrees):
+    for i, (cle, nom) in enumerate([] if CAPTURE else entrees):
         yl = y + i * PAS
 
         #  l'ancien nom, barré
