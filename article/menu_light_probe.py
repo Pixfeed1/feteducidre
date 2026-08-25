@@ -45,7 +45,7 @@ le manuel a documenté la sonde de volume pendant six versions.
 import os
 import sys
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 RACINE = os.path.dirname(os.path.abspath(__file__))
 SORTIE = os.path.join(RACINE, "light-probes-anciens-nouveaux-noms.webp")
@@ -67,6 +67,24 @@ BLEU_SEL = (71, 114, 179)           # le bleu de sélection de Blender
 POLICE_G = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 POLICE_R = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
 POLICE_M = "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf"
+
+#  LA POLICE DE BLENDER, LA VRAIE.
+#
+#  Le paquet `bpy` embarque les fichiers de données de Blender, dont sa
+#  police d'interface : Inter. On la convertit une fois du woff2 vers le ttf
+#  (voir extraire_inter.py) et on dessine le menu avec — plus aucune raison
+#  d'approximer avec une Helvetica de substitution.
+POLICE_BLENDER = os.path.join(RACINE, "polices", "Inter-Blender.ttf")
+
+#  L'ÉCHELLE DU MENU RECONSTRUIT.
+#
+#  Blender pose toute son interface sur UI_UNIT_Y = 20 px à l'échelle 1 :
+#  une ligne de menu fait 20 px de haut, une icône 16, le texte 11 points.
+#  À l'échelle 1 le menu ferait 200 px de large dans une image de 1600 —
+#  illisible. On le dessine donc à l'échelle 3, exactement comme Blender le
+#  dessinerait sur un écran à forte densité.
+ECHELLE_UI = 3.0
+UI_UNIT = 20.0
 
 #  Les anciens libellés, dans le même ordre que l'énumération actuelle.
 #  Ils ne peuvent pas être relevés dans le Blender installé — ils n'y sont
@@ -104,6 +122,37 @@ def police(chemin, taille):
         return ImageFont.truetype(chemin, taille)
     except OSError:
         return ImageFont.load_default()
+
+
+def theme_de_blender():
+    """
+    Les couleurs du menu, LUES DANS LE THÈME de Blender.
+
+    Elles étaient jusqu'ici recopiées à l'œil, et fausses : le fond d'un menu
+    vaut 24, 24, 24 et non 43, 43, 43 comme je l'avais estimé. Un aplat trop
+    clair de vingt niveaux, c'est ce qui fait qu'une reconstruction « sent »
+    la reconstruction sans qu'on sache dire pourquoi.
+    """
+    import bpy
+    t = bpy.context.preferences.themes[0].user_interface
+    o = bpy.context.preferences.ui_styles[0].widget
+
+    def px(v):
+        return tuple(int(round(x * 255)) for x in tuple(v)[:3])
+
+    return {
+        "fond": px(t.wcol_menu_back.inner),
+        "bord": px(t.wcol_menu_back.outline),
+        "titre": px(t.wcol_menu_back.text),
+        "texte": px(t.wcol_menu_item.text),
+        "texte_sel": px(t.wcol_menu_item.text_sel),
+        "selection": px(t.wcol_menu_item.inner_sel),
+        "arrondi": t.wcol_menu_back.roundness,
+        "arrondi_item": t.wcol_menu_item.roundness,
+        "ombre": t.menu_shadow_fac,
+        "ombre_largeur": t.menu_shadow_width,
+        "points": o.points,
+    }
 
 
 def libelles_actuels():
@@ -161,6 +210,76 @@ def icone(d, cle, x, y, t, teinte):
 
 # ---------------------------------------------------------------------------
 
+def menu_blender(im, entrees, th, x, y, e=ECHELLE_UI):
+    """
+    Le menu, redessiné aux conventions de Blender.
+
+    Toute la géométrie de l'interface de Blender se déduit d'une seule unité,
+    UI_UNIT_Y = 20 px à l'échelle 1 : une ligne de menu fait une unité de
+    haut, une icône en fait 16/20, le texte 11 points. On applique donc
+    exactement ce barème, multiplié par l'échelle voulue, plutôt que de
+    choisir des hauteurs à l'œil.
+
+    Retourne le rectangle occupé, ombre comprise.
+    """
+    u = UI_UNIT * e
+    #  Blender rend son interface à 72 ppp : un point vaut donc exactement
+    #  un pixel à l'échelle 1. La taille du texte est « points × échelle »,
+    #  sans autre facteur — j'en avais glissé un de 1,34 en croyant à du
+    #  96 ppp, et le texte débordait de sa ligne.
+    police_menu = police(POLICE_BLENDER, int(round(th["points"] * e)))
+
+    marge_x = 0.30 * u                 # retrait du texte et des icônes
+    icone_t = 16.0 / 20.0 * u
+    ecart = 0.42 * u                   # entre l'icône et le libellé
+
+    largeur = max(police_menu.getlength(n) for _c, n in entrees)
+    L_menu = marge_x + icone_t + ecart + largeur + 1.4 * u
+    L_menu = max(L_menu, 7.0 * u)
+    H_menu = u * (len(entrees) + 1) + 0.5 * u        # + la ligne de titre
+
+    r = th["arrondi"] * 0.5 * u
+    ri = th["arrondi_item"] * 0.5 * u
+
+    #  L'OMBRE PORTÉE. Blender en dessine une sous chaque menu ; sans elle
+    #  le panneau a l'air collé au fond au lieu de flotter au-dessus.
+    ombre = Image.new("RGBA", (int(L_menu) + 80, int(H_menu) + 80), (0, 0, 0, 0))
+    do = ImageDraw.Draw(ombre)
+    do.rounded_rectangle([40, 44, 40 + L_menu, 44 + H_menu], r,
+                         fill=(0, 0, 0, int(255 * th["ombre"])))
+    ombre = ombre.filter(ImageFilter.GaussianBlur(th["ombre_largeur"] * e))
+    im.paste(ombre, (int(x) - 40, int(y) - 40), ombre)
+
+    d = ImageDraw.Draw(im, "RGBA")
+    d.rounded_rectangle([x, y, x + L_menu, y + H_menu], r,
+                        fill=th["fond"], outline=th["bord"],
+                        width=max(1, int(e * 0.6)))
+
+    #  La ligne de titre : c'est ce qu'affiche `wm.call_menu`, donc ce que
+    #  produira aussi la vraie capture. Les deux chemins doivent montrer la
+    #  même chose.
+    bb = police_menu.getbbox("Light Probe")
+    d.text((x + marge_x + icone_t + ecart,
+            y + (u - (bb[3] - bb[1])) / 2.0 - bb[1] + 0.10 * u),
+           "Light Probe", font=police_menu, fill=th["titre"])
+
+    y0 = y + u
+    for i, (cle, nom) in enumerate(entrees):
+        yl = y0 + i * u
+        if i == 0:                      # la ligne sous le curseur
+            d.rounded_rectangle([x + 0.12 * u, yl, x + L_menu - 0.12 * u,
+                                 yl + u], ri, fill=th["selection"])
+        teinte = th["texte_sel"] if i == 0 else th["texte"]
+        icone(d, cle, x + marge_x, yl + (u - icone_t) / 2.0, icone_t, teinte)
+        #  Le libellé est centré sur la hauteur de ligne, pas posé dessus :
+        #  Blender centre verticalement le texte de ses menus.
+        h_txt = police_menu.getbbox(nom)[3] - police_menu.getbbox(nom)[1]
+        d.text((x + marge_x + icone_t + ecart,
+                yl + (u - h_txt) / 2.0 - police_menu.getbbox(nom)[1]),
+               nom, font=police_menu, fill=teinte)
+    return L_menu, H_menu
+
+
 def panneau(d, x, y, l, h, tete, actif):
     """Un panneau de menu à la manière de Blender : coins légèrement
     arrondis, en-tête plus sombre, bord franc."""
@@ -192,101 +311,76 @@ def principal():
     d.text((70, 56), "Trois objets, trois nouveaux noms", font=f_titre,
            fill=BLANC)
 
-    # -- les deux panneaux --------------------------------------------------
-    PY, PH = 232, 300
-    AX, AL = 92, 560                     # l'encart des anciens noms
-    NX, NL = 872, 636                    # le menu actuel
+    # -- l'encart des anciens noms, et le menu ----------------------------
+    PY, PH = 226, 312
+    AX, AL = 92, 560                     # l'encart : c'est MON annotation
+    NX = 892                             # le menu : c'est BLENDER
 
     panneau(d, AX, PY, AL, PH, "", actif=False)
-    if CAPTURE is None:
-        panneau(d, NX, PY, NL, PH, "", actif=True)
-    else:
-        d.rounded_rectangle([NX, PY, NX + NL, PY + PH], 8,
-                            fill=(24, 24, 27), outline=(48, 48, 56), width=2)
-        d.rounded_rectangle([NX, PY, NX + NL, PY + 46], 8, fill=(30, 30, 34))
-        d.rectangle([NX, PY + 34, NX + NL, PY + 46], fill=(30, 30, 34))
-
     d.text((AX + 22, PY + 13), "JUSQU'À BLENDER 4.0   ·   EEVEE LEGACY",
            font=f_tete, fill=GRIS_SOMBRE)
-    #  Le chevron est DESSINÉ, pas écrit : Liberation Sans n'a pas U+25B8 et
-    #  le rendait en carré vide.
-    d.text((NX + 22, PY + 13), "ADD", font=f_tete, fill=GRIS)
-    cx = NX + 22 + d.textlength("ADD", font=f_tete) + 14
-    cy = PY + 24
-    d.polygon([(cx, cy - 6), (cx + 9, cy), (cx, cy + 6)], fill=GRIS)
+
+    #  Le fil d'Ariane est posé AU-DESSUS du menu, pas dedans : ce qui est
+    #  de Blender doit rester de Blender, ce qui est de moi doit se voir
+    #  comme tel. Le chevron est dessiné, pas écrit — les polices employées
+    #  ici n'ont pas U+25B8 et le rendaient en carré vide.
+    d.text((NX, PY + 13), "ADD", font=f_tete, fill=GRIS)
+    cx = NX + d.textlength("ADD", font=f_tete) + 14
+    d.polygon([(cx, PY + 18), (cx + 9, PY + 24), (cx, PY + 30)], fill=GRIS)
     d.text((cx + 22, PY + 13), "LIGHT PROBE", font=f_tete, fill=GRIS)
     lt = cx + 22 + d.textlength("LIGHT PROBE", font=f_tete)
     d.text((lt + 26, PY + 13), "BLENDER %s +" % VERSION_RENOMMAGE,
            font=f_tete, fill=TEAL)
 
-    # -- la vraie capture, si on en a une ----------------------------------
-    if CAPTURE is not None:
+    # -- les trois anciens noms, barrés ------------------------------------
+    for i, (cle, _nom) in enumerate(entrees):
+        yl = PY + 84 + i * 76
+        ancien = ANCIENS.get(cle, "?")
+        d.text((AX + 30, yl), ancien, font=f_menu, fill=GRIS_SOMBRE)
+        la = d.textlength(ancien, font=f_menu)
+        #  À hauteur d'x, pas sur la ligne de base : une rature posée trop
+        #  bas se lit comme un soulignement et coupe les jambages.
+        d.line([AX + 26, yl + 13, AX + 34 + la, yl + 13], fill=ROUGE,
+               width=3)
+
+    # -- le menu ------------------------------------------------------------
+    MY = PY + 54
+    if CAPTURE is None:
+        lm, hm = menu_blender(im, entrees, theme_de_blender(), NX, MY)
+    else:
         if not os.path.exists(CAPTURE):
             raise SystemExit(
                 "capture introuvable : %s\n"
                 "        produisez-la avec :\n"
                 "        blender --python article/capturer_menu.py" % CAPTURE)
         cap = Image.open(CAPTURE).convert("RGBA")
-        zl, zh = NL - 48, PH - 46 - 40
         #  On ne dépasse JAMAIS l'échelle 1 : agrandir une capture d'écran
-        #  la rend floue, et une image d'article floue décrédibilise tout le
-        #  reste. Si elle est trop petite, refaites-la avec une échelle
-        #  d'interface plus grande — voir ECHELLE dans capturer_menu.py.
-        k = min(zl / cap.width, zh / cap.height, 1.0)
+        #  la rend floue, et une image d'article floue décrédibilise le
+        #  reste. Trop petite ? Refaites-la avec une échelle d'interface
+        #  plus grande — voir ECHELLE dans capturer_menu.py.
+        k = min((L - 92 - NX) / cap.width, (PH - 54) / cap.height, 1.0)
         if k < 1.0:
             cap = cap.resize((int(cap.width * k), int(cap.height * k)),
                              Image.LANCZOS)
-        cx = NX + (NL - cap.width) // 2
-        cy = PY + 46 + (PH - 46 - cap.height) // 2
-        im.paste(cap, (cx, cy), cap)
+        im.paste(cap, (NX, MY), cap)
+        lm, hm = cap.width, cap.height
 
-        #  Une seule flèche : avec une vraie capture, on ne connaît pas la
-        #  position de chaque ligne dans l'image, et inventer trois flèches
-        #  qui tomberaient à peu près en face serait pire que rien.
-        fy = PY + PH // 2
-        fx0, fx1 = AX + AL + 44, NX - 44
-        d.line([fx0, fy, fx1 - 14, fy], fill=(78, 78, 90), width=3)
-        d.polygon([(fx1, fy), (fx1 - 17, fy - 10), (fx1 - 17, fy + 10)],
+    #  Une flèche par ligne quand le menu est reconstruit — on connaît alors
+    #  la position exacte de chaque entrée. Une seule flèche quand c'est une
+    #  vraie capture : on ne sait pas où tombent ses lignes, et en inventer
+    #  trois qui arriveraient à peu près en face serait pire que rien.
+    u = UI_UNIT * ECHELLE_UI
+    if CAPTURE is None:
+        cibles = [MY + u + i * u + u / 2 for i in range(len(entrees))]
+        depart = [PY + 84 + i * 76 + 20 for i in range(len(entrees))]
+    else:
+        cibles = [MY + hm / 2]
+        depart = [PY + 84 + 76 + 20]
+    for ya, yb in zip(depart, cibles):
+        fx0, fx1 = AX + AL + 40, NX - 40
+        d.line([fx0, ya, fx1 - 14, yb], fill=(78, 78, 90), width=2)
+        d.polygon([(fx1, yb), (fx1 - 15, yb - 8), (fx1 - 15, yb + 8)],
                   fill=(120, 120, 134))
-
-        for i, (cle, _nom) in enumerate(entrees):
-            yl = PY + 78 + i * 76
-            ancien = ANCIENS.get(cle, "?")
-            d.text((AX + 30, yl), ancien, font=f_menu, fill=GRIS_SOMBRE)
-            la = d.textlength(ancien, font=f_menu)
-            d.line([AX + 26, yl + 13, AX + 34 + la, yl + 13], fill=ROUGE,
-                   width=3)
-
-    # -- les trois lignes, alignées deux à deux ----------------------------
-    y = PY + 78
-    PAS = 76
-    for i, (cle, nom) in enumerate([] if CAPTURE else entrees):
-        yl = y + i * PAS
-
-        #  l'ancien nom, barré
-        ancien = ANCIENS.get(cle, "?")
-        d.text((AX + 30, yl), ancien, font=f_menu, fill=GRIS_SOMBRE)
-        la = d.textlength(ancien, font=f_menu)
-        #  À hauteur d'x, pas sur la ligne de base : une rature posée trop
-        #  bas se lit comme un soulignement et coupe les jambages.
-        yr = yl + 13
-        d.line([AX + 26, yr, AX + 34 + la, yr], fill=ROUGE, width=3)
-
-        #  la flèche
-        fx0, fx1 = AX + AL + 44, NX - 44
-        fy = yl + 20
-        d.line([fx0, fy, fx1 - 12, fy], fill=(78, 78, 90), width=2)
-        d.polygon([(fx1, fy), (fx1 - 15, fy - 8), (fx1 - 15, fy + 8)],
-                  fill=(120, 120, 134))
-
-        #  la ligne de menu : la première est surlignée, comme un menu
-        #  réellement ouvert sous le curseur
-        if i == 0:
-            d.rounded_rectangle([NX + 8, yl - 12, NX + NL - 8, yl + 52], 4,
-                                fill=BLEU_SEL)
-        icone(d, cle, NX + 26, yl - 4, 42,
-              BLANC if i == 0 else (196, 196, 200))
-        d.text((NX + 88, yl), nom, font=f_menu, fill=BLANC)
 
     # -- la moitié basse : deux blocs, pas un bloc et du vide --------------
     yn = PY + PH + 56
@@ -329,9 +423,9 @@ def principal():
     #  dans la légende. Une image technique qui ne dit pas d'où viennent ses
     #  libellés demande une confiance qu'elle n'a pas méritée.
     f_prov = police(POLICE_R, 19)
-    prov = ("Libellés et identifiants actuels relevés dans Blender %s, à la "
-            "source même du menu : LightProbe.bl_rna.properties['type']"
-            % version)
+    prov = ("Menu redessiné avec la police (Inter), le thème et les mesures "
+            "d'interface de Blender %s ; libellés lus dans "
+            "LightProbe.bl_rna.properties['type']" % version)
     d.text((L - 70 - d.textlength(prov, font=f_prov), H - 46), prov,
            font=f_prov, fill=(74, 74, 84))
 
