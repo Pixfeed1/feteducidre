@@ -1,0 +1,4 @@
+#  Les rendus sont des artefacts : ils se refabriquent par
+#      python3 article/light_probes_eevee_next.py
+#  Seul le script est versionné.
+*.png
