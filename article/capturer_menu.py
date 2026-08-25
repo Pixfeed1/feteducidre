@@ -77,6 +77,26 @@ def dossier_de_sortie():
 DOSSIER = dossier_de_sortie()
 SORTIE = os.path.join(DOSSIER, "menu-capture.png")
 BRUTE = os.path.join(DOSSIER, "menu-capture-brute.png")
+JOURNAL = os.path.join(DOSSIER, "menu-capture.log")
+
+
+def dire(*morceaux):
+    """
+    Tout ce que le script raconte part À LA FOIS dans la console et dans un
+    fichier, à côté des images.
+
+    Lancé depuis un raccourci ou un gestionnaire de fichiers, Blender n'ouvre
+    aucune console : le script se déroulait, échouait parfois, et se fermait
+    sans laisser la moindre trace de ce qui s'était passé. Un journal sur
+    disque coûte trois lignes et évite d'avoir à deviner.
+    """
+    ligne = " ".join(str(m) for m in morceaux)
+    print(ligne)
+    try:
+        with open(JOURNAL, "a", encoding="utf-8") as f:
+            f.write(ligne + "\n")
+    except OSError:
+        pass
 
 MENU = "VIEW3D_MT_lightprobe_add"
 CLE = (1.0, 0.0, 1.0)              # le magenta d'incrustation
@@ -184,17 +204,16 @@ def detourer(rect):
 
     zone = a[iy0:iy1, ix0:ix1]
     if zone.size == 0:
-        print("  ÉCHEC : la vue 3D est hors de la capture.")
+        dire("  ECHEC : la vue 3D est hors de la capture.")
         return False
 
     utile = ~est_magenta(zone)
     lignes = np.where(utile.any(axis=1))[0]
     colonnes = np.where(utile.any(axis=0))[0]
     if not len(lignes) or not len(colonnes):
-        print("  ÉCHEC : aucune zone non magenta dans la vue 3D — le menu "
-              "ne s'est pas déroulé.")
-        print("  Essayez en laissant la souris AU MILIEU de la fenêtre "
-              "de Blender au lancement.")
+        dire("  ECHEC : aucune zone non magenta dans la vue 3D.")
+        dire("  Le menu ne s'est pas deroule. Relancez en laissant la "
+             "souris AU MILIEU de la fenetre de Blender.")
         return False
 
     y0 = max(0, lignes[0] - MARGE) + iy0
@@ -208,16 +227,13 @@ def detourer(rect):
     coupe[est_magenta(coupe)] = (0.0, 0.0, 0.0, 0.0)
     ecrire(coupe, SORTIE)
 
-    print()
-    print("  menu détouré : %d × %d px" % (x1 - x0, y1 - y0))
+    dire("  menu detoure : %d x %d px" % (x1 - x0, y1 - y0))
     if (x1 - x0) > lv * 0.9:
-        print("  ATTENTION : le découpage fait presque toute la largeur de "
-              "la vue.")
-        print("  Le menu ne s'est probablement pas déroulé — vérifiez %s."
-              % os.path.basename(BRUTE))
-    print()
-    print("  CAPTURE   %s" % SORTIE)
-    print("  fenêtre   %s" % BRUTE)
+        dire("  ATTENTION : le decoupage fait presque toute la largeur.")
+        dire("  Le menu ne s'est probablement pas deroule - regardez %s."
+             % os.path.basename(BRUTE))
+    dire("  CAPTURE   %s" % SORTIE)
+    dire("  fenetre   %s" % BRUTE)
     return True
 
 
@@ -231,10 +247,9 @@ def detourer(rect):
 def _derouler():
     w, a, r = vue3d()
     if a is None:
-        print("  ÉCHEC : aucune vue 3D.")
-        print("  Ce script demande un Blender AVEC interface : lancez-le "
-              "sans l'option -b.")
-        bpy.ops.wm.quit_blender()
+        dire("  ECHEC : aucune vue 3D.")
+        dire("  Ce script demande un Blender AVEC interface : lancez-le "
+             "sans l'option -b.")
         return None
     preparer()
     w, a, r = vue3d()                  # l'aire a changé avec le plein écran
@@ -256,13 +271,24 @@ def _photographier():
 def _ranger():
     ok = detourer(_etat["rect"])
     restaurer()
-    if "--rester" not in ARGS:
+    #  On ne referme QUE si ça a marché. Un échec qui ferme la fenêtre ne
+    #  laisse rien à regarder : mieux vaut rester ouvert avec le journal à
+    #  côté des images.
+    if ok and "--rester" not in ARGS:
         bpy.ops.wm.quit_blender()
+    else:
+        dire("  Blender reste ouvert : le journal est dans %s"
+             % os.path.basename(JOURNAL))
     return None
 
 
 if __name__ == "__main__":
-    print()
-    print("  capture de %s" % MENU)
-    print("  sortie prévue : %s" % SORTIE)
+    try:
+        os.remove(JOURNAL)
+    except OSError:
+        pass
+    dire("")
+    dire("  capture de %s" % MENU)
+    dire("  Blender %s" % bpy.app.version_string)
+    dire("  dossier de sortie : %s" % DOSSIER)
     bpy.app.timers.register(_derouler, first_interval=1.0)
