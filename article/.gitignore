@@ -14,3 +14,7 @@ __pycache__/
 #  Les rendus de la campagne de mesure : artefacts, refabricables par
 #      python3 article/mesurer_bake.py
 mesures-bake/
+
+#  Les passes de la demonstration de fuite : refabricables par
+#      python3 article/fuite_lumiere.py
+fuite/
