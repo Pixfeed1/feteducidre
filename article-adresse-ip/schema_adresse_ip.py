@@ -55,35 +55,12 @@ SORTIE = os.path.join(RACINE, "adresse-ip-locale-publique-box.webp")
 L, H = 1600, 900
 QUALITE = 92
 
-# ---------------------------------------------------------------------------
-#  LA PALETTE, EN CLAIR
-# ---------------------------------------------------------------------------
-#  Première version sur fond noir. Le fond sombre va bien à une figure
-#  technique posée au milieu d'un article, beaucoup moins à une image à la une
-#  qui apparaît en vignette dans un fil, entre des extraits de texte sur blanc.
-#
-#  Repasser en clair n'est pas inverser les valeurs : les deux teintes de sens
-#  étaient choisies pour briller sur du noir et deviennent illisibles sur du
-#  blanc. Elles sont donc reprises plus sombres, et `verifier_contrastes()`
-#  contrôle qu'aucune ne passe sous 4,5:1 — le seuil au-delà duquel un texte
-#  cesse d'être confortable.
-FOND = (246, 247, 250)
-PANNEAU = (255, 255, 255)
-BORD = (216, 220, 228)
-ENCRE = (24, 26, 34)            # le texte fort
-GRIS = (92, 98, 112)
-FAIBLE = (132, 138, 152)
-LOCAL = (6, 119, 97)            # ce qui reste chez vous — foncé
-                                # jusqu'à passer le seuil : à
-                                # (10, 132, 108) il tombait à
-                                # 4,33:1, sous les 4,5 requis
-PUBLIC = (98, 44, 200)          # ce qui circule — le violet de la charte, foncé
-ECRAN = (234, 237, 242)
-TRAIT = (206, 211, 220)
-
-POLICE_G = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
-POLICE_R = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
-POLICE_M = "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf"
+#  La palette, les polices et le contrôle de contraste vivent dans `charte.py`
+#  et sont partagés par toutes les figures de l'article. Deux figures qui se
+#  suivent avec deux verts différents se lisent comme deux articles.
+from charte import (FOND, PANNEAU, BORD, ENCRE, GRIS, FAIBLE, TRAIT, ECRAN,
+                    LOCAL, PUBLIC, POLICE_G, POLICE_R, POLICE_M, QUALITE,
+                    police, verifier)
 
 FRONTIERE = 800                 # l'abscisse de la limite, au milieu de la box
 
@@ -95,12 +72,6 @@ APPAREILS = (
 IP_BOX_LOCALE = "192.168.1.1"
 IP_PUBLIQUE = "88.120.34.7"
 
-
-def police(chemin, taille):
-    try:
-        return ImageFont.truetype(chemin, taille)
-    except OSError:
-        return ImageFont.load_default()
 
 
 def pointilles(d, x, y0, y1, couleur, pas=14, plein=7, largeur=2):
@@ -195,43 +166,10 @@ def navigateur(d, x0, y0, w, h, f_petit, f_ip, f_txt):
            "  l'appareil que vous utilisez.", font=f_txt, fill=FAIBLE)
 
 
-def contraste(a, b):
-    """Le rapport de contraste WCAG entre deux couleurs."""
-    def lum(c):
-        v = []
-        for x in c[:3]:
-            x /= 255.0
-            v.append(x / 12.92 if x <= 0.04045
-                     else ((x + 0.055) / 1.055) ** 2.4)
-        return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]
-    l1, l2 = sorted((lum(a), lum(b)), reverse=True)
-    return (l1 + 0.05) / (l2 + 0.05)
-
-
-def verifier_contrastes():
-    """
-    Une couleur choisie à l'œil sur fond blanc se lit mal une fois imprimée en
-    petit dans un fil d'actualité. On mesure, et on refuse plutôt que de
-    livrer illisible. 4,5:1 est le seuil de confort pour du texte courant.
-    """
-    a_verifier = (("texte fort", ENCRE, 4.5), ("texte gris", GRIS, 4.5),
-                  ("mention faible", FAIBLE, 3.0),
-                  ("adresse locale", LOCAL, 4.5),
-                  ("adresse publique", PUBLIC, 4.5))
-    faibles = []
-    for nom, couleur, seuil in a_verifier:
-        r = contraste(couleur, FOND)
-        print("  %-18s %-16s %.2f:1  %s"
-              % (nom, str(couleur), r, "ok" if r >= seuil else "INSUFFISANT"))
-        if r < seuil:
-            faibles.append("%s (%.2f:1 < %.1f)" % (nom, r, seuil))
-    if faibles:
-        raise SystemExit("contraste insuffisant sur fond clair : "
-                         + ", ".join(faibles))
 
 
 def principal():
-    verifier_contrastes()
+    verifier()
     out = Image.new("RGB", (L, H), FOND)
     d = ImageDraw.Draw(out, "RGBA")
 
