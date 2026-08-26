@@ -55,15 +55,31 @@ SORTIE = os.path.join(RACINE, "adresse-ip-locale-publique-box.webp")
 L, H = 1600, 900
 QUALITE = 92
 
-ENCRE = (14, 14, 19)
-PANNEAU = (23, 23, 30)
-BORD = (44, 44, 55)
-BLANC = (240, 240, 246)
-GRIS = (152, 152, 164)
-FAIBLE = (108, 108, 122)
-LOCAL = (72, 224, 184)          # ce qui reste chez vous
-PUBLIC = (154, 100, 250)        # ce qui circule — le violet de la charte
-ECRAN = (33, 33, 42)
+# ---------------------------------------------------------------------------
+#  LA PALETTE, EN CLAIR
+# ---------------------------------------------------------------------------
+#  Première version sur fond noir. Le fond sombre va bien à une figure
+#  technique posée au milieu d'un article, beaucoup moins à une image à la une
+#  qui apparaît en vignette dans un fil, entre des extraits de texte sur blanc.
+#
+#  Repasser en clair n'est pas inverser les valeurs : les deux teintes de sens
+#  étaient choisies pour briller sur du noir et deviennent illisibles sur du
+#  blanc. Elles sont donc reprises plus sombres, et `verifier_contrastes()`
+#  contrôle qu'aucune ne passe sous 4,5:1 — le seuil au-delà duquel un texte
+#  cesse d'être confortable.
+FOND = (246, 247, 250)
+PANNEAU = (255, 255, 255)
+BORD = (216, 220, 228)
+ENCRE = (24, 26, 34)            # le texte fort
+GRIS = (92, 98, 112)
+FAIBLE = (132, 138, 152)
+LOCAL = (6, 119, 97)            # ce qui reste chez vous — foncé
+                                # jusqu'à passer le seuil : à
+                                # (10, 132, 108) il tombait à
+                                # 4,33:1, sous les 4,5 requis
+PUBLIC = (98, 44, 200)          # ce qui circule — le violet de la charte, foncé
+ECRAN = (234, 237, 242)
+TRAIT = (206, 211, 220)
 
 POLICE_G = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 POLICE_R = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
@@ -148,10 +164,11 @@ def la_box(d, cx, cy, w):
     x0, y0 = cx - w // 2, cy - h // 2
     #  Deux antennes, l'une de chaque côté — le détail qui la fait reconnaître.
     for dx in (-w // 3, w // 3):
-        d.line([cx + dx, y0, cx + dx, y0 - 34], fill=BORD, width=5)
-        d.ellipse([cx + dx - 6, y0 - 44, cx + dx + 6, y0 - 32], fill=BORD)
+        d.line([cx + dx, y0, cx + dx, y0 - 34], fill=(168, 174, 186), width=5)
+        d.ellipse([cx + dx - 6, y0 - 44, cx + dx + 6, y0 - 32],
+                  fill=(168, 174, 186))
     d.rounded_rectangle([x0, y0, x0 + w, y0 + h], radius=14,
-                        fill=(30, 30, 38), outline=(92, 92, 108), width=3)
+                        fill=PANNEAU, outline=(120, 128, 142), width=3)
     #  Les diodes : vert d'eau côté maison, violet côté Internet.
     for i, coul in enumerate((LOCAL, LOCAL, PUBLIC)):
         px = x0 + 26 + i * 22
@@ -161,11 +178,11 @@ def la_box(d, cx, cy, w):
 def navigateur(d, x0, y0, w, h, f_petit, f_ip, f_txt):
     d.rounded_rectangle([x0, y0, x0 + w, y0 + h], radius=14,
                         fill=PANNEAU, outline=BORD, width=2)
-    d.rounded_rectangle([x0, y0, x0 + w, y0 + 46], radius=14, fill=(31, 31, 40))
-    d.rectangle([x0, y0 + 32, x0 + w, y0 + 46], fill=(31, 31, 40))
+    d.rounded_rectangle([x0, y0, x0 + w, y0 + 46], radius=14, fill=ECRAN)
+    d.rectangle([x0, y0 + 32, x0 + w, y0 + 46], fill=ECRAN)
     for i in range(3):
         d.ellipse([x0 + 20 + i * 20, y0 + 17, x0 + 30 + i * 20, y0 + 27],
-                  fill=(72, 72, 86))
+                  fill=(196, 202, 212))
     d.text((x0 + 96, y0 + 13), "un-site-quelconque.fr", font=f_petit,
            fill=FAIBLE)
 
@@ -178,8 +195,44 @@ def navigateur(d, x0, y0, w, h, f_petit, f_ip, f_txt):
            "  l'appareil que vous utilisez.", font=f_txt, fill=FAIBLE)
 
 
+def contraste(a, b):
+    """Le rapport de contraste WCAG entre deux couleurs."""
+    def lum(c):
+        v = []
+        for x in c[:3]:
+            x /= 255.0
+            v.append(x / 12.92 if x <= 0.04045
+                     else ((x + 0.055) / 1.055) ** 2.4)
+        return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]
+    l1, l2 = sorted((lum(a), lum(b)), reverse=True)
+    return (l1 + 0.05) / (l2 + 0.05)
+
+
+def verifier_contrastes():
+    """
+    Une couleur choisie à l'œil sur fond blanc se lit mal une fois imprimée en
+    petit dans un fil d'actualité. On mesure, et on refuse plutôt que de
+    livrer illisible. 4,5:1 est le seuil de confort pour du texte courant.
+    """
+    a_verifier = (("texte fort", ENCRE, 4.5), ("texte gris", GRIS, 4.5),
+                  ("mention faible", FAIBLE, 3.0),
+                  ("adresse locale", LOCAL, 4.5),
+                  ("adresse publique", PUBLIC, 4.5))
+    faibles = []
+    for nom, couleur, seuil in a_verifier:
+        r = contraste(couleur, FOND)
+        print("  %-18s %-16s %.2f:1  %s"
+              % (nom, str(couleur), r, "ok" if r >= seuil else "INSUFFISANT"))
+        if r < seuil:
+            faibles.append("%s (%.2f:1 < %.1f)" % (nom, r, seuil))
+    if faibles:
+        raise SystemExit("contraste insuffisant sur fond clair : "
+                         + ", ".join(faibles))
+
+
 def principal():
-    out = Image.new("RGB", (L, H), ENCRE)
+    verifier_contrastes()
+    out = Image.new("RGB", (L, H), FOND)
     d = ImageDraw.Draw(out, "RGBA")
 
     f_zone = police(POLICE_G, 22)
@@ -192,9 +245,9 @@ def principal():
 
     #  LA FRONTIÈRE. Elle est tracée avant tout le reste : c'est le fond sur
     #  lequel les deux mondes se distinguent.
-    pointilles(d, FRONTIERE, 96, H - 210, (68, 68, 84))
-    d.rectangle([0, 96, FRONTIERE, H - 210], fill=(72, 224, 184, 8))
-    d.rectangle([FRONTIERE, 96, L, H - 210], fill=(154, 100, 250, 8))
+    pointilles(d, FRONTIERE, 96, H - 210, (176, 182, 194))
+    d.rectangle([0, 96, FRONTIERE, H - 210], fill=(6, 119, 97, 14))
+    d.rectangle([FRONTIERE, 96, L, H - 210], fill=(98, 44, 200, 12))
 
     d.text((70, 58), "CHEZ VOUS", font=f_zone, fill=LOCAL)
     d.text((70, 88), "votre réseau local", font=f_petit, fill=FAIBLE)
@@ -209,13 +262,13 @@ def principal():
     ys = (250, 400, 550)
     for (cle, nom, ip), y in zip(APPAREILS, ys):
         DESSIN[cle](d, 150, y, 96, LOCAL)
-        d.text((232, y - 26), nom, font=f_nom, fill=BLANC)
+        d.text((232, y - 26), nom, font=f_nom, fill=ENCRE)
         d.text((232, y + 6), ip, font=f_ip, fill=LOCAL)
-        fleche(d, 470, y, 660, 400, (72, 224, 184, 130), 2, 10)
+        fleche(d, 470, y, 660, 400, (6, 119, 97, 120), 2, 10)
 
     #  LA BOX, posée sur la frontière.
     la_box(d, FRONTIERE, 400, 190)
-    d.text((FRONTIERE - 30, 486), "LA BOX", font=f_zone, fill=BLANC)
+    d.text((FRONTIERE - 30, 486), "LA BOX", font=f_zone, fill=ENCRE)
     d.text((FRONTIERE - 236, 528), IP_BOX_LOCALE, font=f_ip, fill=LOCAL)
     d.text((FRONTIERE + 40, 528), IP_PUBLIQUE, font=f_ip, fill=PUBLIC)
     d.text((FRONTIERE - 236, 560), "son adresse côté maison", font=f_petit,
@@ -242,7 +295,7 @@ def principal():
 
     #  LES DEUX RÔLES, écrits en toutes lettres sous le schéma.
     yb = H - 178
-    d.line([70, yb - 20, L - 70, yb - 20], fill=(40, 40, 50), width=1)
+    d.line([70, yb - 20, L - 70, yb - 20], fill=TRAIT, width=1)
     for x, coul, titre, lignes in (
             (70, LOCAL, "L'ADRESSE LOCALE reste chez vous",
              ["Attribuée par la box à chaque appareil. Elle sert à",
@@ -253,7 +306,7 @@ def principal():
               "que les sites voient, et elle est la même pour tous vos",
               "appareils : ils passent tous par la même porte."])):
         d.rectangle([x, yb + 2, x + 8, yb + 26], fill=coul)
-        d.text((x + 22, yb - 2), titre, font=police(POLICE_G, 24), fill=BLANC)
+        d.text((x + 22, yb - 2), titre, font=police(POLICE_G, 24), fill=ENCRE)
         for i, ligne in enumerate(lignes):
             d.text((x + 22, yb + 38 + i * 29), ligne, font=f_note, fill=GRIS)
 
@@ -272,7 +325,7 @@ def principal():
            "Schéma en IPv4, le cas le plus courant. En IPv6, il n'y a pas de "
            "traduction : chaque appareil porte en plus sa propre adresse "
            "publique.",
-           font=f_petit, fill=(88, 88, 100))
+           font=f_petit, fill=FAIBLE)
 
     out.save(SORTIE, "WEBP", quality=QUALITE, method=6)
     print()
