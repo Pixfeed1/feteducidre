@@ -1,0 +1,58 @@
+{
+  "cloison_m": 0.3,
+  "surfels": 28,
+  "bake_samples": 1024,
+  "resolution": [
+    900,
+    600
+  ],
+  "echantillons": 24,
+  "controle": [
+    0.56,
+    0.86,
+    0.34,
+    0.62
+  ],
+  "plancher": 28.825,
+  "fuite": 23.63,
+  "reste": 1.993,
+  "passes": [
+    {
+      "nom": "grossiere",
+      "resolution": [
+        4,
+        3,
+        2
+      ],
+      "maille_m": [
+        2.125,
+        1.833,
+        1.75
+      ],
+      "luminance": 52.455,
+      "image": "fuite/grossiere.png"
+    },
+    {
+      "nom": "fine",
+      "resolution": [
+        40,
+        24,
+        14
+      ],
+      "maille_m": [
+        0.212,
+        0.229,
+        0.25
+      ],
+      "luminance": 30.818,
+      "image": "fuite/fine.png"
+    },
+    {
+      "nom": "sans-sonde",
+      "resolution": null,
+      "maille_m": null,
+      "luminance": 28.825,
+      "image": "fuite/sans-sonde.png"
+    }
+  ]
+}
