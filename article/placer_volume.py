@@ -66,6 +66,20 @@ F_Z0, F_Z1 = 0.65, 2.50
 DEBORD = 0.18
 RESOLUTION_SONDE = (11, 12, 6)
 
+#  LES PAROIS QU'ON RETIRE DE LA VUE — la coupe.
+#
+#  Première capture : toutes les cloisons en place et les rayons X à 0,42.
+#  Résultat, une masse sombre translucide où l'on ne distingue ni les murs,
+#  ni la fenêtre, ni les meubles — donc rien de ce que le volume est censé
+#  déborder. Une pièce fermée photographiée de l'extérieur ne montre qu'une
+#  boîte, et la question posée est justement le rapport entre cette boîte et
+#  ses murs.
+#
+#  On enlève donc les trois parois placées entre la caméra et l'intérieur.
+#  Les autres restent, et ce sont elles qui servent de repère : le volume les
+#  dépasse visiblement en haut et dans les angles.
+MASQUES = ("Plafond", "Mur_avant", "Mur_droite")
+
 #  Le teal des sondes dans Blender, pour le tracé filaire de l'aperçu.
 TEAL = (0.28, 0.88, 0.72)
 GRIS = (0.62, 0.64, 0.70)
@@ -315,9 +329,16 @@ def regler_vue_3d(espace):
             continue
         sp = zone.spaces.active
         sp.shading.type = 'SOLID'
-        sp.shading.show_xray = True
-        sp.shading.xray_alpha = 0.42
+        #  Plus de rayons X : la coupe fait le travail, et mieux. Les rayons X
+        #  délavent tout — murs, sol, meubles et gizmo prennent la même teinte
+        #  fantôme, et on perd la seule chose qu'on voulait montrer.
+        sp.shading.show_xray = False
         sp.overlay.show_overlays = True
+        #  Le fil de fer par-dessus le solide : il dessine l'arête des murs,
+        #  donc la limite exacte que le volume dépasse. Sans lui, deux surfaces
+        #  grises voisines se lisent comme une seule.
+        sp.overlay.show_wireframes = True
+        sp.overlay.wireframe_opacity = 0.55
         sp.lens = 42.0
         for region in zone.regions:
             if region.type == 'WINDOW' and region.data is not None:
@@ -332,6 +353,21 @@ def regler_vue_3d(espace):
                 rv.update()
                 n += 1
         zone.tag_redraw()
+    return n
+
+
+def couper_les_parois(pour_le_rendu=False):
+    """Retirer de la vue les parois qui bouchent le regard. Voir MASQUES."""
+    n = 0
+    for nom in MASQUES:
+        ob = bpy.data.objects.get(nom)
+        if ob is None:
+            continue
+        #  `hide_viewport` est une propriété simple : elle ne dépend d'aucun
+        #  contexte, contrairement à `hide_set()` qui veut une couche de vue.
+        ob.hide_viewport = True
+        ob.hide_render = pour_le_rendu
+        n += 1
     return n
 
 
@@ -493,8 +529,9 @@ def filaire(ob, couleur, epaisseur):
 def apercu():
     sortie = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                           "placer-irradiance-volume-apercu.png")
+    couper_les_parois(pour_le_rendu=True)
     for ob in list(bpy.data.objects):
-        if ob.type == 'MESH':
+        if ob.type == 'MESH' and not ob.hide_render:
             filaire(ob, GRIS, 0.014)
 
     s = bpy.data.objects["VOLUME_PROBE"]
@@ -545,6 +582,7 @@ def main():
     #  à l'éditeur Properties son onglet Object Data : cet onglet n'existe
     #  dans la liste des valeurs acceptées que s'il y a un objet actif.
     activer_la_sonde(s)
+    print("  parois retirees de la vue : %d" % couper_les_parois())
     espace = aller_sur_layout()
     if espace is None:
         espace = bpy.context.window.workspace
