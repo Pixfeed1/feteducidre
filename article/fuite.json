@@ -3,19 +3,19 @@
   "surfels": 28,
   "bake_samples": 1024,
   "resolution": [
-    900,
-    600
+    1500,
+    1000
   ],
-  "echantillons": 24,
+  "echantillons": 128,
   "controle": [
     0.56,
     0.86,
     0.34,
     0.62
   ],
-  "plancher": 28.825,
-  "fuite": 23.63,
-  "reste": 1.993,
+  "plancher": 28.526,
+  "fuite": 23.728,
+  "reste": 1.991,
   "passes": [
     {
       "nom": "grossiere",
@@ -29,7 +29,7 @@
         1.833,
         1.75
       ],
-      "luminance": 52.455,
+      "luminance": 52.254,
       "image": "fuite/grossiere.png"
     },
     {
@@ -44,14 +44,14 @@
         0.229,
         0.25
       ],
-      "luminance": 30.818,
+      "luminance": 30.517,
       "image": "fuite/fine.png"
     },
     {
       "nom": "sans-sonde",
       "resolution": null,
       "maille_m": null,
-      "luminance": 28.825,
+      "luminance": 28.526,
       "image": "fuite/sans-sonde.png"
     }
   ]

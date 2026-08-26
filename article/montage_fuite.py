@@ -92,7 +92,7 @@ def principal():
     hv = int(round(VIGNETTE_L * h0 / w0))
 
     L = MARGE * 2 + VIGNETTE_L * 2 + GOUTTIERE
-    H = MARGE + BANDE_TITRE + hv + 30 + 118 + 30 + 27 * 4 + 46 + MARGE
+    H = MARGE + BANDE_TITRE + hv + 30 + 118 + 30 + 27 * 4 + 72 + MARGE
     out = Image.new("RGB", (L, H), ENCRE)
     d = ImageDraw.Draw(out, "RGBA")
 
@@ -126,21 +126,35 @@ def principal():
         d.text((x + 22, yb - 4), titre, font=f_col, fill=BLANC)
 
         m = p["maille_m"]
-        d.text((x, yb + 40),
-               nb("maille %.2f m", m[0]) + nb(" × %.2f", m[1])
-               + nb(" × %.2f m", m[2]),
-               font=f_txt, fill=GRIS)
-        d.text((x, yb + 70),
-               nb("mur : %.2f m", mur) + "  —  "
-               + ("la maille est PLUS LARGE que le mur"
-                  if m[0] > mur else "la maille tient sous le mur"),
-               font=f_txt, fill=teinte)
+        gauche = [
+            nb("maille %.2f m", m[0]) + nb(" × %.2f", m[1])
+            + nb(" × %.2f m", m[2]),
+            nb("mur : %.2f m", mur) + "  —  "
+            + ("la maille dépasse le mur" if m[0] > mur
+               else "la maille tient sous le mur"),
+        ]
+        d.text((x, yb + 40), gauche[0], font=f_txt, fill=GRIS)
+        d.text((x, yb + 70), gauche[1], font=f_txt, fill=teinte)
 
+        #  LE CHIFFRE EST CALÉ À DROITE DE SA VIGNETTE, et on VÉRIFIE qu'il
+        #  ne rentre pas dans le texte de gauche. Posé à une abscisse fixe
+        #  (x + 470), il chevauchait « la maille dépasse le mur » : deux
+        #  blocs dont on fixe les positions séparément finissent toujours
+        #  par se croiser dès qu'un des deux textes s'allonge.
         val = p["luminance"]
-        d.text((x + 470, yb + 28), nb("%.1f", val), font=f_chiffre,
-               fill=teinte)
-        d.text((x + 470, yb + 78), "luminance du cadre blanc, sur 255",
-               font=f_petit, fill=FAIBLE)
+        chiffre = nb("%.1f", val)
+        label = "luminance du cadre blanc, sur 255"
+        larg = max(d.textlength(chiffre, font=f_chiffre),
+                   d.textlength(label, font=f_petit))
+        xd = x + VIGNETTE_L - larg
+        place = max(d.textlength(t, font=f_txt) for t in gauche)
+        if xd < x + place + 24:
+            raise SystemExit(
+                "le chiffre chevauche la légende (%d px de trop) : "
+                "raccourcissez le texte ou élargissez la vignette"
+                % (x + place + 24 - xd))
+        d.text((xd, yb + 24), chiffre, font=f_chiffre, fill=teinte)
+        d.text((xd, yb + 74), label, font=f_petit, fill=FAIBLE)
 
     y = y_img + hv + 30 + 118 + 30
     d.line([MARGE, y - 16, L - MARGE, y - 16], fill=(46, 46, 56), width=1)
@@ -159,14 +173,18 @@ def principal():
     for i, t in enumerate(texte):
         d.text((MARGE, y + i * 27), t, font=f_txt, fill=GRIS)
 
-    yf = H - MARGE - 30
+    yf = H - MARGE - 56
     d.line([MARGE, yf, L - MARGE, yf], fill=(46, 46, 56), width=1)
-    d.text((MARGE, yf + 10),
-           "EEVEE Next · %d échantillons · lancer de rayons et Fast GI coupés "
-           "dans les deux images : la sonde est la seule source d'indirect · "
-           "%d surfels · plafond et mur sud invisibles à la caméra, mais "
-           "toujours opaques à la lumière"
+    #  Deux lignes : sur une seule, le pied sortait par la droite.
+    d.text((MARGE, yf + 8),
+           "EEVEE Next · %d échantillons · %d surfels · lancer de rayons et "
+           "Fast GI coupés dans les deux images : la sonde est la seule "
+           "source d'indirect"
            % (d0["echantillons"], d0["surfels"]),
+           font=f_petit, fill=FAIBLE)
+    d.text((MARGE, yf + 32),
+           "Plafond et mur sud invisibles à la caméra, mais toujours opaques "
+           "à la lumière : la pièce reste close pour le calcul.",
            font=f_petit, fill=FAIBLE)
 
     out.save(SORTIE, "WEBP", quality=QUALITE, method=6)
