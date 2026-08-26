@@ -120,6 +120,10 @@ def ecart(a, b):
     return float(d.mean()), float(100.0 * (d.mean(2) >= 2.0).mean())
 
 
+def mes_par_nom(resultats, nom):
+    return next((x for x in resultats if x["nom"] == nom), None)
+
+
 def campagne():
     os.makedirs(RENDUS, exist_ok=True)
     p = scene.monter_la_scene()
@@ -200,7 +204,24 @@ def campagne():
         e["ecart_moyen"] = round(m, 3)
         e["pixels_visibles_pc"] = round(pc, 2)
 
+    #  LE PLANCHER SE MESURE ENTRE LES DEUX CUISSONS, PAS PAR SOUSTRACTION.
+    #  Chaque réglage porte son écart À LA RÉFÉRENCE. J'avais d'abord pris la
+    #  différence de ces deux écarts — |A−R| moins |B−R| — ce qui ne vaut
+    #  rien : deux images peuvent être à la même distance de la référence et
+    #  très loin l'une de l'autre. On compare donc A et B directement.
+    plancher_direct = None
+    a = mes_par_nom(resultats, "resolution-%dx%dx%d" % RES_FIXE)
+    b = mes_par_nom(resultats, "plancher")
+    if a and b and a.get("image") and b.get("image"):
+        m, pc = ecart(os.path.join(RACINE, a["image"]),
+                      os.path.join(RACINE, b["image"]))
+        plancher_direct = {"ecart_moyen": round(m, 3),
+                           "pixels_visibles_pc": round(pc, 2)}
+        print("  plancher de bruit (deux cuissons identiques) : "
+              "%.3f/255,  %.2f %% de pixels" % (m, pc))
+
     donnees = {"comparaison": list(COMPARAISON),
+               "plancher_direct": plancher_direct,
                "echantillons_rendu": ECHANTILLONS,
                "bake_samples": BAKE_SAMPLES,
                "reference": {"resolution": list(REFERENCE[0]),
