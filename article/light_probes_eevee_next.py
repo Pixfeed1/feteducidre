@@ -573,7 +573,15 @@ def reglages():
     sc.view_settings.exposure = -0.30
 
 
-def main():
+def monter_la_scene():
+    """
+    La scène complète, sonde comprise mais NON CUITE.
+
+    Extraite de `main()` pour que d'autres scripts puissent monter exactement
+    la même pièce — `mesurer_bake.py` en a besoin : une mesure de temps de
+    cuisson ne veut rien dire si la scène mesurée n'est pas celle de
+    l'article.
+    """
     bpy.ops.wm.read_factory_settings(use_empty=True)
 
     #  UNE PALETTE CLAIRE, ET CE N'EST PAS UNE QUESTION DE GOÛT.
@@ -601,7 +609,11 @@ def main():
     eclairage()
     camera()
     reglages()
-    p = sonde()
+    return sonde()
+
+
+def main():
+    p = monter_la_scene()
 
     #  La seconde vue porte son propre suffixe : sans quoi elle écraserait
     #  les rendus de la première, qui servent encore à l'ouverture.
@@ -636,4 +648,7 @@ def main():
     print("  rendu : %s%s.png" % (SORTIE, suffixe))
 
 
-main()
+#  Le garde-fou habituel. Sans lui, importer ce module pour réutiliser ses
+#  fonctions déclenchait un rendu complet.
+if __name__ == "__main__":
+    main()

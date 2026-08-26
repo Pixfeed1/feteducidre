@@ -10,3 +10,7 @@ __pycache__/
 #  Sauf la capture d'ecran de l'image 6 : elle ne se refabrique pas,
 #  elle a ete prise a la main dans Blender.
 !placer-volume-capture-4.2.3.png
+
+#  Les rendus de la campagne de mesure : artefacts, refabricables par
+#      python3 article/mesurer_bake.py
+mesures-bake/
