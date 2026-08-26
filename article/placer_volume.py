@@ -101,21 +101,71 @@ def matiere(nom, couleur, emission=False):
     return m
 
 
-def dalle(nom, x0, x1, y0, y1, z0, z1, mat):
-    bpy.ops.mesh.primitive_cube_add(size=1.0)
-    ob = bpy.context.object
-    ob.name = nom
+#  Les six faces d'un pavé, orientées vers l'EXTÉRIEUR. L'ordre compte :
+#  (0,1,2,3) pour la face du bas donnerait une normale vers le haut, donc
+#  rentrante, et le mode Solid afficherait la pièce à l'envers.
+_FACES = ((0, 3, 2, 1), (4, 5, 6, 7), (0, 1, 5, 4),
+          (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7))
+
+
+def pave(nom, x0, x1, y0, y1, z0, z1, mat=None):
+    """
+    Un pavé, construit par l'API DE DONNÉES et non par un opérateur.
+
+    AUCUN `bpy.ops` ICI, ET C'EST LE POINT.
+    La version précédente faisait `bpy.ops.mesh.primitive_cube_add()` puis
+    relisait l'objet créé dans `bpy.context.object`. Lancée depuis l'onglet
+    Scripting, elle s'arrêtait sur
+
+        AttributeError: 'Context' object has no attribute 'object'
+
+    parce que le contexte y est celui de l'ÉDITEUR DE TEXTE : il n'a ni objet
+    actif ni vue 3D. Un opérateur qui marche dans la vue 3D n'a aucune raison
+    de marcher ailleurs, et `bpy.context` change de contenu selon la zone d'où
+    part le script. Construire le maillage à la main ne dépend, lui, de rien.
+    """
+    hx, hy, hz = (x1 - x0) / 2, (y1 - y0) / 2, (z1 - z0) / 2
+    coins = [(-hx, -hy, -hz), (hx, -hy, -hz), (hx, hy, -hz), (-hx, hy, -hz),
+             (-hx, -hy, hz), (hx, -hy, hz), (hx, hy, hz), (-hx, hy, hz)]
+    me = bpy.data.meshes.new(nom)
+    me.from_pydata(coins, [], list(_FACES))
+    me.validate()
+    me.update()
+    ob = bpy.data.objects.new(nom, me)
     ob.location = ((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2)
-    ob.scale = (x1 - x0, y1 - y0, z1 - z0)
-    ob.data.materials.append(mat)
+    if mat is not None:
+        me.materials.append(mat)
+    bpy.context.scene.collection.objects.link(ob)
     return ob
+
+
+def dalle(nom, x0, x1, y0, y1, z0, z1, mat):
+    return pave(nom, x0, x1, y0, y1, z0, z1, mat)
+
+
+def nettoyer():
+    """
+    Vider la scène SANS toucher à l'interface.
+
+    `wm.read_factory_settings()` faisait le ménage, mais il recharge le
+    fichier : lancé depuis l'onglet Scripting, il efface le bloc de texte en
+    cours d'exécution. Le script survit — Python tient déjà son code compilé —
+    mais l'utilisateur, lui, n'a plus son script à l'écran pour le relancer.
+    On retire donc les données une par une.
+    """
+    for ob in list(bpy.data.objects):
+        bpy.data.objects.remove(ob, do_unlink=True)
+    for banque in (bpy.data.meshes, bpy.data.lightprobes, bpy.data.materials):
+        for x in list(banque):
+            if x.users == 0:
+                banque.remove(x)
 
 
 def piece():
     """La coquille. Le mur de gauche est découpé en quatre dalles autour de
     la fenêtre — un trou dans une boîte demanderait un booléen, et un booléen
     dans une image d'interface est une complication qui ne se voit pas."""
-    bpy.ops.wm.read_factory_settings(use_empty=True)
+    nettoyer()
     mur = matiere("Mur", (0.78, 0.77, 0.75))
     sol = matiere("Sol", (0.42, 0.34, 0.27))
 
@@ -142,11 +192,10 @@ def sonde():
     Le Volume probe, dimensionné pour ENGLOBER les murs — c'est tout le sujet
     de l'image. Voir l'en-tête pour la mesure qui a tranché.
     """
-    bpy.ops.object.lightprobe_add(
-        type='VOLUME',
-        location=((X0 + X1) / 2, (Y0 + Y1) / 2, (Z0 + Z1) / 2))
-    ob = bpy.context.object
-    ob.name = "VOLUME_PROBE"
+    d0 = bpy.data.lightprobes.new("VOLUME_PROBE", type='VOLUME')
+    ob = bpy.data.objects.new("VOLUME_PROBE", d0)
+    ob.location = ((X0 + X1) / 2, (Y0 + Y1) / 2, (Z0 + Z1) / 2)
+    bpy.context.scene.collection.objects.link(ob)
     ob.scale = ((X1 - X0) / 2 + DEBORD,
                 (Y1 - Y0) / 2 + DEBORD,
                 (Z1 - Z0) / 2 + DEBORD)
@@ -195,6 +244,45 @@ def journal():
 # ---------------------------------------------------------------------------
 #  MODE 1 : DANS BLENDER — régler l'interface, puis photographier
 # ---------------------------------------------------------------------------
+def aller_sur_layout():
+    """
+    Se placer sur l'espace de travail « Layout » avant de photographier.
+
+    Si on lance le script depuis l'onglet Scripting — ce qui est le cas le
+    plus probable — on est sur un espace où la vue 3D est réduite au quart de
+    l'écran et où il n'y a AUCUN éditeur Properties. La capture serait donc
+    conforme à la demande sur le papier et inutilisable en fait : pas de
+    panneau Object Data à droite, pas de résolution visible.
+
+    Blender traduit les noms d'espaces de travail, mais pas celui-ci : dans
+    toutes les langues il s'appelle « Layout ». On prend quand même la
+    précaution de retomber sur le premier espace contenant à la fois une vue
+    3D et un éditeur Properties.
+    """
+    fen = bpy.context.window
+
+    def convient(ws):
+        types = {z.type for e in ws.screens for z in e.areas}
+        return 'VIEW_3D' in types and 'PROPERTIES' in types
+
+    choix = bpy.data.workspaces.get("Layout")
+    if choix is None or not convient(choix):
+        choix = next((w for w in bpy.data.workspaces if convient(w)), None)
+    if choix is None:
+        print("  aucun espace de travail avec vue 3D + Properties")
+        return False
+    if fen.workspace != choix:
+        fen.workspace = choix
+        #  Le changement d'espace n'est effectif qu'au redessin suivant :
+        #  sans ça, on continuerait à régler les zones de l'ANCIEN écran.
+        try:
+            bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
+        except Exception:
+            pass
+    print("  espace de travail : %s" % choix.name)
+    return True
+
+
 def regler_vue_3d(sonde_ob):
     """
     La vue 3D : Solid + rayons X, vue depuis l'extérieur en trois quarts.
@@ -211,7 +299,7 @@ def regler_vue_3d(sonde_ob):
     pose = Matrix.Translation(oeil) @ rot
 
     n = 0
-    for zone in bpy.context.screen.areas:
+    for zone in bpy.context.window.screen.areas:
         if zone.type != 'VIEW_3D':
             continue
         sp = zone.spaces.active
@@ -239,12 +327,18 @@ def regler_vue_3d(sonde_ob):
 def regler_panneau_data(sonde_ob):
     """L'onglet Object Data, à droite. Il n'affiche les réglages de la sonde
     que si la sonde est l'objet ACTIF — un objet sélectionné ne suffit pas."""
-    bpy.ops.object.select_all(action='DESELECT')
-    sonde_ob.select_set(True)
+    #  `object.select_all` est un opérateur de vue 3D : depuis l'onglet
+    #  Scripting il n'a pas de contexte. On désélectionne à la main, en
+    #  nommant explicitement la couche de vue plutôt qu'en laissant
+    #  `select_set` aller la chercher dans un contexte qui n'en a peut-être
+    #  pas — c'est la même erreur, un cran plus bas.
+    vl = bpy.context.view_layer
+    for ob in bpy.context.scene.objects:
+        ob.select_set(ob is sonde_ob, view_layer=vl)
     bpy.context.view_layer.objects.active = sonde_ob
 
     n = 0
-    for zone in bpy.context.screen.areas:
+    for zone in bpy.context.window.screen.areas:
         if zone.type == 'PROPERTIES':
             zone.spaces.active.context = 'DATA'
             zone.tag_redraw()
@@ -262,7 +356,7 @@ def photographier():
     défaut, onglet par défaut. On photographie alors le cube de démarrage.
     """
     sortie = os.path.join(dossier_bureau(), "placer-volume-capture.png")
-    for zone in bpy.context.screen.areas:
+    for zone in bpy.context.window.screen.areas:
         zone.tag_redraw()
     try:
         bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=3)
@@ -309,11 +403,11 @@ def apercu():
             filaire(ob, GRIS, 0.014)
 
     s = bpy.data.objects["VOLUME_PROBE"]
-    bpy.ops.mesh.primitive_cube_add(size=2.0, location=s.location)
-    boite = bpy.context.object
-    boite.name = "SONDE_FILAIRE"
-    boite.scale = s.scale
-    bpy.ops.object.transform_apply(scale=True)
+    cx, cy, cz = s.location
+    ex, ey, ez = s.scale                # la « taille » d'une sonde EST son
+                                        # échelle : demi-dimensions, en mètres
+    boite = pave("SONDE_FILAIRE", cx - ex, cx + ex, cy - ey, cy + ey,
+                 cz - ez, cz + ez)
     filaire(boite, TEAL, 0.028)
 
     cd = bpy.data.cameras.new("C")
@@ -352,6 +446,7 @@ def main():
         apercu()
         return
 
+    aller_sur_layout()
     v = regler_vue_3d(s)
     p = regler_panneau_data(s)
     print("  vues 3D reglees : %d      panneaux Properties sur Data : %d"
