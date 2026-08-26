@@ -1,0 +1,237 @@
+{
+  "comparaison": [
+    960,
+    540
+  ],
+  "echantillons_rendu": 48,
+  "bake_samples": 1024,
+  "reference": {
+    "resolution": [
+      22,
+      24,
+      12
+    ],
+    "surfels": 50
+  },
+  "mesures": [
+    {
+      "nom": "reference",
+      "resolution": [
+        22,
+        24,
+        12
+      ],
+      "surfels": 50,
+      "echantillons": 6336,
+      "cuisson_s": 26.852,
+      "echec": null,
+      "rendu_s": 33.637,
+      "image": "mesures-bake/reference.png",
+      "ecart_moyen": 0.0,
+      "pixels_visibles_pc": 0.0
+    },
+    {
+      "nom": "resolution-3x3x2",
+      "resolution": [
+        3,
+        3,
+        2
+      ],
+      "surfels": 28,
+      "echantillons": 18,
+      "cuisson_s": 11.939,
+      "echec": null,
+      "rendu_s": 28.63,
+      "image": "mesures-bake/resolution-3x3x2.png",
+      "ecart_moyen": 38.254,
+      "pixels_visibles_pc": 88.56,
+      "ecart_serie": 38.236,
+      "pixels_serie_pc": 88.74,
+      "sommet_de_serie": "resolution-22x24x12"
+    },
+    {
+      "nom": "resolution-6x6x3",
+      "resolution": [
+        6,
+        6,
+        3
+      ],
+      "surfels": 28,
+      "echantillons": 108,
+      "cuisson_s": 11.894,
+      "echec": null,
+      "rendu_s": 28.233,
+      "image": "mesures-bake/resolution-6x6x3.png",
+      "ecart_moyen": 25.969,
+      "pixels_visibles_pc": 86.59,
+      "ecart_serie": 25.98,
+      "pixels_serie_pc": 87.7,
+      "sommet_de_serie": "resolution-22x24x12"
+    },
+    {
+      "nom": "resolution-11x12x6",
+      "resolution": [
+        11,
+        12,
+        6
+      ],
+      "surfels": 28,
+      "echantillons": 792,
+      "cuisson_s": 12.439,
+      "echec": null,
+      "rendu_s": 27.317,
+      "image": "mesures-bake/resolution-11x12x6.png",
+      "ecart_moyen": 12.788,
+      "pixels_visibles_pc": 83.67,
+      "ecart_serie": 12.373,
+      "pixels_serie_pc": 83.32,
+      "sommet_de_serie": "resolution-22x24x12"
+    },
+    {
+      "nom": "resolution-22x24x12",
+      "resolution": [
+        22,
+        24,
+        12
+      ],
+      "surfels": 28,
+      "echantillons": 6336,
+      "cuisson_s": 13.212,
+      "echec": null,
+      "rendu_s": 27.016,
+      "image": "mesures-bake/resolution-22x24x12.png",
+      "ecart_moyen": 2.895,
+      "pixels_visibles_pc": 48.87,
+      "ecart_serie": 0.0,
+      "pixels_serie_pc": 0.0,
+      "sommet_de_serie": "resolution-22x24x12"
+    },
+    {
+      "nom": "surfel-5",
+      "resolution": [
+        11,
+        12,
+        6
+      ],
+      "surfels": 5,
+      "echantillons": 792,
+      "cuisson_s": 5.338,
+      "echec": null,
+      "rendu_s": 27.397,
+      "image": "mesures-bake/surfel-5.png",
+      "ecart_moyen": 36.616,
+      "pixels_visibles_pc": 78.42,
+      "ecart_serie": 46.838,
+      "pixels_serie_pc": 86.29,
+      "sommet_de_serie": "surfel-50"
+    },
+    {
+      "nom": "surfel-10",
+      "resolution": [
+        11,
+        12,
+        6
+      ],
+      "surfels": 10,
+      "echantillons": 792,
+      "cuisson_s": 6.892,
+      "echec": null,
+      "rendu_s": 27.354,
+      "image": "mesures-bake/surfel-10.png",
+      "ecart_moyen": 17.934,
+      "pixels_visibles_pc": 84.45,
+      "ecart_serie": 5.875,
+      "pixels_serie_pc": 60.66,
+      "sommet_de_serie": "surfel-50"
+    },
+    {
+      "nom": "surfel-20",
+      "resolution": [
+        11,
+        12,
+        6
+      ],
+      "surfels": 20,
+      "echantillons": 792,
+      "cuisson_s": 9.138,
+      "echec": null,
+      "rendu_s": 28.246,
+      "image": "mesures-bake/surfel-20.png",
+      "ecart_moyen": 15.309,
+      "pixels_visibles_pc": 84.66,
+      "ecart_serie": 2.452,
+      "pixels_serie_pc": 36.55,
+      "sommet_de_serie": "surfel-50"
+    },
+    {
+      "nom": "surfel-40",
+      "resolution": [
+        11,
+        12,
+        6
+      ],
+      "surfels": 40,
+      "echantillons": 792,
+      "cuisson_s": 18.51,
+      "echec": null,
+      "rendu_s": 26.7,
+      "image": "mesures-bake/surfel-40.png",
+      "ecart_moyen": 14.131,
+      "pixels_visibles_pc": 84.04,
+      "ecart_serie": 1.438,
+      "pixels_serie_pc": 30.55,
+      "sommet_de_serie": "surfel-50"
+    },
+    {
+      "nom": "surfel-50",
+      "resolution": [
+        11,
+        12,
+        6
+      ],
+      "surfels": 50,
+      "echantillons": 792,
+      "cuisson_s": 25.537,
+      "echec": null,
+      "rendu_s": 26.792,
+      "image": "mesures-bake/surfel-50.png",
+      "ecart_moyen": 14.689,
+      "pixels_visibles_pc": 83.43,
+      "ecart_serie": 0.0,
+      "pixels_serie_pc": 0.0,
+      "sommet_de_serie": "surfel-50"
+    },
+    {
+      "nom": "surfel-60",
+      "resolution": [
+        11,
+        12,
+        6
+      ],
+      "surfels": 60,
+      "echantillons": 792,
+      "cuisson_s": 3.868,
+      "echec": "Error: Not enough available video memory to bake \"OBVOLUME_PROBE\" (38 / 30 MBytes).\nTry reducing surfel resolution or capture distance to lower the size of the allocation."
+    },
+    {
+      "nom": "plancher",
+      "resolution": [
+        11,
+        12,
+        6
+      ],
+      "surfels": 28,
+      "echantillons": 792,
+      "cuisson_s": 8.769,
+      "echec": null,
+      "rendu_s": 27.051,
+      "image": "mesures-bake/plancher.png",
+      "ecart_moyen": 12.788,
+      "pixels_visibles_pc": 83.67
+    }
+  ],
+  "plancher_direct": {
+    "ecart_moyen": 0.0,
+    "pixels_visibles_pc": 0.0
+  }
+}

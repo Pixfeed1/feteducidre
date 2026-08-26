@@ -153,8 +153,18 @@ def campagne():
     #
     #  Le même besoin de 67 Mo pour la plus petite grille que pour la plus
     #  grande : ce n'est donc pas la résolution du volume qui remplit la
-    #  mémoire, C'EST LA DENSITÉ DE SURFELS. Le message nomme pourtant l'objet
-    #  sonde, ce qui envoie chercher du côté de la résolution.
+    #  mémoire, C'EST LA DENSITÉ DE SURFELS.
+    #
+    #  J'ai cru un moment que le message égarait, parce qu'il nomme l'objet
+    #  sonde. Relu en entier, il ne s'agit pas de ça — il désigne le bon
+    #  coupable, en toutes lettres :
+    #
+    #      Not enough available video memory to bake "OBVOLUME_PROBE"
+    #      (38 / 30 MBytes). Try reducing surfel resolution or capture
+    #      distance to lower the size of the allocation
+    #
+    #  C'est moi qui l'avais tronqué en le filtrant. Une leçon qui vaut le
+    #  détour : lire le message en entier avant d'accuser le message.
     #
     #  On laisse quand même la réserve au large : elle ne coûte rien et elle
     #  écarte une variable de la mesure.
@@ -219,6 +229,27 @@ def campagne():
                            "pixels_visibles_pc": round(pc, 2)}
         print("  plancher de bruit (deux cuissons identiques) : "
               "%.3f/255,  %.2f %% de pixels" % (m, pc))
+
+    #  CHAQUE SÉRIE SE COMPARE À SON PROPRE SOMMET, pas à la référence
+    #  globale. Sinon les deux réglages se contaminent : dans la série des
+    #  surfels, tous les rendus sont en 11 × 12 × 6 alors que la référence est
+    #  en 22 × 24 × 12, et l'écart mesuré contient donc surtout un écart de
+    #  RÉSOLUTION. On lirait « les surfels ne descendent jamais sous 14 » là
+    #  où ce 14, ce sont les surfels qui n'y sont pour rien.
+    for prefixe, sommet in (("resolution-", "resolution-%dx%dx%d"
+                             % SERIE_RESOLUTION[-1]),
+                            ("surfel-", "surfel-%d" % SERIE_SURFEL[-2])):
+        haut = mes_par_nom(resultats, sommet)
+        if not (haut and haut.get("image")):
+            continue
+        for e in resultats:
+            if not e["nom"].startswith(prefixe) or not e.get("image"):
+                continue
+            m, pc = ecart(os.path.join(RACINE, e["image"]),
+                          os.path.join(RACINE, haut["image"]))
+            e["ecart_serie"] = round(m, 3)
+            e["pixels_serie_pc"] = round(pc, 2)
+            e["sommet_de_serie"] = sommet
 
     donnees = {"comparaison": list(COMPARAISON),
                "plancher_direct": plancher_direct,
