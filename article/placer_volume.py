@@ -270,20 +270,30 @@ def aller_sur_layout():
         choix = next((w for w in bpy.data.workspaces if convient(w)), None)
     if choix is None:
         print("  aucun espace de travail avec vue 3D + Properties")
-        return False
+        return None
     if fen.workspace != choix:
         fen.workspace = choix
-        #  Le changement d'espace n'est effectif qu'au redessin suivant :
-        #  sans ça, on continuerait à régler les zones de l'ANCIEN écran.
-        try:
-            bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
-        except Exception:
-            pass
+        #  Le changement d'espace n'est effectif qu'au redessin suivant.
+        redessiner(1)
     print("  espace de travail : %s" % choix.name)
-    return True
+    #  On renvoie l'espace choisi, et la suite règle SES écrans plutôt que
+    #  `bpy.context.window.screen` : au moment où on le lit, celui-ci peut
+    #  encore être l'ancien. Viser l'objet plutôt que le contexte, une fois
+    #  de plus.
+    return choix
 
 
-def regler_vue_3d(sonde_ob):
+def redessiner(fois=2):
+    """Forcer Blender à redessiner. Beaucoup de choses ne deviennent vraies
+    qu'au redessin : le changement d'espace de travail, et surtout la liste
+    des onglets que l'éditeur Properties accepte."""
+    try:
+        bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=fois)
+    except Exception as e:
+        print("  redessin force indisponible (%s)" % e)
+
+
+def regler_vue_3d(espace):
     """
     La vue 3D : Solid + rayons X, vue depuis l'extérieur en trois quarts.
 
@@ -299,7 +309,8 @@ def regler_vue_3d(sonde_ob):
     pose = Matrix.Translation(oeil) @ rot
 
     n = 0
-    for zone in bpy.context.window.screen.areas:
+    zones = [z for e in espace.screens for z in e.areas]
+    for zone in zones:
         if zone.type != 'VIEW_3D':
             continue
         sp = zone.spaces.active
@@ -324,9 +335,13 @@ def regler_vue_3d(sonde_ob):
     return n
 
 
-def regler_panneau_data(sonde_ob):
-    """L'onglet Object Data, à droite. Il n'affiche les réglages de la sonde
-    que si la sonde est l'objet ACTIF — un objet sélectionné ne suffit pas."""
+def activer_la_sonde(sonde_ob):
+    """
+    Rendre la sonde ACTIVE, et le faire AVANT de toucher à l'interface.
+
+    Un objet seulement sélectionné ne suffit pas : l'onglet Object Data
+    affiche les données de l'objet actif.
+    """
     #  `object.select_all` est un opérateur de vue 3D : depuis l'onglet
     #  Scripting il n'a pas de contexte. On désélectionne à la main, en
     #  nommant explicitement la couche de vue plutôt qu'en laissant
@@ -335,15 +350,95 @@ def regler_panneau_data(sonde_ob):
     vl = bpy.context.view_layer
     for ob in bpy.context.scene.objects:
         ob.select_set(ob is sonde_ob, view_layer=vl)
-    bpy.context.view_layer.objects.active = sonde_ob
+    vl.objects.active = sonde_ob
 
-    n = 0
-    for zone in bpy.context.window.screen.areas:
-        if zone.type == 'PROPERTIES':
-            zone.spaces.active.context = 'DATA'
+
+def regler_panneau_data(espace):
+    """
+    Basculer l'éditeur Properties sur l'onglet Object Data.
+
+    LA LISTE DES ONGLETS EST DYNAMIQUE, ET C'EST TOUT LE PIÈGE.
+    `SpaceProperties.context` n'accepte pas les dix-huit onglets du type : il
+    n'accepte que ceux qui ont un sens à l'instant où on écrit dedans. Sans
+    objet actif, la liste se réduit à
+
+        ('TOOL', 'RENDER', 'OUTPUT', 'VIEW_LAYER', 'SCENE', 'WORLD')
+
+    et poser 'DATA' lève un TypeError. C'est exactement ce qui arrivait : la
+    sonde était bien rendue active une ligne plus haut, mais l'éditeur
+    Properties n'avait pas encore été redessiné, donc il ne la voyait pas
+    encore. L'erreur ne dit pas « pas encore prêt », elle dit « valeur
+    inconnue » — d'où l'envie d'aller chercher une faute d'orthographe dans
+    'DATA' plutôt qu'un problème de moment.
+
+    On redessine donc, puis on réessaie, et on le dit si ça ne prend pas.
+    """
+    n, manques = 0, 0
+    for ecran in espace.screens:
+        for zone in ecran.areas:
+            if zone.type != 'PROPERTIES':
+                continue
+            ok, pourquoi = _poser_onglet(zone, 'DATA', ecran)
+            if not ok:
+                redessiner(1)          # laisser l'éditeur voir l'objet actif
+                ok, pourquoi = _poser_onglet(zone, 'DATA', ecran)
+            if ok:
+                n += 1
+            else:
+                manques += 1
+                if pourquoi:
+                    print("  onglet refuse -> %s" % pourquoi)
             zone.tag_redraw()
-            n += 1
+    if manques:
+        actif = bpy.context.view_layer.objects.active
+        print("  %d editeur(s) Properties n'ont pas accepte l'onglet Object "
+              "Data (objet actif : %s)"
+              % (manques, actif.name if actif else "AUCUN"))
+        print("  la capture partira quand meme : mieux vaut une image "
+              "incomplete qu'un script qui s'arrete")
     return n
+
+
+def _poser_onglet(zone, onglet, ecran=None):
+    """
+    Poser un onglet, d'abord en désignant la zone visée.
+
+    Deux raisons peuvent faire refuser 'DATA', et on ne sait pas laquelle
+    depuis Python, alors on couvre les deux :
+
+      - l'éditeur Properties n'a pas encore été rafraîchi et ne voit pas
+        l'objet actif tout juste posé — c'est le redessin qui règle ça ;
+      - le contexte d'où part le script (l'éditeur de texte) n'expose pas
+        l'objet actif, et c'est LUI que Blender interroge pour construire la
+        liste. `temp_override` reconstruit alors un contexte centré sur la
+        fenêtre et la zone visées, où l'objet actif se résout.
+
+    Le repli sans `temp_override` reste utile : sur une version plus ancienne
+    ou dans un contexte incomplet, l'affectation directe peut passer alors
+    que l'override échoue.
+    """
+    cible = zone.spaces.active
+    fen = bpy.context.window
+    dernier = ""
+    if fen is not None:
+        try:
+            reglages = {"window": fen, "area": zone}
+            if ecran is not None:
+                reglages["screen"] = ecran
+            with bpy.context.temp_override(**reglages):
+                cible.context = onglet
+            return True, ""
+        except (TypeError, RuntimeError, AttributeError) as e:
+            dernier = str(e)
+    try:
+        cible.context = onglet
+        return True, ""
+    except TypeError as e:
+        #  Le message d'erreur de Blender ÉNUMÈRE les onglets acceptés. C'est
+        #  le seul moyen simple de connaître cette liste dynamique depuis
+        #  Python, alors on la garde pour la dire à l'utilisateur au lieu de
+        #  le laisser deviner.
+        return False, str(e) or dernier
 
 
 def photographier():
@@ -446,14 +541,21 @@ def main():
         apercu()
         return
 
-    aller_sur_layout()
-    v = regler_vue_3d(s)
-    p = regler_panneau_data(s)
+    #  L'ORDRE COMPTE. La sonde doit être l'objet actif AVANT qu'on demande
+    #  à l'éditeur Properties son onglet Object Data : cet onglet n'existe
+    #  dans la liste des valeurs acceptées que s'il y a un objet actif.
+    activer_la_sonde(s)
+    espace = aller_sur_layout()
+    if espace is None:
+        espace = bpy.context.window.workspace
+    redessiner(1)
+
+    v = regler_vue_3d(espace)
+    p = regler_panneau_data(espace)
     print("  vues 3D reglees : %d      panneaux Properties sur Data : %d"
           % (v, p))
-    if p == 0:
-        print("  ATTENTION : aucun editeur Properties dans cet espace de "
-              "travail. Passez sur l'onglet Layout avant de relancer.")
+    if v == 0:
+        print("  ATTENTION : aucune vue 3D reglee.")
     photographier()
 
 
