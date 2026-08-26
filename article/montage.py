@@ -37,7 +37,31 @@ RACINE = os.path.dirname(os.path.abspath(__file__))
 #  Dans une comparaison, une seule variable change. Point.
 AVEC = os.path.join(RACINE, "light-probes-blender-eevee-next.png")
 SANS = os.path.join(RACINE, "light-probes-blender-eevee-next-sans-sonde.png")
-SORTIE = os.path.join(RACINE, "light-probes-blender-comparaison.webp")
+SORTIE = os.path.join(RACINE, "eclairage-indirect-blender-avec-sans-probe.webp")
+
+#  L'ORDRE DES DEUX VIGNETTES.
+#
+#  « sans » à gauche, « avec » à droite : on lit de gauche à droite, donc le
+#  manque d'abord et la réparation ensuite. L'inverse raconte une régression.
+ORDRE = ("sans", "avec")
+
+#  LES RÉGLAGES COMMUNS AUX DEUX RENDUS, ÉCRITS SUR L'IMAGE.
+#
+#  Une comparaison n'est loyale que si le lecteur peut vérifier ce qui n'a
+#  PAS changé. Et il y a ici un réglage qu'il faut assumer à voix haute : le
+#  lancer de rayons en espace écran est coupé, dans les deux images.
+#
+#  Ce n'est pas pour flatter la démonstration, c'est pour qu'elle porte sur
+#  ce qu'elle annonce. Laissé actif, il calcule lui-même l'indirect diffus de
+#  tout ce qui est visible au cadre — et dans une pièce entièrement dans le
+#  champ, ça suffit à presque tout éclairer : mesuré, la sonde n'apportait
+#  plus que ×1,03. Une image légendée « c'est le travail du Volume probe »
+#  aurait alors montré le travail d'autre chose.
+#
+#  Le dire sur l'image plutôt que dans un coin du code : un lecteur qui
+#  découvre le montage doit savoir dans quelles conditions il a été fait.
+REGLAGES = ("EEVEE Next · 128 échantillons · lancer de rayons en espace "
+            "écran désactivé dans les deux images · monde à 0,03")
 
 #  La zone de contrôle : la bibliothèque, dans le coin le plus éloigné de la
 #  fenêtre. Les mêmes bornes que dans finaliser.py — c'est le point où l'on
@@ -48,7 +72,7 @@ VIGNETTE_L = 1240                  # largeur d'une vignette
 GOUTTIERE = 28
 MARGE = 34
 BANDE_TITRE = 74
-BANDE_PIED = 168
+BANDE_PIED = 196
 
 ENCRE = (13, 13, 17)
 BLANC = (238, 238, 243)
@@ -108,6 +132,13 @@ def principal():
     a_v = a_im.resize((VIGNETTE_L, hv), Image.LANCZOS)
     b_v = b_im.resize((VIGNETTE_L, hv), Image.LANCZOS)
 
+    vignettes = {
+        "avec": (a_v, "AVEC LE VOLUME PROBE", TEAL, la,
+                 "luminance du coin encadré, sur 255"),
+        "sans": (b_v, "SANS VOLUME PROBE", ROUGE, lb,
+                 "soit %.0f %% de moins, à réglage identique" % perte),
+    }
+
     L = MARGE * 2 + VIGNETTE_L * 2 + GOUTTIERE
     H = MARGE + BANDE_TITRE + hv + BANDE_PIED + MARGE
     out = Image.new("RGB", (L, H), ENCRE)
@@ -119,11 +150,9 @@ def principal():
     f_petit = police(POLICE_R, 22)
 
     y_img = MARGE + BANDE_TITRE
-    for i, (v, titre, teinte, chiffre, sous) in enumerate((
-            (a_v, "AVEC LE VOLUME PROBE", TEAL, "%.1f" % la,
-             "luminance du coin encadré, sur 255"),
-            (b_v, "SANS VOLUME PROBE", ROUGE, "%.1f" % lb,
-             "soit %.0f %% de moins, à réglage identique" % perte))):
+    for i, cle in enumerate(ORDRE):
+        v, titre, teinte, valeur, sous = vignettes[cle]
+        chiffre = "%.1f" % valeur
         x = MARGE + i * (VIGNETTE_L + GOUTTIERE)
 
         #  Le titre, précédé d'une pastille de couleur
@@ -144,12 +173,14 @@ def principal():
     #  commune — se marchaient dessus.
     yf = y_img + hv + 96
     d.line([MARGE, yf, L - MARGE, yf], fill=(46, 46, 56), width=1)
-    d.text((MARGE, yf + 22),
+    d.text((MARGE, yf + 20),
            "Même scène, même cadrage, même éclairage. Une seule variable "
            "change : la sonde d'irradiance.",
            font=f_legende, fill=GRIS)
+    f_reglages = police(POLICE_R, 20)
+    d.text((MARGE, yf + 54), REGLAGES, font=f_reglages, fill=(96, 96, 108))
     g = "×%.2f" % gain
-    d.text((L - MARGE - d.textlength(g, font=f_chiffre), yf + 12), g,
+    d.text((L - MARGE - d.textlength(g, font=f_chiffre), yf + 14), g,
            font=f_chiffre, fill=TEAL)
 
     out.save(SORTIE, "WEBP", quality=QUALITE, method=6)
