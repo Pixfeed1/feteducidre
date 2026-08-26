@@ -56,6 +56,24 @@ F_Z0, F_Z1 = 0.65, 2.50
 RESOLUTION = (1600, 900)
 ECHANTILLONS = 128
 
+#  UN SECOND POINT DE VUE.
+#
+#  La première comparaison sert d'ouverture d'article. En redonner une
+#  identique plus loin n'apprend rien — pire, ça donne l'impression qu'on
+#  n'a qu'une seule image à montrer.
+#
+#  Celui-ci regarde la pièce DEPUIS la fenêtre, vers le coin le plus
+#  éloigné. La source est donc derrière la caméra : il ne reste dans le
+#  champ aucune zone directement éclairée pour servir de point de repère
+#  rassurant. C'est le cadrage le plus dur pour un moteur — et celui qui
+#  montre le mieux ce qu'une sonde apporte.
+#
+#  Format 4/3 et non 16/9, pour que les deux figures de l'article ne se
+#  ressemblent pas au premier coup d'oeil.
+VUE2 = "--vue2" in sys.argv
+if VUE2:
+    RESOLUTION = (1200, 900)
+
 #  Un « --rapide » en argument rend en 800 × 450 et 24 échantillons : c'est
 #  ce qui permet de régler l'exposition en une minute au lieu de deux et
 #  demie. On ne règle pas une lumière à l'aveugle.
@@ -394,11 +412,13 @@ def eclairage():
 
 def camera():
     cd = bpy.data.cameras.new("CAM")
-    cd.lens = 24.0                      # grand angle d'intérieur, sans excès
+    #  30 mm sur la seconde vue : le 24 mm creuse trop la diagonale de la
+    #  pièce et éloigne le coin de contrôle jusqu'à le rendre minuscule.
+    cd.lens = 30.0 if VUE2 else 24.0
     cd.clip_start = 0.05
     cam = bpy.data.objects.new("CAM", cd)
     bpy.context.collection.objects.link(cam)
-    cam.location = (2.05, -3.22, 1.44)
+    cam.location = (-2.35, -2.62, 1.58) if VUE2 else (2.05, -3.22, 1.44)
 
     #  On VISE par contrainte, jamais en calculant des angles d'Euler à la
     #  main : le calcul manuel introduit toujours un roulis, et un intérieur
@@ -407,7 +427,7 @@ def camera():
     bpy.context.collection.objects.link(cible)
     #  Visée basse : à 24 mm sous un plafond de trois mètres, une visée à
     #  hauteur d'œil remplit le tiers supérieur de l'image de plafond vide.
-    cible.location = (-0.45, 1.90, 0.82)
+    cible.location = (1.30, 3.05, 1.00) if VUE2 else (-0.45, 1.90, 0.82)
     c = cam.constraints.new("TRACK_TO")
     c.target = cible
     c.track_axis = "TRACK_NEGATIVE_Z"
@@ -577,10 +597,12 @@ def main():
     reglages()
     p = sonde()
 
-    suffixe = ""
+    #  La seconde vue porte son propre suffixe : sans quoi elle écraserait
+    #  les rendus de la première, qui servent encore à l'ouverture.
+    suffixe = "-vue2" if VUE2 else ""
     if SANS_SONDE:
         bpy.data.objects.remove(p, do_unlink=True)
-        suffixe = "-sans-sonde"
+        suffixe += "-sans-sonde"
         print("  TÉMOIN : sonde retirée, aucune cuisson")
     else:
         print("  cuisson du Volume probe (%d × %d × %d, %d échantillons)…"
@@ -600,7 +622,7 @@ def main():
         sc.render.image_settings.color_mode = "RGBA"
         sc.view_settings.view_transform = "Standard"
         sc.view_settings.exposure = 0.0
-        suffixe = "-gizmo"
+        suffixe += "-gizmo"
         print("  passe GIZMO : filaire seul, fond transparent")
 
     sc.render.filepath = SORTIE + suffixe + ".png"
