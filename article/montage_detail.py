@@ -43,15 +43,30 @@ SORTIE = os.path.join(RACINE,
 
 #  La zone de contrôle, en fractions du cadre : le meuble sombre du fond,
 #  celui qu'aucun rayon direct n'atteint. Mesurée sur le rendu, pas devinée.
-CONTROLE = (0.44, 0.72, 0.30, 0.78)
+#  Bornes choisies pour que la zone soit PRESQUE CARRÉE. Cadrée serrée sur
+#  le seul meuble, elle donnait un rectangle deux fois plus haut que large :
+#  une loupe de cette forme oblige soit à la réduire jusqu'à l'inutile, soit
+#  à doubler la hauteur de la figure. En élargissant à l'angle et au mur, on
+#  gagne en plus deux surfaces qui s'effondrent elles aussi sans la sonde.
+CONTROLE = (0.52, 0.82, 0.28, 0.70)
 
 ORDRE = ("sans", "avec")
-VIGNETTE_L = 1080
-LOUPE_L = 300
+#  UNE LOUPE DOIT AGRANDIR, SINON CE N'EST PAS UNE LOUPE.
+#
+#  Premier essai : vignettes à 1 080 px, loupe à 280. La zone de contrôle
+#  occupe 323 px dans la vignette — la « loupe » était donc PLUS PETITE que
+#  ce qu'elle prétendait grossir, et l'image annonçait fièrement « agrandi
+#  0,8 fois ». Un facteur d'agrandissement inférieur à 1 est un aveu.
+#
+#  Vignettes réduites à 900, loupe portée à 430 : la zone passe de 269 px
+#  dans la vue à 430 px dans la loupe, soit 1,6 fois. Le facteur est calculé
+#  et écrit sur l'image, il ne peut donc plus mentir.
+VIGNETTE_L = 900
+LOUPE_L = 430
 GOUTTIERE = 30
 MARGE = 34
 BANDE_TITRE = 74
-BANDE_PIED = 232
+BANDE_PIED = 0     # calculée : elle dépend de la hauteur de la loupe
 
 ENCRE = (13, 13, 17)
 BLANC = (238, 238, 243)
@@ -65,6 +80,13 @@ QUALITE = 90
 
 REGLAGES = ("EEVEE Next · 128 échantillons · lancer de rayons en espace "
             "écran désactivé dans les deux images · monde à 0,03")
+
+
+def nb(gabarit, valeur):
+    """Un nombre écrit en français. La ligne de réglages dit « monde à 0,03 » ;
+    une figure qui annonce « 4.74 » deux centimètres plus bas se lit comme
+    deux images collées l'une à l'autre."""
+    return (gabarit % valeur).replace(".", ",")
 
 
 def police(chemin, taille):
@@ -105,8 +127,13 @@ def principal():
     perte = 100.0 * (1.0 - lum["sans"] / max(lum["avec"], 0.01))
 
     hv = int(round(VIGNETTE_L * ims["avec"].height / ims["avec"].width))
+    #  La hauteur de la loupe se déduit de la zone de contrôle : la figure
+    #  s'ajuste donc toute seule si on rebornes la zone.
+    zx0, zy0, zx1, zy1 = zone(ims["avec"])
+    lh = int(round(LOUPE_L * (zy1 - zy0) / float(zx1 - zx0)))
+    pied = 26 + lh + 34 + 76
     L = MARGE * 2 + VIGNETTE_L * 2 + GOUTTIERE
-    H = MARGE + BANDE_TITRE + hv + BANDE_PIED + MARGE
+    H = MARGE + BANDE_TITRE + hv + pied + MARGE
     out = Image.new("RGB", (L, H), ENCRE)
     d = ImageDraw.Draw(out, "RGBA")
 
@@ -137,9 +164,7 @@ def principal():
         d.rectangle(b, outline=(255, 255, 255, 170), width=2)
 
         #  LA LOUPE, sous la vignette, à pleine résolution du rendu.
-        loupe = im.crop(zone(im))
-        lh = int(round(LOUPE_L * loupe.height / loupe.width))
-        loupe = loupe.resize((LOUPE_L, lh), Image.LANCZOS)
+        loupe = im.crop(zone(im)).resize((LOUPE_L, lh), Image.LANCZOS)
         lx, ly = x, y_img + hv + 26
         out.paste(loupe, (lx, ly))
         d.rectangle([lx - 1, ly - 1, lx + LOUPE_L, ly + lh],
@@ -147,22 +172,27 @@ def principal():
 
         #  Le chiffre, posé À CÔTÉ de la loupe : le nombre et ce qu'il
         #  mesure dans le même regard.
-        tx = lx + LOUPE_L + 26
-        d.text((tx, ly + 4), "%.1f" % lum[cle], font=f_chiffre, fill=teinte)
-        d.text((tx, ly + 60),
-               "luminance du cadre blanc" if cle == "avec"
-               else "soit %.0f %% de moins" % perte,
+        tx = lx + LOUPE_L + 30
+        d.text((tx, ly + 6), nb("%.1f", lum[cle]), font=f_chiffre, fill=teinte)
+        d.text((tx, ly + 64), "luminance du cadre blanc, sur 255"
+               if cle == "avec" else "soit %.0f %% de moins" % perte,
                font=f_petit, fill=GRIS)
-        d.text((tx, ly + 88), "sur 255", font=f_petit, fill=GRIS)
+        #  Le facteur se compte par rapport à la VIGNETTE, pas au fichier
+        #  source : c'est la vignette que le lecteur a sous les yeux.
+        facteur = LOUPE_L / ((zx1 - zx0) * VIGNETTE_L / float(im.width))
+        d.text((tx, ly + 96),
+               nb("agrandi %.1f fois", facteur) if cle == "avec"
+               else "à réglage identique",
+               font=f_petit, fill=(96, 96, 108))
 
-    yf = y_img + hv + 190
+    yf = y_img + hv + 26 + lh + 34
     d.line([MARGE, yf, L - MARGE, yf], fill=(46, 46, 56), width=1)
     d.text((MARGE, yf + 18),
            "Autre point de vue de la même pièce : la fenêtre est derrière "
            "la caméra, plus aucune zone éclairée en direct dans le champ.",
            font=f_legende, fill=GRIS)
     d.text((MARGE, yf + 52), REGLAGES, font=f_reglages, fill=(96, 96, 108))
-    g = "×%.2f" % gain
+    g = nb("×%.2f", gain)
     d.text((L - MARGE - d.textlength(g, font=f_chiffre), yf + 12), g,
            font=f_chiffre, fill=TEAL)
 
