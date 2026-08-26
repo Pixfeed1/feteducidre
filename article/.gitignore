@@ -2,3 +2,7 @@
 #      python3 article/light_probes_eevee_next.py
 #  Seul le script est versionné.
 *.png
+
+#  Les .pyc sont des artefacts eux aussi. Trois d'entre eux avaient été
+#  versionnés par inadvertance ; ils sont retirés du suivi ici.
+__pycache__/
