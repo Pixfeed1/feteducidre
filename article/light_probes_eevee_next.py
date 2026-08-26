@@ -438,10 +438,16 @@ def camera():
 
 def sonde():
     """
-    Le Volume probe. Il tient toute la pièce, très légèrement en retrait des
-    murs : une sonde qui affleure la paroi capture des échantillons situés
-    DANS le mur, et ces échantillons-là rendent des taches sombres près des
-    plinthes.
+    Le Volume probe. Il tient toute la pièce et DÉBORDE derrière les parois —
+    `SONDE_RETRAIT` est négatif, c'est donc un dépassement, pas un retrait.
+
+    Ce commentaire disait l'inverse jusqu'ici : « très légèrement en retrait
+    des murs », par crainte d'échantillons capturés dans l'épaisseur de la
+    cloison. C'est exactement l'erreur que la mesure a démentie. Une sonde
+    rentrée de 45 cm laissait les six parois HORS du volume, donc sans
+    irradiance, donc noires : moyenne d'image 86,5 contre 129,9 une fois la
+    sonde ressortie derrière les murs. Un mur n'est éclairé que s'il est
+    dedans.
     """
     bpy.ops.object.lightprobe_add(type="VOLUME",
                                   location=((X0 + X1) / 2, (Y0 + Y1) / 2,
