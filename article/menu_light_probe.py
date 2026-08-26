@@ -116,6 +116,28 @@ VERSION_EEVEE_NEXT = "4.2"
 CAPTURE = (sys.argv[sys.argv.index("--capture") + 1]
            if "--capture" in sys.argv else None)
 
+#  LE RECADRAGE DE LA CAPTURE.
+#
+#  Mesuré sur la capture fournie — un plein écran de 1548 × 909 pris sous
+#  Blender 4.2.3 LTS. Une autre capture demandera d'autres bornes : d'où
+#  `--recadre x0,y0,x1,y1` pour les donner à la main.
+#
+#  On ne devine pas ces valeurs automatiquement : le fond de la vue 3D et le
+#  fond d'un menu sont deux gris sombres voisins, et un seuil qui marcherait
+#  sur une capture raterait la suivante. Quatre nombres mesurés une fois
+#  valent mieux qu'une détection qui échoue en silence.
+RECADRE = (246, 46, 596, 492)
+if "--recadre" in sys.argv:
+    RECADRE = tuple(int(v) for v in
+                    sys.argv[sys.argv.index("--recadre") + 1].split(","))
+
+#  Agrandissement de la capture. À l'échelle 1 le menu de Blender fait 350 px
+#  de large : dans une image de 1600 px affichée à 1200 sur un blog, le texte
+#  tomberait à sept pixels de haut, illisible. À 1,5 il reste net — au-delà,
+#  la recompression JPEG de la capture commence à se voir.
+CAPTURE_ECHELLE = 1.5
+CAPTURE_VERSION = "Blender 4.2.3 LTS"
+
 
 def police(chemin, taille):
     try:
@@ -295,7 +317,114 @@ def panneau(d, x, y, l, h, tete, actif):
     return tete
 
 
+def composer_avec_capture(entrees, version):
+    """
+    La mise en page quand on dispose d'une VRAIE capture.
+
+    Elle ne peut pas être celle du menu redessiné : un menu Add photographié
+    est un objet HAUT — 350 × 446 px — là où le menu reconstruit était large
+    et court. Réutiliser la même grille aurait obligé à réduire la capture à
+    moins de la moitié, donc à la rendre illisible.
+
+    Autre conséquence : pas de flèches. Les trois entrées du sous-menu sont
+    quelque part dans une image dont on ne connaît pas la structure ; trois
+    flèches qui tomberaient « à peu près » en face seraient pires que deux
+    colonnes clairement étiquetées.
+    """
+    im = Image.new("RGB", (L, H), FOND)
+    d = ImageDraw.Draw(im, "RGBA")
+    f_titre = police(POLICE_G, 40)
+    f_menu = police(POLICE_R, 30)
+    f_tete = police(POLICE_G, 22)
+    f_note = police(POLICE_R, 24)
+    f_puce = police(POLICE_G, 21)
+
+    d.text((70, 50), "Trois objets, trois nouveaux noms", font=f_titre,
+           fill=BLANC)
+
+    # -- la capture, à droite ---------------------------------------------
+    cap = Image.open(CAPTURE).convert("RGB").crop(RECADRE)
+    cap = cap.resize((int(cap.width * CAPTURE_ECHELLE),
+                      int(cap.height * CAPTURE_ECHELLE)), Image.LANCZOS)
+    cx, cy = L - 70 - cap.width, 168
+    im.paste(cap, (cx, cy))
+    #  Un filet, pour que la capture se lise comme une capture et non comme
+    #  un morceau de la mise en page.
+    d.rectangle([cx - 1, cy - 1, cx + cap.width, cy + cap.height],
+                outline=(64, 64, 72), width=2)
+
+    d.rectangle([cx, 126, cx + 10, 152], fill=TEAL)
+    d.text((cx + 24, 122), "CAPTURE  ·  %s" % CAPTURE_VERSION, font=f_tete,
+           fill=BLANC)
+
+    # -- les anciens noms, à gauche ---------------------------------------
+    AX, AL = 70, 660
+    PY, PH = 168, 300
+    panneau(d, AX, PY, AL, PH, "", actif=False)
+    d.text((AX + 22, PY + 13), "JUSQU'À BLENDER 4.0   ·   EEVEE LEGACY",
+           font=f_tete, fill=GRIS_SOMBRE)
+    for i, (cle, _nom) in enumerate(entrees):
+        yl = PY + 84 + i * 72
+        ancien = ANCIENS.get(cle, "?")
+        d.text((AX + 30, yl), ancien, font=f_menu, fill=GRIS_SOMBRE)
+        la = d.textlength(ancien, font=f_menu)
+        d.line([AX + 26, yl + 13, AX + 34 + la, yl + 13], fill=ROUGE,
+               width=3)
+
+    # -- les deux notes, sous l'encart ------------------------------------
+    yn = PY + PH + 46
+    d.line([70, yn, cx - 46, yn], fill=(40, 40, 48), width=1)
+
+    d.rectangle([70, yn + 30, 78, yn + 56], fill=TEAL)
+    d.text((94, yn + 26),
+           "Le renommage date de Blender %s, pas de %s."
+           % (VERSION_RENOMMAGE, VERSION_EEVEE_NEXT), font=f_puce,
+           fill=BLANC)
+    for i, ligne in enumerate((
+            "Une version entière a affiché « Sphere / Plane / Volume »",
+            "alors que le moteur était encore EEVEE Legacy :",
+            "EEVEE Next n'est arrivé qu'en %s." % VERSION_EEVEE_NEXT)):
+        d.text((94, yn + 64 + i * 30), ligne, font=f_note, fill=GRIS)
+
+    d.rectangle([70, yn + 176, 78, yn + 202], fill=ROUGE)
+    d.text((94, yn + 172), "Les identifiants Python ont changé aussi.",
+           font=f_puce, fill=BLANC)
+    f_mono = police(POLICE_M, 23)
+    for i, (cle, _nom) in enumerate(entrees):
+        ya = yn + 212 + i * 30
+        av = "type='%s'" % ANCIENS_API.get(cle, "?")
+        ap = "type='%s'" % cle
+        d.text((94, ya), av, font=f_mono, fill=GRIS_SOMBRE)
+        lv = d.textlength(av, font=f_mono)
+        d.line([92, ya + 13, 96 + lv, ya + 13], fill=ROUGE, width=2)
+        fx = 114 + lv
+        d.polygon([(fx + 16, ya + 13), (fx + 4, ya + 6), (fx + 4, ya + 20)],
+                  fill=(120, 120, 134))
+        d.text((fx + 34, ya), ap, font=f_mono, fill=TEAL)
+
+    f_prov = police(POLICE_R, 19)
+    prov = ("Capture d'écran de %s. Anciens libellés et identifiants : "
+            "notes de version 4.1 et manuel des versions 2.8 à 4.0."
+            % CAPTURE_VERSION)
+    d.text((70, H - 44), prov, font=f_prov, fill=(74, 74, 84))
+
+    im.save(SORTIE, "WEBP", quality=QUALITE, method=6)
+    print()
+    print("  %d x %d   capture %d x %d posee a l'echelle %.1f"
+          % (im.size[0], im.size[1], cap.width, cap.height, CAPTURE_ECHELLE))
+    for cle, nom in entrees:
+        print("  %-22s  ->  %s" % (ANCIENS.get(cle, "?"), nom))
+    print("  %s  (%.0f Ko)"
+          % (os.path.basename(SORTIE), os.path.getsize(SORTIE) / 1024))
+
+
 def principal():
+    entrees, version = libelles_actuels()
+    if CAPTURE is not None:
+        if not os.path.exists(CAPTURE):
+            raise SystemExit("capture introuvable : %s" % CAPTURE)
+        return composer_avec_capture(entrees, version)
+
     entrees, version = libelles_actuels()
     im = Image.new("RGB", (L, H), FOND)
     d = ImageDraw.Draw(im, "RGBA")
