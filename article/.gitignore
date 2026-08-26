@@ -6,3 +6,7 @@
 #  Les .pyc sont des artefacts eux aussi. Trois d'entre eux avaient été
 #  versionnés par inadvertance ; ils sont retirés du suivi ici.
 __pycache__/
+
+#  Sauf la capture d'ecran de l'image 6 : elle ne se refabrique pas,
+#  elle a ete prise a la main dans Blender.
+!placer-volume-capture-4.2.3.png
