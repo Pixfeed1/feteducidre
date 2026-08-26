@@ -64,14 +64,37 @@ ARGS = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 
 
 def dossier_de_sortie():
+    """
+    OÙ ÉCRIRE, DANS L'ORDRE DE PRÉFÉRENCE.
+
+    « Le script est dans mes téléchargements mais l'image n'y est pas » :
+    deux causes possibles, et les deux sont traitées ici.
+
+    D'abord, `__file__` n'existe PAS toujours. Lancé depuis l'onglet
+    Scripting de Blender, le script n'a pas de nom de fichier au sens de
+    Python : la ligne plantait alors avant tout, sans rien écrire, pas même
+    le journal — ce qui explique un dossier vide.
+
+    Ensuite, « à côté du script » est un mauvais défaut : personne ne va
+    chercher une image dans son dossier de téléchargements. Le Bureau est le
+    seul endroit qu'on ne peut pas rater.
+    """
     if "--sortie" in ARGS:
         d = os.path.abspath(os.path.expanduser(
             ARGS[ARGS.index("--sortie") + 1]))
         os.makedirs(d, exist_ok=True)
         return d
-    #  Sinon : à côté du script. Sous `--python`, __file__ est bien défini
-    #  et pointe le fichier réellement exécuté.
-    return os.path.dirname(os.path.abspath(__file__))
+
+    maison = os.path.expanduser("~")
+    #  « Desktop » sur un système anglais, « Bureau » sur un système français
+    for nom in ("Desktop", "Bureau"):
+        d = os.path.join(maison, nom)
+        if os.path.isdir(d):
+            return d
+    try:
+        return os.path.dirname(os.path.abspath(__file__))
+    except NameError:
+        return maison
 
 
 DOSSIER = dossier_de_sortie()
@@ -245,6 +268,17 @@ def detourer(rect):
 #  dessiner. D'où trois temps, et non trois lignes à la suite.
 
 def _derouler():
+    try:
+        return __derouler()
+    except Exception:
+        import traceback
+        dire('  ERREUR pendant le deroulement du menu :')
+        dire(traceback.format_exc())
+        annoncer(False)
+        return None
+
+
+def __derouler():
     w, a, r = vue3d()
     if a is None:
         dire("  ECHEC : aucune vue 3D.")
@@ -261,6 +295,17 @@ def _derouler():
 
 
 def _photographier():
+    try:
+        return __photographier()
+    except Exception:
+        import traceback
+        dire('  ERREUR pendant le prise de vue :')
+        dire(traceback.format_exc())
+        annoncer(False)
+        return None
+
+
+def __photographier():
     w, a, r = vue3d()
     with bpy.context.temp_override(window=w, area=a, region=r):
         bpy.ops.screen.screenshot(filepath=BRUTE)
@@ -268,17 +313,49 @@ def _photographier():
     return None
 
 
+def annoncer(ok):
+    """
+    Le résultat, DANS BLENDER, en fenêtre surgissante.
+
+    Un chemin imprimé dans une console que personne n'ouvre n'apprend rien.
+    Blender sait afficher un message par-dessus son interface : c'est le seul
+    endroit où l'utilisateur le verra à coup sûr.
+    """
+    def dessiner(self, _ctx):
+        if ok:
+            self.layout.label(text="Capture enregistree :")
+            self.layout.label(text=SORTIE)
+        else:
+            self.layout.label(text="La capture a echoue.")
+            self.layout.label(text="Compte-rendu :")
+            self.layout.label(text=JOURNAL)
+    try:
+        bpy.context.window_manager.popup_menu(
+            dessiner, title="Menu Light Probe",
+            icon="CHECKMARK" if ok else "ERROR")
+    except Exception:
+        pass
+
+
 def _ranger():
-    ok = detourer(_etat["rect"])
+    try:
+        ok = detourer(_etat["rect"])
+    except Exception:
+        import traceback
+        dire("  ERREUR pendant le decoupage :")
+        dire(traceback.format_exc())
+        ok = False
     restaurer()
+    annoncer(ok)
     #  On ne referme QUE si ça a marché. Un échec qui ferme la fenêtre ne
     #  laisse rien à regarder : mieux vaut rester ouvert avec le journal à
     #  côté des images.
-    if ok and "--rester" not in ARGS:
+    #  On ne referme QUE si la capture a réussi ET si Blender a été lancé
+    #  en ligne de commande. Depuis l'onglet Scripting, fermer Blender sous
+    #  le nez de l'utilisateur serait brutal — et lui cacherait le message.
+    en_ligne = "--python" in sys.argv
+    if ok and en_ligne and "--rester" not in ARGS:
         bpy.ops.wm.quit_blender()
-    else:
-        dire("  Blender reste ouvert : le journal est dans %s"
-             % os.path.basename(JOURNAL))
     return None
 
 
