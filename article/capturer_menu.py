@@ -1,53 +1,55 @@
 """
-LA VRAIE CAPTURE DU MENU Add ▸ Light Probe.
+CAPTURE AUTOMATIQUE DU MENU Add ▸ Light Probe.
 
     blender --python capturer_menu.py
 
-Compatible Blender 4.2 LTS à 4.5 LTS. Blender s'ouvre, met la vue 3D en
-plein écran, déroule le menu, se photographie, détoure le menu et se referme.
+Ou, sans terminal : ouvrir Blender, onglet **Scripting**, **Open**, choisir ce
+fichier, **Run Script**.
 
-OÙ ATTERRIT LA CAPTURE
-----------------------
-Par défaut, dans le MÊME DOSSIER que ce script. Le chemin absolu est
-imprimé en clair à la fin — c'est la dernière ligne de la console.
+Rien à faire d'autre. Pas de souris à placer, pas de menu à ouvrir, pas de
+minuteur à surveiller. Le script s'occupe de tout et affiche le chemin du
+fichier quand il a fini.
 
-Pour choisir soi-même :
-
-    blender --python capturer_menu.py -- --sortie ~/Images
-
-Deux fichiers en sortent :
-
-    menu-capture.png         le menu détouré, sur fond transparent
-    menu-capture-brute.png   la fenêtre entière, au cas où
-
-AVANT DE LANCER
----------------
-Rien à préparer. Le script remet le thème et l'échelle d'interface comme il
-les a trouvés. Si vous voulez garder Blender ouvert pour regarder :
-
-    blender --python capturer_menu.py -- --rester
+    Sortie : Bureau / menu-capture.png        le menu détouré, fond transparent
+             Bureau / menu-capture-brute.png  l'écran entier
+             Bureau / menu-capture.log        le compte-rendu
 
 ----------------------------------------------------------------------------
-COMMENT LE MENU EST DÉTOURÉ
+CE QUI NE MARCHAIT PAS DANS LA VERSION PRÉCÉDENTE
 ----------------------------------------------------------------------------
-Un menu déroulé est FUGACE : il se ferme au premier clic, et sa position
-dépend de celle de la souris. Le découper à la main donnerait un cadrage
-différent à chaque fois.
+Une seule ligne, et elle expliquait tout :
 
-D'où l'incrustation par couleur-clé, comme en vidéo : on repeint le fond de
-la vue 3D en magenta pur le temps de la photo. Le menu devient la seule zone
-non magenta, et son rectangle se déduit sans ambiguïté.
+    bpy.ops.wm.call_menu(name=MENU)              # ne dessine RIEN
+    bpy.ops.wm.call_menu('INVOKE_DEFAULT', ...)  # ouvre le menu
 
-Avec DEUX précautions qui font toute la fiabilité :
+Appelé depuis Python, un opérateur s'exécute par défaut en mode EXEC. Or un
+menu n'a pas d'exécution : il n'existe qu'INVOQUÉ, à une position de souris.
+En mode EXEC il rendait la main sans rien afficher — la suite photographiait
+donc une vue vide, et le détourage ne trouvait rien à détourer.
 
-  1. la vue 3D est passée en PLEIN ÉCRAN. Sinon la barre d'outils, l'outliner
-     et les propriétés — qui ne sont pas magenta — seraient pris pour le
-     menu ;
+D'où venait aussi « il faut mettre la souris au milieu » : un menu invoqué
+s'ouvre là où est le pointeur. Blender sait le déplacer lui-même —
+`window.cursor_warp()` — il n'y avait aucune raison de le demander à
+l'utilisateur.
 
-  2. la recherche est bornée AU RECTANGLE DE LA VUE 3D, relevé sur l'aire
-     elle-même. Il reste toujours la barre du haut et la barre d'état, qui
-     ne deviendront jamais magenta ; sans cette borne, le découpage les
-     attrapait et le « menu » faisait la largeur de l'écran.
+----------------------------------------------------------------------------
+COMMENT LE MENU EST ISOLÉ
+----------------------------------------------------------------------------
+Incrustation par couleur-clé, comme en vidéo : le fond de la vue 3D est
+repeint en magenta pur le temps de la photo, le menu devient la seule zone
+qui ne soit pas magenta, et son rectangle se déduit sans ambiguïté.
+
+Trois précautions, chacune indispensable :
+
+  1. les surcouches, la barre d'outils et la barre latérale sont masquées —
+     ce sont elles, à l'intérieur même de la vue, qui pollueraient le fond ;
+  2. la recherche est bornée à la RÉGION de dessin, relevée sur Blender. La
+     barre du haut et la barre d'état ne deviendront jamais magenta : sans
+     cette borne, le « menu » retrouvé faisait la largeur de l'écran ;
+  3. l'échelle d'interface est doublée avant la photo. Un menu à l'échelle 1
+     fait 200 px de large : agrandi après coup, il est illisible.
+
+Tout est remis en place ensuite — thème, panneaux, surcouches, échelle.
 
 Aucune dépendance : uniquement le numpy fourni avec Blender.
 """
@@ -58,35 +60,31 @@ import sys
 import bpy
 import numpy as np
 
-#  `blender --python x.py -- --sortie /chemin` : Blender passe tout ce qui
-#  suit `--` au script, sans y toucher.
+MENU = "VIEW3D_MT_lightprobe_add"
+CLE = (1.0, 0.0, 1.0)              # le magenta d'incrustation
+MARGE = 6                          # pixels conservés autour du menu
+ECHELLE = 2.0                      # échelle d'interface pendant la photo
+
+#  Les temps d'attente. Chaque étape doit RENDRE LA MAIN à Blender pour
+#  qu'il redessine : changer l'échelle d'interface relayoute toute la
+#  fenêtre, et ouvrir un menu demande une image de plus.
+T_REGLAGE = 0.8
+T_MENU = 0.7
+T_PHOTO = 0.4
+
 ARGS = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 
 
 def dossier_de_sortie():
-    """
-    OÙ ÉCRIRE, DANS L'ORDRE DE PRÉFÉRENCE.
-
-    « Le script est dans mes téléchargements mais l'image n'y est pas » :
-    deux causes possibles, et les deux sont traitées ici.
-
-    D'abord, `__file__` n'existe PAS toujours. Lancé depuis l'onglet
-    Scripting de Blender, le script n'a pas de nom de fichier au sens de
-    Python : la ligne plantait alors avant tout, sans rien écrire, pas même
-    le journal — ce qui explique un dossier vide.
-
-    Ensuite, « à côté du script » est un mauvais défaut : personne ne va
-    chercher une image dans son dossier de téléchargements. Le Bureau est le
-    seul endroit qu'on ne peut pas rater.
-    """
+    """Le Bureau. `__file__` n'existe pas quand on lance depuis l'onglet
+    Scripting, et personne ne va chercher une image dans ses
+    téléchargements."""
     if "--sortie" in ARGS:
         d = os.path.abspath(os.path.expanduser(
             ARGS[ARGS.index("--sortie") + 1]))
         os.makedirs(d, exist_ok=True)
         return d
-
     maison = os.path.expanduser("~")
-    #  « Desktop » sur un système anglais, « Bureau » sur un système français
     for nom in ("Desktop", "Bureau"):
         d = os.path.join(maison, nom)
         if os.path.isdir(d):
@@ -102,17 +100,12 @@ SORTIE = os.path.join(DOSSIER, "menu-capture.png")
 BRUTE = os.path.join(DOSSIER, "menu-capture-brute.png")
 JOURNAL = os.path.join(DOSSIER, "menu-capture.log")
 
+_etat = {}
+
 
 def dire(*morceaux):
-    """
-    Tout ce que le script raconte part À LA FOIS dans la console et dans un
-    fichier, à côté des images.
-
-    Lancé depuis un raccourci ou un gestionnaire de fichiers, Blender n'ouvre
-    aucune console : le script se déroulait, échouait parfois, et se fermait
-    sans laisser la moindre trace de ce qui s'était passé. Un journal sur
-    disque coûte trois lignes et évite d'avoir à deviner.
-    """
+    """Console ET fichier : lancé autrement que depuis un terminal, Blender
+    n'ouvre aucune console, et le script parlerait dans le vide."""
     ligne = " ".join(str(m) for m in morceaux)
     print(ligne)
     try:
@@ -121,26 +114,22 @@ def dire(*morceaux):
     except OSError:
         pass
 
-MENU = "VIEW3D_MT_lightprobe_add"
-CLE = (1.0, 0.0, 1.0)              # le magenta d'incrustation
-MARGE = 6                          # pixels conservés autour du menu
-ATTENTE = 0.55                     # laisse le menu se dessiner
 
-#  L'ÉCHELLE D'INTERFACE, ET POURQUOI ON LA POUSSE.
-#
-#  Un menu de Blender à l'échelle 1 fait environ 200 px de large. Dans une
-#  image d'article de 1600 px c'est un timbre-poste, et l'agrandir après coup
-#  donne une bouillie. On double donc l'échelle AVANT la photo : Blender
-#  redessine le menu à sa taille double, nativement net, plus rien à
-#  interpoler. Restaurée juste après, comme le thème.
-ECHELLE = 2.0
-
-_etat = {}
+def fenetre(titre, lignes, icone="INFO"):
+    """Le résultat par-dessus l'interface : c'est le seul endroit où
+    l'utilisateur le verra à coup sûr."""
+    def dessiner(self, _ctx):
+        for l in lignes:
+            self.layout.label(text=l)
+    try:
+        bpy.context.window_manager.popup_menu(dessiner, title=titre,
+                                              icon=icone)
+    except Exception:
+        pass
 
 
 def vue3d():
-    """La fenêtre, l'aire et la région d'une vue 3D — un menu ne se déroule
-    que dans un contexte qui en possède une."""
+    """La fenêtre, l'aire et la RÉGION DE DESSIN d'une vue 3D."""
     for w in bpy.context.window_manager.windows:
         for a in w.screen.areas:
             if a.type != "VIEW_3D":
@@ -151,39 +140,118 @@ def vue3d():
     return None, None, None
 
 
-def preparer():
-    """Plein écran, fond magenta, interface doublée."""
+# ---------------------------------------------------------------------------
+
+def _reglages():
+    """Étape 1 : vider la vue, la peindre en magenta, doubler l'échelle."""
     w, a, r = vue3d()
+    if a is None:
+        dire("  ECHEC : aucune vue 3D.")
+        dire("  Lancez ce script sur un Blender AVEC interface, pas en -b.")
+        fenetre("Echec", ["Aucune vue 3D dans cette fenetre."], "ERROR")
+        return None
+
+    sp = a.spaces.active
     th = bpy.context.preferences.themes[0].view_3d.space
     vu = bpy.context.preferences.view
-    _etat["fond"] = th.gradients.background_type
-    _etat["couleur"] = tuple(th.gradients.high_gradient)
-    _etat["echelle"] = vu.ui_scale
 
-    with bpy.context.temp_override(window=w, area=a, region=r):
-        #  Plein écran : tout ce qui n'est pas la vue 3D disparaît, donc
-        #  tout ce qui n'est pas magenta après coup est bien le menu.
-        bpy.ops.screen.screen_full_area()
-    _etat["plein_ecran"] = True
+    _etat["memoire"] = {
+        "fond": th.gradients.background_type,
+        "couleur": tuple(th.gradients.high_gradient),
+        "echelle": vu.ui_scale,
+        "surcouches": sp.overlay.show_overlays,
+        "outils": sp.show_region_toolbar,
+        "lateral": sp.show_region_ui,
+        "gizmo": sp.show_gizmo,
+    }
 
+    #  Tout ce qui se dessine DANS la vue et n'est pas magenta polluerait le
+    #  détourage : grille, axes, gizmo de navigation, panneaux latéraux.
+    sp.overlay.show_overlays = False
+    sp.show_gizmo = False
+    sp.show_region_toolbar = False
+    sp.show_region_ui = False
     th.gradients.background_type = "SINGLE_COLOR"
     th.gradients.high_gradient = CLE
     vu.ui_scale = ECHELLE
 
+    bpy.app.timers.register(_ouvrir, first_interval=T_MENU)
+    return None
+
+
+def _ouvrir():
+    """Étape 2 : poser le pointeur au centre de la vue, ouvrir le menu."""
+    w, a, r = vue3d()
+    #  La géométrie est relue MAINTENANT : doubler l'échelle d'interface a
+    #  relayouté toute la fenêtre, les rectangles d'avant ne valent plus rien.
+    _etat["region"] = (r.x, r.y, r.width, r.height)
+
+    #  Blender déplace lui-même le pointeur. Un menu s'ouvre où il se trouve :
+    #  sans ce recentrage, il se collait au bord de l'écran — d'où le
+    #  « mettez la souris au milieu » qu'on n'aurait jamais dû demander.
+    w.cursor_warp(r.x + r.width // 2, r.y + r.height // 2)
+
+    with bpy.context.temp_override(window=w, area=a, region=r):
+        #  INVOKE_DEFAULT, et pas autrement : un menu n'a pas d'exécution.
+        bpy.ops.wm.call_menu("INVOKE_DEFAULT", name=MENU)
+
+    bpy.app.timers.register(_photographier, first_interval=T_PHOTO)
+    return None
+
+
+def _photographier():
+    """Étape 3 : la photo. `screen.screenshot` reçoit un chemin, donc lui
+    s'exécute bel et bien."""
+    w, a, r = vue3d()
+    with bpy.context.temp_override(window=w, area=a, region=r):
+        bpy.ops.screen.screenshot(filepath=BRUTE)
+    bpy.app.timers.register(_ranger, first_interval=T_PHOTO)
+    return None
+
+
+def _ranger():
+    """Étape 4 : détourer, tout remettre en place, annoncer."""
+    try:
+        ok = detourer(_etat["region"])
+    except Exception:
+        import traceback
+        dire("  ERREUR pendant le decoupage :")
+        dire(traceback.format_exc())
+        ok = False
+    restaurer()
+
+    if ok:
+        fenetre("Capture enregistree", [SORTIE], "CHECKMARK")
+    else:
+        fenetre("Echec", ["Compte-rendu :", JOURNAL], "ERROR")
+
+    #  On ne referme que si ça a marché ET si Blender a été lancé en ligne de
+    #  commande : depuis l'onglet Scripting, fermer la fenêtre cacherait
+    #  justement le message.
+    if ok and "--python" in sys.argv and "--rester" not in ARGS:
+        bpy.ops.wm.quit_blender()
+    return None
+
 
 def restaurer():
+    m = _etat.get("memoire")
+    if not m:
+        return
+    w, a, r = vue3d()
     th = bpy.context.preferences.themes[0].view_3d.space
     vu = bpy.context.preferences.view
-    if "fond" in _etat:
-        th.gradients.background_type = _etat["fond"]
-        th.gradients.high_gradient = _etat["couleur"]
-        vu.ui_scale = _etat["echelle"]
-    if _etat.get("plein_ecran"):
-        w, a, r = vue3d()
-        if a is not None:
-            with bpy.context.temp_override(window=w, area=a, region=r):
-                bpy.ops.screen.back_to_previous()
+    th.gradients.background_type = m["fond"]
+    th.gradients.high_gradient = m["couleur"]
+    vu.ui_scale = m["echelle"]
+    if a is not None:
+        sp = a.spaces.active
+        sp.overlay.show_overlays = m["surcouches"]
+        sp.show_gizmo = m["gizmo"]
+        sp.show_region_toolbar = m["outils"]
+        sp.show_region_ui = m["lateral"]
 
+
+# ---------------------------------------------------------------------------
 
 def lire(chemin):
     img = bpy.data.images.load(chemin)
@@ -206,37 +274,41 @@ def ecrire(a, chemin):
 
 
 def est_magenta(a):
-    """Tolérant : l'anticrénelage des bords du menu produit des pixels à
-    mi-chemin entre le magenta et le gris, et une égalité stricte rognerait
-    le contour d'un pixel ou deux."""
+    """Tolérant : l'anticrénelage du bord du menu produit des pixels à
+    mi-chemin, et une égalité stricte rognerait le contour."""
     return (a[..., 0] > 0.80) & (a[..., 1] < 0.20) & (a[..., 2] > 0.80)
 
 
 def detourer(rect):
+    if not os.path.exists(BRUTE):
+        dire("  ECHEC : aucune capture ecrite. La prise de vue a echoue.")
+        return False
+
     a = lire(BRUTE)
     H, L = a.shape[:2]
-    x0v, y0v, lv, hv = rect
+    rx, ry, rl, rh = rect
 
-    #  Le rectangle de la vue 3D, converti dans le repère de l'image.
-    #  Blender compte ses aires depuis le bas de la fenêtre, une image se lit
-    #  depuis le haut : d'où l'inversion.
-    ix0 = max(0, min(L, x0v))
-    ix1 = max(0, min(L, x0v + lv))
-    iy0 = max(0, min(H, H - (y0v + hv)))
-    iy1 = max(0, min(H, H - y0v))
+    #  Blender compte ses régions depuis le BAS de la fenêtre, une image se
+    #  lit depuis le HAUT : d'où l'inversion.
+    ix0, ix1 = max(0, rx), min(L, rx + rl)
+    iy0, iy1 = max(0, H - (ry + rh)), min(H, H - ry)
 
     zone = a[iy0:iy1, ix0:ix1]
     if zone.size == 0:
-        dire("  ECHEC : la vue 3D est hors de la capture.")
+        dire("  ECHEC : la region de dessin est hors de la capture.")
         return False
 
     utile = ~est_magenta(zone)
+    part = 100.0 * utile.mean()
+    dire("  zone analysee : %d x %d px, %.1f %% non magenta"
+         % (zone.shape[1], zone.shape[0], part))
+
     lignes = np.where(utile.any(axis=1))[0]
     colonnes = np.where(utile.any(axis=0))[0]
     if not len(lignes) or not len(colonnes):
-        dire("  ECHEC : aucune zone non magenta dans la vue 3D.")
-        dire("  Le menu ne s'est pas deroule. Relancez en laissant la "
-             "souris AU MILIEU de la fenetre de Blender.")
+        dire("  ECHEC : la vue est entierement magenta.")
+        dire("  Le menu ne s'est pas ouvert. Regardez %s."
+             % os.path.basename(BRUTE))
         return False
 
     y0 = max(0, lignes[0] - MARGE) + iy0
@@ -244,119 +316,21 @@ def detourer(rect):
     x0 = max(0, colonnes[0] - MARGE) + ix0
     x1 = min(zone.shape[1], colonnes[-1] + 1 + MARGE) + ix0
 
+    if (x1 - x0) > rl * 0.9 or (y1 - y0) > rh * 0.9:
+        dire("  ECHEC : le decoupage fait presque toute la vue (%d x %d)."
+             % (x1 - x0, y1 - y0))
+        dire("  Quelque chose d'autre que le menu est reste a l'ecran.")
+        return False
+
     coupe = a[y0:y1, x0:x1].copy()
-    #  Le magenta résiduel des angles arrondis passe en transparent : le menu
-    #  se posera proprement sur n'importe quel fond.
+    #  Le magenta des angles arrondis passe en transparent : le menu se
+    #  posera proprement sur n'importe quel fond.
     coupe[est_magenta(coupe)] = (0.0, 0.0, 0.0, 0.0)
     ecrire(coupe, SORTIE)
 
     dire("  menu detoure : %d x %d px" % (x1 - x0, y1 - y0))
-    if (x1 - x0) > lv * 0.9:
-        dire("  ATTENTION : le decoupage fait presque toute la largeur.")
-        dire("  Le menu ne s'est probablement pas deroule - regardez %s."
-             % os.path.basename(BRUTE))
-    dire("  CAPTURE   %s" % SORTIE)
-    dire("  fenetre   %s" % BRUTE)
+    dire("  CAPTURE  %s" % SORTIE)
     return True
-
-
-# ---------------------------------------------------------------------------
-#  L'ENCHAÎNEMENT, EN TROIS RÉVEILS
-# ---------------------------------------------------------------------------
-#  Un menu ne se déroule pas dans le même souffle que sa photographie : il
-#  faut rendre la main à Blender entre les deux pour qu'il ait le temps de le
-#  dessiner. D'où trois temps, et non trois lignes à la suite.
-
-def _derouler():
-    try:
-        return __derouler()
-    except Exception:
-        import traceback
-        dire('  ERREUR pendant le deroulement du menu :')
-        dire(traceback.format_exc())
-        annoncer(False)
-        return None
-
-
-def __derouler():
-    w, a, r = vue3d()
-    if a is None:
-        dire("  ECHEC : aucune vue 3D.")
-        dire("  Ce script demande un Blender AVEC interface : lancez-le "
-             "sans l'option -b.")
-        return None
-    preparer()
-    w, a, r = vue3d()                  # l'aire a changé avec le plein écran
-    _etat["rect"] = (a.x, a.y, a.width, a.height)
-    with bpy.context.temp_override(window=w, area=a, region=r):
-        bpy.ops.wm.call_menu(name=MENU)
-    bpy.app.timers.register(_photographier, first_interval=ATTENTE)
-    return None
-
-
-def _photographier():
-    try:
-        return __photographier()
-    except Exception:
-        import traceback
-        dire('  ERREUR pendant le prise de vue :')
-        dire(traceback.format_exc())
-        annoncer(False)
-        return None
-
-
-def __photographier():
-    w, a, r = vue3d()
-    with bpy.context.temp_override(window=w, area=a, region=r):
-        bpy.ops.screen.screenshot(filepath=BRUTE)
-    bpy.app.timers.register(_ranger, first_interval=0.3)
-    return None
-
-
-def annoncer(ok):
-    """
-    Le résultat, DANS BLENDER, en fenêtre surgissante.
-
-    Un chemin imprimé dans une console que personne n'ouvre n'apprend rien.
-    Blender sait afficher un message par-dessus son interface : c'est le seul
-    endroit où l'utilisateur le verra à coup sûr.
-    """
-    def dessiner(self, _ctx):
-        if ok:
-            self.layout.label(text="Capture enregistree :")
-            self.layout.label(text=SORTIE)
-        else:
-            self.layout.label(text="La capture a echoue.")
-            self.layout.label(text="Compte-rendu :")
-            self.layout.label(text=JOURNAL)
-    try:
-        bpy.context.window_manager.popup_menu(
-            dessiner, title="Menu Light Probe",
-            icon="CHECKMARK" if ok else "ERROR")
-    except Exception:
-        pass
-
-
-def _ranger():
-    try:
-        ok = detourer(_etat["rect"])
-    except Exception:
-        import traceback
-        dire("  ERREUR pendant le decoupage :")
-        dire(traceback.format_exc())
-        ok = False
-    restaurer()
-    annoncer(ok)
-    #  On ne referme QUE si ça a marché. Un échec qui ferme la fenêtre ne
-    #  laisse rien à regarder : mieux vaut rester ouvert avec le journal à
-    #  côté des images.
-    #  On ne referme QUE si la capture a réussi ET si Blender a été lancé
-    #  en ligne de commande. Depuis l'onglet Scripting, fermer Blender sous
-    #  le nez de l'utilisateur serait brutal — et lui cacherait le message.
-    en_ligne = "--python" in sys.argv
-    if ok and en_ligne and "--rester" not in ARGS:
-        bpy.ops.wm.quit_blender()
-    return None
 
 
 if __name__ == "__main__":
@@ -367,5 +341,5 @@ if __name__ == "__main__":
     dire("")
     dire("  capture de %s" % MENU)
     dire("  Blender %s" % bpy.app.version_string)
-    dire("  dossier de sortie : %s" % DOSSIER)
-    bpy.app.timers.register(_derouler, first_interval=1.0)
+    dire("  sortie : %s" % DOSSIER)
+    bpy.app.timers.register(_reglages, first_interval=T_REGLAGE)
