@@ -30,6 +30,11 @@ BLOC = (231, 234, 240)          # les aplats qui figurent du contenu
 ADMIN = (46, 58, 80)
 VITRINE = (98, 44, 200)
 
+#  Une troisième teinte, pour les figures qui opposent un cas fragile à un cas
+#  sûr. Rouge brique plutôt que rouge vif : on signale une fragilité, on ne
+#  crie pas à la panne.
+ALERTE = (176, 46, 38)
+
 POLICE_G = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 POLICE_R = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
 POLICE_M = "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf"
@@ -61,7 +66,8 @@ def verifier(fond=FOND):
     liste = (("texte fort", ENCRE, 4.5), ("texte gris", GRIS, 4.5),
              ("mention faible", FAIBLE, 3.0),
              ("teinte back-office", ADMIN, 4.5),
-             ("teinte vitrine", VITRINE, 4.5))
+             ("teinte vitrine", VITRINE, 4.5),
+             ("teinte alerte", ALERTE, 4.5))
     faibles = []
     for nom, couleur, seuil in liste:
         r = contraste(couleur, fond)
