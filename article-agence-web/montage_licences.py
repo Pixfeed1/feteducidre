@@ -31,7 +31,14 @@ import charte as C
 
 RACINE = os.path.dirname(os.path.abspath(__file__))
 CAPTURE = os.path.join(RACINE, "licences-capture-wordpress-7.1.png")
-SORTIE = os.path.join(RACINE, "licences-expirees-mises-a-jour-securite.webp")
+BASE = os.path.join(RACINE, "licences-expirees-mises-a-jour-securite")
+
+#  Deux fichiers, et ce n'est pas un doublon inutile : le WebP part sur le
+#  site, le PNG sert à REGARDER l'image avant de la mettre en ligne. Windows et
+#  macOS n'ouvrent pas le WebP par défaut et proposent d'installer un logiciel,
+#  ce qui donne l'impression que le fichier est cassé alors qu'il va très bien.
+SORTIE = BASE + ".webp"
+APERCU = BASE + ".png"
 
 LARGEUR = 1600
 
@@ -77,10 +84,12 @@ def principal():
         d.text((marge, y + 14 + i * 24), ligne, font=f, fill=C.FAIBLE)
 
     out.save(SORTIE, "WEBP", quality=C.QUALITE, method=6)
+    out.save(APERCU, "PNG", optimize=True)
     print()
     print("  capture %d × %d  ->  figure %d × %d" % (*cap.size, *out.size))
-    print("  %s  (%.0f Ko)"
-          % (os.path.basename(SORTIE), os.path.getsize(SORTIE) / 1024))
+    for f in (SORTIE, APERCU):
+        print("  %-48s %.0f Ko"
+              % (os.path.basename(f), os.path.getsize(f) / 1024))
 
 
 if __name__ == "__main__":
