@@ -19,12 +19,30 @@ propriétaire du code » sépare les agences en deux camps dès la première
 réunion.
 
 ----------------------------------------------------------------------------
-FORMAT VERTICAL, DONC LISIBLE EN PETIT
+PAYSAGE, PARCE QU'UNE IMAGE À LA UNE EST RECADRÉE
 ----------------------------------------------------------------------------
-Une image à la une est vue en vignette avant d'être vue en grand. Onze lignes
-dans un format vertical, c'est peu de place par ligne : le texte est donc
-composé au plus gros corps qui tienne, et le script REFUSE de produire la
-figure si une question déborde sur trois lignes. Mieux vaut un script qui
+La première version suivait le brief à la lettre : 1080 × 1620, vertical. Elle
+était juste sur le papier et inutilisable en pratique.
+
+WordPress ne montre presque jamais une image à la une telle quelle. Les
+vignettes de cartes et de pages d'archives sont en PAYSAGE, et le partage sur
+les réseaux passe par la balise Open Graph, dont le format de référence est
+1200 × 630. Sur une image verticale, ces recadrages prennent une bande
+centrale : sur onze questions, il en resterait trois ou quatre.
+
+D'où 1600 × 900. Ce format se recadre en 1200 × 630 en ne perdant que trente
+pixels en haut et en bas — rien qui porte du sens ici — et remplit les
+vignettes de thème sans bande vide.
+
+----------------------------------------------------------------------------
+DEUX COLONNES, ET LE REFUS DE DÉBORDER
+----------------------------------------------------------------------------
+Onze lignes ne tiennent pas en pleine largeur sur 900 px de haut sans devenir
+minuscules. Elles sont donc réparties en deux colonnes, six et cinq.
+
+Le texte est replié à la largeur de sa colonne, et le script REFUSE de
+produire l'image si une question déborde sur trois lignes ou si la place par
+ligne descend sous le diamètre d'une pastille. Mieux vaut un script qui
 s'arrête qu'une vignette illisible.
 
 Le numéro est dans une pastille pleine plutôt qu'en simple chiffre : à la
@@ -41,8 +59,10 @@ import charte as C
 RACINE = os.path.dirname(os.path.abspath(__file__))
 SORTIE = os.path.join(RACINE, "onze-questions-choisir-agence-web.webp")
 
-L, H = 1080, 1620               # 2/3, format vertical
-MARGE = 64
+L, H = 1600, 900                # 16/9 : se recadre proprement en 1200 × 630
+MARGE = 56
+GOUTTIERE = 48
+GAUCHE = 6                      # questions dans la colonne de gauche
 
 TITRE = ("11 QUESTIONS", "À POSER À UNE AGENCE WEB", "AVANT DE SIGNER")
 
@@ -61,8 +81,8 @@ QUESTIONS = (
     "Puis-je parler à deux de vos clients actuels ?",
 )
 
-PASTILLE = 52                    # diamètre de la pastille du numéro
-COLONNE = 30                     # espace entre la pastille et le texte
+PASTILLE = 46                    # diamètre de la pastille du numéro
+COLONNE = 24                     # espace entre la pastille et le texte
 
 
 def couper(d, texte, f, largeur):
@@ -88,26 +108,29 @@ def principal():
     out = Image.new("RGB", (L, H), C.FOND)
     d = ImageDraw.Draw(out)
 
-    f_marque = C.police(C.POLICE_G, 22)
-    f_titre = C.police(C.POLICE_G, 52)
-    f_num = C.police(C.POLICE_G, 25)
-    f_q = C.police(C.POLICE_R, 27)
+    f_marque = C.police(C.POLICE_G, 21)
+    f_titre = C.police(C.POLICE_G, 44)
+    f_num = C.police(C.POLICE_G, 22)
+    f_q = C.police(C.POLICE_R, 23)
 
-    #  La marque, discrète : l'image à la une n'est pas une affiche.
-    d.rectangle([MARGE, MARGE, MARGE + 8, MARGE + 24], fill=C.VIOLET)
-    d.text((MARGE + 22, MARGE - 2), "PIXFEED", font=f_marque,
+    #  La marque, discrète : une image à la une n'est pas une affiche.
+    d.rectangle([MARGE, MARGE, MARGE + 8, MARGE + 22], fill=C.VIOLET)
+    d.text((MARGE + 22, MARGE - 3), "PIXFEED", font=f_marque,
            fill=C.VIOLET_TEXTE)
 
-    y = MARGE + 78
-    for i, ligne in enumerate(TITRE):
-        d.text((MARGE, y + i * 62), ligne, font=f_titre,
-               fill=C.VIOLET_TEXTE if i == 0 else C.ENCRE)
-    y += len(TITRE) * 62 + 26
+    #  Le titre tient sur deux lignes en paysage, contre trois en vertical.
+    y = MARGE + 62
+    d.text((MARGE, y), TITRE[0], font=f_titre, fill=C.VIOLET_TEXTE)
+    d.text((MARGE + d.textlength(TITRE[0] + " ", font=f_titre), y),
+           TITRE[1], font=f_titre, fill=C.ENCRE)
+    d.text((MARGE, y + 54), TITRE[2], font=f_titre, fill=C.ENCRE)
+    y += 54 + 60
     d.line([MARGE, y, L - MARGE, y], fill=C.TRAIT, width=2)
 
-    #  LES ONZE LIGNES. On mesure d'abord, on dessine ensuite : c'est la seule
+    #  DEUX COLONNES. On mesure d'abord, on dessine ensuite : c'est la seule
     #  façon de savoir si tout tient avant d'avoir produit une image fausse.
-    largeur_texte = L - MARGE * 2 - PASTILLE - COLONNE
+    col_l = (L - MARGE * 2 - GOUTTIERE) // 2
+    largeur_texte = col_l - PASTILLE - COLONNE
     plies = [couper(d, q, f_q, largeur_texte) for q in QUESTIONS]
     trop = [q for q, p in zip(QUESTIONS, plies) if len(p) > 2]
     if trop:
@@ -115,31 +138,34 @@ def principal():
             "ces questions tiennent sur plus de deux lignes, elles seront "
             "illisibles en vignette :\n        - " + "\n        - ".join(trop))
 
-    haut = y + 34
-    reste = H - haut - MARGE
-    pas = reste / float(len(QUESTIONS))
-    if pas < PASTILLE + 12:
+    haut = y + 32
+    par_col = max(GAUCHE, len(QUESTIONS) - GAUCHE)
+    pas = (H - haut - MARGE) / float(par_col)
+    if pas < PASTILLE + 10:
         raise SystemExit("il ne reste que %.0f px par question : "
                          "raccourcissez le titre ou agrandissez l'image" % pas)
 
     for i, (q, lignes) in enumerate(zip(QUESTIONS, plies)):
-        cy = haut + pas * i + PASTILLE / 2 + 4
-        #  La pastille pleine : à la taille d'une vignette, c'est elle qui
-        #  reste lisible et qui fait lire « une liste ».
-        d.ellipse([MARGE, cy - PASTILLE / 2, MARGE + PASTILLE,
-                   cy + PASTILLE / 2], fill=C.VIOLET)
-        n = str(i + 1)
-        d.text((MARGE + PASTILLE / 2 - d.textlength(n, font=f_num) / 2,
-                cy - 15), n, font=f_num, fill=(255, 255, 255))
+        colonne = 0 if i < GAUCHE else 1
+        rang = i if colonne == 0 else i - GAUCHE
+        x0 = MARGE + colonne * (col_l + GOUTTIERE)
+        cy = haut + pas * rang + PASTILLE / 2 + 2
 
-        x = MARGE + PASTILLE + COLONNE
-        depart = cy - (len(lignes) * 34) / 2 - 2
+        d.ellipse([x0, cy - PASTILLE / 2, x0 + PASTILLE, cy + PASTILLE / 2],
+                  fill=C.VIOLET)
+        n = str(i + 1)
+        d.text((x0 + PASTILLE / 2 - d.textlength(n, font=f_num) / 2, cy - 13),
+               n, font=f_num, fill=(255, 255, 255))
+
+        x = x0 + PASTILLE + COLONNE
+        depart = cy - (len(lignes) * 30) / 2 - 1
         for j, ligne in enumerate(lignes):
-            d.text((x, depart + j * 34), ligne, font=f_q, fill=C.ENCRE)
+            d.text((x, depart + j * 30), ligne, font=f_q, fill=C.ENCRE)
 
     out.save(SORTIE, "WEBP", quality=C.QUALITE, method=6)
     print()
-    print("  %d × %d  (%.0f px par question)" % (L, H, pas))
+    print("  %d × %d  (%.0f px par question, %d + %d)"
+          % (L, H, pas, GAUCHE, len(QUESTIONS) - GAUCHE))
     print("  %s  (%.0f Ko)"
           % (os.path.basename(SORTIE), os.path.getsize(SORTIE) / 1024))
 
