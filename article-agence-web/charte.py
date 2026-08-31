@@ -28,6 +28,12 @@ TRAIT = (206, 211, 220)
 VIOLET = (148, 66, 250)          # la charte Pixfeed, pour les aplats
 VIOLET_TEXTE = (98, 44, 200)     # sa version lisible sur fond clair
 
+#  Deux teintes de signalisation, réservées aux figures qui opposent un état
+#  sain à un état dégradé. Elles ne servent jamais de décor : dès qu'elles
+#  apparaissent, elles veulent dire quelque chose.
+ALERTE = (176, 46, 38)
+VERT = (12, 124, 92)
+
 POLICE_G = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 POLICE_R = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
 
