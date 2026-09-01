@@ -7,32 +7,36 @@ Produit `article-agence-web/qui-detient-les-acces-site-web.webp` et son
 équivalent PNG.
 
 ----------------------------------------------------------------------------
-LA FORME VIENT DE LA PHRASE QUI COMPTE
+CE QUI A ÉTÉ JETÉ, ET POURQUOI
 ----------------------------------------------------------------------------
-Le paragraphe dit quatre choses, mais il en dit surtout une : le domaine est le
-seul qui ne se récupère pas. Une figure qui alignerait les quatre accès côte à
-côte, du même format, dirait exactement le contraire — qu'ils se valent.
+La première version avait la tête de tous les schémas qu'on voit passer :
+quatre cartes à coins arrondis, des pastilles de couleur, un bandeau rouge
+d'alerte. Chaque élément était défendable et l'ensemble ne ressemblait à rien
+d'autre qu'à un gabarit.
 
-D'où deux zones séparées par un trait, et non quatre cases. Au-dessus, seul,
-sur toute la largeur : le nom de domaine. En dessous, plus petits et à égalité
-entre eux : les trois autres. Le lecteur n'a pas besoin de lire pour saisir la
-hiérarchie, elle est dans la mise en page.
-
-----------------------------------------------------------------------------
-LA NUANCE DES COMPTES GOOGLE
-----------------------------------------------------------------------------
-Elle est conservée telle quelle : l'accès se reprend, l'historique non. Ranger
-Search Console avec l'hébergement sans le préciser aurait fait dire au schéma
-quelque chose de faux, et c'est justement la ligne qui décide un commerçant à
-vérifier son compte le soir même.
+Le rouge d'alerte était le pire. Il crie, et ce paragraphe ne crie pas : il
+explique posément qu'un accès sur quatre ne se rattrape pas. Une couleur
+d'alarme met les quatre lignes au même niveau de tension, alors que tout le
+propos est qu'il y en a une qui n'est pas comme les autres.
 
 ----------------------------------------------------------------------------
-LA HAUTEUR EST CALCULÉE, PAS FIXÉE
+CE QUI LE REMPLACE
 ----------------------------------------------------------------------------
-Les libellés se replient sur la largeur de leur carte ; le nombre de lignes
-dépend donc du texte. Fixer la hauteur d'avance revient à choisir entre une
-bande vide en bas et un texte coupé. Elle se déduit du contenu, et le script
-refuse de produire l'image si un bloc dépasse la place qui lui revient.
+De la typographie, et presque rien d'autre.
+
+Le domaine occupe un bandeau plein qui traverse toute l'image, bord à bord —
+encre sombre, texte clair. Les trois autres sont posés dessous sur le papier,
+séparés par des filets d'un pixel. L'inversion fait le travail que faisait le
+rouge, sans le ton d'alarme : une ligne est traitée autrement, on la voit
+avant de l'avoir lue.
+
+Le reste suit la même règle. Un serif pour les intitulés, un italique pour les
+réserves, des capitales espacées pour les verdicts, et de la marge. Aucun coin
+arrondi, aucune pastille, aucune ombre portée.
+
+L'ocre du bandeau n'est pas une couleur d'alerte, c'est la seule teinte chaude
+qui tienne le contraste sur l'encre (7,4:1 mesuré). Elle attire l'oeil sans
+dire « attention ».
 """
 
 import os
@@ -45,44 +49,79 @@ RACINE = os.path.dirname(os.path.abspath(__file__))
 BASE = os.path.join(RACINE, "qui-detient-les-acces-site-web")
 
 L = 1600
-MARGE = 56
-GOUTTIERE = 32
+MARGE = 96
+
+#  Une palette de papier, propre à cette figure. Le fond gris-bleu de la charte
+#  va bien aux schémas techniques du site ; ici on cherche une page, pas un
+#  écran, et un blanc légèrement chaud fait toute la différence sur un aplat
+#  d'encre aussi large.
+PAPIER = (250, 249, 245)
+ENCRE = (26, 27, 32)
+GRIS = (98, 100, 110)
+FAIBLE = (136, 137, 147)
+FILET = (216, 214, 206)
+SUR_ENCRE = (243, 241, 235)
+DISCRET = (158, 158, 166)
+OCRE = (214, 160, 74)
+
+SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"
+SERIF_G = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
+SERIF_I = "/usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf"
+
+SURTITRE = "QUESTION 3"
+TITRE = "Qui détient les accès ?"
 
 DOMAINE = {
+    "numero": "01",
     "titre": "Le nom de domaine",
-    "exigence": "À votre nom, dans votre compte, chez votre bureau "
-                "d'enregistrement.",
-    "precision": "Pas « géré par » l'agence : la nuance ne se voit que le jour "
-                 "où vous partez.",
+    "texte": "À votre nom, dans votre compte, chez votre bureau "
+             "d'enregistrement.",
+    "reserve": "Pas « géré par » l'agence.",
     "verdict": "NE SE RÉCUPÈRE PAS",
-    "detail": "ou au prix d'une procédure de plusieurs mois",
+    "note": "une procédure de plusieurs mois, quand elle aboutit",
 }
 
 AUTRES = (
     {
+        "numero": "02",
         "titre": "L'hébergement",
         "texte": "Vous devez pouvoir y accéder et le résilier sans passer par "
                  "un tiers.",
+        "verdict": "SE REPREND",
         "note": None,
     },
     {
+        "numero": "03",
         "titre": "L'administration du site",
         "texte": "Un compte administrateur à votre nom, pas un identifiant "
                  "partagé transmis par message.",
+        "verdict": "SE REPREND",
         "note": None,
     },
     {
+        "numero": "04",
         "titre": "Les comptes Google",
         "texte": "Search Console, Analytics, fiche d'établissement : vous "
-                 "propriétaire, l'agence simplement ajoutée comme "
-                 "utilisateur.",
-        "note": "l'accès se reprend, l'historique non",
+                 "propriétaire, l'agence ajoutée comme utilisateur.",
+        "verdict": "SE REPREND",
+        "note": "l'historique, non",
     },
 )
 
 
+def typo(texte):
+    """
+    L'apostrophe courbe, celle des livres.
+
+    La droite est un caractère de machine à écrire que les claviers ont gardé.
+    Sur un titre en serif de 56 points, la différence entre « L'hébergement »
+    et « L’hébergement » se voit à un mètre, et c'est le genre de détail qui
+    sépare une page composée d'un export de gabarit.
+    """
+    return texte.replace("'", "’")
+
+
 def couper(d, texte, f, largeur):
-    """Le texte replié sur la largeur disponible, mot à mot."""
     ligne, lignes = "", []
     for m in texte.split():
         essai = (ligne + " " + m).strip()
@@ -95,179 +134,140 @@ def couper(d, texte, f, largeur):
     return lignes
 
 
-def barre(d, x, y0, y1, epaisseur, rayon, teinte, fond):
+def largeur_espacee(d, texte, f, tracking):
+    """La largeur d'une ligne de capitales espacées."""
+    return sum(d.textlength(c, font=f) for c in texte) \
+        + tracking * max(len(texte) - 1, 0)
+
+
+def espace(d, xy, texte, f, teinte, tracking):
     """
-    Une barre pleine le long du bord gauche, aux angles de la carte.
+    Des capitales, lettre à lettre, avec de l'air entre elles.
 
-    Dessinée en deux temps : un rectangle arrondi large, puis un rectangle de
-    la couleur de la carte qui en recouvre la partie droite. C'est le seul
-    moyen d'obtenir une barre dont les DEUX coins gauches suivent l'arrondi et
-    dont le bord droit reste droit — un simple rectangle dépasse des angles.
+    PIL ne sait pas espacer un texte. On le dessine donc caractère par
+    caractère — c'est ce qui distingue une petite capitale composée d'une
+    étiquette de gabarit, et ça ne coûte que trois lignes.
     """
-    d.rounded_rectangle([x, y0, x + rayon * 3, y1], radius=rayon, fill=teinte)
-    d.rectangle([x + epaisseur, y0, x + rayon * 3, y1], fill=fond)
+    x, y = xy
+    for c in texte:
+        d.text((x, y), c, font=f, fill=teinte)
+        x += d.textlength(c, font=f) + tracking
+    return x - tracking
 
 
-def pastille(d, x, y, diam, numero, f, fond):
-    d.ellipse([x, y, x + diam, y + diam], fill=fond)
-    n = str(numero)
-    d.text((x + diam / 2 - d.textlength(n, font=f) / 2,
-            y + diam / 2 - f.size * 0.68), n, font=f, fill=(255, 255, 255))
-
-
-def etiquette(d, x, y, texte, f, teinte, plein=False):
-    """Une pastille de texte : pleine pour le verdict, cerclée pour le reste."""
-    w = d.textlength(texte, font=f) + 34
-    h = f.size + 20
-    d.rounded_rectangle([x, y, x + w, y + h], radius=(h // 2),
-                        fill=teinte if plein else None,
-                        outline=None if plein else teinte,
-                        width=1 if plein else 2)
-    d.text((x + 17, y + 9), texte, font=f,
-           fill=(255, 255, 255) if plein else teinte)
-    return w, h
+def verifier_sur_encre():
+    """Les deux couleurs posées sur l'aplat sombre, avant de dessiner."""
+    for nom, teinte, seuil in (("papier sur encre", SUR_ENCRE, 4.5),
+                               ("ocre sur encre", OCRE, 4.5),
+                               ("discret sur encre", DISCRET, 4.5)):
+        r = C.contraste(teinte, ENCRE)
+        print("  %-20s %-16s %.2f:1  %s"
+              % (nom, str(teinte), r, "ok" if r >= seuil else "INSUFFISANT"))
+        if r < seuil:
+            raise SystemExit("%s : %.2f:1, sous le seuil" % (nom, r))
 
 
 def principal():
-    C.verifier()
+    verifier_sur_encre()
+    for nom, teinte, seuil in (("encre sur papier", ENCRE, 4.5),
+                               ("gris sur papier", GRIS, 4.5),
+                               ("faible sur papier", FAIBLE, 3.0)):
+        r = C.contraste(teinte, PAPIER)
+        print("  %-20s %-16s %.2f:1  %s"
+              % (nom, str(teinte), r, "ok" if r >= seuil else "INSUFFISANT"))
+        if r < seuil:
+            raise SystemExit("%s : %.2f:1, sous le seuil" % (nom, r))
 
-    #  On dessine une première fois sur une image jetable pour MESURER les
-    #  replis de texte, puis on crée l'image à la bonne hauteur. Sans ça, la
-    #  hauteur serait une estimation, et une estimation finit toujours par
-    #  couper une ligne.
     mesure = ImageDraw.Draw(Image.new("RGB", (10, 10)))
 
-    f_titre = C.police(C.POLICE_G, 30)
-    f_zone = C.police(C.POLICE_G, 18)
-    f_dom = C.police(C.POLICE_G, 38)
-    f_dom_txt = C.police(C.POLICE_R, 24)
-    f_dom_pre = C.police(C.POLICE_R, 21)
-    f_verdict = C.police(C.POLICE_G, 21)
-    f_detail = C.police(C.POLICE_R, 18)
-    f_carte = C.police(C.POLICE_G, 25)
-    f_corps = C.police(C.POLICE_R, 21)
-    f_note = C.police(C.POLICE_R, 18)
-    f_num = C.police(C.POLICE_G, 24)
-    f_num_p = C.police(C.POLICE_G, 20)
+    f_sur = C.police(C.POLICE_G, 15)
+    f_titre = C.police(SERIF, 56)
+    f_num_d = C.police(SERIF, 46)
+    f_num = C.police(SERIF, 34)
+    f_nom_d = C.police(SERIF_G, 36)
+    f_nom = C.police(SERIF_G, 27)
+    f_txt_d = C.police(C.POLICE_R, 22)
+    f_txt = C.police(C.POLICE_R, 20)
+    f_res = C.police(SERIF_I, 22)
+    f_verd_d = C.police(C.POLICE_G, 16)
+    f_verd = C.police(C.POLICE_G, 14)
+    f_note = C.police(SERIF_I, 17)
 
-    largeur_utile = L - 2 * MARGE
-    col = (largeur_utile - 2 * GOUTTIERE) // 3
-    texte_col = col - 56
+    #  La colonne de droite est dimensionnée sur le plus large des verdicts,
+    #  jamais sur une valeur choisie à la main : c'est ce qui garantit que les
+    #  quatre lignes s'alignent quoi qu'on écrive dedans.
+    droite = max(
+        largeur_espacee(mesure, DOMAINE["verdict"], f_verd_d, 2.4),
+        mesure.textlength(DOMAINE["note"], font=f_note),
+        max(largeur_espacee(mesure, c["verdict"], f_verd, 2.2)
+            for c in AUTRES))
+    x_droite = L - MARGE - int(droite)
 
-    #  La carte du domaine réserve sa moitié droite au verdict.
-    verdict_w = mesure.textlength(DOMAINE["verdict"], font=f_verdict) + 34
-    detail_w = mesure.textlength(DOMAINE["detail"], font=f_detail)
-    reserve = int(max(verdict_w, detail_w)) + 60
-    dom_texte = largeur_utile - 108 - reserve
+    x_txt = MARGE + 92
+    largeur_txt = x_droite - 64 - x_txt
 
-    dom_exig = couper(mesure, DOMAINE["exigence"], f_dom_txt, dom_texte)
-    dom_prec = couper(mesure, DOMAINE["precision"], f_dom_pre, dom_texte)
-    h_dom = 34 + 46 + len(dom_exig) * 33 + 6 + len(dom_prec) * 28 + 34
-
-    plies = [couper(mesure, c["texte"], f_corps, texte_col) for c in AUTRES]
-    #  La mention commence après la puce, elle a donc moins de place que le
-    #  corps. La replier sur la largeur du corps la faisait sortir de la carte.
-    texte_note = texte_col - 20
-    notes = [couper(mesure, c["note"], f_note, texte_note) if c["note"] else []
+    dom_lignes = couper(mesure, typo(DOMAINE["texte"]), f_txt_d, largeur_txt)
+    plies = [couper(mesure, typo(c["texte"]), f_txt, largeur_txt)
              for c in AUTRES]
-    lignes_max = max(len(p) for p in plies)
-    notes_max = max(len(n) for n in notes)
-    h_bande = (22 + notes_max * 24 + 20) if notes_max else 0
-    h_carte = 26 + 44 + lignes_max * 29 + 20 + h_bande + 6
 
-    y_zone_a = MARGE + 74
-    y_dom = y_zone_a + 28
-    y_zone_b = y_dom + h_dom + 44
-    y_cartes = y_zone_b + 28
-    H = y_cartes + h_carte + MARGE
+    h_bande = 46 + 42 + 14 + len(dom_lignes) * 31 + 10 + 30 + 46
+    hauteurs = [34 + 34 + 10 + len(p) * 27 + 34 for p in plies]
 
-    out = Image.new("RGB", (L, H), C.FOND)
+    y_titre = 96
+    y_filet = y_titre + 88
+    y_bande = y_filet + 46
+    y_lignes = y_bande + h_bande + 4
+    H = y_lignes + sum(hauteurs) + 44
+
+    out = Image.new("RGB", (L, H), PAPIER)
     d = ImageDraw.Draw(out)
 
-    d.rectangle([MARGE, 44, MARGE + 10, 78], fill=C.VIOLET)
-    d.text((MARGE + 24, 40), "QUI DÉTIENT LES ACCÈS ?", font=f_titre,
-           fill=C.ENCRE)
+    # ------------------------------------------------------------  l'en-tête
+    espace(d, (MARGE, y_titre - 30), SURTITRE, f_sur, C.VIOLET_TEXTE, 2.6)
+    d.text((MARGE - 3, y_titre), typo(TITRE), font=f_titre, fill=ENCRE)
+    d.line([MARGE, y_filet, L - MARGE, y_filet], fill=FILET, width=1)
 
-    # ------------------------------------------------  ce qui ne revient pas
-    d.text((MARGE, y_zone_a), "CE QUI NE SE RÉCUPÈRE PAS", font=f_zone,
-           fill=C.ALERTE)
+    # ---------------------------------------------------  le bandeau, bord à bord
+    #  Il traverse toute l'image, sans marge : c'est ce débord qui le fait lire
+    #  comme un bandeau de page et non comme une carte posée sur un fond.
+    d.rectangle([0, y_bande, L, y_bande + h_bande], fill=ENCRE)
 
-    x1 = L - MARGE
-    rose = (255, 246, 245)
-    d.rounded_rectangle([MARGE, y_dom, x1, y_dom + h_dom], radius=14,
-                        fill=rose)
-    #  La barre pleine à gauche : c'est elle qu'on voit en vignette, avant même
-    #  d'avoir lu le mot « domaine ».
-    barre(d, MARGE, y_dom, y_dom + h_dom, 22, 14, C.ALERTE, rose)
-    d.rounded_rectangle([MARGE, y_dom, x1, y_dom + h_dom], radius=14,
-                        outline=C.ALERTE, width=2)
+    y = y_bande + 46
+    d.text((MARGE, y - 4), DOMAINE["numero"], font=f_num_d, fill=OCRE)
+    d.text((x_txt, y), typo(DOMAINE["titre"]), font=f_nom_d, fill=SUR_ENCRE)
+    y += 42 + 14
+    for t in dom_lignes:
+        d.text((x_txt, y), t, font=f_txt_d, fill=(216, 214, 208))
+        y += 31
+    y += 10
+    d.text((x_txt, y), typo(DOMAINE["reserve"]), font=f_res, fill=DISCRET)
 
-    xt = MARGE + 108
-    pastille(d, MARGE + 46, y_dom + 30, 44, 1, f_num, C.ALERTE)
-    d.text((xt, y_dom + 26), DOMAINE["titre"], font=f_dom, fill=C.ENCRE)
-    y = y_dom + 34 + 46
-    for t in dom_exig:
-        d.text((xt, y), t, font=f_dom_txt, fill=C.ENCRE)
-        y += 33
-    y += 6
-    for t in dom_prec:
-        d.text((xt, y), t, font=f_dom_pre, fill=C.GRIS)
-        y += 28
+    yv = y_bande + 52
+    espace(d, (x_droite, yv), DOMAINE["verdict"], f_verd_d, OCRE, 2.4)
+    d.text((x_droite, yv + 34), typo(DOMAINE["note"]), font=f_note,
+           fill=DISCRET)
 
-    xv = x1 - reserve + 20
-    w, h = etiquette(d, xv, y_dom + 36, DOMAINE["verdict"], f_verdict,
-                     C.ALERTE, plein=True)
-    d.text((xv, y_dom + 36 + h + 14), DOMAINE["detail"], font=f_detail,
-           fill=C.ALERTE)
-    if xv < xt + dom_texte:
-        raise SystemExit("le verdict recouvre le texte du domaine")
-
-    # -------------------------------------------  ce dont on reprend la main
-    d.text((MARGE, y_zone_b), "CE DONT ON REPREND LA MAIN", font=f_zone,
-           fill=C.GRIS)
-
-    bas_carte = y_cartes + h_carte
-    for i, (carte, lignes, note) in enumerate(zip(AUTRES, plies, notes)):
-        x0 = MARGE + i * (col + GOUTTIERE)
-        d.rounded_rectangle([x0, y_cartes, x0 + col, bas_carte], radius=14,
-                            fill=C.CARTE)
-        barre(d, x0, y_cartes, bas_carte, 16, 14, C.VIOLET, C.CARTE)
-
-        if note:
-            #  La nuance des comptes Google occupe une bande teintée en pied de
-            #  carte. Posée dans le vide comme une ligne de plus, elle se lisait
-            #  comme du remplissage ; encadrée, elle se lit comme une réserve.
-            y_bande = bas_carte - h_bande
-            d.rounded_rectangle([x0 + 16, y_bande, x0 + col, bas_carte],
-                                radius=14, fill=(253, 244, 243))
-            d.rectangle([x0 + 16, y_bande, x0 + col, y_bande + 14],
-                        fill=(253, 244, 243))
-
-        d.rounded_rectangle([x0, y_cartes, x0 + col, bas_carte], radius=14,
-                            outline=C.BORD, width=2)
-
-        pastille(d, x0 + 36, y_cartes + 28, 36, i + 2, f_num_p, C.VIOLET)
-        d.text((x0 + 84, y_cartes + 28), carte["titre"], font=f_carte,
-               fill=C.ENCRE)
-        y = y_cartes + 26 + 44
+    # ------------------------------------------------------  les trois autres
+    y0 = y_lignes
+    for carte, lignes, h in zip(AUTRES, plies, hauteurs):
+        d.text((MARGE, y0 + 30), carte["numero"], font=f_num, fill=FAIBLE)
+        d.text((x_txt, y0 + 30), typo(carte["titre"]), font=f_nom, fill=ENCRE)
+        y = y0 + 34 + 34 + 10
         for t in lignes:
-            d.text((x0 + 36, y), t, font=f_corps, fill=C.GRIS)
-            y += 29
-        if y > bas_carte - h_bande - 8:
-            raise SystemExit("le texte de « %s » entre dans la bande du bas"
-                             % carte["titre"])
+            d.text((x_txt, y), t, font=f_txt, fill=GRIS)
+            y += 27
 
-        if note:
-            y = bas_carte - h_bande + 20
-            #  Le point rouge signale que cette carte n'est pas tout à fait
-            #  comme les deux autres.
-            d.ellipse([x0 + 36, y + 7, x0 + 46, y + 17], fill=C.ALERTE)
-            for t in note:
-                d.text((x0 + 56, y), t, font=f_note, fill=C.GRIS)
-                if x0 + 56 + d.textlength(t, font=f_note) > x0 + col - 16:
-                    raise SystemExit("la mention de « %s » sort de la carte"
-                                     % carte["titre"])
-                y += 24
+        espace(d, (x_droite, y0 + 38), carte["verdict"], f_verd, FAIBLE, 2.2)
+        if carte["note"]:
+            d.text((x_droite, y0 + 62), typo(carte["note"]), font=f_note,
+                   fill=FAIBLE)
+
+        if y > y0 + h - 4:
+            raise SystemExit("« %s » déborde de sa ligne de %.0f px"
+                             % (carte["titre"], y - (y0 + h - 4)))
+        y0 += h
+        if carte is not AUTRES[-1]:
+            d.line([MARGE, y0, L - MARGE, y0], fill=FILET, width=1)
 
     out.save(BASE + ".webp", "WEBP", quality=C.QUALITE, method=6)
     out.save(BASE + ".png", "PNG", optimize=True)
