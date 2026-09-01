@@ -46,27 +46,13 @@ qu'une seconde de calcul.
 
 import os
 
-from PIL import Image, ImageDraw
-
-import charte as C
+import dessin as D
 
 RACINE = os.path.dirname(os.path.abspath(__file__))
 BASE = os.path.join(RACINE, "qui-detient-les-acces-site-web")
 
 L = 1600
 MARGE = 88
-ECHELLE = 3                      # dessin en 4800 px de large, puis réduction
-
-PAPIER = (250, 249, 246)
-ENCRE = (26, 27, 32)
-GRIS = (100, 102, 112)
-FAIBLE = (140, 141, 150)
-FILET = (213, 211, 204)
-VIOLET = (98, 44, 200)
-VIOLET_PALE = (234, 227, 252)
-
-SERIF_G = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
-SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"
 
 SURTITRE = "QUESTION 3"
 TITRE = "Qui détient les accès ?"
@@ -88,83 +74,6 @@ AUTRES = (
 VERDICT_AUTRES = "SE REPREND"
 
 
-def typo(t):
-    """L'apostrophe courbe : celle des livres, pas celle des claviers."""
-    return t.replace("'", "’")
-
-
-class Toile:
-    """
-    Un calque de dessin qui travaille en coordonnées finales.
-
-    Tout ce qu'on lui demande est multiplié par l'échelle avant d'atteindre
-    PIL. On raisonne donc sur l'image telle qu'elle sera lue, et le
-    suréchantillonnage ne se voit nulle part dans le code de mise en page.
-    """
-
-    def __init__(self, l, h, echelle, fond):
-        self.e = echelle
-        self.im = Image.new("RGB", (l * echelle, h * echelle), fond)
-        self.d = ImageDraw.Draw(self.im)
-
-    def _b(self, b):
-        return [v * self.e for v in b]
-
-    def police(self, chemin, taille):
-        return C.police(chemin, int(round(taille * self.e)))
-
-    def mesure(self, texte, f):
-        return self.d.textlength(texte, font=f) / self.e
-
-    def texte(self, xy, t, f, teinte):
-        self.d.text((xy[0] * self.e, xy[1] * self.e), t, font=f, fill=teinte)
-
-    def ligne(self, b, teinte, epaisseur):
-        self.d.line(self._b(b), fill=teinte, width=int(epaisseur * self.e))
-
-    def rrect(self, b, rayon, teinte=None, contour=None, epaisseur=2):
-        self.d.rounded_rectangle(self._b(b), radius=rayon * self.e,
-                                 fill=teinte, outline=contour,
-                                 width=int(epaisseur * self.e))
-
-    def disque(self, cx, cy, r, teinte=None, contour=None, epaisseur=2):
-        self.d.ellipse(self._b([cx - r, cy - r, cx + r, cy + r]),
-                       fill=teinte, outline=contour,
-                       width=int(epaisseur * self.e))
-
-    def arc(self, cx, cy, r, a0, a1, teinte, epaisseur):
-        self.d.arc(self._b([cx - r, cy - r, cx + r, cy + r]), a0, a1,
-                   fill=teinte, width=int(epaisseur * self.e))
-
-    def espace(self, xy, texte, f, teinte, tracking):
-        """Des capitales lettre à lettre, avec de l'air entre elles."""
-        x, y = xy
-        for c in texte:
-            self.texte((x, y), c, f, teinte)
-            x += self.mesure(c, f) + tracking
-        return x - tracking
-
-    def largeur_espacee(self, texte, f, tracking):
-        return sum(self.mesure(c, f) for c in texte) \
-            + tracking * max(len(texte) - 1, 0)
-
-    def final(self, l, h):
-        return self.im.resize((l, h), Image.LANCZOS)
-
-
-def couper(t, texte, f, largeur):
-    ligne, lignes = "", []
-    for m in texte.split():
-        essai = (ligne + " " + m).strip()
-        if t.mesure(essai, f) > largeur and ligne:
-            lignes.append(ligne)
-            ligne = m
-        else:
-            ligne = essai
-    lignes.append(ligne)
-    return lignes
-
-
 # ---------------------------------------------------------------  pictogrammes
 
 def cadenas(t, cx, cy, larg, teinte, plein):
@@ -175,7 +84,7 @@ def cadenas(t, cx, cy, larg, teinte, plein):
             contour=None if plein else teinte, epaisseur=1.6)
     t.arc(cx, cy - h * 0.12, larg * 0.31, 180, 360, teinte, 1.8)
     if plein:
-        t.disque(cx, cy + h * 0.34, larg * 0.10, teinte=PAPIER)
+        t.disque(cx, cy + h * 0.34, larg * 0.10, teinte=D.PAPIER)
 
 
 def picto_adresse(t, x0, y0, larg, haut):
@@ -188,9 +97,9 @@ def picto_adresse(t, x0, y0, larg, haut):
     """
     r = haut / 2
     t.rrect([x0, y0, x0 + larg, y0 + haut], r, teinte=(255, 255, 255),
-            contour=VIOLET, epaisseur=2.4)
+            contour=D.VIOLET, epaisseur=2.4)
     cy = y0 + haut / 2
-    cadenas(t, x0 + haut * 0.56, cy, haut * 0.34, VIOLET, True)
+    cadenas(t, x0 + haut * 0.56, cy, haut * 0.34, D.VIOLET, True)
     return x0 + haut * 0.56 + haut * 0.34, cy
 
 
@@ -200,28 +109,28 @@ def picto_serveur(t, x0, y0, larg, haut):
     hb = (haut - ecart * (n - 1)) / n
     for i in range(n):
         y = y0 + i * (hb + ecart)
-        t.rrect([x0, y, x0 + larg, y + hb], 5, contour=GRIS, epaisseur=1.8)
+        t.rrect([x0, y, x0 + larg, y + hb], 5, contour=D.GRIS, epaisseur=1.8)
         for j in range(2):
-            t.disque(x0 + 16 + j * 14, y + hb / 2, 3.2, teinte=GRIS)
+            t.disque(x0 + 16 + j * 14, y + hb / 2, 3.2, teinte=D.GRIS)
         t.ligne([x0 + larg - 62, y + hb / 2, x0 + larg - 18, y + hb / 2],
-                FILET, 2.4)
+                D.FILET, 2.4)
 
 
 def picto_admin(t, x0, y0, larg, haut):
     """Une fenêtre d'administration : barre de titre, colonne, contenu."""
-    t.rrect([x0, y0, x0 + larg, y0 + haut], 7, contour=GRIS, epaisseur=1.8)
-    t.ligne([x0, y0 + 26, x0 + larg, y0 + 26], GRIS, 1.6)
+    t.rrect([x0, y0, x0 + larg, y0 + haut], 7, contour=D.GRIS, epaisseur=1.8)
+    t.ligne([x0, y0 + 26, x0 + larg, y0 + 26], D.GRIS, 1.6)
     for j in range(3):
-        t.disque(x0 + 15 + j * 13, y0 + 13, 3.0, teinte=FAIBLE)
+        t.disque(x0 + 15 + j * 13, y0 + 13, 3.0, teinte=D.FAIBLE)
     #  La colonne de gauche : c'est elle qui fait reconnaître un back-office
     #  plutôt qu'une page web quelconque.
-    t.ligne([x0 + 58, y0 + 26, x0 + 58, y0 + haut], GRIS, 1.6)
+    t.ligne([x0 + 58, y0 + 26, x0 + 58, y0 + haut], D.GRIS, 1.6)
     for j in range(4):
         t.ligne([x0 + 14, y0 + 46 + j * 17, x0 + 44, y0 + 46 + j * 17],
-                FILET, 2.6)
+                D.FILET, 2.6)
     for j, w in enumerate((0.72, 0.52, 0.62)):
         t.ligne([x0 + 74, y0 + 50 + j * 22,
-                 x0 + 74 + (larg - 92) * w, y0 + 50 + j * 22], FILET, 3.0)
+                 x0 + 74 + (larg - 92) * w, y0 + 50 + j * 22], D.FILET, 3.0)
 
 
 def picto_mesure(t, x0, y0, larg, haut):
@@ -230,12 +139,12 @@ def picto_mesure(t, x0, y0, larg, haut):
     for i, hb in enumerate((0.34, 0.58, 0.82)):
         x = x0 + 12 + i * 34
         t.rrect([x, base - haut * hb, x + 22, base], 3, teinte=(228, 229, 234))
-        t.rrect([x, base - haut * hb, x + 22, base], 3, contour=GRIS,
+        t.rrect([x, base - haut * hb, x + 22, base], 3, contour=D.GRIS,
                 epaisseur=1.8)
     cx, cy, r = x0 + larg - 46, y0 + 40, 27
-    t.disque(cx, cy, r, teinte=PAPIER, contour=GRIS, epaisseur=2.4)
+    t.disque(cx, cy, r, teinte=D.PAPIER, contour=D.GRIS, epaisseur=2.4)
     t.ligne([cx + r * 0.72, cy + r * 0.72, cx + r * 1.5, cy + r * 1.5],
-            GRIS, 3.2)
+            D.GRIS, 3.2)
 
 
 PICTOS = {"serveur": picto_serveur, "admin": picto_admin,
@@ -245,26 +154,21 @@ PICTOS = {"serveur": picto_serveur, "admin": picto_admin,
 # --------------------------------------------------------------------  montage
 
 def principal():
-    for nom, teinte, seuil in (("encre", ENCRE, 4.5), ("gris", GRIS, 4.5),
-                               ("faible", FAIBLE, 3.0),
-                               ("violet", VIOLET, 4.5)):
-        r = C.contraste(teinte, PAPIER)
-        print("  %-8s %-16s %.2f:1  %s"
-              % (nom, str(teinte), r, "ok" if r >= seuil else "INSUFFISANT"))
-        if r < seuil:
-            raise SystemExit("%s : %.2f:1, sous le seuil" % (nom, r))
+    D.verifier(("encre", D.ENCRE, 4.5), ("gris", D.GRIS, 4.5),
+               ("faible", D.FAIBLE, 3.0),
+               ("violet", D.VIOLET, 4.5))
 
-    mesure = Toile(10, 10, ECHELLE, PAPIER)
+    mesure = D.Toile(10, 10)
 
-    f_sur = mesure.police(C.POLICE_G, 15)
-    f_titre = mesure.police(SERIF, 52)
-    f_nom_d = mesure.police(SERIF_G, 34)
-    f_txt_d = mesure.police(C.POLICE_R, 20)
-    f_adr = mesure.police(C.POLICE_R, 25)
-    f_verd_d = mesure.police(C.POLICE_G, 15)
-    f_nom = mesure.police(SERIF_G, 22)
-    f_txt = mesure.police(C.POLICE_R, 17)
-    f_verd = mesure.police(C.POLICE_G, 13)
+    f_sur = mesure.police(D.C.POLICE_G, 15)
+    f_titre = mesure.police(D.SERIF, 52)
+    f_nom_d = mesure.police(D.SERIF_G, 34)
+    f_txt_d = mesure.police(D.C.POLICE_R, 20)
+    f_adr = mesure.police(D.C.POLICE_R, 25)
+    f_verd_d = mesure.police(D.C.POLICE_G, 15)
+    f_nom = mesure.police(D.SERIF_G, 22)
+    f_txt = mesure.police(D.C.POLICE_R, 17)
+    f_verd = mesure.police(D.C.POLICE_G, 13)
 
     # ------------------------------------------------------------  la trame
     x_sep = 618
@@ -272,9 +176,9 @@ def principal():
     col = (L - MARGE - x_col - 2 * 46) // 3
     gauche = x_sep - 52 - MARGE
 
-    dom_lignes = couper(mesure, typo(DOMAINE_TXT), f_txt_d, gauche)
-    plies = [couper(mesure, typo(t), f_txt, col) for _, _, t in AUTRES]
-    noms = [couper(mesure, typo(n), f_nom, col) for _, n, _ in AUTRES]
+    dom_lignes = mesure.couper(D.typo(DOMAINE_TXT), f_txt_d, gauche)
+    plies = [mesure.couper(D.typo(t), f_txt, col) for _, _, t in AUTRES]
+    noms = [mesure.couper(D.typo(n), f_nom, col) for _, n, _ in AUTRES]
     trop = [n for n, p in zip(noms, noms) if len(p) > 2]
     if trop:
         raise SystemExit("un intitulé tient sur plus de deux lignes : %s"
@@ -293,27 +197,27 @@ def principal():
     bas = max(y_verd_d + 24, y_verd_c + 22)
     H = bas + MARGE
 
-    t = Toile(L, H, ECHELLE, PAPIER)
+    t = D.Toile(L, H)
 
     # ------------------------------------------------------------  l'en-tête
-    t.espace((MARGE, 72), SURTITRE, f_sur, VIOLET, 2.6)
-    t.texte((MARGE - 3, 100), typo(TITRE), f_titre, ENCRE)
-    t.ligne([MARGE, 206, L - MARGE, 206], FILET, 1)
+    t.espace((MARGE, 72), SURTITRE, f_sur, D.VIOLET, 2.6)
+    t.texte((MARGE - 3, 100), D.typo(TITRE), f_titre, D.ENCRE)
+    t.ligne([MARGE, 206, L - MARGE, 206], D.FILET, 1)
 
     # ---------------------------------------------------------  le domaine
     xa, _ = picto_adresse(t, MARGE, y_picto + 22, gauche - 30, 84)
-    t.texte((xa + 26, y_picto + 22 + 26), ADRESSE, f_adr, ENCRE)
+    t.texte((xa + 26, y_picto + 22 + 26), ADRESSE, f_adr, D.ENCRE)
 
-    t.texte((MARGE, y_nom), typo(DOMAINE_NOM), f_nom_d, ENCRE)
+    t.texte((MARGE, y_nom), D.typo(DOMAINE_NOM), f_nom_d, D.ENCRE)
     y = y_txt_d
     for ligne in dom_lignes:
-        t.texte((MARGE, y), ligne, f_txt_d, GRIS)
+        t.texte((MARGE, y), ligne, f_txt_d, D.GRIS)
         y += 27
-    t.ligne([MARGE, y_verd_d - 14, MARGE + 44, y_verd_d - 14], VIOLET, 2)
-    t.espace((MARGE, y_verd_d), DOMAINE_VERDICT, f_verd_d, VIOLET, 2.4)
+    t.ligne([MARGE, y_verd_d - 14, MARGE + 44, y_verd_d - 14], D.VIOLET, 2)
+    t.espace((MARGE, y_verd_d), DOMAINE_VERDICT, f_verd_d, D.VIOLET, 2.4)
 
     #  Le filet vertical : la seule séparation de l'image, et elle suffit.
-    t.ligne([x_sep, y_picto - 18, x_sep, bas - 6], FILET, 1)
+    t.ligne([x_sep, y_picto - 18, x_sep, bas - 6], D.FILET, 1)
 
     # -----------------------------------------------------------  les trois
     for i, ((cle, nom, _), lignes, nom_lignes) in enumerate(
@@ -323,23 +227,16 @@ def principal():
 
         y = y_nom_c
         for ligne in nom_lignes:
-            t.texte((x0, y), ligne, f_nom, ENCRE)
+            t.texte((x0, y), ligne, f_nom, D.ENCRE)
             y += 28
         y = y_txt_c
         for ligne in lignes:
-            t.texte((x0, y), ligne, f_txt, GRIS)
+            t.texte((x0, y), ligne, f_txt, D.GRIS)
             y += 24
-        t.ligne([x0, y_verd_c - 12, x0 + 30, y_verd_c - 12], FILET, 2)
-        t.espace((x0, y_verd_c), VERDICT_AUTRES, f_verd, FAIBLE, 2.2)
+        t.ligne([x0, y_verd_c - 12, x0 + 30, y_verd_c - 12], D.FILET, 2)
+        t.espace((x0, y_verd_c), VERDICT_AUTRES, f_verd, D.FAIBLE, 2.2)
 
-    out = t.final(L, H)
-    out.save(BASE + ".webp", "WEBP", quality=C.QUALITE, method=6)
-    out.save(BASE + ".png", "PNG", optimize=True)
-    print()
-    print("  %d × %d  (dessiné à %d × %d)" % (L, H, L * ECHELLE, H * ECHELLE))
-    for e in (".webp", ".png"):
-        print("  %-44s %.0f Ko" % (os.path.basename(BASE + e),
-                                   os.path.getsize(BASE + e) / 1024))
+    D.enregistrer(t.final(L, H), BASE, L, H)
 
 
 if __name__ == "__main__":
