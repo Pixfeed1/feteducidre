@@ -1,153 +1,79 @@
 """
 Figure de la question 3 — « Qui détient les accès ? »
 
+    python3 article-agence-web/cles_acces.py        (le rendu, une fois)
     python3 article-agence-web/qui_detient_les_acces.py
 
 Produit `article-agence-web/qui-detient-les-acces-site-web.webp` et son
-équivalent PNG.
+équivalent PNG, à partir de `fond-cles.png`.
 
 ----------------------------------------------------------------------------
-CE QUI A ÉTÉ JETÉ, ET POURQUOI
+TROISIÈME VERSION, ET LA BONNE RAISON DE JETER LA DEUXIÈME
 ----------------------------------------------------------------------------
-La première version avait la tête de tous les schémas qu'on voit passer :
-quatre cartes à coins arrondis, des pastilles de couleur, un bandeau rouge
-d'alerte. Chaque élément était défendable et l'ensemble ne ressemblait à rien
-d'autre qu'à un gabarit.
+La première était un gabarit à cartes arrondies. La deuxième, mieux composée,
+était de la belle typographie — et c'était son défaut : quatre lignes de texte
+mises en page restent quatre lignes de texte. Devant, on se demande pourquoi
+c'est une image et pas un paragraphe de l'article. La question est juste.
 
-Le rouge d'alerte était le pire. Il crie, et ce paragraphe ne crie pas : il
-explique posément qu'un accès sur quatre ne se rattrape pas. Une couleur
-d'alarme met les quatre lignes au même niveau de tension, alors que tout le
-propos est qu'il y en a une qui n'est pas comme les autres.
+Une image doit dire son sujet par l'image. Celui-ci se montre : quatre clés,
+une seule qui ne se remplace pas. Le laiton est seul, devant, net ; les trois
+aciers sont posés ensemble, plus loin, dans le flou. La hiérarchie est dans la
+profondeur de champ, pas dans une couleur d'alerte ni dans un cadre.
 
 ----------------------------------------------------------------------------
-CE QUI LE REMPLACE
+LES LIBELLÉS SONT POSÉS SUR LES CLÉS, PAS À CÔTÉ
 ----------------------------------------------------------------------------
-De la typographie, et presque rien d'autre.
+Leurs positions ne sont pas recopiées à la main : `cles_acces.py` projette
+chaque clé dans la vue caméra et écrit ses coordonnées dans un fichier que ce
+script relit. Bouger une clé dans la scène déplace son libellé tout seul.
 
-Le domaine occupe un bandeau plein qui traverse toute l'image, bord à bord —
-encre sombre, texte clair. Les trois autres sont posés dessous sur le papier,
-séparés par des filets d'un pixel. L'inversion fait le travail que faisait le
-rouge, sans le ton d'alarme : une ligne est traitée autrement, on la voit
-avant de l'avoir lue.
+Il reste très peu de mots — le titre, une phrase, et le nom de chaque clé.
+Le détail de ce que recouvre chaque accès est dans l'article, à sa place.
 
-Le reste suit la même règle. Un serif pour les intitulés, un italique pour les
-réserves, des capitales espacées pour les verdicts, et de la marge. Aucun coin
-arrondi, aucune pastille, aucune ombre portée.
-
-L'ocre du bandeau n'est pas une couleur d'alerte, c'est la seule teinte chaude
-qui tienne le contraste sur l'encre (7,4:1 mesuré). Elle attire l'oeil sans
-dire « attention ».
+----------------------------------------------------------------------------
+LE VOILE EST MESURÉ
+----------------------------------------------------------------------------
+Un texte clair posé sur une photo devient illisible dès que la photo s'éclaircit
+dessous. Le script mesure donc la luminance réelle sous chaque bloc et refuse de
+produire l'image si le contraste tombe sous 4,5:1. C'est le même contrôle que
+sur les autres figures : une image illisible en vignette ne se voit pas sur un
+grand écran.
 """
 
+import json
 import os
 
 from PIL import Image, ImageDraw
+import numpy as np
 
 import charte as C
 
 RACINE = os.path.dirname(os.path.abspath(__file__))
+FOND = os.path.join(RACINE, "fond-cles.png")
+CADRAGE = os.path.join(RACINE, "fond-cles-cadrage.json")
 BASE = os.path.join(RACINE, "qui-detient-les-acces-site-web")
 
-L = 1600
+L, H = 1600, 900
 MARGE = 96
 
-#  Une palette de papier, propre à cette figure. Le fond gris-bleu de la charte
-#  va bien aux schémas techniques du site ; ici on cherche une page, pas un
-#  écran, et un blanc légèrement chaud fait toute la différence sur un aplat
-#  d'encre aussi large.
-PAPIER = (250, 249, 245)
-ENCRE = (26, 27, 32)
-GRIS = (98, 100, 110)
-FAIBLE = (136, 137, 147)
-FILET = (216, 214, 206)
-SUR_ENCRE = (243, 241, 235)
-DISCRET = (158, 158, 166)
-OCRE = (214, 160, 74)
+CREME = (243, 240, 232)
+CREME_FAIBLE = (196, 192, 184)
+OCRE = (226, 176, 96)
 
 SERIF = "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"
-SERIF_G = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
 SERIF_I = "/usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf"
 
 SURTITRE = "QUESTION 3"
 TITRE = "Qui détient les accès ?"
+ACCROCHE = "Quatre accès. Un seul ne se récupère pas."
 
-DOMAINE = {
-    "numero": "01",
-    "titre": "Le nom de domaine",
-    "texte": "À votre nom, dans votre compte, chez votre bureau "
-             "d'enregistrement.",
-    "reserve": "Pas « géré par » l'agence.",
-    "verdict": "NE SE RÉCUPÈRE PAS",
-    "note": "une procédure de plusieurs mois, quand elle aboutit",
-}
-
-AUTRES = (
-    {
-        "numero": "02",
-        "titre": "L'hébergement",
-        "texte": "Vous devez pouvoir y accéder et le résilier sans passer par "
-                 "un tiers.",
-        "verdict": "SE REPREND",
-        "note": None,
-    },
-    {
-        "numero": "03",
-        "titre": "L'administration du site",
-        "texte": "Un compte administrateur à votre nom, pas un identifiant "
-                 "partagé transmis par message.",
-        "verdict": "SE REPREND",
-        "note": None,
-    },
-    {
-        "numero": "04",
-        "titre": "Les comptes Google",
-        "texte": "Search Console, Analytics, fiche d'établissement : vous "
-                 "propriétaire, l'agence ajoutée comme utilisateur.",
-        "verdict": "SE REPREND",
-        "note": "l'historique, non",
-    },
-)
-
-
-def typo(texte):
-    """
-    L'apostrophe courbe, celle des livres.
-
-    La droite est un caractère de machine à écrire que les claviers ont gardé.
-    Sur un titre en serif de 56 points, la différence entre « L'hébergement »
-    et « L’hébergement » se voit à un mètre, et c'est le genre de détail qui
-    sépare une page composée d'un export de gabarit.
-    """
-    return texte.replace("'", "’")
-
-
-def couper(d, texte, f, largeur):
-    ligne, lignes = "", []
-    for m in texte.split():
-        essai = (ligne + " " + m).strip()
-        if d.textlength(essai, font=f) > largeur and ligne:
-            lignes.append(ligne)
-            ligne = m
-        else:
-            ligne = essai
-    lignes.append(ligne)
-    return lignes
-
-
-def largeur_espacee(d, texte, f, tracking):
-    """La largeur d'une ligne de capitales espacées."""
-    return sum(d.textlength(c, font=f) for c in texte) \
-        + tracking * max(len(texte) - 1, 0)
+DOMAINE = "le nom de domaine"
+VERDICT = "NE SE RÉCUPÈRE PAS"
+TROIS = ("l’hébergement", "l’administration du site", "les comptes Google")
 
 
 def espace(d, xy, texte, f, teinte, tracking):
-    """
-    Des capitales, lettre à lettre, avec de l'air entre elles.
-
-    PIL ne sait pas espacer un texte. On le dessine donc caractère par
-    caractère — c'est ce qui distingue une petite capitale composée d'une
-    étiquette de gabarit, et ça ne coûte que trois lignes.
-    """
+    """Des capitales dessinées lettre à lettre, avec de l'air entre elles."""
     x, y = xy
     for c in texte:
         d.text((x, y), c, font=f, fill=teinte)
@@ -155,119 +81,128 @@ def espace(d, xy, texte, f, teinte, tracking):
     return x - tracking
 
 
-def verifier_sur_encre():
-    """Les deux couleurs posées sur l'aplat sombre, avant de dessiner."""
-    for nom, teinte, seuil in (("papier sur encre", SUR_ENCRE, 4.5),
-                               ("ocre sur encre", OCRE, 4.5),
-                               ("discret sur encre", DISCRET, 4.5)):
-        r = C.contraste(teinte, ENCRE)
-        print("  %-20s %-16s %.2f:1  %s"
-              % (nom, str(teinte), r, "ok" if r >= seuil else "INSUFFISANT"))
-        if r < seuil:
-            raise SystemExit("%s : %.2f:1, sous le seuil" % (nom, r))
+def largeur_espacee(d, texte, f, tracking):
+    return sum(d.textlength(c, font=f) for c in texte) \
+        + tracking * max(len(texte) - 1, 0)
+
+
+def voile(im):
+    """
+    Un assombrissement qui pèse en haut et sur les bords.
+
+    Construit dans un tableau plutôt qu'avec un rectangle semi-transparent : on
+    veut une transition continue. Un aplat uniforme éteindrait le laiton, qui
+    est le sujet.
+    """
+    l, h = im.size
+    y = np.linspace(0.0, 1.0, h)[:, None]
+    x = np.linspace(0.0, 1.0, l)[None, :]
+    #  Le bandeau du haut, là où se pose le titre.
+    a = 0.62 * np.clip((0.42 - y) / 0.42, 0.0, 1.0) ** 0.9
+    #  Une vignette douce, pour refermer les bords sans qu'on la remarque.
+    r = np.sqrt(((x - 0.5) * 1.05) ** 2 + ((y - 0.55) * 1.25) ** 2)
+    a = np.clip(a + 0.30 * np.clip((r - 0.44) / 0.46, 0.0, 1.0) ** 1.5,
+                0.0, 0.86)
+    base = np.asarray(im, dtype=float)
+    sombre = np.array([12.0, 11.0, 14.0])[None, None, :]
+    return Image.fromarray(
+        (base * (1.0 - a[..., None]) + sombre * a[..., None])
+        .clip(0, 255).astype("uint8"))
+
+
+def luminance_sous(im, boite):
+    x0, y0, x1, y1 = [int(v) for v in boite]
+    x0, y0 = max(x0, 0), max(y0, 0)
+    x1, y1 = min(x1, im.width), min(y1, im.height)
+    if x1 <= x0 or y1 <= y0:
+        raise SystemExit("zone de mesure vide : %s" % (boite,))
+    a = np.asarray(im.convert("RGB").crop((x0, y0, x1, y1)),
+                   dtype=float) / 255.0
+    a = np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
+    return float((0.2126 * a[..., 0] + 0.7152 * a[..., 1]
+                  + 0.0722 * a[..., 2]).mean())
 
 
 def principal():
-    verifier_sur_encre()
-    for nom, teinte, seuil in (("encre sur papier", ENCRE, 4.5),
-                               ("gris sur papier", GRIS, 4.5),
-                               ("faible sur papier", FAIBLE, 3.0)):
-        r = C.contraste(teinte, PAPIER)
-        print("  %-20s %-16s %.2f:1  %s"
-              % (nom, str(teinte), r, "ok" if r >= seuil else "INSUFFISANT"))
-        if r < seuil:
-            raise SystemExit("%s : %.2f:1, sous le seuil" % (nom, r))
+    if not os.path.exists(FOND):
+        raise SystemExit("fond absent : %s\n        lancez d'abord "
+                         "`python3 article-agence-web/cles_acces.py`" % FOND)
+    if not os.path.exists(CADRAGE):
+        raise SystemExit("cadrage absent : %s\n        lancez "
+                         "`python3 article-agence-web/cles_acces.py "
+                         "--cadrage`" % CADRAGE)
+    with open(CADRAGE, encoding="utf-8") as f:
+        pos = json.load(f)
 
-    mesure = ImageDraw.Draw(Image.new("RGB", (10, 10)))
-
-    f_sur = C.police(C.POLICE_G, 15)
-    f_titre = C.police(SERIF, 56)
-    f_num_d = C.police(SERIF, 46)
-    f_num = C.police(SERIF, 34)
-    f_nom_d = C.police(SERIF_G, 36)
-    f_nom = C.police(SERIF_G, 27)
-    f_txt_d = C.police(C.POLICE_R, 22)
-    f_txt = C.police(C.POLICE_R, 20)
-    f_res = C.police(SERIF_I, 22)
-    f_verd_d = C.police(C.POLICE_G, 16)
-    f_verd = C.police(C.POLICE_G, 14)
-    f_note = C.police(SERIF_I, 17)
-
-    #  La colonne de droite est dimensionnée sur le plus large des verdicts,
-    #  jamais sur une valeur choisie à la main : c'est ce qui garantit que les
-    #  quatre lignes s'alignent quoi qu'on écrive dedans.
-    droite = max(
-        largeur_espacee(mesure, DOMAINE["verdict"], f_verd_d, 2.4),
-        mesure.textlength(DOMAINE["note"], font=f_note),
-        max(largeur_espacee(mesure, c["verdict"], f_verd, 2.2)
-            for c in AUTRES))
-    x_droite = L - MARGE - int(droite)
-
-    x_txt = MARGE + 92
-    largeur_txt = x_droite - 64 - x_txt
-
-    dom_lignes = couper(mesure, typo(DOMAINE["texte"]), f_txt_d, largeur_txt)
-    plies = [couper(mesure, typo(c["texte"]), f_txt, largeur_txt)
-             for c in AUTRES]
-
-    h_bande = 46 + 42 + 14 + len(dom_lignes) * 31 + 10 + 30 + 46
-    hauteurs = [34 + 34 + 10 + len(p) * 27 + 34 for p in plies]
-
-    y_titre = 96
-    y_filet = y_titre + 88
-    y_bande = y_filet + 46
-    y_lignes = y_bande + h_bande + 4
-    H = y_lignes + sum(hauteurs) + 44
-
-    out = Image.new("RGB", (L, H), PAPIER)
+    photo = Image.open(FOND).convert("RGB")
+    if photo.size != (L, H):
+        photo = photo.resize((L, H), Image.LANCZOS)
+    out = voile(photo)
     d = ImageDraw.Draw(out)
 
-    # ------------------------------------------------------------  l'en-tête
-    espace(d, (MARGE, y_titre - 30), SURTITRE, f_sur, C.VIOLET_TEXTE, 2.6)
-    d.text((MARGE - 3, y_titre), typo(TITRE), font=f_titre, fill=ENCRE)
-    d.line([MARGE, y_filet, L - MARGE, y_filet], fill=FILET, width=1)
+    f_sur = C.police(C.POLICE_G, 15)
+    f_titre = C.police(SERIF, 62)
+    f_acc = C.police(SERIF_I, 27)
+    f_verd = C.police(C.POLICE_G, 15)
+    f_nom = C.police(SERIF, 27)
+    f_trois = C.police(SERIF_I, 22)
 
-    # ---------------------------------------------------  le bandeau, bord à bord
-    #  Il traverse toute l'image, sans marge : c'est ce débord qui le fait lire
-    #  comme un bandeau de page et non comme une carte posée sur un fond.
-    d.rectangle([0, y_bande, L, y_bande + h_bande], fill=ENCRE)
+    #  Coordonnées de vue caméra vers pixels : l'origine de Blender est en bas
+    #  à gauche, celle de PIL en haut à gauche.
+    def px(nom):
+        x, y = pos[nom]
+        return x * L, (1.0 - y) * H
 
-    y = y_bande + 46
-    d.text((MARGE, y - 4), DOMAINE["numero"], font=f_num_d, fill=OCRE)
-    d.text((x_txt, y), typo(DOMAINE["titre"]), font=f_nom_d, fill=SUR_ENCRE)
-    y += 42 + 14
-    for t in dom_lignes:
-        d.text((x_txt, y), t, font=f_txt_d, fill=(216, 214, 208))
-        y += 31
-    y += 10
-    d.text((x_txt, y), typo(DOMAINE["reserve"]), font=f_res, fill=DISCRET)
+    zones = {}
 
-    yv = y_bande + 52
-    espace(d, (x_droite, yv), DOMAINE["verdict"], f_verd_d, OCRE, 2.4)
-    d.text((x_droite, yv + 34), typo(DOMAINE["note"]), font=f_note,
-           fill=DISCRET)
+    # ------------------------------------------------------------  le titre
+    espace(d, (MARGE, MARGE - 4), SURTITRE, f_sur, OCRE, 2.6)
+    d.text((MARGE - 3, MARGE + 26), TITRE, font=f_titre, fill=CREME)
+    d.text((MARGE, MARGE + 116), ACCROCHE, font=f_acc, fill=CREME_FAIBLE)
+    zones["titre"] = (MARGE, MARGE + 30,
+                      MARGE + d.textlength(TITRE, font=f_titre),
+                      MARGE + 100)
+    zones["accroche"] = (MARGE, MARGE + 118,
+                         MARGE + d.textlength(ACCROCHE, font=f_acc),
+                         MARGE + 152)
 
-    # ------------------------------------------------------  les trois autres
-    y0 = y_lignes
-    for carte, lignes, h in zip(AUTRES, plies, hauteurs):
-        d.text((MARGE, y0 + 30), carte["numero"], font=f_num, fill=FAIBLE)
-        d.text((x_txt, y0 + 30), typo(carte["titre"]), font=f_nom, fill=ENCRE)
-        y = y0 + 34 + 34 + 10
-        for t in lignes:
-            d.text((x_txt, y), t, font=f_txt, fill=GRIS)
-            y += 27
+    # ---------------------------------------------------  la clé de laiton
+    xd, yd = px("Domaine")
+    #  Le libellé descend sous la clé, décalé à gauche : c'est le seul endroit
+    #  du cadre où le bois est vide sur toute la largeur du texte.
+    lx, ly = MARGE, min(yd + 132, H - MARGE - 74)
+    d.line([lx, ly - 22, lx + 46, ly - 22], fill=OCRE, width=1)
+    espace(d, (lx, ly - 14), VERDICT, f_verd, OCRE, 2.4)
+    d.text((lx, ly + 14), DOMAINE, font=f_nom, fill=CREME)
+    zones["domaine"] = (lx, ly - 14,
+                        lx + max(largeur_espacee(d, VERDICT, f_verd, 2.4),
+                                 d.textlength(DOMAINE, font=f_nom)), ly + 50)
 
-        espace(d, (x_droite, y0 + 38), carte["verdict"], f_verd, FAIBLE, 2.2)
-        if carte["note"]:
-            d.text((x_droite, y0 + 62), typo(carte["note"]), font=f_note,
-                   fill=FAIBLE)
+    # -------------------------------------------------  les trois d'acier
+    xs = max(px(n)[0] for n in ("Acier1", "Acier2", "Acier3"))
+    ys = sum(px(n)[1] for n in ("Acier1", "Acier2", "Acier3")) / 3.0
+    tx = min(xs + 96, L - MARGE - 260)
+    ty = max(ys - 52, MARGE + 190)
+    large = max(d.textlength(t, font=f_trois) for t in TROIS)
+    if tx + large > L - MARGE:
+        tx = L - MARGE - large
+    for i, t in enumerate(TROIS):
+        d.text((tx, ty + i * 34), t, font=f_trois, fill=CREME_FAIBLE)
+    zones["trois"] = (tx, ty, tx + large, ty + 3 * 34)
 
-        if y > y0 + h - 4:
-            raise SystemExit("« %s » déborde de sa ligne de %.0f px"
-                             % (carte["titre"], y - (y0 + h - 4)))
-        y0 += h
-        if carte is not AUTRES[-1]:
-            d.line([MARGE, y0, L - MARGE, y0], fill=FILET, width=1)
+    # ------------------------------------------------------------  contrôle
+    faibles = []
+    for nom, b in zones.items():
+        lum = luminance_sous(out, b)
+        clair = CREME if nom in ("titre", "domaine") else CREME_FAIBLE
+        r = (max(_lum(clair), lum) + 0.05) / (min(_lum(clair), lum) + 0.05)
+        print("  %-9s fond %.3f  contraste %.2f:1  %s"
+              % (nom, lum, r, "ok" if r >= 4.5 else "INSUFFISANT"))
+        if r < 4.5:
+            faibles.append("%s (%.2f:1)" % (nom, r))
+    if faibles:
+        raise SystemExit("le fond est trop clair sous : " + ", ".join(faibles)
+                         + "\n        renforcez le voile dans `voile()`")
 
     out.save(BASE + ".webp", "WEBP", quality=C.QUALITE, method=6)
     out.save(BASE + ".png", "PNG", optimize=True)
@@ -276,6 +211,14 @@ def principal():
     for e in (".webp", ".png"):
         print("  %-44s %.0f Ko" % (os.path.basename(BASE + e),
                                    os.path.getsize(BASE + e) / 1024))
+
+
+def _lum(couleur):
+    v = []
+    for x in couleur[:3]:
+        x /= 255.0
+        v.append(x / 12.92 if x <= 0.04045 else ((x + 0.055) / 1.055) ** 2.4)
+    return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]
 
 
 if __name__ == "__main__":
