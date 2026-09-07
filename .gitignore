@@ -35,3 +35,6 @@ Thumbs.db
 /illustration/__pycache__/
 /illustration/.empreintes.json
 /illustration/*_nouveau.svg
+
+# Illustration (caches Python des scripts d'article)
+__pycache__/
