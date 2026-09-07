@@ -20,6 +20,7 @@ set -e
 
 SETUP=${1:?usage : capturer-anime.sh <script de scène> <nom>}
 NOM=${2:?usage : capturer-anime.sh <script de scène> <nom>}
+ECRAN=${ECRAN:-2560x1600}      # taille de l'écran X virtuel
 
 IMAGE=mirror.gcr.io/linuxserver/blender:latest
 ICI=$(cd "$(dirname "$0")" && pwd)
@@ -32,7 +33,8 @@ cp "$ICI"/prepare2.py "$ICI/$SETUP" "$ICI"/anime.sh "$ICI"/anime-dedans.sh \
 chmod +x "$TRAVAIL"/anime.sh "$TRAVAIL"/anime-dedans.sh
 
 docker run --rm --network host --entrypoint sh -v "$TRAVAIL":/sortie \
-    -e SETUP="$SETUP" -e NOM="$NOM" "$IMAGE" /sortie/anime.sh
+    -e SETUP="$SETUP" -e NOM="$NOM" -e ECRAN="$ECRAN" "$IMAGE" \
+    /sortie/anime.sh
 
 python3 - "$TRAVAIL" "$ICI/.." "$NOM" <<'PY'
 import glob

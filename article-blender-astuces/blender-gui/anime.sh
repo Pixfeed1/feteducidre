@@ -20,6 +20,9 @@ set -e
   --python /sortie/prepare2.py >/dev/null 2>&1
 
 #  Grand écran et interface au double : le viewport fait alors plus de deux
-#  mille pixels de large, et la figure reste nette une fois réduite.
+#  mille pixels de large, et la figure reste nette une fois réduite. Les
+#  figures qui photographient un panneau de réglages demandent l'inverse — une
+#  fenêtre étroite, pour que Blender range ses propriétés en UNE colonne et
+#  cesse de tronquer les intitulés.
 export SETUP NOM
-xvfb-run -a -s '-screen 0 2560x1600x24' /sortie/anime-dedans.sh
+xvfb-run -a -s "-screen 0 ${ECRAN:-2560x1600}x24" /sortie/anime-dedans.sh
