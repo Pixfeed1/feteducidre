@@ -4,8 +4,13 @@ L'animation de l'édition proportionnelle : le même geste, avant et après O.
     sh article-blender-astuces/blender-gui/capturer-proportionnelle.sh
     python3 article-blender-astuces/anime_proportionnelle.py
 
-Produit `astuces-blender-05-edition-proportionnelle.webp` (animé) et
-`-apercu.jpg`, une planche fixe pour la relecture.
+Produit trois fichiers :
+
+  - `astuces-blender-05-edition-proportionnelle.webp`, l'animation, et c'est
+    celle-là qui va dans l'article ;
+  - `.gif`, la même chose pour les lecteurs qui n'animent pas le WebP —
+    l'Explorateur Windows en montre la première image et s'arrête là ;
+  - `-apercu.jpg`, une planche fixe des quatre moments, pour la relecture.
 
 Les trente-deux écrans bruts restent dans `/tmp/bl/frames` et n'entrent pas
 dans le dépôt : ils pèsent vingt-quatre mégaoctets, et la chaîne de capture se
@@ -70,6 +75,11 @@ LARGEUR = 1120
 #  pas de la compression. Contrôlé à l'oeil sur l'image du sommet, là où le
 #  cercle gris est ce qu'il y a de plus fragile — il tient.
 QUALITE = 68
+
+#  Le GIF de secours n'a droit qu'à une palette. Cent vingt-huit teintes
+#  suffisent : le viewport est gris, et les seules couleurs vives sont les deux
+#  axes et le sommet sélectionné.
+GIF_COULEURS = 128
 
 #  La hauteur, dans l'image réduite, de l'en-tête et de la ligne d'état de
 #  l'opérateur. Le contrôle de déformation regarde en dessous.
@@ -149,6 +159,38 @@ def mesurer(vues, depuis, indices):
     return part
 
 
+def gif(images, durees):
+    """
+    La même animation en GIF, pour les lecteurs qui n'animent pas le WebP.
+
+    Ce n'est PAS le fichier de l'article : ses gris sont approchés, et le GIF
+    ne sait pas faire mieux. C'est un fichier de contrôle — l'Explorateur
+    Windows et l'application Photos affichent la première image d'un WebP animé
+    et s'arrêtent là, ce qui donne d'une bonne animation l'impression d'une
+    image fixe et ratée.
+
+    Une seule palette pour toute la séquence, et surtout PAS de tramage. Le
+    viewport de Blender est un aplat gris ; y disperser l'erreur de couleur
+    sème un bruit qui change à chaque image, et le GIF ne compresse plus rien
+    d'une image à l'autre. Mesuré sur cette séquence : 491 Ko sans tramage,
+    2 534 Ko avec, pour une image moins propre.
+
+    À ce compte-là le GIF pèse à peu près le poids du WebP (512 Ko), ce qui
+    n'était pas prévu — c'est l'animation par différences qui joue à plein sur
+    une image où seul le centre bouge.
+    """
+    bande = Image.new("RGB", (images[0].width, images[0].height * len(images)))
+    for i, im in enumerate(images):
+        bande.paste(im, (0, i * images[0].height))
+    palette = bande.quantize(colors=GIF_COULEURS,
+                             method=Image.Quantize.MEDIANCUT)
+
+    reduites = [im.quantize(palette=palette, dither=Image.Dither.NONE)
+                for im in images]
+    reduites[0].save(BASE + ".gif", save_all=True, append_images=reduites[1:],
+                     duration=durees, loop=0, optimize=True)
+
+
 def bandeau(im, phase, polices):
     """Une copie de l'image, son bandeau de légende posé en pied."""
     f_titre, f_sous, f_source = polices
@@ -221,6 +263,7 @@ def principal():
     images[0].save(BASE + ".webp", "WEBP", save_all=True,
                    append_images=images[1:], duration=durees, loop=0,
                    quality=QUALITE, method=6)
+    gif(images, durees)
 
     #  Une planche fixe à côté : une image animée ne se relit pas image par
     #  image, et il faut bien vérifier les quatre moments avant publication.
@@ -241,7 +284,7 @@ def principal():
           % (len(images), bl, bh, images[0].width, images[0].height,
              sum(durees) / 1000.0))
     print("  viewport modifié au sommet du geste : %.1f %%" % (100 * sommet))
-    for e in (".webp", "-apercu.jpg"):
+    for e in (".webp", ".gif", "-apercu.jpg"):
         print("  %-56s %.0f Ko" % (os.path.basename(BASE + e),
                                    os.path.getsize(BASE + e) / 1024))
 
