@@ -1,5 +1,6 @@
 #!/bin/sh
-# Les deux passes de la capture animée. Lancé DANS le conteneur, /sortie monté.
+# Les deux passes de la capture animée. Lancé DANS le conteneur, /sortie monté,
+# avec $SETUP (le script de scène) et $NOM (pour nommer le journal).
 #
 # ----------------------------------------------------------------------------
 # POURQUOI LA PASSE DE PRÉFÉRENCES EST ICI, ET PAS AILLEURS
@@ -20,4 +21,5 @@ set -e
 
 #  Grand écran et interface au double : le viewport fait alors plus de deux
 #  mille pixels de large, et la figure reste nette une fois réduite.
+export SETUP NOM
 xvfb-run -a -s '-screen 0 2560x1600x24' /sortie/anime-dedans.sh

@@ -1,10 +1,11 @@
 #!/bin/sh
-# Joue la séquence de l'édition proportionnelle et photographie chaque étape.
-# Lancé sous `xvfb-run`, par `anime.sh`, dans le conteneur.
+# Joue une séquence Blender et photographie l'écran entre chaque étape.
+# Lancé sous `xvfb-run`, par `anime.sh`, dans le conteneur. $SETUP nomme le
+# script de scène, $NOM sert à nommer le journal.
 rm -f /sortie/go /sortie/fait /sortie/fini /sortie/img-*.xwd
 
 /usr/bin/blender --enable-event-simulate -noaudio /sortie/avec-camera.blend \
-  --python /sortie/setup-proportionnelle.py > /sortie/log-prop.txt 2>&1 &
+  --python "/sortie/$SETUP" > "/sortie/log-$NOM.txt" 2>&1 &
 BL=$!
 
 #  Le premier dessin compile les nuanceurs et prend plusieurs secondes ; on

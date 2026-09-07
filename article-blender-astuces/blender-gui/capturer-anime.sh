@@ -1,8 +1,9 @@
 #!/bin/sh
 #
-# Les images de l'animation « édition proportionnelle », prises dans Blender.
+# Les images d'une séquence animée, prises dans le vrai Blender.
 #
-#     sh article-blender-astuces/blender-gui/capturer-proportionnelle.sh
+#     sh blender-gui/capturer-anime.sh setup-proportionnelle.py proportionnelle
+#     sh blender-gui/capturer-anime.sh setup-repeter.py repeter
 #
 # ----------------------------------------------------------------------------
 # CE QUE FAIT CE SCRIPT
@@ -13,35 +14,38 @@
 # de la vue 3D, dont les coordonnées sont relues dans le journal de Blender —
 # jamais supposées.
 #
-# Les images brutes restent dans $TRAVAIL ; seule la planche d'images
-# recadrées est écrite dans le dépôt, par `anime_proportionnelle.py`.
+# Les images brutes restent dans $TRAVAIL ; seuls les fichiers montés entrent
+# dans le dépôt.
 set -e
+
+SETUP=${1:?usage : capturer-anime.sh <script de scène> <nom>}
+NOM=${2:?usage : capturer-anime.sh <script de scène> <nom>}
 
 IMAGE=mirror.gcr.io/linuxserver/blender:latest
 ICI=$(cd "$(dirname "$0")" && pwd)
-TRAVAIL=${TRAVAIL:-/tmp/bl}
+TRAVAIL=${TRAVAIL:-/tmp/bl-$NOM}
 
 mkdir -p "$TRAVAIL"
 rm -f "$TRAVAIL"/img-*.xwd
-cp "$ICI"/prepare2.py "$ICI"/setup-proportionnelle.py "$ICI"/anime.sh \
-   "$ICI"/anime-dedans.sh "$TRAVAIL"/
+cp "$ICI"/prepare2.py "$ICI/$SETUP" "$ICI"/anime.sh "$ICI"/anime-dedans.sh \
+   "$TRAVAIL"/
 chmod +x "$TRAVAIL"/anime.sh "$TRAVAIL"/anime-dedans.sh
 
-docker run --rm --network host --entrypoint sh -v "$TRAVAIL":/sortie "$IMAGE" \
-    /sortie/anime.sh
+docker run --rm --network host --entrypoint sh -v "$TRAVAIL":/sortie \
+    -e SETUP="$SETUP" -e NOM="$NOM" "$IMAGE" /sortie/anime.sh
 
-python3 - "$TRAVAIL" "$ICI/.." <<'PY'
+python3 - "$TRAVAIL" "$ICI/.." "$NOM" <<'PY'
 import glob
 import os
 import re
 import sys
 
-travail = sys.argv[1]
+travail, nom = sys.argv[1], sys.argv[3]
 sys.path.insert(0, os.path.abspath(sys.argv[2]))
 
 import xwd  # noqa: E402
 
-journal = open("%s/log-prop.txt" % travail, encoding="utf-8",
+journal = open("%s/log-%s.txt" % (travail, nom), encoding="utf-8",
                errors="replace").read()
 m = re.search(r"AIRE x=(\d+) y=(\d+) w=(\d+) h=(\d+)", journal)
 if not m:
@@ -63,5 +67,3 @@ for chemin in bruts:
         "%s/%s.png" % (dest, os.path.basename(chemin)[4:6]))
 print("  %d images, aire %d × %d  ->  %s" % (len(bruts), w, h, dest))
 PY
-
-echo "  puis : python3 article-blender-astuces/anime_proportionnelle.py"
