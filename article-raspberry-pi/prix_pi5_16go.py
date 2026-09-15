@@ -127,7 +127,7 @@ def principal():
     t.espace((MARGE, 52), TITRE, f_titre, D.ENCRE, 2.2)
     t.texte((MARGE, 78), D.typo(SOUS), f_sous, D.FAIBLE)
 
-    # ---------------------------------------------------------------  la grille
+    # -------------------------------------------------------------  la grille
     for g in GRADUATIONS:
         y = ay(g)
         t.ligne([X0, y, X1, y], D.FILET if g else D.GRIS, 2 if g else 3)
@@ -147,10 +147,11 @@ def principal():
     t.polygone(points + [(X1, Y1), (X0, Y1)], VIOLET_FOND)
     t.polyligne(points, VIOLET_TRAIT, 4)
 
-    # --------------------------------------------------  les étiquettes de prix
+    # -----------------------------------------------  étiquettes de prix
     for i, (j, p, intitule, mention) in enumerate(PALIERS):
         x = ax(j)
-        fin = ax(PALIERS[i + 1][0]) if i + 1 < len(PALIERS) else ax(AUJOURD_HUI)
+        suivant = i + 1 < len(PALIERS)
+        fin = ax(PALIERS[i + 1][0]) if suivant else ax(AUJOURD_HUI)
         place = fin - x
 
         haut = "%d $" % p

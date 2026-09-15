@@ -105,7 +105,8 @@ def principal():
     #  Un filet sur la part pâle, qui sans lui flotte sur le papier — les deux
     #  sont clairs, et le bord droit de la barre disparaissait.
     x_pale, w_pale = bornes[1]
-    t.d.rectangle(t._b([x_pale, BARRE_HAUT, x_pale + w_pale - 1, BARRE_BAS - 1]),
+    t.d.rectangle(t._b([x_pale, BARRE_HAUT,
+                        x_pale + w_pale - 1, BARRE_BAS - 1]),
                   outline=D.FILET, width=int(2 * t.e))
 
     # -------------------------------------------------------  les étiquettes
