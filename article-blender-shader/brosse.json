@@ -1,0 +1,36 @@
+{
+ "sphere": {
+  "x": 850,
+  "y": 450,
+  "rayon": 360
+ },
+ "valeurs": {
+  "Base Color": [
+   0.69,
+   0.7,
+   0.72
+  ],
+  "Metallic": 1.0,
+  "Mapping Scale": [
+   1.0,
+   120.0,
+   1.0
+  ],
+  "Noise Scale": 12.0,
+  "Noise Detail": 6.0,
+  "Color Ramp": [
+   0.38,
+   0.62
+  ],
+  "Map Range To Min": 0.18,
+  "Map Range To Max": 0.42,
+  "Bump Strength": 0.08
+ },
+ "taille": [
+  1700,
+  900
+ ],
+ "echantillons": 600,
+ "objectif": 85.0,
+ "version": "4.5.12 LTS"
+}
