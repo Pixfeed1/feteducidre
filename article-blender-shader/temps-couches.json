@@ -1,0 +1,78 @@
+{
+ "mesures": [
+  {
+   "nom": "Constante",
+   "tours": [
+    10.273,
+    10.299,
+    10.142
+   ],
+   "temps": 10.142,
+   "image": "sphere-constante.png",
+   "rapport": 0.933,
+   "ombrage": 0.0,
+   "rapport_ombrage": 0.0
+  },
+  {
+   "nom": "Image texture",
+   "tours": [
+    10.866,
+    10.95,
+    10.913
+   ],
+   "temps": 10.866,
+   "image": "sphere-image.png",
+   "rapport": 1.0,
+   "ombrage": 0.724,
+   "rapport_ombrage": 1.0
+  },
+  {
+   "nom": "1 couche",
+   "tours": [
+    11.83,
+    11.823,
+    11.791
+   ],
+   "temps": 11.791,
+   "image": "sphere-1.png",
+   "rapport": 1.085,
+   "ombrage": 1.649,
+   "rapport_ombrage": 2.278
+  },
+  {
+   "nom": "3 couches",
+   "tours": [
+    13.687,
+    13.694,
+    13.615
+   ],
+   "temps": 13.615,
+   "image": "sphere-3.png",
+   "rapport": 1.253,
+   "ombrage": 3.473,
+   "rapport_ombrage": 4.797
+  },
+  {
+   "nom": "6 couches",
+   "tours": [
+    16.898,
+    16.991,
+    16.839
+   ],
+   "temps": 16.839,
+   "image": "sphere-6.png",
+   "rapport": 1.55,
+   "ombrage": 6.697,
+   "rapport_ombrage": 9.25
+  }
+ ],
+ "taille": [
+  640,
+  640
+ ],
+ "echantillons": 96,
+ "tours": 3,
+ "moteur": "Cycles CPU",
+ "coeurs": 4,
+ "version": "5.2.1 LTS"
+}
