@@ -63,7 +63,8 @@ DETAIL_COTE = 0.22
 CADRE = 2.05
 #  Le seuil ne sort pas du chapeau : il vient d'un témoin, la MÊME scène
 #  rendue avec un Mapping Scale de 1 / 1 / 1, c'est-à-dire le bruit sans
-#  l'écrasement. Le témoin mesure 1,47, le 1 / 120 / 1 de l'article 5,19 ; on
+#  l'écrasement, rendu à la MÊME définition — sans quoi on comparerait deux
+#  conditions. Le témoin mesure 1,28, le 1 / 120 / 1 de l'article 5,19 ; on
 #  coupe entre les deux, en moyenne géométrique.
 #
 #  Le rapport dépend de la définition du rendu, et il faut le dire : à
