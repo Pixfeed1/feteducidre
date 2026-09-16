@@ -85,6 +85,11 @@ def virgule(x, chiffres=2):
     return (("%." + str(chiffres) + "f") % x).replace(".", ",")
 
 
+def nombre(x):
+    """Un réglage tel qu'il s'écrit : 1 et non 1.0, 0,25 et non 0.25."""
+    return ("%g" % x).replace(".", ",")
+
+
 def direction(vue, boite):
     """À quel point la texture est orientée : en travers contre le long.
 
@@ -188,9 +193,13 @@ def principal():
                               Image.LANCZOS), (x * t.e, y_vue * t.e))
         t.rrect([x, y_vue, x + vue.width - 1, y_vue + vue.height - 1], 0,
                 contour=D.FILET, epaisseur=2)
-        t.texte((x, y_note),
-                D.typo("texture %s fois plus marquée en travers que le long"
-                       % virgule(mesures[p["nom"]], 1)), f_note, D.FAIBLE)
+        #  Au-dessous de 1, « tant de fois plus marquée » ne veut rien dire :
+        #  le témoin n'a pas une direction faible, il n'en a pas.
+        m = mesures[p["nom"]]
+        note = ("texture %s fois plus marquée en travers que le long"
+                % virgule(m, 1) if m >= 1.5 else
+                "aucune direction : %s, comme un moucheté" % virgule(m, 1))
+        t.texte((x, y_note), D.typo(note), f_note, D.FAIBLE)
 
     # ---------------------------------------------------------------  le pied
     pied = (
@@ -201,8 +210,8 @@ def principal():
         "Texture Coordinate Object, Mapping Scale %s / %s / %s, Wave Rings "
         "direction Z profil Sine Scale %s Detail %d Detail Scale %d, Noise "
         "Scale %d Detail %d Roughness %s, Math Multiply %d."
-        % (v["Mapping Scale"][0], virgule(v["Mapping Scale"][1]),
-           v["Mapping Scale"][2], virgule(v["Wave Scale"], 1),
+        % (nombre(v["Mapping Scale"][0]), nombre(v["Mapping Scale"][1]),
+           nombre(v["Mapping Scale"][2]), virgule(v["Wave Scale"], 1),
            v["Wave Detail"], v["Wave Detail Scale"], v["Noise Scale"],
            v["Noise Detail"], virgule(v["Noise Roughness"], 1),
            v["Multiply"]),

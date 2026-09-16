@@ -1,0 +1,55 @@
+{
+ "plateaux": [
+  {
+   "nom": "Vector",
+   "x": 64,
+   "y": 97,
+   "large": 747,
+   "haut": 567
+  },
+  {
+   "nom": "Distortion",
+   "x": 889,
+   "y": 97,
+   "large": 747,
+   "haut": 567
+  }
+ ],
+ "valeurs": {
+  "Mapping Scale": [
+   1.0,
+   0.25,
+   1.0
+  ],
+  "Wave Scale": 2.2,
+  "Wave Detail": 3.0,
+  "Wave Detail Scale": 1.0,
+  "Noise Scale": 3.0,
+  "Noise Detail": 6.0,
+  "Noise Roughness": 0.5,
+  "Multiply": 8.0,
+  "Color Ramp": [
+   0.32,
+   0.7
+  ],
+  "Map Range To Min": 0.28,
+  "Map Range To Max": 0.58,
+  "Bump Strength": 0.25
+ },
+ "brun_sombre": [
+  0.055,
+  0.026,
+  0.012
+ ],
+ "brun_clair": [
+  0.34,
+  0.19,
+  0.086
+ ],
+ "taille": [
+  1700,
+  760
+ ],
+ "echantillons": 400,
+ "version": "4.5.12 LTS"
+}
