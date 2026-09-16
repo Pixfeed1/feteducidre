@@ -1,0 +1,463 @@
+{
+ "version": "5.2.1 LTS",
+ "nombre": 32,
+ "entrees": [
+  {
+   "nom": "Base Color",
+   "type": "RGBA",
+   "bl": "NodeSocketColor",
+   "defaut": [
+    0.8,
+    0.8,
+    0.8,
+    1.0
+   ],
+   "couleur": [
+    0.78,
+    0.78,
+    0.16,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Metallic",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Roughness",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.5,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "IOR",
+   "type": "VALUE",
+   "bl": "NodeSocketFloat",
+   "defaut": 1.5,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Alpha",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 1.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Thin Wall",
+   "type": "BOOLEAN",
+   "bl": "NodeSocketBool",
+   "defaut": false,
+   "couleur": [
+    0.8,
+    0.65,
+    0.84,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Normal",
+   "type": "VECTOR",
+   "bl": "NodeSocketVector",
+   "defaut": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "couleur": [
+    0.39,
+    0.39,
+    0.78,
+    1.0
+   ],
+   "cache": true
+  },
+  {
+   "nom": "Weight",
+   "type": "VALUE",
+   "bl": "NodeSocketFloat",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Diffuse Roughness",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Subsurface Weight",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Subsurface Radius",
+   "type": "VECTOR",
+   "bl": "NodeSocketVector",
+   "defaut": [
+    1.0,
+    0.2,
+    0.1
+   ],
+   "couleur": [
+    0.39,
+    0.39,
+    0.78,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Subsurface Scale",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatDistance",
+   "defaut": 0.005,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Subsurface IOR",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 1.4,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Subsurface Anisotropy",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Specular IOR Level",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.5,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Specular Tint",
+   "type": "RGBA",
+   "bl": "NodeSocketColor",
+   "defaut": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "couleur": [
+    0.78,
+    0.78,
+    0.16,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Anisotropic",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Anisotropic Rotation",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Tangent",
+   "type": "VECTOR",
+   "bl": "NodeSocketVector",
+   "defaut": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "couleur": [
+    0.39,
+    0.39,
+    0.78,
+    1.0
+   ],
+   "cache": true
+  },
+  {
+   "nom": "Transmission Weight",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Coat Weight",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Coat Roughness",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.03,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Coat IOR",
+   "type": "VALUE",
+   "bl": "NodeSocketFloat",
+   "defaut": 1.5,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Coat Tint",
+   "type": "RGBA",
+   "bl": "NodeSocketColor",
+   "defaut": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "couleur": [
+    0.78,
+    0.78,
+    0.16,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Coat Normal",
+   "type": "VECTOR",
+   "bl": "NodeSocketVector",
+   "defaut": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "couleur": [
+    0.39,
+    0.39,
+    0.78,
+    1.0
+   ],
+   "cache": true
+  },
+  {
+   "nom": "Sheen Weight",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Sheen Roughness",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatFactor",
+   "defaut": 0.5,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Sheen Tint",
+   "type": "RGBA",
+   "bl": "NodeSocketColor",
+   "defaut": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "couleur": [
+    0.78,
+    0.78,
+    0.16,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Emission Color",
+   "type": "RGBA",
+   "bl": "NodeSocketColor",
+   "defaut": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "couleur": [
+    0.78,
+    0.78,
+    0.16,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Emission Strength",
+   "type": "VALUE",
+   "bl": "NodeSocketFloat",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Thin Film Thickness",
+   "type": "VALUE",
+   "bl": "NodeSocketFloatWavelength",
+   "defaut": 0.0,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  },
+  {
+   "nom": "Thin Film IOR",
+   "type": "VALUE",
+   "bl": "NodeSocketFloat",
+   "defaut": 1.33,
+   "couleur": [
+    0.63,
+    0.63,
+    0.63,
+    1.0
+   ],
+   "cache": false
+  }
+ ]
+}
