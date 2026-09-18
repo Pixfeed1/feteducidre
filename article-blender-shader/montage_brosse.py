@@ -232,7 +232,7 @@ def principal():
            virgule(v["Bump Strength"])),
         "Le grain varie %s fois plus en travers des stries que le long : "
         "c'est du brossage et pas du bruit. Le Scale porte sur Y, donc la "
-        "caméra regarde depuis X — depuis Y, on verrait des anneaux."
+        "caméra regarde depuis X ; depuis Y, on verrait des anneaux."
         % virgule(rapport, 1),
     )
     t.ligne([MARGE, y_pied, L - MARGE, y_pied], D.FILET, 2)

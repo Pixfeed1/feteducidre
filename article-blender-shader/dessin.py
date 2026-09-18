@@ -79,6 +79,18 @@ class Toile:
         return self.d.textlength(texte, font=f) / self.e
 
     def texte(self, xy, t, f, teinte):
+        #  PAS DE CADRATIN, JAMAIS. C'est une consigne du client, et une
+        #  consigne qu'on oublie : elle est donc tenue par le code et non par
+        #  la mémoire. Tout texte dessiné passe ici, le contrôle attrape donc
+        #  aussi bien un titre qu'une ligne de pied écrite à la volée.
+        interdits = [(c, n) for c, n in (("—", "cadratin"),
+                                         ("–", "demi-cadratin"))
+                     if c in t]
+        if interdits:
+            raise SystemExit(
+                "%s dans « %s » : remplacez-le par une virgule, un "
+                "deux-points ou un point."
+                % (interdits[0][1], t[:60]))
         self.d.text((xy[0] * self.e, xy[1] * self.e), t, font=f, fill=teinte)
 
     def espace(self, xy, texte, f, teinte, tracking):

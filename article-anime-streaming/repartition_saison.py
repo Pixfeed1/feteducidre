@@ -80,7 +80,7 @@ VF = (("Crunchyroll", 15, 10), ("ADN", 1, 2), ("Netflix", 3, 5),
       ("Prime Video", 2, 1))
 
 TITRE = "UNE SAISON, PLUSIEURS ABONNEMENTS"
-SOUS = ("nombre de séries portées par chaque service, France, 2026 — "
+SOUS = ("nombre de séries portées par chaque service, France, 2026 ; "
         "les services sont nommés, sans logo")
 
 PIED = (

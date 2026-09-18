@@ -154,7 +154,7 @@ def principal():
     couleurs = "  ".join("#%02X%02X%02X" % r["couleur"] for r in releves)
     pied = (
         "Un seul rendu, Blender %s, EEVEE, %d échantillons. Base Color "
-        "commune (%.3f, %.3f, %.3f) — le cuivre poli des tables —, Roughness "
+        "commune (%.3f, %.3f, %.3f), le cuivre poli des tables, Roughness "
         "%.2f." % (fait["version"], fait["echantillons"],
                    *fait["base_color"], fait["roughness"]),
         "Couleurs relevées au coeur des sphères : %s. Le script de scène "

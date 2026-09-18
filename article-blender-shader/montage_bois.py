@@ -78,7 +78,7 @@ ETIQUETTES = {
 }
 
 TITRE = "UN SEUL CÂBLE CHANGE DE DESTINATION"
-SOUS = "même plateau, même arbre, même rendu — seule l’arrivée du fil diffère"
+SOUS = "même plateau, même arbre, même rendu ; seule l’arrivée du fil change"
 
 
 def virgule(x, chiffres=2):

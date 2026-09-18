@@ -176,7 +176,7 @@ def principal():
         "même processus."
         % (banc["coeurs"], banc["taille"][0], banc["taille"][1],
            banc["echantillons"], banc["tours"]),
-        "Le plancher — la scène sans aucune texture — pèse %s. Sur le TOTAL, "
+        "Le plancher, la scène sans aucune texture, pèse %s. Sur le TOTAL, "
         "six couches coûtent %s fois une image ; sur le MATÉRIAU seul, %s "
         "fois."
         % (duree(plancher),
