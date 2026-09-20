@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="1016px" viewBox="0 0 1600 1016" version="1.1">
+  <title>OÙ CHAQUE OUTIL VOUS LAISSE TOMBER</title>
+  <desc>la chaîne, de la piste audio au rendu, et le segment que chacun couvre</desc>
+  <g inkscape:groupmode="layer" inkscape:label="Fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="1016" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Titre" id="couche2">
+    <text x="56" y="68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">OÙ CHAQUE OUTIL VOUS LAISSE TOMBER</text>
+    <text x="56" y="95" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="normal" fill="#8c8d96" xml:space="preserve">la chaîne, de la piste audio au rendu, et le segment que chacun couvre</text>
+    <rect x="56" y="110" width="26" height="12" rx="6" fill="#622cc8"/>
+    <text x="92" y="119" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">disponible aujourd’hui</text>
+    <rect x="261.432" y="110" width="26" height="12" rx="6" fill="#a6a8b0"/>
+    <text x="297.432" y="119" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">arrêté ou plus en vente</text>
+    <circle cx="481.646" cy="116" r="7" fill="#faf9f6" stroke="#622cc8" stroke-width="2"/>
+    <text x="498.646" y="119" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">édition des phonèmes à la main</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Chaine" id="couche3">
+    <text x="346" y="170" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" letter-spacing="1.2" xml:space="preserve">SOURCE</text>
+    <text x="495" y="170" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" letter-spacing="1.2" xml:space="preserve">PHONÈMES</text>
+    <line x1="489" y1="184" x2="489" y2="840" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="644" y="170" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" letter-spacing="1.2" xml:space="preserve">VISÈMES</text>
+    <line x1="638" y1="184" x2="638" y2="840" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="793" y="170" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" letter-spacing="1.2" xml:space="preserve">MORPHS DAZ</text>
+    <line x1="787" y1="184" x2="787" y2="840" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="942" y="170" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" letter-spacing="1.2" xml:space="preserve">RENDU IRAY</text>
+    <line x1="936" y1="184" x2="936" y2="840" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="340" y1="184" x2="1085" y2="184" stroke="#1a1b20" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Outils" id="couche4">
+    <text x="56" y="221" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Module Lip-Sync 32 bits</text>
+    <text x="56" y="241" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">livré avec Daz Studio 32 bits</text>
+    <rect x="345" y="205" width="586" height="18" rx="9" fill="#622cc8"/>
+    <text x="1109" y="219" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Pas d’Iray en 32 bits. On enregistre la scène et on la rouvre en</text>
+    <text x="1109" y="239" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">64 bits pour rendre.</text>
+    <line x1="56" y1="264" x2="1544" y2="264" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="56" y="264" width="1488" height="72" rx="0" fill="#f4f3ee"/>
+    <text x="56" y="293" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#646670" xml:space="preserve">Mimic Pro</text>
+    <text x="56" y="313" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">plus en vente depuis des années</text>
+    <rect x="345" y="277" width="586" height="18" rx="9" fill="#a6a8b0"/>
+    <circle cx="563.5" cy="286" r="7" fill="#faf9f6" stroke="#e2d8fa" stroke-width="2"/>
+    <text x="1109" y="291" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Figures Poser au format CR2, V4 et M4 seulement. Genesis 8 et</text>
+    <text x="1109" y="311" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">9 lui sont étrangers.</text>
+    <line x1="56" y1="336" x2="1544" y2="336" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="365" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#646670" xml:space="preserve">Mimic Live !</text>
+    <text x="56" y="385" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">arrêté, temps réel au micro</text>
+    <rect x="345" y="349" width="586" height="18" rx="9" fill="#a6a8b0"/>
+    <text x="1109" y="363" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Arrêté par Daz. Confirmé sur le forum officiel en juillet 2022, pour</text>
+    <text x="1109" y="383" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">cause d’instabilités.</text>
+    <line x1="56" y1="408" x2="1544" y2="408" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="56" y="408" width="1488" height="72" rx="0" fill="#f4f3ee"/>
+    <text x="56" y="437" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Anilip 2</text>
+    <text x="56" y="457" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">environ 89,95 $</text>
+    <rect x="345" y="421" width="735" height="18" rx="9" fill="#622cc8"/>
+    <text x="1109" y="435" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Couvre toutes les générations Genesis, mais pas de macOS.</text>
+    <line x1="56" y1="480" x2="1544" y2="480" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="509" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Anilip3</text>
+    <text x="56" y="529" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">90,99 $</text>
+    <rect x="345" y="493" width="735" height="18" rx="9" fill="#622cc8"/>
+    <text x="1109" y="507" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Genesis 9 uniquement, et seulement sous Windows 11.</text>
+    <line x1="56" y1="552" x2="1544" y2="552" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="56" y="552" width="1488" height="72" rx="0" fill="#f4f3ee"/>
+    <text x="56" y="581" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Face Mojo</text>
+    <text x="56" y="601" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">99,99 $, plus un iPhone X ou plus récent</text>
+    <rect x="345" y="565" width="139" height="18" rx="9" fill="#622cc8"/>
+    <rect x="792" y="565" width="288" height="18" rx="9" fill="#622cc8"/>
+    <line x1="488" y1="574" x2="788" y2="574" stroke="#a6a8b0" stroke-width="2" stroke-dasharray="9 7"/>
+    <text x="1109" y="579" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Capture faciale et non analyse audio : ni phonèmes ni visèmes.</text>
+    <text x="1109" y="599" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">L’iPhone SE est exclu, faute de capteur.</text>
+    <line x1="56" y1="624" x2="1544" y2="624" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="653" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Rhubarb Lip Sync</text>
+    <text x="56" y="673" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">gratuit, licence MIT</text>
+    <rect x="345" y="637" width="437" height="18" rx="9" fill="#622cc8"/>
+    <text x="1109" y="651" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Rend un fichier de formes de bouche. Le branchement sur la</text>
+    <text x="1109" y="671" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">figure reste à écrire.</text>
+    <line x1="56" y1="696" x2="1544" y2="696" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="56" y="696" width="1488" height="72" rx="0" fill="#f4f3ee"/>
+    <text x="56" y="725" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Papagayo et son script d’import</text>
+    <text x="56" y="745" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">gratuit</text>
+    <rect x="345" y="709" width="586" height="18" rx="9" fill="#622cc8"/>
+    <circle cx="563.5" cy="718" r="7" fill="#faf9f6" stroke="#622cc8" stroke-width="2"/>
+    <text x="1109" y="723" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Calage à l’aveugle : le personnage Daz n’est pas visible pendant</text>
+    <text x="1109" y="743" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">l’édition des phonèmes.</text>
+    <line x1="56" y1="768" x2="1544" y2="768" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="797" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">NVIDIA Audio2Face</text>
+    <text x="56" y="817" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">gratuit, licence MIT</text>
+    <rect x="345" y="781" width="437" height="18" rx="9" fill="#622cc8"/>
+    <text x="1109" y="795" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Aucun plugin Daz. Passage par Blender, et la correspondance</text>
+    <text x="1109" y="815" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">avec les morphs Genesis reste à écrire.</text>
+    <line x1="56" y1="840" x2="1544" y2="840" stroke="#d5d3cc" stroke-width="1"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Pied" id="couche5">
+    <line x1="56" y1="886" x2="1544" y2="886" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="919" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Étages, prix, limites et dates : ceux de l’article. Le placement des barres est une lecture de ces descriptions, pas un relevé.</text>
+    <text x="56" y="943" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">daz3d.com et developer.nvidia.com sont injoignables depuis la machine qui a produit cette figure : rien n’a été recoupé auprès des éditeurs.</text>
+    <text x="56" y="967" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Audio2Face est sous licence MIT pour le SDK et les plugins Maya et Unreal. Audio2Emotion a une licence plus étroite, limitée à un usage avec Audio2Face.</text>
+  </g>
+</svg>
