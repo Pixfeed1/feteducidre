@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="802px" viewBox="0 0 1600 802" version="1.1">
+  <title>CINQ PLATEFORMES, DEUX MODÈLES</title>
+  <desc>ce que chacune publie avant que vous ne commandiez. Relevé du 20 septembre 2026.</desc>
+  <g inkscape:groupmode="layer" inkscape:label="Fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="802" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Titre" id="couche2">
+    <text x="56" y="68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">CINQ PLATEFORMES, DEUX MODÈLES</text>
+    <text x="56" y="95" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="normal" fill="#8c8d96" xml:space="preserve">ce que chacune publie avant que vous ne commandiez</text>
+    <circle cx="62" cy="116" r="6" fill="#622cc8"/>
+    <text x="76" y="121" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">le travail non retenu n’est pas payé</text>
+    <circle cx="331.146" cy="116" r="6" fill="#96989e"/>
+    <text x="345.146" y="121" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">pas de travail gratuit</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="En-tetes" id="couche3">
+    <text x="56" y="163" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#646670" letter-spacing="1.4" xml:space="preserve">PLATEFORME</text>
+    <text x="352" y="163" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#646670" letter-spacing="1.4" xml:space="preserve">MODÈLE</text>
+    <text x="624" y="163" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#646670" letter-spacing="1.4" xml:space="preserve">PRIX D’ENTRÉE</text>
+    <text x="874" y="163" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#646670" letter-spacing="1.4" xml:space="preserve">COMMISSION</text>
+    <line x1="56" y1="174" x2="1544" y2="174" stroke="#1a1b20" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Lignes" id="couche4">
+    <text x="56" y="211" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">99designs by Vista</text>
+    <text x="56" y="230" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">concours d’une semaine</text>
+    <circle cx="358" cy="201" r="6" fill="#622cc8"/>
+    <text x="374" y="209" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#622cc8" xml:space="preserve">Concours</text>
+    <text x="624" y="209" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">289 €</text>
+    <text x="624" y="230" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">logo, entrée de gamme</text>
+    <text x="874" y="209" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Pas de chiffre public</text>
+    <line x1="56" y1="245" x2="1544" y2="245" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="56" y="245" width="1488" height="65" rx="0" fill="#f4f3ee"/>
+    <text x="56" y="276" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Creads</text>
+    <text x="56" y="295" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">5 000 créatifs, 5 % retenus</text>
+    <circle cx="358" cy="266" r="6" fill="#96989e"/>
+    <text x="374" y="274" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">Mise en relation, encadrée</text>
+    <text x="624" y="274" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">Sur devis</text>
+    <text x="624" y="295" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">au forfait, une création un prix</text>
+    <text x="874" y="274" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Pas de chiffre public</text>
+    <line x1="56" y1="310" x2="1544" y2="310" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="341" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Graphiste.com et Codeur.com</text>
+    <text x="56" y="360" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">groupe Freeland, 375 000 profils</text>
+    <circle cx="358" cy="331" r="6" fill="#96989e"/>
+    <text x="374" y="339" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">Mise en relation, sur devis</text>
+    <text x="624" y="339" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">Sur devis</text>
+    <text x="624" y="360" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">devis personnalisés des freelances</text>
+    <text x="874" y="339" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Pas de chiffre public</text>
+    <line x1="56" y1="375" x2="1544" y2="375" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="56" y="375" width="1488" height="107" rx="0" fill="#f4f3ee"/>
+    <text x="56" y="406" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Malt</text>
+    <text x="56" y="425" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">plus d’un million de profils</text>
+    <circle cx="358" cy="396" r="6" fill="#96989e"/>
+    <text x="374" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">Mise en relation, directe</text>
+    <text x="624" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">Sur devis</text>
+    <text x="624" y="425" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">tarif journalier du freelance</text>
+    <text x="874" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">5 % HT de frais de service freelance. Sur certaines missions en France, en Belgique et en</text>
+    <text x="874" y="425" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">Espagne : 10 % HT, puis 5 % après six mois de mission. Pour un micro-entrepreneur non</text>
+    <text x="874" y="446" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">assujetti à la TVA, 6 % et 12 % TTC.</text>
+    <line x1="56" y1="482" x2="1544" y2="482" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="513" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Fiverr</text>
+    <text x="56" y="532" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">offre Pro : premier centile</text>
+    <circle cx="358" cy="503" r="6" fill="#96989e"/>
+    <text x="374" y="511" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">Mise en relation, catalogue</text>
+    <text x="624" y="511" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Pas de chiffre public</text>
+    <text x="624" y="532" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">le plus bas du lot, non chiffré</text>
+    <text x="874" y="511" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">20 % prélevés sur le vendeur, plus des frais côté acheteur qui varient selon le montant de</text>
+    <text x="874" y="532" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#1a1b20" xml:space="preserve">la commande et ne sont pas chiffrés par le relevé.</text>
+    <line x1="56" y1="568" x2="1544" y2="568" stroke="#d5d3cc" stroke-width="1"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Bandeau" id="couche5">
+    <text x="56" y="629" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">Un seul prix d’entrée chiffré sur cinq, deux commissions chiffrées sur cinq, et une seule plateforme qui fait travailler sans payer.</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Pied" id="couche6">
+    <line x1="56" y1="672" x2="1544" y2="672" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="705" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Relevé du 20 septembre 2026 sur les pages publiques et les centres d’aide des plateformes, plus le communiqué Freeland du 9 juin 2022. Les cinq sites étant</text>
+    <text x="56" y="729" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">injoignables depuis la machine qui a produit cette figure, aucun chiffre n’a été recoupé ici : le tableau rapporte un relevé daté, il ne le vérifie pas.</text>
+    <text x="56" y="753" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">« Pas de chiffre public » ne veut pas dire qu’il n’y a pas de commission, mais que le relevé n’en a trouvé aucun montant affiché. C’est une information sur la plateforme, pas un trou dans le tableau.</text>
+  </g>
+</svg>
