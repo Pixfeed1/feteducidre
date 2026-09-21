@@ -95,12 +95,32 @@ if bas is not None:
 
 
 def regler_bas():
+    """Le bas montre la TÊTE, pas une seconde fois la même liste.
+
+    Quand le repli convertit la grande aire en éditeur de formes clés, la
+    chronologie du bas en devenait une deuxième, identique : deux fois la
+    même chose, et plus aucun sujet à l'écran. Le bas redevient donc une
+    vue 3D, et la figure montre enfin le maillage à côté de ses formes.
+    """
     if bas is None:
         return None
+    bas.type = 'VIEW_3D'
+    return None
+
+
+def regler_bas_suite():
+    if bas is None or bas.type != 'VIEW_3D':
+        return None
     for espace in bas.spaces:
-        if espace.type == 'DOPESHEET_EDITOR':
-            espace.mode = 'SHAPEKEY'
-            espace.show_region_ui = False
+        if espace.type == 'VIEW_3D':
+            espace.shading.type = 'SOLID'
+            espace.overlay.show_text = False
+            espace.overlay.show_cursor = False
+            espace.overlay.show_floor = False
+            espace.overlay.show_axis_x = False
+            espace.overlay.show_axis_y = False
+            espace.overlay.show_object_origins = False
+            espace.overlay.show_relationship_lines = False
     return None
 
 
@@ -163,10 +183,11 @@ def cadrer():
                 r for r in vue.regions if r.type == 'WINDOW')):
             bpy.ops.view3d.view_axis(type='FRONT')
             bpy.ops.view3d.view_selected()
-    if bas is not None:
+    if bas is not None and bas.type == 'VIEW_3D':
         with bpy.context.temp_override(area=bas, region=next(
                 r for r in bas.regions if r.type == 'WINDOW')):
-            bpy.ops.action.select_all(action='SELECT')
+            bpy.ops.view3d.view_axis(type='FRONT')
+            bpy.ops.view3d.view_selected()
 
     #  CONTRÔLE : il faut qu'une des deux vues montre des noms lisibles.
     #  La colonne assez large, ou la grande aire passée en liste de formes.
@@ -189,5 +210,6 @@ def cadrer():
 
 bpy.app.timers.register(regler_bas, first_interval=1.5)
 bpy.app.timers.register(elargir, first_interval=3.0)
+bpy.app.timers.register(regler_bas_suite, first_interval=2.5)
 bpy.app.timers.register(regler_vue, first_interval=4.5)
 bpy.app.timers.register(cadrer, first_interval=6.0)
