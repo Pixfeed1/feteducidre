@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="746px" viewBox="0 0 1600 746" version="1.1">
+  <title>CE QUE DENUVO AJOUTE AU DÉMARRAGE</title>
+  <desc>secondes entre le lancement et le jeu, mêmes machines, mêmes jeux</desc>
+  <g inkscape:groupmode="layer" inkscape:label="Fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="746" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Titre" id="couche2">
+    <text x="56" y="68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">CE QUE DENUVO AJOUTE AU DÉMARRAGE</text>
+    <text x="56" y="95" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="normal" fill="#8c8d96" xml:space="preserve">secondes entre le lancement et le jeu, mêmes machines, mêmes jeux</text>
+    <rect x="56" y="112" width="26" height="12" rx="6" fill="#622cc8"/>
+    <text x="92" y="121" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">avec Denuvo</text>
+    <rect x="207.719" y="112" width="26" height="12" rx="6" fill="#a278e4"/>
+    <text x="243.719" y="121" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">sans Denuvo</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Jeux" id="couche3">
+    <text x="56" y="177" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Ghostwire: Tokyo</text>
+    <text x="56" y="197" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">3,7 fois plus long</text>
+    <rect x="396" y="156" width="802" height="22" rx="6" fill="#622cc8"/>
+    <text x="1210" y="173" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">200 s</text>
+    <rect x="396" y="180" width="216.54" height="22" rx="6" fill="#a278e4"/>
+    <text x="624.54" y="197" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">54 s</text>
+    <text x="1296" y="186" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#622cc8" xml:space="preserve">+ 146 s</text>
+    <rect x="56" y="236" width="1488" height="90" rx="0" fill="#f4f3ee"/>
+    <text x="56" y="269" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Dying Light 2</text>
+    <text x="56" y="289" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">2,6 fois plus long</text>
+    <rect x="396" y="248" width="661.65" height="22" rx="6" fill="#622cc8"/>
+    <text x="1069.65" y="265" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">165 s</text>
+    <rect x="396" y="272" width="256.64" height="22" rx="6" fill="#a278e4"/>
+    <text x="664.64" y="289" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">64 s</text>
+    <text x="1296" y="278" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#622cc8" xml:space="preserve">+ 101 s</text>
+    <text x="56" y="361" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Borderlands 3</text>
+    <text x="56" y="381" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">1,7 fois plus long</text>
+    <rect x="396" y="340" width="413.03" height="22" rx="6" fill="#622cc8"/>
+    <text x="821.03" y="357" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">103 s</text>
+    <rect x="396" y="364" width="248.62" height="22" rx="6" fill="#a278e4"/>
+    <text x="656.62" y="381" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">62 s</text>
+    <text x="1296" y="370" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#622cc8" xml:space="preserve">+ 41 s</text>
+    <rect x="56" y="420" width="1488" height="90" rx="0" fill="#f4f3ee"/>
+    <text x="56" y="453" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Shadow of the Tomb Raider</text>
+    <text x="56" y="473" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">3,0 fois plus long</text>
+    <rect x="396" y="432" width="344.86" height="22" rx="6" fill="#622cc8"/>
+    <text x="752.86" y="449" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">86 s</text>
+    <rect x="396" y="456" width="116.29" height="22" rx="6" fill="#a278e4"/>
+    <text x="524.29" y="473" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">29 s</text>
+    <text x="1296" y="462" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#622cc8" xml:space="preserve">+ 57 s</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Bandeau" id="couche4">
+    <line x1="56" y1="536" x2="1544" y2="536" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="577" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">Sur ces quatre jeux, un lancement de chacun coûte 5 min 45 s de plus avec la protection.</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Pied" id="couche5">
+    <line x1="56" y1="616" x2="1544" y2="616" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="649" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Temps relevés par la chaîne YetTea, repris par 80 Level en mai 2023. Les écarts, les rapports et le total sont calculés à partir de ces huit temps.</text>
+    <text x="56" y="673" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Ces barres mesurent le DÉMARRAGE, pas les performances en jeu : TechPowerUp relève moins de 1 % d’écart quand la carte graphique limite, 3 à 4 % quand le processeur limite.</text>
+    <text x="56" y="697" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Denuvo ne concerne que les grosses sorties. La quasi-totalité des jeux indépendants sortent sans protection, et la question ne se pose pas pour eux.</text>
+  </g>
+</svg>
