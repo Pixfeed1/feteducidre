@@ -140,13 +140,29 @@ for nom in ARKIT:
     if bouges == 0:
         raise SystemExit("« %s » ne déplace aucun sommet" % nom)
 
-#  CONTRÔLE : autant de clés que de noms, plus la base, et aucune vide.
-if len(tete.data.shape_keys.key_blocks) != len(ARKIT) + 1:
-    raise SystemExit("%d clés au lieu de %d"
-                     % (len(tete.data.shape_keys.key_blocks), len(ARKIT) + 1))
-if MONTREE not in tete.data.shape_keys.key_blocks:
+#  ON POSE LES VALEURS, ON NE LES SUPPOSE PAS.
+#
+#  `shape_key_add` laisse ici chaque clé à 1,0, et pas à 0,0 comme on
+#  l'attendrait : relevé sur le fichier enregistré, les 53 clés étaient
+#  toutes à fond. Le visage cumulait donc les 52 déformations à la fois, ce
+#  qui n'arrive jamais, et la liste affichait 1.000 partout. On remet tout à
+#  zéro avant d'ouvrir la seule qu'on veut montrer.
+cles = tete.data.shape_keys.key_blocks
+for cle in cles:
+    cle.value = 0.0
+
+#  CONTRÔLE : autant de clés que de noms, plus la base.
+if len(cles) != len(ARKIT) + 1:
+    raise SystemExit("%d clés au lieu de %d" % (len(cles), len(ARKIT) + 1))
+if MONTREE not in cles:
     raise SystemExit("« %s » absente de la liste" % MONTREE)
-tete.data.shape_keys.key_blocks[MONTREE].value = 1.0
+cles[MONTREE].value = 1.0
+
+#  CONTRÔLE : une seule forme ouverte, et c'est la bonne.
+ouvertes = [c.name for c in cles if c.value > 0.001]
+if ouvertes != [MONTREE]:
+    raise SystemExit("formes ouvertes : %s, attendu seulement %s"
+                     % (ouvertes, MONTREE))
 tete.active_shape_key_index = list(
     tete.data.shape_keys.key_blocks.keys()).index(MONTREE)
 
@@ -155,5 +171,5 @@ bpy.context.object.data.size = 6.0
 bpy.context.object.data.energy = 420.0
 
 bpy.ops.wm.save_as_mainfile(filepath="%s/blendshapes.blend" % SORTIE)
-print("PRET %d formes clés, %s ouverte à 1,0"
-      % (len(ARKIT), MONTREE))
+print("PRET %d formes clés, %d ouverte(s) : %s"
+      % (len(ARKIT), len(ouvertes), ", ".join(ouvertes)))
