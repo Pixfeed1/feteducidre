@@ -58,10 +58,15 @@ BASE = os.path.join(RACINE, "daz-lipsync-blendshapes-blender")
 L = 1600
 MARGE = 56
 
-#  La capture fait 1900 x 2100. On garde la colonne de gauche, qui porte la
-#  liste, et la colonne de droite, qui porte le panneau : le vide du milieu,
-#  qui est la zone de courbes, ne dit rien.
-COUPE = (0, 24, 1900, 1900)
+#  La capture fait 1900 x 2100. On prend tout depuis le haut, barre de menus
+#  comprise, et on s'arrête juste avant la chronologie.
+#
+#  La vue 3D du bas, qui montre la tête, n'est PAS gardée : Blender a refusé
+#  d'agrandir cette aire depuis un timer, elle ne fait que 130 pixels, et la
+#  tête y est trop petite pour qu'on y voie autre chose qu'une tache. Mieux
+#  vaut une figure qui montre bien son sujet, la liste, qu'une figure qui
+#  montre mal deux choses.
+COUPE = (0, 0, 1900, 1850)
 
 VIOLET = (98, 44, 200)
 
