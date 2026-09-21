@@ -84,42 +84,97 @@ for espace in vue.spaces:
         espace.overlay.show_axis_y = False
         espace.overlay.show_relationship_lines = False
 
+#  ON CHANGE LE TYPE D'AIRE, PUIS ON ATTEND UNE IMAGE.
+#
+#  Poser `area.type` et toucher le nouvel espace dans la même image fait
+#  planter Blender : l'espace n'est pas encore construit. C'est la même
+#  famille de bogue que le `node.view_all` qui refuse de s'exécuter juste
+#  après un changement de type d'aire. On sépare donc en deux temps.
 if bas is not None:
     bas.type = 'DOPESHEET_EDITOR'
+
+
+def regler_bas():
+    if bas is None:
+        return None
     for espace in bas.spaces:
         if espace.type == 'DOPESHEET_EDITOR':
             espace.mode = 'SHAPEKEY'
             espace.show_region_ui = False
+    return None
+
+
+def tirer(aire, x, y, delta):
+    """Déplacer une bordure d'aire. Rend True si Blender a accepté.
+
+    `screen.area_move` a un poll exigeant : appelé depuis un timer, même
+    avec la fenêtre et l'écran dans le contexte, il répond « context is
+    incorrect ». On lui donne donc aussi une aire et sa région, et on
+    RAPPORTE l'échec au lieu de le laisser passer pour un succès.
+    """
+    region = next((r for r in aire.regions if r.type == 'WINDOW'), None)
+    try:
+        with bpy.context.temp_override(window=fenetre, screen=ecran,
+                                       area=aire, region=region):
+            bpy.ops.screen.area_move(x=int(x), y=int(y), delta=int(delta))
+        return True
+    except RuntimeError as bug:
+        print("TIRER refusé : %s" % bug)
+        return False
 
 
 def elargir():
-    """Tirer les bordures, puis vérifier plutôt que d'espérer."""
-    #  La bordure verticale entre la vue et les propriétés : on la pousse
-    #  vers la gauche pour donner de la largeur aux noms.
-    bpy.ops.screen.area_move(x=props.x, y=props.y + props.height // 2,
-                             delta=-(LARGEUR_MINIMALE - props.width))
-    #  La bordure horizontale au-dessus de la Dope Sheet : on la remonte
-    #  pour que la liste des canaux tienne le plus de noms possible.
+    """Élargir la colonne, ou basculer la grande aire si c'est refusé."""
+    manque = LARGEUR_MINIMALE - props.width
+    if manque > 0:
+        tirer(props, props.x, props.y + props.height // 2, -manque)
     if bas is not None:
-        bpy.ops.screen.area_move(x=bas.x + bas.width // 2,
-                                 y=bas.y + bas.height,
-                                 delta=int(fenetre.height * 0.42))
+        tirer(bas, bas.x + bas.width // 2, bas.y + bas.height,
+              fenetre.height * 0.40)
+
+    #  LE REPLI, ET IL VAUT MIEUX QUE L'ORIGINAL.
+    #
+    #  Si les bordures n'ont pas bougé, la colonne reste trop étroite pour
+    #  les noms et la liste du bas trop courte pour en montrer plus de
+    #  quelques-uns. On convertit alors la GRANDE aire centrale en éditeur
+    #  de formes clés : elle occupe la moitié de la fenêtre, donc elle
+    #  tient des dizaines de noms, ce qui est exactement ce que la figure
+    #  annonce. On y perd la vue 3D de la tête, qui n'est qu'un décor.
+    if props.width < LARGEUR_MINIMALE - 40:
+        print("REPLI la grande aire devient l'éditeur de formes clés")
+        vue.type = 'DOPESHEET_EDITOR'
+    return None
+
+
+def regler_vue():
+    """Une image plus tard, si la grande aire a changé de type."""
+    if vue.type != 'DOPESHEET_EDITOR':
+        return None
+    for espace in vue.spaces:
+        if espace.type == 'DOPESHEET_EDITOR':
+            espace.mode = 'SHAPEKEY'
+            espace.show_region_ui = False
     return None
 
 
 def cadrer():
-    with bpy.context.temp_override(area=vue, region=next(
-            r for r in vue.regions if r.type == 'WINDOW')):
-        bpy.ops.view3d.view_axis(type='FRONT')
-        bpy.ops.view3d.view_selected()
+    if vue.type == 'VIEW_3D':
+        with bpy.context.temp_override(area=vue, region=next(
+                r for r in vue.regions if r.type == 'WINDOW')):
+            bpy.ops.view3d.view_axis(type='FRONT')
+            bpy.ops.view3d.view_selected()
     if bas is not None:
         with bpy.context.temp_override(area=bas, region=next(
                 r for r in bas.regions if r.type == 'WINDOW')):
             bpy.ops.action.select_all(action='SELECT')
 
-    if props.width < LARGEUR_MINIMALE - 40:
-        raise SystemExit("la colonne fait %d px : « %s » sera tronqué"
+    #  CONTRÔLE : il faut qu'une des deux vues montre des noms lisibles.
+    #  La colonne assez large, ou la grande aire passée en liste de formes.
+    if props.width < LARGEUR_MINIMALE - 40 and vue.type != 'DOPESHEET_EDITOR':
+        raise SystemExit("la colonne fait %d px et aucune liste ne la "
+                         "remplace : « %s » sera tronqué"
                          % (props.width, LE_PLUS_LONG))
+    print("VUE_TYPE %s" % vue.type)
     cles = tete.data.shape_keys.key_blocks
     print("PROPS x=%d y=%d w=%d h=%d"
           % (props.x, props.y, props.width, props.height))
@@ -132,5 +187,7 @@ def cadrer():
     return None
 
 
-bpy.app.timers.register(elargir, first_interval=2.0)
-bpy.app.timers.register(cadrer, first_interval=5.0)
+bpy.app.timers.register(regler_bas, first_interval=1.5)
+bpy.app.timers.register(elargir, first_interval=3.0)
+bpy.app.timers.register(regler_vue, first_interval=4.5)
+bpy.app.timers.register(cadrer, first_interval=6.0)
