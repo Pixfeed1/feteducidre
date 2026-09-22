@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="842px" viewBox="0 0 1600 842" version="1.1">
+  <title>LE STAGE A RATTRAPÉ LE CDI</title>
+  <desc>part des types de contrat dans les offres graphiques du jeu vidéo, en France</desc>
+  <g inkscape:groupmode="layer" inkscape:label="Fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="842" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Titre" id="couche2">
+    <text x="56" y="68" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">LE STAGE A RATTRAPÉ LE CDI</text>
+    <text x="56" y="95" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="normal" fill="#8c8d96" xml:space="preserve">part des types de contrat dans les offres graphiques du jeu vidéo, en France</text>
+    <circle cx="63" cy="122" r="7" fill="#622cc8"/>
+    <text x="78" y="126" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">CDI</text>
+    <circle cx="143.109" cy="122" r="7" fill="#b45309"/>
+    <text x="158.109" y="126" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">Stages</text>
+    <circle cx="242.698" cy="122" r="7" fill="#1668b8"/>
+    <text x="257.698" y="126" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">CDD et alternance</text>
+    <circle cx="413.865" cy="122" r="7" fill="#faf9f6" stroke="#646670" stroke-width="3"/>
+    <text x="428.865" y="126" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">croisement interpolé, non mesuré</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Grille" id="couche3">
+    <line x1="132" y1="566" x2="1276" y2="566" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="570" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#8c8d96" xml:space="preserve">0 %</text>
+    <line x1="132" y1="501.333" x2="1276" y2="501.333" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="505.333" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#8c8d96" xml:space="preserve">10 %</text>
+    <line x1="132" y1="436.667" x2="1276" y2="436.667" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="440.667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#8c8d96" xml:space="preserve">20 %</text>
+    <line x1="132" y1="372" x2="1276" y2="372" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="376" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#8c8d96" xml:space="preserve">30 %</text>
+    <line x1="132" y1="307.333" x2="1276" y2="307.333" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="311.333" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#8c8d96" xml:space="preserve">40 %</text>
+    <line x1="132" y1="242.667" x2="1276" y2="242.667" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="246.667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#8c8d96" xml:space="preserve">50 %</text>
+    <line x1="132" y1="178" x2="1276" y2="178" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="182" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#8c8d96" xml:space="preserve">60 %</text>
+    <line x1="132" y1="566" x2="132" y2="578" stroke="#1a1b20" stroke-width="2"/>
+    <text x="114.198" y="601" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">2022</text>
+    <line x1="513.333" y1="566" x2="513.333" y2="572" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="495.531" y="601" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#8c8d96" xml:space="preserve">2023</text>
+    <text x="480.643" y="621" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">non relevé</text>
+    <line x1="894.667" y1="566" x2="894.667" y2="572" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="876.865" y="601" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#8c8d96" xml:space="preserve">2024</text>
+    <text x="861.977" y="621" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">non relevé</text>
+    <line x1="1276" y1="566" x2="1276" y2="578" stroke="#1a1b20" stroke-width="2"/>
+    <text x="1258.2" y="601" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">2025</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Series" id="couche4">
+    <line x1="132" y1="197.4" x2="1276" y2="352.6" stroke="#622cc8" stroke-width="3" stroke-dasharray="9 7"/>
+    <circle cx="132" cy="197.4" r="9" fill="#622cc8"/>
+    <circle cx="1276" cy="352.6" r="9" fill="#622cc8"/>
+    <text x="64.4115" y="202.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">57 %</text>
+    <line x1="132" y1="456.067" x2="1276" y2="339.667" stroke="#b45309" stroke-width="3" stroke-dasharray="9 7"/>
+    <circle cx="132" cy="456.067" r="9" fill="#b45309"/>
+    <circle cx="1276" cy="339.667" r="9" fill="#b45309"/>
+    <text x="64.4115" y="461.067" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#b45309" xml:space="preserve">17 %</text>
+    <line x1="132" y1="397.867" x2="1276" y2="359.067" stroke="#1668b8" stroke-width="3" stroke-dasharray="9 7"/>
+    <circle cx="132" cy="397.867" r="9" fill="#1668b8"/>
+    <circle cx="1276" cy="359.067" r="9" fill="#1668b8"/>
+    <text x="64.4115" y="402.867" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1668b8" xml:space="preserve">26 %</text>
+    <line x1="1286" y1="339.667" x2="1310" y2="337.667" stroke="#b45309" stroke-width="2"/>
+    <text x="1318" y="344.667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#b45309" xml:space="preserve">35 %</text>
+    <text x="1318" y="365.667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#b45309" xml:space="preserve">Stages</text>
+    <line x1="1286" y1="352.6" x2="1310" y2="383.667" stroke="#622cc8" stroke-width="2"/>
+    <text x="1318" y="390.667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">33 %</text>
+    <text x="1318" y="411.667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">CDI</text>
+    <line x1="1286" y1="359.067" x2="1310" y2="429.667" stroke="#1668b8" stroke-width="2"/>
+    <text x="1318" y="436.667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1668b8" xml:space="preserve">32 %</text>
+    <text x="1318" y="457.667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1668b8" xml:space="preserve">CDD et alternance</text>
+    <circle cx="1221.52" cy="345.21" r="10" fill="#faf9f6" stroke="#646670" stroke-width="3"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Bandeau" id="couche5">
+    <line x1="56" y1="634" x2="1544" y2="634" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="677" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">En 3 ans, le CDI perd 24 points et le stage en gagne 18.</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Pied" id="couche6">
+    <line x1="56" y1="712" x2="1544" y2="712" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="745" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Observatoire de l’emploi de l’AFJV. Seules les parts de 2022 et de 2025 sont données par l’article : les points pleins sont relevés, le trait entre eux est interpolé.</text>
+    <text x="56" y="769" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">C’est pourquoi il est en pointillés. Les parts de 2023 et 2024 ne sont pas connues ici, et rien ne dit que la bascule s’est faite régulièrement d’une année sur l’autre.</text>
+    <text x="56" y="793" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Le croisement tombe fin 2024 sur ce tracé, anneau creux : il découle de la droite, il n’est pas mesuré. Les trois parts font bien 100 % en 2022 comme en 2025.</text>
+  </g>
+</svg>
