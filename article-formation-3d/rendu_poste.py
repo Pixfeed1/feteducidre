@@ -504,7 +504,16 @@ def allumer_dalle(materiau, image, force):
     sortie = next(n for n in a.nodes if n.type == 'OUTPUT_MATERIAL')
     p = a.nodes.new("ShaderNodeBsdfPrincipled")
     p.inputs["Base Color"].default_value = (0.008, 0.008, 0.009, 1.0)
-    p.inputs["Roughness"].default_value = 0.14
+    #  UN TRAITEMENT ANTIREFLET, PARCE QUE LES ÉCRANS DE TRAVAIL EN ONT UN.
+    #
+    #  Sans lui, la dalle incurvée ramasse la baie sur tout son tiers droit
+    #  et la colonne des propriétés de Blender disparaît sous un voile. Ce
+    #  n'est pas une erreur de rendu, c'est ce que fait une vitre nue face à
+    #  une fenêtre, et c'est précisément pour ça qu'un écran de production
+    #  est mat. On baisse donc le niveau spéculaire et on ouvre un peu la
+    #  rugosité : le reflet devient un voile sourd au lieu d'un miroir.
+    p.inputs["Roughness"].default_value = 0.30
+    p.inputs["Specular IOR Level"].default_value = 0.20
     p.inputs["Metallic"].default_value = 0.0
     a.links.new(tex.outputs["Color"], p.inputs["Emission Color"])
     a.links.new(p.outputs["BSDF"], sortie.inputs["Surface"])
