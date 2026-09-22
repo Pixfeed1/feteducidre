@@ -276,7 +276,7 @@ def boite(nom, x, y, z, materiau):
 def construire_piece():
     sol = matiere("sol", (0.34, 0.32, 0.30), 0.44)
     grain(sol, 14.0, 0.14)
-    mur = matiere("mur", (0.58, 0.57, 0.55), 0.80)
+    mur = matiere("mur", (0.56, 0.56, 0.57), 0.80)
     grain(mur, 40.0, 0.06)
     cadre = matiere("cadre de baie", (0.055, 0.055, 0.058), 0.36, metal=0.9)
 
@@ -340,7 +340,7 @@ def monde():
     env.image = bpy.data.images.load(os.path.join(SOURCES, "venise.exr"))
     fond = a.nodes.new("ShaderNodeBackground")
     fond.inputs["Strength"].default_value = float(
-        os.environ.get("FORCE_MONDE", "0.9"))
+        os.environ.get("FORCE_MONDE", "2.1"))
 
     a.links.new(coord.outputs["Generated"], carte.inputs["Vector"])
     a.links.new(carte.outputs["Vector"], env.inputs["Vector"])
@@ -368,8 +368,8 @@ def monde():
                    math.cos(hauteur) * math.sin(azimut),
                    math.sin(hauteur)))
     soleil = bpy.data.lights.new("soleil", 'SUN')
-    soleil.energy = float(os.environ.get("SOLEIL", "15"))
-    soleil.color = (1.0, 0.63, 0.34)
+    soleil.energy = float(os.environ.get("SOLEIL", "11"))
+    soleil.color = (1.0, 0.72, 0.47)
     soleil.angle = math.radians(1.6)
     os_ = bpy.data.objects.new("soleil", soleil)
     bpy.context.scene.collection.objects.link(os_)
@@ -422,8 +422,19 @@ def reparer_ecran(objets):
             if metal > 0.5 and clair < 0.5:
                 #  Un métal presque noir n'existe pas. C'est du plastique.
                 p.inputs["Metallic"].default_value = 0.0
-                p.inputs["Roughness"].default_value = max(
-                    0.34, p.inputs["Roughness"].default_value)
+                #  ON NE MONTE PAS LA RUGOSITÉ, ON LA LAISSE BASSE.
+                #
+                #  Réflexe de départ : rendre le cadre mat pour qu'il cesse
+                #  de renvoyer le mur ensoleillé. C'était l'inverse de ce
+                #  qu'il fallait faire. La part diffuse ne dépend pas de la
+                #  rugosité, seulement de l'albédo : rugosifier n'assombrit
+                #  rien, ça ne fait qu'étaler le spéculaire sur toute la
+                #  surface au lieu de le concentrer en un reflet. Un cadre
+                #  de moniteur noir reste noir en plein jour PARCE QUE son
+                #  vernis est net : il ramasse la fenêtre en une bande
+                #  brillante et laisse le reste sombre.
+                p.inputs["Roughness"].default_value = min(
+                    0.30, p.inputs["Roughness"].default_value)
                 p.inputs["Base Color"].default_value = (
                     max(base[0], 0.016), max(base[1], 0.016),
                     max(base[2], 0.016), 1.0)
@@ -493,7 +504,7 @@ def allumer_dalle(materiau, image, force):
     sortie = next(n for n in a.nodes if n.type == 'OUTPUT_MATERIAL')
     p = a.nodes.new("ShaderNodeBsdfPrincipled")
     p.inputs["Base Color"].default_value = (0.008, 0.008, 0.009, 1.0)
-    p.inputs["Roughness"].default_value = 0.11
+    p.inputs["Roughness"].default_value = 0.14
     p.inputs["Metallic"].default_value = 0.0
     a.links.new(tex.outputs["Color"], p.inputs["Emission Color"])
     a.links.new(p.outputs["BSDF"], sortie.inputs["Surface"])
@@ -603,7 +614,7 @@ def principal():
           % (d_haut[0] - d_bas[0], d_haut[2] - d_bas[2], rapport, d_haut[2]))
 
     allumer_dalle(dalle_mat, image_de_dalle(rapport),
-                  float(os.environ.get("FORCE_DALLE", "13.0")))
+                  float(os.environ.get("FORCE_DALLE", "3.2")))
 
     print("   clavier")
     _, taille_clavier = poser(clavier, 'x', CLAVIER, (-0.20, 0.17, dessus),
@@ -661,6 +672,14 @@ def principal():
     sc.render.resolution_y = int(round(LARGEUR_RENDU * 9 / 16.0))
     sc.render.film_transparent = False
     sc.view_settings.view_transform = 'AgX'
+    #  UN DIAPHRAGME, PAS UN RÉGLAGE DE GOÛT.
+    #
+    #  Sans correction, toute la scène tient dans les tons clairs : le
+    #  moniteur noir du modèle ressort gris pâle, et la tache de soleil ne
+    #  se détache plus d'un mur déjà clair. Fermer d'un peu moins d'un
+    #  diaphragme remet la pièce dans les tons moyens et rend au soleil son
+    #  écart avec l'ombre.
+    sc.view_settings.exposure = float(os.environ.get("DIAPH", "-1.0"))
     sc.view_settings.look = 'AgX - Medium High Contrast'
 
     os.makedirs(SORTIE, exist_ok=True)
