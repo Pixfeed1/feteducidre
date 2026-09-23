@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="925px" viewBox="0 0 1600 925" version="1.1">
+  <title>DIX ANS DE DOSSIER, ZÉRO CONDAMNATION</title>
+  <desc>les cinq jalons de l’obsolescence programmée en France, du délit créé en 2015 au règlement européen de 2025</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="925" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">DIX ANS DE DOSSIER, ZÉRO CONDAMNATION</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">les cinq jalons de l’obsolescence programmée en France, du délit créé en 2015 au règlement européen de 2025</text>
+    <line x1="56" y1="124" x2="1544" y2="124" stroke="#d5d3cc" stroke-width="2"/>
+    <circle cx="63" cy="150" r="7" fill="#622cc8"/>
+    <text x="78" y="154" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">jalon législatif</text>
+    <circle cx="209.047" cy="150" r="7" fill="#b45309"/>
+    <text x="224.047" y="154" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">jalon Apple</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="axe" id="couche3">
+    <line x1="100" y1="476" x2="1512" y2="476" stroke="#d5d3cc" stroke-width="3"/>
+    <line x1="116" y1="470" x2="116" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="116" y="502" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2015</text>
+    <line x1="254" y1="470" x2="254" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="392" y1="470" x2="392" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="530" y1="470" x2="530" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="668" y1="470" x2="668" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="806" y1="470" x2="806" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="944" y1="470" x2="944" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="1082" y1="470" x2="1082" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="1220" y1="470" x2="1220" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="1358" y1="470" x2="1358" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="1496" y1="470" x2="1496" y2="482" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="1496" y="502" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2025</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="rappels" id="couche4">
+    <line x1="116" y1="424" x2="116" y2="476" stroke="#622cc8" stroke-width="2"/>
+    <line x1="528.866" y1="528" x2="528.866" y2="476" stroke="#b45309" stroke-width="2"/>
+    <line x1="806" y1="424" x2="806" y2="476" stroke="#b45309" stroke-width="2"/>
+    <line x1="1064.23" y1="528" x2="1064.23" y2="476" stroke="#622cc8" stroke-width="2"/>
+    <line x1="1496" y1="424" x2="1496" y2="476" stroke="#622cc8" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="cartes" id="couche5">
+    <rect x="56" y="247" width="302" height="177" rx="10" fill="#ffffff"/>
+    <rect x="56" y="247" width="302" height="177" rx="10" fill="none" stroke="#622cc8" stroke-width="2"/>
+    <rect x="56" y="247" width="302" height="6" rx="3" fill="#622cc8"/>
+    <rect x="377.866" y="528" width="302" height="177" rx="10" fill="#ffffff"/>
+    <rect x="377.866" y="528" width="302" height="177" rx="10" fill="none" stroke="#b45309" stroke-width="2"/>
+    <rect x="377.866" y="528" width="302" height="6" rx="3" fill="#b45309"/>
+    <rect x="655" y="247" width="302" height="177" rx="10" fill="#ffffff"/>
+    <rect x="655" y="247" width="302" height="177" rx="10" fill="none" stroke="#b45309" stroke-width="2"/>
+    <rect x="655" y="247" width="302" height="6" rx="3" fill="#b45309"/>
+    <rect x="913.23" y="528" width="302" height="177" rx="10" fill="#ffffff"/>
+    <rect x="913.23" y="528" width="302" height="177" rx="10" fill="none" stroke="#622cc8" stroke-width="2"/>
+    <rect x="913.23" y="528" width="302" height="6" rx="3" fill="#622cc8"/>
+    <rect x="1242" y="247" width="302" height="177" rx="10" fill="#ffffff"/>
+    <rect x="1242" y="247" width="302" height="177" rx="10" fill="none" stroke="#622cc8" stroke-width="2"/>
+    <rect x="1242" y="247" width="302" height="6" rx="3" fill="#622cc8"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="textes" id="couche6">
+    <text x="74" y="282" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">2015</text>
+    <text x="74" y="312" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">L’obsolescence programmée</text>
+    <text x="74" y="333" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">devient un délit</text>
+    <text x="74" y="362" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">Deux ans d’emprisonnement et 300 000 €</text>
+    <text x="74" y="381" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">d’amende, jusqu’à 5 % du chiffre d’affaires</text>
+    <text x="74" y="400" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">annuel moyen.</text>
+    <text x="395.866" y="563" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">28 décembre 2017</text>
+    <text x="395.866" y="593" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">Apple reconnaît le bridage dans</text>
+    <text x="395.866" y="614" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">une lettre à ses clients</text>
+    <text x="395.866" y="643" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">Dans la même lettre, la batterie de</text>
+    <text x="395.866" y="662" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">remplacement passe de 79 à 29 dollars</text>
+    <text x="395.866" y="681" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">pour toute l’année 2018.</text>
+    <text x="673" y="282" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">2020</text>
+    <text x="673" y="312" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">Transaction pénale avec la</text>
+    <text x="673" y="333" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">DGCCRF, pour tromperie</text>
+    <text x="673" y="362" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">Un accord qui évite le procès : aucun juge</text>
+    <text x="673" y="381" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">n’a tranché sur le fond, et l’infraction porte</text>
+    <text x="673" y="400" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">sur le silence, pas sur le bridage.</text>
+    <text x="931.23" y="563" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">15 novembre 2021</text>
+    <text x="931.23" y="593" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">La loi empreinte environnementale</text>
+    <text x="931.23" y="614" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">simplifie le texte</text>
+    <text x="931.23" y="643" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">Elle retire la condition de prouver la</text>
+    <text x="931.23" y="662" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">volonté d’augmenter le taux de</text>
+    <text x="931.23" y="681" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">remplacement, jugée hors d’atteinte.</text>
+    <text x="1260" y="282" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">2025</text>
+    <text x="1260" y="312" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">Un règlement européen prend le</text>
+    <text x="1260" y="333" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">relais</text>
+    <text x="1260" y="362" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">Le seul jalon de cette frise qui change</text>
+    <text x="1260" y="381" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">quelque chose, d’après l’article.</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="pastilles" id="couche7">
+    <circle cx="116" cy="476" r="10" fill="#ffffff"/>
+    <circle cx="116" cy="476" r="7" fill="#622cc8"/>
+    <circle cx="528.866" cy="476" r="10" fill="#ffffff"/>
+    <circle cx="528.866" cy="476" r="7" fill="#b45309"/>
+    <circle cx="806" cy="476" r="10" fill="#ffffff"/>
+    <circle cx="806" cy="476" r="7" fill="#b45309"/>
+    <circle cx="1064.23" cy="476" r="10" fill="#ffffff"/>
+    <circle cx="1064.23" cy="476" r="7" fill="#622cc8"/>
+    <circle cx="1496" cy="476" r="10" fill="#ffffff"/>
+    <circle cx="1496" cy="476" r="7" fill="#622cc8"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="pied" id="couche8">
+    <line x1="56" y1="745" x2="1544" y2="745" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="782" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Trois des cinq jalons ne sont datés que par leur année dans l’article, 2015, 2020, 2025. Ils sont posés au premier jour de leur année plutôt qu’à une date précise qui serait inventée ; seuls 2017 et 2021 portent</text>
+    <text x="56" y="806" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">un jour.</text>
+    <text x="56" y="836" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">L’axe est proportionnel au temps écoulé, les graduations marquent les années. C’est ce qui donne à voir près de trois ans entre la création du délit et la lettre d’Apple, puis les trois ans qui suivent la réforme de</text>
+    <text x="56" y="860" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">2021.</text>
+    <text x="56" y="890" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Une transaction pénale n’est pas une condamnation, c’est un accord qui évite le procès. Aucune condamnation n’a été prononcée sur le fondement de l’article L441-2 depuis sa création.</text>
+  </g>
+</svg>
