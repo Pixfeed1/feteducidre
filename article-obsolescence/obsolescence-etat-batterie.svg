@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="985px" viewBox="0 0 1600 985" version="1.1">
+  <title>OÙ LIRE L’ÉTAT RÉEL DE LA BATTERIE</title>
+  <desc>Réglages, Batterie, État de la batterie : la capacité maximale et la gestion des performances, sur un redessin de l’écran</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="985" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">OÙ LIRE L’ÉTAT RÉEL DE LA BATTERIE</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">Réglages, Batterie, État de la batterie : la capacité maximale et la gestion des performances, sur un redessin de l’écran</text>
+    <line x1="56" y1="124" x2="1544" y2="124" stroke="#d5d3cc" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="téléphone" id="couche3">
+    <rect x="630" y="168" width="340" height="599" rx="40" fill="#e8e9ee"/>
+    <rect x="630" y="168" width="340" height="599" rx="40" fill="none" stroke="#c6c8d1" stroke-width="2"/>
+    <rect x="639" y="177" width="322" height="581" rx="32" fill="#f1f1f5"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="écran" id="couche4">
+    <text x="661" y="200" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#1a1b20" xml:space="preserve">10:24</text>
+    <rect x="915" y="189" width="22" height="12" rx="3" fill="none" stroke="#8c8d96" stroke-width="1"/>
+    <rect x="917" y="191" width="12" height="8" rx="1" fill="#646670"/>
+    <text x="655" y="241" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#1668b8" xml:space="preserve">‹  Batterie</text>
+    <text x="800" y="241" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">État de la batterie</text>
+    <line x1="639" y1="255" x2="961" y2="255" stroke="#dbdbe2" stroke-width="1"/>
+    <text x="655" y="287" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#8c8d96" xml:space="preserve">CAPACITÉ MAXIMALE</text>
+    <rect x="647" y="293" width="306" height="108" rx="10" fill="#ffffff"/>
+    <text x="655" y="319" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#1a1b20" xml:space="preserve">Capacité maximale</text>
+    <text x="945" y="319" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#1a1b20" text-anchor="end" xml:space="preserve">79 %</text>
+    <line x1="655" y1="333" x2="953" y2="333" stroke="#e4e4ea" stroke-width="1"/>
+    <text x="655" y="355" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#646670" xml:space="preserve">Mesure de la capacité actuelle par rapport à celle d’une batterie</text>
+    <text x="655" y="369" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#646670" xml:space="preserve">neuve. Une capacité plus faible réduit l’autonomie entre deux</text>
+    <text x="655" y="383" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#646670" xml:space="preserve">recharges.</text>
+    <text x="655" y="437" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#8c8d96" xml:space="preserve">CAPACITÉ DE PERFORMANCE MAXIMALE</text>
+    <rect x="647" y="443" width="306" height="152" rx="10" fill="#ffffff"/>
+    <text x="655" y="467" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#646670" xml:space="preserve">Cet appareil s’est éteint de façon inopinée : la batterie ne</text>
+    <text x="655" y="481" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#646670" xml:space="preserve">fournissait plus la puissance demandée. La gestion des</text>
+    <text x="655" y="495" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#646670" xml:space="preserve">performances a été appliquée pour éviter que cela se reproduise.</text>
+    <line x1="655" y1="549" x2="953" y2="549" stroke="#e4e4ea" stroke-width="1"/>
+    <text x="655" y="573" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#1668b8" xml:space="preserve">Désactiver</text>
+    <text x="655" y="631" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="normal" fill="#8c8d96" xml:space="preserve">RECHARGE</text>
+    <rect x="647" y="637" width="306" height="52" rx="10" fill="#ffffff"/>
+    <text x="655" y="667" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#1a1b20" xml:space="preserve">Recharge optimisée</text>
+    <rect x="907" y="651" width="38" height="22" rx="11" fill="#0c7c5c"/>
+    <circle cx="934" cy="662" r="9" fill="#ffffff"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="annotations" id="couche5">
+    <rect x="56" y="186" width="514" height="95" rx="10" fill="#ffffff"/>
+    <rect x="56" y="186" width="514" height="95" rx="10" fill="none" stroke="#622cc8" stroke-width="2"/>
+    <rect x="56" y="336" width="514" height="116" rx="10" fill="#ffffff"/>
+    <rect x="56" y="336" width="514" height="116" rx="10" fill="none" stroke="#622cc8" stroke-width="2"/>
+    <rect x="1030" y="186" width="514" height="116" rx="10" fill="#ffffff"/>
+    <rect x="1030" y="186" width="514" height="116" rx="10" fill="none" stroke="#b45309" stroke-width="2"/>
+    <rect x="1030" y="372" width="514" height="137" rx="10" fill="#ffffff"/>
+    <rect x="1030" y="372" width="514" height="137" rx="10" fill="none" stroke="#b45309" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="notes" id="couche6">
+    <text x="74" y="219" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">Deux menus, pas trois</text>
+    <text x="74" y="248" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Réglages, puis Batterie, puis État de la batterie. C’est tout le chemin.</text>
+    <text x="74" y="369" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">La seule valeur à regarder</text>
+    <text x="74" y="398" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Sous 80 %, une batterie neuve transforme l’appareil, et elle coûte le</text>
+    <text x="74" y="419" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">dixième d’un téléphone.</text>
+    <text x="1048" y="219" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">Cette section n’apparaît pas toujours</text>
+    <text x="1048" y="248" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Elle ne s’affiche que si un arrêt inopiné a déjà eu lieu et que la gestion</text>
+    <text x="1048" y="269" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">des performances a été appliquée.</text>
+    <text x="1048" y="405" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">Ne désactivez pas sur une batterie usée</text>
+    <text x="1048" y="434" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Ce réglage évite les extinctions brutales. Le couper sur une batterie très</text>
+    <text x="1048" y="455" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">dégradée les fait revenir. Changez la batterie d’abord, décochez</text>
+    <text x="1048" y="476" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">ensuite.</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="rappels" id="couche7">
+    <line x1="570" y1="233.5" x2="600" y2="233.5" stroke="#622cc8" stroke-width="2"/>
+    <line x1="600" y1="233.5" x2="600" y2="229" stroke="#622cc8" stroke-width="2"/>
+    <line x1="600" y1="229" x2="630" y2="229" stroke="#622cc8" stroke-width="2"/>
+    <circle cx="630" cy="229" r="4" fill="#622cc8"/>
+    <line x1="570" y1="394" x2="584" y2="394" stroke="#622cc8" stroke-width="2"/>
+    <line x1="584" y1="394" x2="584" y2="315" stroke="#622cc8" stroke-width="2"/>
+    <line x1="584" y1="315" x2="630" y2="315" stroke="#622cc8" stroke-width="2"/>
+    <circle cx="630" cy="315" r="4" fill="#622cc8"/>
+    <line x1="1030" y1="244" x2="1016" y2="244" stroke="#b45309" stroke-width="2"/>
+    <line x1="1016" y1="244" x2="1016" y2="483" stroke="#b45309" stroke-width="2"/>
+    <line x1="1016" y1="483" x2="970" y2="483" stroke="#b45309" stroke-width="2"/>
+    <circle cx="970" cy="483" r="4" fill="#b45309"/>
+    <line x1="1030" y1="440.5" x2="1000" y2="440.5" stroke="#b45309" stroke-width="2"/>
+    <line x1="1000" y1="440.5" x2="1000" y2="565" stroke="#b45309" stroke-width="2"/>
+    <line x1="1000" y1="565" x2="970" y2="565" stroke="#b45309" stroke-width="2"/>
+    <circle cx="970" cy="565" r="4" fill="#b45309"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="pied" id="couche8">
+    <line x1="56" y1="805" x2="1544" y2="805" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="842" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Redessin stylisé, pas une capture d’écran. Les libellés courts sont ceux de l’écran français, sans quoi la figure ne servirait à rien ; les explications d’Apple sont résumées, et la typographie est celle des figures</text>
+    <text x="56" y="866" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">de l’article.</text>
+    <text x="56" y="896" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">La valeur de 79 % est un exemple, choisie juste sous le seuil de 80 % que cite l’article. Votre appareil affichera la sienne, et c’est elle qui compte.</text>
+    <text x="56" y="926" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">La section « capacité de performance maximale » et son lien « Désactiver » n’apparaissent qu’après un arrêt inopiné. Sur une batterie très dégradée, désactiver rend les pics de puissance au processeur et les</text>
+    <text x="56" y="950" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">extinctions reviennent.</text>
+  </g>
+</svg>
