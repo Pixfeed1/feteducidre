@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="962px" viewBox="0 0 1600 962" version="1.1">
+  <title>DIX DEMANDES AU PREMIER SEMESTRE, 883 AU SECOND</title>
+  <desc>demandes judiciaires françaises satisfaites par Telegram en 2024, par trimestre, d’après ses propres rapports de transparence</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="962" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">DIX DEMANDES AU PREMIER SEMESTRE, 883 AU SECOND</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">demandes judiciaires françaises satisfaites par Telegram en 2024, par trimestre, d’après ses propres rapports de transparence</text>
+    <line x1="56" y1="124" x2="1544" y2="124" stroke="#d5d3cc" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="grille" id="couche3">
+    <line x1="112" y1="736" x2="1188" y2="736" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="98" y="739" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="end" xml:space="preserve">0</text>
+    <line x1="112" y1="579.091" x2="1188" y2="579.091" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="98" y="582.091" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="end" xml:space="preserve">200</text>
+    <line x1="112" y1="422.181" x2="1188" y2="422.181" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="98" y="425.181" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="end" xml:space="preserve">400</text>
+    <line x1="112" y1="265.272" x2="1188" y2="265.272" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="98" y="268.272" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="end" xml:space="preserve">600</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche4">
+    <rect x="115.5" y="732.862" width="260.53" height="3.13819" rx="0" fill="#622cc8"/>
+    <text x="245.765" y="716.862" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" text-anchor="middle" xml:space="preserve">4</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="axe" id="couche5">
+    <text x="245.765" y="763" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">T1 2024</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche6">
+    <rect x="383.03" y="731.293" width="260.53" height="4.70728" rx="0" fill="#622cc8"/>
+    <text x="513.295" y="715.293" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" text-anchor="middle" xml:space="preserve">6</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="axe" id="couche7">
+    <text x="513.295" y="763" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">T2 2024</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche8">
+    <rect x="650.56" y="571.245" width="263.47" height="164.755" rx="0" fill="#622cc8"/>
+    <text x="782.295" y="559.245" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#622cc8" text-anchor="middle" xml:space="preserve">210</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="axe" id="couche9">
+    <text x="782.295" y="763" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">T3 2024</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche10">
+    <rect x="921.03" y="208" width="263.47" height="528" rx="0" fill="#622cc8"/>
+    <text x="1052.77" y="196" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#622cc8" text-anchor="middle" xml:space="preserve">673</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="axe" id="couche11">
+    <text x="1052.77" y="763" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">T4 2024</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="repères" id="couche12">
+    <line x1="805.814" y1="736" x2="805.814" y2="392" stroke="#b45309" stroke-width="2" stroke-dasharray="9 7"/>
+    <circle cx="805.814" cy="392" r="5" fill="#b45309"/>
+    <text x="793.814" y="396" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#b45309" text-anchor="end" xml:space="preserve">Arrestation de Durov, 24 août</text>
+    <text x="793.814" y="416" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#646670" text-anchor="end" xml:space="preserve">interpellé au Bourget, mis en examen quatre jours plus tard</text>
+    <line x1="891.071" y1="736" x2="891.071" y2="306" stroke="#b45309" stroke-width="2" stroke-dasharray="9 7"/>
+    <circle cx="891.071" cy="306" r="5" fill="#b45309"/>
+    <text x="879.071" y="310" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#b45309" text-anchor="end" xml:space="preserve">Réécriture des conditions, 22 septembre</text>
+    <text x="879.071" y="330" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#646670" text-anchor="end" xml:space="preserve">le partage aux autorités passe du seul terrorisme à toute activité criminelle</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="chiffres" id="couche13">
+    <text x="1262" y="248" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="26" font-weight="bold" fill="#622cc8" xml:space="preserve">10</text>
+    <text x="1262" y="275" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">demandes au premier semestre</text>
+    <text x="1262" y="346" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="26" font-weight="bold" fill="#622cc8" xml:space="preserve">883</text>
+    <text x="1262" y="373" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">demandes au second</text>
+    <text x="1262" y="444" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="26" font-weight="bold" fill="#622cc8" xml:space="preserve">× 88</text>
+    <text x="1262" y="471" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">entre les deux semestres</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="pied" id="couche14">
+    <line x1="56" y1="806" x2="1544" y2="806" stroke="#d5d3cc" stroke-width="2"/>
+    <text x="56" y="843" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Les deux premières barres mesurent trois et cinq pixels de haut. Ce n’est pas un défaut de tracé, c’est l’échelle : 4 et 6 demandes contre 673. Passer en logarithmique écraserait justement l’écart qui est le sujet.</text>
+    <text x="56" y="873" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Chaque barre occupe la durée de son trimestre, ce qui fait de l’axe un axe du temps et permet de poser les deux repères à leur date réelle. L’arrestation tombe au jour 55 sur 92 du troisième trimestre, la</text>
+    <text x="56" y="897" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">réécriture des conditions au jour 84.</text>
+    <text x="56" y="927" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Total 2024 : 893 demandes satisfaites, dont 75 % sur le seul quatrième trimestre. L’article cite par ailleurs 2 072 utilisateurs concernés, qui est un autre décompte : une demande peut viser plusieurs comptes.</text>
+  </g>
+</svg>
