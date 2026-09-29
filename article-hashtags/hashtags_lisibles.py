@@ -52,9 +52,24 @@ import dessin as D
 L = 1600
 MARGE = 56
 
-VIOLET = (98, 44, 200)
-AMBRE = (180, 83, 9)
-VERT = (12, 124, 92)
+#  ---------------------------------------------------------------------------
+#  LES TEINTES VIENNENT DE LA CHARTE, ET PAS D'ICI
+#
+#  Premier jet : un ambre de mon cru pour le mauvais exemple, et des
+#  bandeaux pleins en tête de carte. Deux erreurs.
+#
+#  La charte réserve DEUX teintes de signalisation, ALERTE et VERT, « aux
+#  figures qui opposent un état sain à un état dégradé ». C'est exactement
+#  ce que fait cette figure, donc c'est cette paire qui s'applique. L'ambre
+#  est une teinte de SÉRIE, bonne pour distinguer trois courbes dans un
+#  graphique, muette quand il s'agit de dire « ceci est fautif ».
+#
+#  Et on ne les importe pas en les recopiant : `C.ALERTE` et `C.VERT`
+#  suivent la charte si elle bouge, une constante locale non.
+#  ---------------------------------------------------------------------------
+VIOLET = C.VIOLET_TEXTE
+ALERTE = C.ALERTE
+VERT = C.VERT
 
 #  Les trois consignes de l'article, qui servent de contrôles.
 HASHTAGS_ATTENDUS = 5
@@ -197,7 +212,7 @@ def composer():
     o.append(trait("titre", [MARGE, 124, L - MARGE, 124], D.FILET, 2))
 
     colonnes = (
-        {"x": MARGE, "teinte": AMBRE, "verdict": "CE QU’IL NE FAUT PAS FAIRE",
+        {"x": MARGE, "teinte": ALERTE, "verdict": "CE QU’IL NE FAUT PAS FAIRE",
          "mots": D.typo(MAUVAISE).split(), "queue": (),
          "demo": DEMO[0],
          "etiq": "aucune frontière de mot, sauf devant le chiffre"},
@@ -214,7 +229,7 @@ def composer():
     for c in colonnes:
         essai = []
         y = paragraphe(essai, "essai", mesure, fontes["legende"],
-                       c["x"] + 22, Y_CARTE + 104, LARGEUR_CARTE - 44,
+                       c["x"] + 22, Y_CARTE + 116, LARGEUR_CARTE - 44,
                        c["mots"], D.ENCRE, VIOLET)
         if c["queue"]:
             y = paragraphe(essai, "essai", mesure, fontes["legende"],
@@ -229,19 +244,26 @@ def composer():
         b = [x0, Y_CARTE, x1, Y_CARTE + hauteur]
         o.append(rect("cartes", b, 12, D.BLANC))
         o.append(cadre("cartes", b, 12, D.FILET, 2))
-        o.append(rect("cartes", [x0, Y_CARTE, x1, Y_CARTE + 34], 6,
+        #  UN FILET EN TÊTE, PAS UN BANDEAU PLEIN.
+        #
+        #  Trente-quatre pixels d'aplat saturé avec du texte blanc dessus :
+        #  aucune autre figure de la série n'en porte. Toutes tiennent sur
+        #  du papier clair, des cartes blanches, un filet fin, et la couleur
+        #  réservée aux accents. Le bandeau ne disait rien de plus que le
+        #  filet, il criait seulement plus fort.
+        o.append(rect("cartes", [x0, Y_CARTE, x1, Y_CARTE + 6], 3,
                       c["teinte"]))
-        o.append(texte("cartes", (x0 + 18, Y_CARTE + 9), c["verdict"],
-                       "verdict", D.BLANC))
+        o.append(texte("cartes", (x0 + 22, Y_CARTE + 24), c["verdict"],
+                       "verdict", c["teinte"]))
 
         #  L'entête de publication, réduit à ce qu'il faut pour qu'on
         #  reconnaisse une légende de réseau social.
-        o.append(disque("cartes", x0 + 40, Y_CARTE + 72, 18, (228, 224, 244)))
-        o.append(texte("cartes", (x0 + 68, Y_CARTE + 64), COMPTE, "compte",
+        o.append(disque("cartes", x0 + 40, Y_CARTE + 84, 18, (228, 224, 244)))
+        o.append(texte("cartes", (x0 + 68, Y_CARTE + 76), COMPTE, "compte",
                        D.ENCRE))
 
         y = paragraphe(o, "textes", mesure, fontes["legende"], x0 + 22,
-                       Y_CARTE + 104, LARGEUR_CARTE - 44, c["mots"],
+                       Y_CARTE + 116, LARGEUR_CARTE - 44, c["mots"],
                        D.ENCRE, VIOLET)
         if c["queue"]:
             y = paragraphe(o, "textes", mesure, fontes["legende"], x0 + 22,
@@ -402,7 +424,7 @@ def principal():
     base = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                         "hashtags-majuscule-par-mot")
     D.verifier(("encre", D.ENCRE, 4.5), ("gris", D.GRIS, 4.5),
-               ("violet", VIOLET, 4.5), ("ambre", AMBRE, 4.5),
+               ("violet", VIOLET, 4.5), ("alerte", ALERTE, 4.5),
                ("vert", VERT, 4.5))
 
     H, ordres = composer()
