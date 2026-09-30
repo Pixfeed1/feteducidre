@@ -78,15 +78,15 @@ POLICES = {
     "titre": (C.POLICE_G, 19, "bold"),
     "sous": (C.POLICE_R, 17, "normal"),
     "rangee": (C.POLICE_G, 13, "bold"),
-    "bloc": (C.POLICE_G, 18, "bold"),
-    "champ": (C.POLICE_R, 13, "normal"),
+    "bloc": (C.POLICE_G, 20, "bold"),
+    "champ": (C.POLICE_R, 14, "normal"),
     "valeur": (C.POLICE_G, 15, "bold"),
-    "contenu": (C.POLICE_R, 15, "normal"),
-    "note": (C.POLICE_R, 13, "normal"),
+    "contenu": (C.POLICE_R, 17, "normal"),
+    "note": (C.POLICE_R, 15, "normal"),
     "pied": (C.POLICE_R, 16, "normal"),
 }
 MONO = "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf"
-POLICES["valeur"] = (MONO, 15, "bold")
+POLICES["valeur"] = (MONO, 17, "bold")
 FAMILLE_SVG = "Liberation Sans, Arial, Helvetica, sans-serif"
 FAMILLE_MONO = "Liberation Mono, Consolas, monospace"
 
@@ -96,8 +96,8 @@ SOUS = ("chaque bloc reprend l’empreinte du précédent ; les valeurs "
 
 LARGEUR_BLOC = 408
 ECART = 96
-Y_RANGEE = (196, 512)
-HAUTEUR_BLOC = 208
+Y_RANGEE = (208, 520)
+HAUTEUR_BLOC = 196
 
 
 def empreinte(precedent, contenu):
@@ -148,12 +148,14 @@ def polygone(couche, points, teinte):
     return {"quoi": "polygone", "couche": couche, "pts": points, "t": teinte}
 
 
-def texte(couche, xy, contenu, police, teinte, tracking=0.0, centre=False):
+def texte(couche, xy, contenu, police, teinte, tracking=0.0, centre=False,
+          droite=False):
     for c, nom in (("—", "cadratin"), ("–", "demi-cadratin")):
         if c in contenu:
             raise SystemExit("%s dans « %s »" % (nom, contenu[:60]))
     return {"quoi": "texte", "couche": couche, "xy": xy, "c": contenu,
-            "p": police, "t": teinte, "tr": tracking, "centre": centre}
+            "p": police, "t": teinte, "tr": tracking, "centre": centre,
+            "droite": droite}
 
 
 def fleche(couche, depart, arrivee, teinte, casse=False):
@@ -252,112 +254,85 @@ def composer():
     cartes, liens, textes_ = [], [], []
     for r in rangees:
         y = r["y"]
-        textes_.append(texte("rangées", (MARGE, y - 26), r["nom"], "rangee",
+        textes_.append(texte("rangées", (MARGE, y - 30), r["nom"], "rangee",
                              D.GRIS))
         for i, b in enumerate(BLOCS):
             x0 = MARGE + i * (LARGEUR_BLOC + ECART)
             x1 = x0 + LARGEUR_BLOC
-            #  Trois états : intact, retouché, à refaire. Le troisième
-            #  n'est pas cassé, il est condamné par la réparation du
-            #  premier, et la nuance est tout le propos.
             retouche = r["casse"] and i == CIBLE
             a_refaire = r["casse"] and i > CIBLE
-            bord = ALERTE if retouche else D.FILET
+            lien_rompu = r["casse"] and i == CIBLE + 1
 
-            cartes.append(rect("blocs", [x0, y, x1, y + HAUTEUR_BLOC], 12,
+            cartes.append(rect("blocs", [x0, y, x1, y + HAUTEUR_BLOC], 14,
                                D.BLANC))
-            cartes.append(cadre("blocs", [x0, y, x1, y + HAUTEUR_BLOC], 12,
-                                bord, 2))
-            if a_refaire:
-                etiquette = "à refaire"
-                largeur_e = mesure.mesure(etiquette, fontes["champ"]) + 24
-                cartes.append(cadre("blocs", [x1 - largeur_e - 18, y + 16,
-                                              x1 - 18, y + 42], 13,
-                                    ALERTE, 2))
-                textes_.append(texte("blocs",
-                                     (x1 - largeur_e / 2.0 - 18, y + 22),
-                                     etiquette, "champ", ALERTE, centre=True))
+            cartes.append(cadre("blocs", [x0, y, x1, y + HAUTEUR_BLOC], 14,
+                                ALERTE if retouche else D.FILET, 2))
 
-            g = x0 + 22
-            textes_.append(disque("blocs", g + 13, y + 30, 13, INDIGO_APLAT))
-            textes_.append(texte("blocs", (g + 13, y + 21), str(i + 1),
+            g, d = x0 + 26, x1 - 26
+            textes_.append(disque("blocs", g + 15, y + 36, 15, INDIGO_APLAT))
+            textes_.append(texte("blocs", (g + 15, y + 26), str(i + 1),
                                  "rangee", D.BLANC, centre=True))
-            textes_.append(texte("blocs", (g + 38, y + 20), b["nom"], "bloc",
+            textes_.append(texte("blocs", (g + 42, y + 24), b["nom"], "bloc",
                                  INDIGO))
+            if a_refaire:
+                mot = "à refaire"
+                large = mesure.mesure(mot, fontes["champ"]) + 28
+                cartes.append(cadre("blocs", [d - large, y + 22, d, y + 50],
+                                    14, ALERTE, 2))
+                textes_.append(texte("blocs", (d - large / 2.0, y + 28), mot,
+                                     "champ", ALERTE, centre=True))
+
+            cartes.append(trait("blocs", [g, y + 70, d, y + 70], D.FILET, 1))
 
             reprend, produite = r["suite"][i]
-            #  Seul le bloc juste après la retouche porte une empreinte
-            #  reprise qui ne correspond plus.
-            lien_rompu = r["casse"] and i == CIBLE + 1
-            champs = (
-                ("reprend l’empreinte du précédent", court(reprend),
-                 ALERTE if lien_rompu else INDIGO, y + 66),
-                ("contenu", r["contenus"][i],
-                 ALERTE if (r["casse"] and i == CIBLE) else D.ENCRE, y + 116),
-                ("donne son empreinte", court(produite),
-                 ALERTE if (r["casse"] and i == CIBLE) else INDIGO, y + 160),
-            )
-            for libelle, valeur, teinte, yy in champs:
-                textes_.append(texte("blocs", (g, yy), D.typo(libelle),
-                                     "champ", D.FAIBLE))
-                police = "contenu" if libelle == "contenu" else "valeur"
-                textes_.append(texte("blocs", (g, yy + 18), D.typo(valeur),
-                                     police, teinte))
+            #  UNE LIGNE PAR CHAMP, LIBELLÉ À GAUCHE ET VALEUR À DROITE.
+            #
+            #  Le premier jet posait le libellé au-dessus de la valeur :
+            #  six lignes de texte par carte, dont trois en petit gris. Sur
+            #  la même ligne, c'est trois, et la carte redevient un objet
+            #  qu'on lit d'un coup d'oeil au lieu d'un paragraphe encadré.
+            champs = (("reprend", court(reprend),
+                       ALERTE if lien_rompu else INDIGO, "valeur", y + 96),
+                      ("contenu", r["contenus"][i],
+                       ALERTE if retouche else D.ENCRE, "contenu", y + 130),
+                      ("donne", court(produite),
+                       ALERTE if retouche else INDIGO, "valeur", y + 164))
+            for libelle, valeur, teinte, police, yy in champs:
+                textes_.append(texte("blocs", (g, yy + 2), libelle, "champ",
+                                     D.FAIBLE))
+                large = mesure.mesure(D.typo(valeur), fontes[police])
+                if g + mesure.mesure(libelle, fontes["champ"]) + 16 > d - large:
+                    raise SystemExit("le champ « %s » déborde dans %s"
+                                     % (libelle, b["nom"]))
+                textes_.append(texte("blocs", (d - large, yy),
+                                     D.typo(valeur), police, teinte))
 
             if i + 1 < len(BLOCS):
                 rompu = r["casse"] and i == CIBLE
-                #  Le trait part du BORD de la carte, pas de son intérieur :
-                #  vingt pixels de moignon sous le champ donnaient
-                #  l'impression d'un trait mal effacé.
-                liens.extend(fleche("liens", (x1, y + 178),
-                                    (x1 + ECART, y + 84),
+                liens.extend(fleche("liens", (x1, y + 172),
+                                    (x1 + ECART, y + 104),
                                     ALERTE if rompu else INDIGO, rompu))
 
     o.extend(cartes)
     o.extend(liens)
     o.extend(textes_)
 
-    #  Une note sous la seconde rangée, qui dit ce que les croix veulent dire.
-    y_note = Y_RANGEE[1] + HAUTEUR_BLOC + 22
-    note = ("La retouche ne casse qu’un lien, celui du bloc n au suivant : "
-            "le bloc n + 1 a déjà inscrit l’ancienne empreinte. Les blocs "
-            "d’après restent cohérents entre eux, et c’est la RÉPARATION "
-            "qui les condamne : refaire le n + 1 change son empreinte, donc "
-            "casse le n + 2, et ainsi de suite jusqu’au bout de la chaîne.")
-    lignes = mesure.couper(D.typo(note), fontes["note"], L - 2 * MARGE)
-    for i, ligne in enumerate(lignes):
-        #  La note explique, elle n'alerte pas : deux lignes entières en
-        #  rouge seraient de la couleur décorative, ce que la charte
-        #  interdit précisément pour cette teinte.
-        o.append(texte("rangées", (MARGE, y_note + i * 20), ligne, "note",
-                       D.GRIS))
+    #  UNE SEULE LIGNE SOUS LA FIGURE, PAS UN PIED DE PAGE.
+    #
+    #  Le premier jet portait une note de quatre lignes plus trois
+    #  paragraphes de pied : mes notes de fabrication posées sur le visuel.
+    #  Elles ont leur place dans ce fichier et dans la légende de l'article,
+    #  pas dans l'image, qui doit rester une image.
+    y_note = Y_RANGEE[1] + HAUTEUR_BLOC + 40
+    o.append(texte("rangées", (MARGE, y_note),
+                   D.typo("Un seul lien rompt. Le réparer change l’empreinte "
+                          "du bloc réparé, donc casse le suivant, et ainsi "
+                          "de suite."), "note", D.GRIS))
+    o.append(texte("rangées", (L - MARGE, y_note),
+                   "empreintes SHA-256 réelles, tronquées à dix caractères",
+                   "note", D.FAIBLE, droite=True))
 
-    # --------------------------------------------------------------  pied
-    pied = (
-        "Les empreintes ne sont pas décoratives : chacune est un SHA-256 "
-        "calculé sur le contenu du bloc et l’empreinte du précédent, comme "
-        "le fait Bitcoin. Changer une transaction change réellement la "
-        "valeur affichée.",
-        "Elles sont tronquées à dix caractères pour tenir dans la figure ; "
-        "une empreinte SHA-256 en compte soixante-quatre.",
-        "Et il ne suffirait pas de refaire ces trois blocs : il faudrait le "
-        "faire sur la majorité des copies du registre en même temps, ce qui "
-        "est le vrai coût d’une falsification.",
-    )
-    y_pied = y_note + len(lignes) * 20 + 26
-    o.append(trait("pied", [MARGE, y_pied, L - MARGE, y_pied], D.FILET, 2))
-    y_texte = y_pied + 22
-    for i, ligne in enumerate(pied):
-        lignes = mesure.couper(D.typo(ligne), fontes["pied"], L - 2 * MARGE)
-        if len(lignes) > 2:
-            raise SystemExit("la ligne %d du pied tient en %d lignes"
-                             % (i + 1, len(lignes)))
-        for coupee in lignes:
-            o.append(texte("pied", (MARGE, y_texte), coupee, "pied",
-                           D.FAIBLE))
-            y_texte += 24
-        y_texte += 6
-
+    y_texte = y_note + 40
     H = int(y_texte + 20)
     o.insert(0, rect("fond", [0, 0, L, H], 0, D.PAPIER))
     return H, o, (intacte, cassee)
@@ -386,6 +361,8 @@ def rendre_matriciel(H, ordres, base):
             x, y = a["xy"]
             if a["centre"]:
                 x -= t.mesure(a["c"], f) / 2.0
+            elif a["droite"]:
+                x -= t.mesure(a["c"], f)
             if a["tr"]:
                 t.espace((x, y), a["c"], f, a["t"], a["tr"])
             else:
@@ -450,7 +427,8 @@ def rendre_svg(H, ordres, base):
                 famille = FAMILLE_MONO if "Mono" in chemin else FAMILLE_SVG
                 espacement = (' letter-spacing="%g"' % a["tr"]
                               if a["tr"] else "")
-                ancre = ' text-anchor="middle"' if a["centre"] else ""
+                ancre = (' text-anchor="middle"' if a["centre"]
+                         else ' text-anchor="end"' if a["droite"] else "")
                 out.append('    <text x="%g" y="%g" font-family="%s" '
                            'font-size="%g" font-weight="%s" fill="%s"%s%s'
                            ' xml:space="preserve">%s</text>'

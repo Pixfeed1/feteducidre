@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="964px" viewBox="0 0 1600 964" version="1.1">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="816px" viewBox="0 0 1600 816" version="1.1">
   <title>CHANGER UN BLOC ANCIEN CASSE TOUS LES SUIVANTS</title>
   <desc>chaque bloc reprend l’empreinte du précédent ; les valeurs ci-dessous sont calculées en SHA-256, pas inventées</desc>
   <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
-    <rect x="0" y="0" width="1600" height="964" rx="0" fill="#faf9f6"/>
+    <rect x="0" y="0" width="1600" height="816" rx="0" fill="#faf9f6"/>
   </g>
   <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
     <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">CHANGER UN BLOC ANCIEN CASSE TOUS LES SUIVANTS</text>
@@ -11,116 +11,115 @@
     <line x1="56" y1="124" x2="1544" y2="124" stroke="#d5d3cc" stroke-width="2"/>
   </g>
   <g inkscape:groupmode="layer" inkscape:label="blocs" id="couche3">
-    <rect x="56" y="196" width="408" height="208" rx="12" fill="#ffffff"/>
-    <rect x="56" y="196" width="408" height="208" rx="12" fill="none" stroke="#d5d3cc" stroke-width="2"/>
-    <rect x="560" y="196" width="408" height="208" rx="12" fill="#ffffff"/>
-    <rect x="560" y="196" width="408" height="208" rx="12" fill="none" stroke="#d5d3cc" stroke-width="2"/>
-    <rect x="1064" y="196" width="408" height="208" rx="12" fill="#ffffff"/>
-    <rect x="1064" y="196" width="408" height="208" rx="12" fill="none" stroke="#d5d3cc" stroke-width="2"/>
-    <rect x="56" y="512" width="408" height="208" rx="12" fill="#ffffff"/>
-    <rect x="56" y="512" width="408" height="208" rx="12" fill="none" stroke="#b02e26" stroke-width="2"/>
-    <rect x="560" y="512" width="408" height="208" rx="12" fill="#ffffff"/>
-    <rect x="560" y="512" width="408" height="208" rx="12" fill="none" stroke="#d5d3cc" stroke-width="2"/>
-    <rect x="878.318" y="528" width="71.6823" height="26" rx="13" fill="none" stroke="#b02e26" stroke-width="2"/>
-    <rect x="1064" y="512" width="408" height="208" rx="12" fill="#ffffff"/>
-    <rect x="1064" y="512" width="408" height="208" rx="12" fill="none" stroke="#d5d3cc" stroke-width="2"/>
-    <rect x="1382.32" y="528" width="71.6823" height="26" rx="13" fill="none" stroke="#b02e26" stroke-width="2"/>
+    <rect x="56" y="208" width="408" height="196" rx="14" fill="#ffffff"/>
+    <rect x="56" y="208" width="408" height="196" rx="14" fill="none" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="82" y1="278" x2="438" y2="278" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="560" y="208" width="408" height="196" rx="14" fill="#ffffff"/>
+    <rect x="560" y="208" width="408" height="196" rx="14" fill="none" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="586" y1="278" x2="942" y2="278" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="1064" y="208" width="408" height="196" rx="14" fill="#ffffff"/>
+    <rect x="1064" y="208" width="408" height="196" rx="14" fill="none" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="1090" y1="278" x2="1446" y2="278" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="56" y="520" width="408" height="196" rx="14" fill="#ffffff"/>
+    <rect x="56" y="520" width="408" height="196" rx="14" fill="none" stroke="#b02e26" stroke-width="2"/>
+    <line x1="82" y1="590" x2="438" y2="590" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="560" y="520" width="408" height="196" rx="14" fill="#ffffff"/>
+    <rect x="560" y="520" width="408" height="196" rx="14" fill="none" stroke="#d5d3cc" stroke-width="2"/>
+    <rect x="862.641" y="542" width="79.3594" height="28" rx="14" fill="none" stroke="#b02e26" stroke-width="2"/>
+    <line x1="586" y1="590" x2="942" y2="590" stroke="#d5d3cc" stroke-width="1"/>
+    <rect x="1064" y="520" width="408" height="196" rx="14" fill="#ffffff"/>
+    <rect x="1064" y="520" width="408" height="196" rx="14" fill="none" stroke="#d5d3cc" stroke-width="2"/>
+    <rect x="1366.64" y="542" width="79.3594" height="28" rx="14" fill="none" stroke="#b02e26" stroke-width="2"/>
+    <line x1="1090" y1="590" x2="1446" y2="590" stroke="#d5d3cc" stroke-width="1"/>
   </g>
   <g inkscape:groupmode="layer" inkscape:label="liens" id="couche4">
-    <line x1="464" y1="374" x2="512" y2="374" stroke="#622cc8" stroke-width="3"/>
-    <line x1="512" y1="374" x2="512" y2="280" stroke="#622cc8" stroke-width="3"/>
-    <line x1="512" y1="280" x2="549" y2="280" stroke="#622cc8" stroke-width="3"/>
-    <polygon points="560,280 548,274 548,286" fill="#622cc8"/>
-    <line x1="968" y1="374" x2="1016" y2="374" stroke="#622cc8" stroke-width="3"/>
-    <line x1="1016" y1="374" x2="1016" y2="280" stroke="#622cc8" stroke-width="3"/>
-    <line x1="1016" y1="280" x2="1053" y2="280" stroke="#622cc8" stroke-width="3"/>
-    <polygon points="1064,280 1052,274 1052,286" fill="#622cc8"/>
-    <line x1="464" y1="690" x2="512" y2="690" stroke="#b02e26" stroke-width="3" stroke-dasharray="9 7"/>
-    <line x1="512" y1="690" x2="512" y2="596" stroke="#b02e26" stroke-width="3" stroke-dasharray="9 7"/>
-    <line x1="512" y1="596" x2="549" y2="596" stroke="#b02e26" stroke-width="3" stroke-dasharray="9 7"/>
-    <polygon points="560,596 548,590 548,602" fill="#b02e26"/>
-    <line x1="501" y1="632" x2="523" y2="654" stroke="#b02e26" stroke-width="3"/>
-    <line x1="501" y1="654" x2="523" y2="632" stroke="#b02e26" stroke-width="3"/>
-    <line x1="968" y1="690" x2="1016" y2="690" stroke="#622cc8" stroke-width="3"/>
-    <line x1="1016" y1="690" x2="1016" y2="596" stroke="#622cc8" stroke-width="3"/>
-    <line x1="1016" y1="596" x2="1053" y2="596" stroke="#622cc8" stroke-width="3"/>
-    <polygon points="1064,596 1052,590 1052,602" fill="#622cc8"/>
+    <line x1="464" y1="380" x2="512" y2="380" stroke="#622cc8" stroke-width="3"/>
+    <line x1="512" y1="380" x2="512" y2="312" stroke="#622cc8" stroke-width="3"/>
+    <line x1="512" y1="312" x2="549" y2="312" stroke="#622cc8" stroke-width="3"/>
+    <polygon points="560,312 548,306 548,318" fill="#622cc8"/>
+    <line x1="968" y1="380" x2="1016" y2="380" stroke="#622cc8" stroke-width="3"/>
+    <line x1="1016" y1="380" x2="1016" y2="312" stroke="#622cc8" stroke-width="3"/>
+    <line x1="1016" y1="312" x2="1053" y2="312" stroke="#622cc8" stroke-width="3"/>
+    <polygon points="1064,312 1052,306 1052,318" fill="#622cc8"/>
+    <line x1="464" y1="692" x2="512" y2="692" stroke="#b02e26" stroke-width="3" stroke-dasharray="9 7"/>
+    <line x1="512" y1="692" x2="512" y2="624" stroke="#b02e26" stroke-width="3" stroke-dasharray="9 7"/>
+    <line x1="512" y1="624" x2="549" y2="624" stroke="#b02e26" stroke-width="3" stroke-dasharray="9 7"/>
+    <polygon points="560,624 548,618 548,630" fill="#b02e26"/>
+    <line x1="501" y1="647" x2="523" y2="669" stroke="#b02e26" stroke-width="3"/>
+    <line x1="501" y1="669" x2="523" y2="647" stroke="#b02e26" stroke-width="3"/>
+    <line x1="968" y1="692" x2="1016" y2="692" stroke="#622cc8" stroke-width="3"/>
+    <line x1="1016" y1="692" x2="1016" y2="624" stroke="#622cc8" stroke-width="3"/>
+    <line x1="1016" y1="624" x2="1053" y2="624" stroke="#622cc8" stroke-width="3"/>
+    <polygon points="1064,624 1052,618 1052,630" fill="#622cc8"/>
   </g>
   <g inkscape:groupmode="layer" inkscape:label="rangées" id="couche5">
-    <text x="56" y="182" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" xml:space="preserve">LA CHAÎNE INTACTE</text>
+    <text x="56" y="190" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" xml:space="preserve">LA CHAÎNE INTACTE</text>
   </g>
   <g inkscape:groupmode="layer" inkscape:label="blocs" id="couche6">
-    <circle cx="91" cy="226" r="13" fill="#9442fa"/>
-    <text x="91" y="229" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">1</text>
-    <text x="116" y="233" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n</text>
-    <text x="78" y="274" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend l’empreinte du précédent</text>
-    <text x="78" y="293" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">dc9cdf6804…</text>
-    <text x="78" y="324" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
-    <text x="78" y="344" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">184 transactions</text>
-    <text x="78" y="368" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne son empreinte</text>
-    <text x="78" y="387" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">b6964a82de…</text>
-    <circle cx="595" cy="226" r="13" fill="#9442fa"/>
-    <text x="595" y="229" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">2</text>
-    <text x="620" y="233" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n + 1</text>
-    <text x="582" y="274" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend l’empreinte du précédent</text>
-    <text x="582" y="293" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">b6964a82de…</text>
-    <text x="582" y="324" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
-    <text x="582" y="344" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">212 transactions</text>
-    <text x="582" y="368" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne son empreinte</text>
-    <text x="582" y="387" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">e7266404f1…</text>
-    <circle cx="1099" cy="226" r="13" fill="#9442fa"/>
-    <text x="1099" y="229" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">3</text>
-    <text x="1124" y="233" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n + 2</text>
-    <text x="1086" y="274" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend l’empreinte du précédent</text>
-    <text x="1086" y="293" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">e7266404f1…</text>
-    <text x="1086" y="324" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
-    <text x="1086" y="344" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">97 transactions</text>
-    <text x="1086" y="368" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne son empreinte</text>
-    <text x="1086" y="387" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">2871a34bff…</text>
+    <circle cx="97" cy="244" r="15" fill="#9442fa"/>
+    <text x="97" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">1</text>
+    <text x="124" y="251" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n</text>
+    <text x="82" y="319" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend</text>
+    <text x="325.766" y="319" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">dc9cdf6804…</text>
+    <text x="82" y="353" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
+    <text x="313.266" y="354" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">184 transactions</text>
+    <text x="82" y="387" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne</text>
+    <text x="325.766" y="387" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">b6964a82de…</text>
+    <circle cx="601" cy="244" r="15" fill="#9442fa"/>
+    <text x="601" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">2</text>
+    <text x="628" y="251" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n + 1</text>
+    <text x="586" y="319" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend</text>
+    <text x="829.766" y="319" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">b6964a82de…</text>
+    <text x="586" y="353" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
+    <text x="817.266" y="354" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">212 transactions</text>
+    <text x="586" y="387" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne</text>
+    <text x="829.766" y="387" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">e7266404f1…</text>
+    <circle cx="1105" cy="244" r="15" fill="#9442fa"/>
+    <text x="1105" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">3</text>
+    <text x="1132" y="251" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n + 2</text>
+    <text x="1090" y="319" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend</text>
+    <text x="1333.77" y="319" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">e7266404f1…</text>
+    <text x="1090" y="353" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
+    <text x="1330.72" y="354" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">97 transactions</text>
+    <text x="1090" y="387" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne</text>
+    <text x="1333.77" y="387" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">2871a34bff…</text>
   </g>
   <g inkscape:groupmode="layer" inkscape:label="rangées" id="couche7">
-    <text x="56" y="498" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" xml:space="preserve">APRÈS UNE RETOUCHE DU BLOC n</text>
+    <text x="56" y="502" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#646670" xml:space="preserve">APRÈS UNE RETOUCHE DU BLOC n</text>
   </g>
   <g inkscape:groupmode="layer" inkscape:label="blocs" id="couche8">
-    <circle cx="91" cy="542" r="13" fill="#9442fa"/>
-    <text x="91" y="545" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">1</text>
-    <text x="116" y="549" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n</text>
-    <text x="78" y="590" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend l’empreinte du précédent</text>
-    <text x="78" y="609" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">dc9cdf6804…</text>
-    <text x="78" y="640" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
-    <text x="78" y="660" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#b02e26" xml:space="preserve">184 transactions, dont une réécrite</text>
-    <text x="78" y="684" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne son empreinte</text>
-    <text x="78" y="703" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#b02e26" xml:space="preserve">ef2d192518…</text>
-    <text x="914.159" y="546" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#b02e26" text-anchor="middle" xml:space="preserve">à refaire</text>
-    <circle cx="595" cy="542" r="13" fill="#9442fa"/>
-    <text x="595" y="545" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">2</text>
-    <text x="620" y="549" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n + 1</text>
-    <text x="582" y="590" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend l’empreinte du précédent</text>
-    <text x="582" y="609" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#b02e26" xml:space="preserve">b6964a82de…</text>
-    <text x="582" y="640" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
-    <text x="582" y="660" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">212 transactions</text>
-    <text x="582" y="684" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne son empreinte</text>
-    <text x="582" y="703" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">e7266404f1…</text>
-    <text x="1418.16" y="546" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#b02e26" text-anchor="middle" xml:space="preserve">à refaire</text>
-    <circle cx="1099" cy="542" r="13" fill="#9442fa"/>
-    <text x="1099" y="545" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">3</text>
-    <text x="1124" y="549" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n + 2</text>
-    <text x="1086" y="590" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend l’empreinte du précédent</text>
-    <text x="1086" y="609" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">e7266404f1…</text>
-    <text x="1086" y="640" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
-    <text x="1086" y="660" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">97 transactions</text>
-    <text x="1086" y="684" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne son empreinte</text>
-    <text x="1086" y="703" font-family="Liberation Mono, Consolas, monospace" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">2871a34bff…</text>
+    <circle cx="97" cy="556" r="15" fill="#9442fa"/>
+    <text x="97" y="558" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">1</text>
+    <text x="124" y="563" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n</text>
+    <text x="82" y="631" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend</text>
+    <text x="325.766" y="631" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">dc9cdf6804…</text>
+    <text x="82" y="665" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
+    <text x="176.245" y="666" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#b02e26" xml:space="preserve">184 transactions, dont une réécrite</text>
+    <text x="82" y="699" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne</text>
+    <text x="325.766" y="699" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#b02e26" xml:space="preserve">ef2d192518…</text>
+    <circle cx="601" cy="556" r="15" fill="#9442fa"/>
+    <text x="601" y="558" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">2</text>
+    <text x="628" y="563" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n + 1</text>
+    <text x="902.32" y="561" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#b02e26" text-anchor="middle" xml:space="preserve">à refaire</text>
+    <text x="586" y="631" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend</text>
+    <text x="829.766" y="631" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#b02e26" xml:space="preserve">b6964a82de…</text>
+    <text x="586" y="665" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
+    <text x="817.266" y="666" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">212 transactions</text>
+    <text x="586" y="699" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne</text>
+    <text x="829.766" y="699" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">e7266404f1…</text>
+    <circle cx="1105" cy="556" r="15" fill="#9442fa"/>
+    <text x="1105" y="558" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">3</text>
+    <text x="1132" y="563" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#622cc8" xml:space="preserve">Bloc n + 2</text>
+    <text x="1406.32" y="561" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#b02e26" text-anchor="middle" xml:space="preserve">à refaire</text>
+    <text x="1090" y="631" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">reprend</text>
+    <text x="1333.77" y="631" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">e7266404f1…</text>
+    <text x="1090" y="665" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">contenu</text>
+    <text x="1330.72" y="666" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">97 transactions</text>
+    <text x="1090" y="699" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">donne</text>
+    <text x="1333.77" y="699" font-family="Liberation Mono, Consolas, monospace" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">2871a34bff…</text>
   </g>
   <g inkscape:groupmode="layer" inkscape:label="rangées" id="couche9">
-    <text x="56" y="754" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#646670" xml:space="preserve">La retouche ne casse qu’un lien, celui du bloc n au suivant : le bloc n + 1 a déjà inscrit l’ancienne empreinte. Les blocs d’après restent cohérents entre eux, et c’est la RÉPARATION qui les condamne : refaire le n + 1 change son empreinte, donc casse le n +</text>
-    <text x="56" y="774" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#646670" xml:space="preserve">2, et ainsi de suite jusqu’au bout de la chaîne.</text>
-  </g>
-  <g inkscape:groupmode="layer" inkscape:label="pied" id="couche10">
-    <line x1="56" y1="808" x2="1544" y2="808" stroke="#d5d3cc" stroke-width="2"/>
-    <text x="56" y="845" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Les empreintes ne sont pas décoratives : chacune est un SHA-256 calculé sur le contenu du bloc et l’empreinte du précédent, comme le fait Bitcoin. Changer une transaction change réellement la valeur</text>
-    <text x="56" y="869" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">affichée.</text>
-    <text x="56" y="899" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Elles sont tronquées à dix caractères pour tenir dans la figure ; une empreinte SHA-256 en compte soixante-quatre.</text>
-    <text x="56" y="929" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="normal" fill="#8c8d96" xml:space="preserve">Et il ne suffirait pas de refaire ces trois blocs : il faudrait le faire sur la majorité des copies du registre en même temps, ce qui est le vrai coût d’une falsification.</text>
+    <text x="56" y="770" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Un seul lien rompt. Le réparer change l’empreinte du bloc réparé, donc casse le suivant, et ainsi de suite.</text>
+    <text x="1544" y="770" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#8c8d96" text-anchor="end" xml:space="preserve">empreintes SHA-256 réelles, tronquées à dix caractères</text>
   </g>
 </svg>
