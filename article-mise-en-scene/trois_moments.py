@@ -6,13 +6,17 @@ Les trois moments où l'image d'un film se décide.
 Produit `mise-en-scene-trois-moments.webp`, son PNG et le SVG éditable.
 
 ----------------------------------------------------------------------------
-CE QUI EST DESSINÉ EST UNE SUITE DANS LE TEMPS
+UN AXE, PAS DES CASES
 ----------------------------------------------------------------------------
-Trois zones de gauche à droite, le scénario puis le plateau puis la salle de
-montage, et les neuf cinéastes posés dans celle qui leur revient. Le fond de
-chaque zone fonce d'un cran en avançant : la progression se lit avant les
-mots, et elle dit la seule chose que la figure a à dire, à savoir que ces
-méthodes ne diffèrent pas par le talent mais par le MOMENT.
+Premier jet : trois zones teintées, chacune contenant trois fiches blanches.
+Neuf rectangles alignés sur trois colonnes, autrement dit un tableau. Le
+brief ne demandait pas un tableau, il demandait une FRISE, et la différence
+n'est pas cosmétique : un tableau classe, une frise situe dans le temps.
+
+La figure est donc réduite à trois traits. Un axe horizontal, trois branches
+qui en descendent, neuf points accrochés dessus. Plus un seul cadre, plus un
+seul aplat de fond. Le temps est porté par l'axe, dont les trois segments
+foncent en avançant, et par rien d'autre.
 
 ----------------------------------------------------------------------------
 CHAQUE NOM PORTE SA SOURCE, EN SIX MOTS
@@ -53,7 +57,6 @@ INDIGO_APLAT = C.VIOLET
 #  ---------------------------------------------------------------------------
 FAMILLES = (
     {"verbe": "PRÉVOIR", "moment": "avant le tournage",
-     "fond": (246, 243, 253),
      "cineastes": (
          ("Alfred Hitchcock",
           "« tout a déjà été fait pendant l’élaboration du scénario »"),
@@ -63,7 +66,6 @@ FAMILLES = (
           "3 500 vignettes alignées sur un mur, neuf mois durant"),
      )},
     {"verbe": "PROVOQUER", "moment": "pendant le tournage",
-     "fond": (238, 231, 251),
      "cineastes": (
          ("Mike Leigh",
           "six mois de répétitions, aucun scénario au départ"),
@@ -73,7 +75,6 @@ FAMILLES = (
           "plus de cent prises pour trente secondes"),
      )},
     {"verbe": "RÉCOLTER", "moment": "au montage",
-     "fond": (228, 218, 248),
      "cineastes": (
          ("Stanley Kubrick",
           "au moins deux prises parfaites par scène"),
@@ -98,18 +99,28 @@ TITRE = "PRÉVOIR, PROVOQUER, RÉCOLTER"
 SOUS = ("le moment où l’image se décide, et les neuf cinéastes de l’article "
         "placés d’après leurs déclarations ou celles de leurs collaborateurs")
 
-ECART = 36
-Y_ZONE = 168
-HAUTEUR_FICHE = 100
-ECART_FICHE = 12
+AXE_Y = 214
+AXE_X0, AXE_X1 = 90, L - 90
+Y_PREMIER = 302        # la première entrée sous l'axe
+PAS_ENTREE = 104       # ce qui les sépare
+
+#  Les trois segments de l'axe foncent en avançant : c'est le seul endroit
+#  où le temps est dessiné.
+TEINTES_AXE = ((176, 156, 232), (140, 98, 224), (98, 44, 200))
 
 
 def rect(couche, b, r, teinte):
     return {"quoi": "rect", "couche": couche, "b": b, "r": r, "t": teinte}
 
 
-def polygone(couche, points, teinte):
-    return {"quoi": "polygone", "couche": couche, "pts": points, "t": teinte}
+def trait(couche, b, teinte, epaisseur):
+    return {"quoi": "trait", "couche": couche, "b": b, "t": teinte,
+            "e": epaisseur}
+
+
+def disque(couche, cx, cy, r, teinte):
+    return {"quoi": "disque", "couche": couche, "cx": cx, "cy": cy, "r": r,
+            "t": teinte}
 
 
 def texte(couche, xy, contenu, police, teinte, tracking=0.0, centre=False):
@@ -141,15 +152,14 @@ def composer():
                 raise SystemExit(
                     "%s est placé sans la phrase qui le place : le classement "
                     "deviendrait une opinion" % nom)
-    #  Le fond doit vraiment foncer, sinon la progression ne se voit pas.
-    clartes = [sum(f["fond"]) for f in FAMILLES]
+    #  L'axe doit vraiment foncer, sinon la progression ne se voit pas.
+    clartes = [sum(t) for t in TEINTES_AXE]
     if not (clartes[0] > clartes[1] > clartes[2]):
-        raise SystemExit("les trois fonds ne vont pas du plus clair au plus "
-                         "foncé : la suite dans le temps ne se lit plus")
+        raise SystemExit("les trois segments d'axe ne vont pas du plus clair "
+                         "au plus foncé : la suite dans le temps ne se lit "
+                         "plus")
 
-    largeur = (L - 2 * MARGE - (len(FAMILLES) - 1) * ECART) / float(
-        len(FAMILLES))
-    hauteur = 96 + 3 * HAUTEUR_FICHE + 2 * ECART_FICHE + 22
+    largeur = (AXE_X1 - AXE_X0) / float(len(FAMILLES))
 
     o = []
     o.append(texte("titre", (MARGE, 46), TITRE, "titre", D.ENCRE, 2.2))
@@ -158,50 +168,48 @@ def composer():
         raise SystemExit("le sous-titre déborde")
     o.append(texte("titre", (MARGE, 74), sous, "sous", D.FAIBLE))
 
-    zones, fiches, textes_ = [], [], []
+    axe, branches, textes_ = [], [], []
     for i, f in enumerate(FAMILLES):
-        x0 = MARGE + i * (largeur + ECART)
+        x0 = AXE_X0 + i * largeur
         x1 = x0 + largeur
+        teinte_axe = TEINTES_AXE[i]
 
-        zones.append(rect("zones", [x0, Y_ZONE, x1, Y_ZONE + hauteur], 14,
-                          f["fond"]))
-        zones.append(rect("zones", [x0, Y_ZONE, x1, Y_ZONE + 6], 3,
-                          INDIGO_APLAT))
+        #  Le segment d'axe, et la graduation qui le ferme.
+        axe.append(trait("axe", [x0, AXE_Y, x1 - 10, AXE_Y], teinte_axe, 5))
+        axe.append(trait("axe", [x0, AXE_Y - 9, x0, AXE_Y + 9], teinte_axe, 3))
 
-        textes_.append(texte("zones", (x0 + 24, Y_ZONE + 28), f["verbe"],
-                             "verbe", INDIGO, 1.4))
-        textes_.append(texte("zones", (x0 + 24, Y_ZONE + 64), f["moment"],
-                             "moment", D.GRIS))
+        textes_.append(texte("axe", (x0, AXE_Y - 62), f["verbe"], "verbe",
+                             INDIGO, 1.4))
+        textes_.append(texte("axe", (x0, AXE_Y - 28), f["moment"], "moment",
+                             D.GRIS))
 
-        y = Y_ZONE + 96
-        for nom, source in f["cineastes"]:
-            fiches.append(rect("fiches", [x0 + 16, y, x1 - 16,
-                                          y + HAUTEUR_FICHE], 10, D.BLANC))
-            textes_.append(texte("fiches", (x0 + 34, y + 20), nom, "nom",
+        #  La branche qui descend, et les points accrochés dessus.
+        tige = x0 + 14
+        dernier = Y_PREMIER + (len(f["cineastes"]) - 1) * PAS_ENTREE
+        branches.append(trait("branches", [tige, AXE_Y, tige, dernier],
+                              teinte_axe, 2))
+
+        for j, (nom, source) in enumerate(f["cineastes"]):
+            y = Y_PREMIER + j * PAS_ENTREE
+            branches.append(disque("branches", tige, y, 6, teinte_axe))
+            textes_.append(texte("entrées", (tige + 22, y - 11), nom, "nom",
                                  D.ENCRE))
             lignes = mesure.couper(D.typo(source), fontes["source"],
-                                   largeur - 68)
+                                   largeur - 48)
             if len(lignes) > 2:
                 raise SystemExit("la source de %s tient en %d lignes"
                                  % (nom, len(lignes)))
-            for j, ligne in enumerate(lignes):
-                textes_.append(texte("fiches", (x0 + 34, y + 50 + j * 21),
+            for k, ligne in enumerate(lignes):
+                textes_.append(texte("entrées", (tige + 22, y + 16 + k * 21),
                                      ligne, "source", D.GRIS))
-            y += HAUTEUR_FICHE + ECART_FICHE
 
-        #  Le chevron qui dit le sens de lecture, et rien d'autre.
-        if i + 1 < len(FAMILLES):
-            cx, cy = x1 + ECART / 2.0, Y_ZONE + hauteur / 2.0
-            zones.append(polygone("zones", [(cx - 6, cy - 13),
-                                            (cx + 7, cy),
-                                            (cx - 6, cy + 13)],
-                                  (206, 193, 240)))
-
-    o.extend(zones)
-    o.extend(fiches)
+    o.extend(axe)
+    o.extend(branches)
     o.extend(textes_)
 
-    H = int(Y_ZONE + hauteur + 46)
+    bas = Y_PREMIER + (max(len(f["cineastes"]) for f in FAMILLES) - 1) \
+        * PAS_ENTREE
+    H = int(bas + 92)
     o.insert(0, rect("fond", [0, 0, L, H], 0, D.PAPIER))
     return H, o
 
@@ -212,8 +220,10 @@ def rendre_matriciel(H, ordres, base):
     for a in ordres:
         if a["quoi"] == "rect":
             t.rrect(a["b"], a["r"], teinte=a["t"])
-        elif a["quoi"] == "polygone":
-            t.polygone(a["pts"], a["t"])
+        elif a["quoi"] == "trait":
+            t.ligne(a["b"], a["t"], a["e"])
+        elif a["quoi"] == "disque":
+            t.disque(a["cx"], a["cy"], a["r"], teinte=a["t"])
         else:
             f = fontes[a["p"]]
             x, y = a["xy"]
@@ -261,10 +271,15 @@ def rendre_svg(H, ordres, base):
                            'rx="%g" fill="%s"/>'
                            % (x0, y0, x1 - x0, y1 - y0, a["r"],
                               teinte(a["t"])))
-            elif a["quoi"] == "polygone":
-                out.append('    <polygon points="%s" fill="%s"/>'
-                           % (" ".join("%g,%g" % p for p in a["pts"]),
-                              teinte(a["t"])))
+            elif a["quoi"] == "trait":
+                x0, y0, x1, y1 = a["b"]
+                out.append('    <line x1="%g" y1="%g" x2="%g" y2="%g" '
+                           'stroke="%s" stroke-width="%g" '
+                           'stroke-linecap="round"/>'
+                           % (x0, y0, x1, y1, teinte(a["t"]), a["e"]))
+            elif a["quoi"] == "disque":
+                out.append('    <circle cx="%g" cy="%g" r="%g" fill="%s"/>'
+                           % (a["cx"], a["cy"], a["r"], teinte(a["t"])))
             else:
                 _, taille, graisse = POLICES[a["p"]]
                 espacement = (' letter-spacing="%g"' % a["tr"]
