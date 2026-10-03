@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="656px" viewBox="0 0 1600 656" version="1.1">
+  <title>PRÉVOIR, PROVOQUER, RÉCOLTER</title>
+  <desc>le moment où l’image se décide, et les neuf cinéastes de l’article placés d’après leurs déclarations ou celles de leurs collaborateurs</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="656" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">PRÉVOIR, PROVOQUER, RÉCOLTER</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">le moment où l’image se décide, et les neuf cinéastes de l’article placés d’après leurs déclarations ou celles de leurs collaborateurs</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="zones" id="couche3">
+    <rect x="56" y="168" width="472" height="442" rx="14" fill="#f6f3fd"/>
+    <rect x="56" y="168" width="472" height="6" rx="3" fill="#9442fa"/>
+    <polygon points="540,376 553,389 540,402" fill="#cec1f0"/>
+    <rect x="564" y="168" width="472" height="442" rx="14" fill="#eee7fb"/>
+    <rect x="564" y="168" width="472" height="6" rx="3" fill="#9442fa"/>
+    <polygon points="1048,376 1061,389 1048,402" fill="#cec1f0"/>
+    <rect x="1072" y="168" width="472" height="442" rx="14" fill="#e4daf8"/>
+    <rect x="1072" y="168" width="472" height="6" rx="3" fill="#9442fa"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="fiches" id="couche4">
+    <rect x="72" y="264" width="440" height="100" rx="10" fill="#ffffff"/>
+    <rect x="72" y="376" width="440" height="100" rx="10" fill="#ffffff"/>
+    <rect x="72" y="488" width="440" height="100" rx="10" fill="#ffffff"/>
+    <rect x="580" y="264" width="440" height="100" rx="10" fill="#ffffff"/>
+    <rect x="580" y="376" width="440" height="100" rx="10" fill="#ffffff"/>
+    <rect x="580" y="488" width="440" height="100" rx="10" fill="#ffffff"/>
+    <rect x="1088" y="264" width="440" height="100" rx="10" fill="#ffffff"/>
+    <rect x="1088" y="376" width="440" height="100" rx="10" fill="#ffffff"/>
+    <rect x="1088" y="488" width="440" height="100" rx="10" fill="#ffffff"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="zones" id="couche5">
+    <text x="80" y="219" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#622cc8" letter-spacing="1.4" xml:space="preserve">PRÉVOIR</text>
+    <text x="80" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">avant le tournage</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="fiches" id="couche6">
+    <text x="90" y="302" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Alfred Hitchcock</text>
+    <text x="90" y="328" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">« tout a déjà été fait pendant l’élaboration du scénario »</text>
+    <text x="90" y="414" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Bong Joon-ho</text>
+    <text x="90" y="440" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">« Bong ne tourne pas de couverture », dit son monteur</text>
+    <text x="90" y="526" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">George Miller</text>
+    <text x="90" y="552" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">3 500 vignettes alignées sur un mur, neuf mois durant</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="zones" id="couche7">
+    <text x="588" y="219" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#622cc8" letter-spacing="1.4" xml:space="preserve">PROVOQUER</text>
+    <text x="588" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">pendant le tournage</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="fiches" id="couche8">
+    <text x="598" y="302" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Mike Leigh</text>
+    <text x="598" y="328" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">six mois de répétitions, aucun scénario au départ</text>
+    <text x="598" y="414" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Maurice Pialat</text>
+    <text x="598" y="440" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">« improviser, c’est écrire »</text>
+    <text x="598" y="526" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Abdellatif Kechiche</text>
+    <text x="598" y="552" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">plus de cent prises pour trente secondes</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="zones" id="couche9">
+    <text x="1096" y="219" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#622cc8" letter-spacing="1.4" xml:space="preserve">RÉCOLTER</text>
+    <text x="1096" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">au montage</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="fiches" id="couche10">
+    <text x="1106" y="302" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Stanley Kubrick</text>
+    <text x="1106" y="328" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">au moins deux prises parfaites par scène</text>
+    <text x="1106" y="414" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">David Fincher</text>
+    <text x="1106" y="440" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">la caméra comme « récolte de performances »</text>
+    <text x="1106" y="526" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Ridley Scott</text>
+    <text x="1106" y="552" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">jusqu’à onze caméras, l’angle se choisit après</text>
+  </g>
+</svg>
