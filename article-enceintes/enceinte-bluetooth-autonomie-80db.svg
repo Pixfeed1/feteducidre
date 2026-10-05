@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="766px" viewBox="0 0 1600 766" version="1.1">
+  <title>LES PETITES PERDENT LA MOITIÉ, LES GROSSES DÉPASSENT</title>
+  <desc>autonomie annoncée et autonomie mesurée à 80 dB à un mètre par SoundGuys, de la plus légère à la plus lourde</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="766" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">LES PETITES PERDENT LA MOITIÉ, LES GROSSES DÉPASSENT</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">autonomie annoncée et autonomie mesurée à 80 dB à un mètre par SoundGuys, de la plus légère à la plus lourde</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="légende" id="couche3">
+    <rect x="420" y="123" width="26" height="26" rx="4" fill="#dbdbe4"/>
+    <text x="456" y="141" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">annoncée</text>
+    <rect x="561.906" y="129.5" width="26" height="13" rx="4" fill="#622cc8"/>
+    <text x="597.906" y="141" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">mesurée à 80 dB</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="grille" id="couche4">
+    <line x1="420" y1="226" x2="420" y2="720" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="420" y="216" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">0 h</text>
+    <line x1="703.333" y1="226" x2="703.333" y2="720" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="703.333" y="216" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">12 h</text>
+    <line x1="986.667" y1="226" x2="986.667" y2="720" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="986.667" y="216" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">24 h</text>
+    <line x1="1270" y1="226" x2="1270" y2="720" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="1270" y="216" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">36 h</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche5">
+    <rect x="420" y="252" width="283.333" height="26" rx="4" fill="#dbdbe4"/>
+    <rect x="420" y="258.5" width="107.431" height="13" rx="3" fill="#622cc8"/>
+    <rect x="420" y="324" width="283.333" height="26" rx="4" fill="#dbdbe4"/>
+    <rect x="420" y="330.5" width="166.458" height="13" rx="3" fill="#622cc8"/>
+    <rect x="420" y="396" width="330.556" height="26" rx="4" fill="#dbdbe4"/>
+    <rect x="420" y="402.5" width="147.963" height="13" rx="3" fill="#622cc8"/>
+    <rect x="420" y="468" width="566.667" height="26" rx="4" fill="#dbdbe4"/>
+    <rect x="420" y="474.5" width="312.847" height="13" rx="3" fill="#622cc8"/>
+    <rect x="420" y="540" width="472.222" height="26" rx="4" fill="#dbdbe4"/>
+    <rect x="420" y="546.5" width="493.866" height="13" rx="3" fill="#622cc8"/>
+    <rect x="420" y="612" width="566.667" height="26" rx="4" fill="#dbdbe4"/>
+    <rect x="420" y="618.5" width="710.694" height="13" rx="3" fill="#622cc8"/>
+    <rect x="420" y="684" width="661.111" height="26" rx="4" fill="#dbdbe4"/>
+    <rect x="420" y="690.5" width="824.815" height="13" rx="3" fill="#622cc8"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="textes" id="couche6">
+    <text x="56" y="267" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Bose SoundLink Micro 2</text>
+    <text x="721.333" y="267" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">4 h 33</text>
+    <text x="721.333" y="287" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">38 % de la promesse</text>
+    <text x="56" y="339" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Bose SoundLink Flex 2</text>
+    <text x="721.333" y="339" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">7 h 03</text>
+    <text x="721.333" y="359" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">59 % de la promesse</text>
+    <text x="56" y="411" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">JBL Flip 7</text>
+    <text x="56" y="430" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">826 g</text>
+    <text x="768.556" y="411" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">6 h 16</text>
+    <text x="768.556" y="431" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">45 % de la promesse</text>
+    <text x="56" y="483" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">JBL Charge 6</text>
+    <text x="56" y="502" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">1,37 kg</text>
+    <text x="1004.67" y="483" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">13 h 15</text>
+    <text x="1004.67" y="503" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">55 % de la promesse</text>
+    <text x="56" y="555" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Bose SoundLink Plus</text>
+    <text x="56" y="574" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">1,53 kg</text>
+    <text x="931.866" y="555" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">20 h 55</text>
+    <text x="931.866" y="575" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">105 % de la promesse</text>
+    <text x="56" y="627" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">JBL Xtreme 5</text>
+    <text x="56" y="646" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">2,90 kg</text>
+    <text x="1148.69" y="627" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">30 h 06</text>
+    <text x="1148.69" y="647" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">125 % de la promesse</text>
+    <text x="56" y="699" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">JBL Boombox 4</text>
+    <text x="56" y="718" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">5,89 kg</text>
+    <text x="1262.81" y="699" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" xml:space="preserve">34 h 56</text>
+    <text x="1262.81" y="719" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">125 % de la promesse</text>
+  </g>
+</svg>
