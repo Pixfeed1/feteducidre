@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="831px" viewBox="0 0 1600 831" version="1.1">
+  <title>CE QUE L’HISTORIQUE VOCAL PERMET D’EFFACER</title>
+  <desc>l’écran « Vérifier l’historique vocal » de l’application Alexa, redessiné, contenus des demandes masqués</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="831" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">CE QUE L’HISTORIQUE VOCAL PERMET D’EFFACER</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">l’écran « Vérifier l’historique vocal » de l’application Alexa, redessiné, contenus des demandes masqués</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="châssis" id="couche3">
+    <rect x="96" y="150" width="540" height="633" rx="26" fill="#ffffff"/>
+    <rect x="96" y="150" width="540" height="633" rx="26" fill="none" stroke="#c6cad4" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="écran" id="couche4">
+    <rect x="122" y="248" width="488" height="40" rx="10" fill="#eee8fc"/>
+    <polygon points="584,265 596,265 590,272" fill="#622cc8"/>
+    <line x1="122" y1="363" x2="610" y2="363" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <polygon points="126,436 126,448 136,442" fill="#622cc8"/>
+    <rect x="125" y="461" width="12" height="2" rx="1" fill="#b02e26"/>
+    <rect x="126" y="464" width="10" height="11" rx="2" fill="none" stroke="#b02e26" stroke-width="2"/>
+    <line x1="122" y1="490" x2="610" y2="490" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <line x1="122" y1="561" x2="610" y2="561" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <line x1="122" y1="632" x2="610" y2="632" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <rect x="122" y="713" width="488" height="44" rx="10" fill="none" stroke="#b02e26" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="masques" id="couche5">
+    <rect x="122" y="334" width="400.16" height="15" rx="7" fill="#d6d8e0"/>
+    <rect x="122" y="405" width="283.04" height="15" rx="7" fill="#d6d8e0"/>
+    <rect x="122" y="532" width="361.12" height="15" rx="7" fill="#d6d8e0"/>
+    <rect x="122" y="603" width="224.48" height="15" rx="7" fill="#d6d8e0"/>
+    <rect x="122" y="674" width="331.84" height="15" rx="7" fill="#d6d8e0"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="écran" id="couche6">
+    <text x="122" y="194" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">Plus  &gt;  Paramètres  &gt;  Confidentialité Alexa</text>
+    <text x="122" y="228" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="21" font-weight="bold" fill="#1a1b20" xml:space="preserve">Historique vocal</text>
+    <text x="136" y="273" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">Affichage : 7 derniers jours</text>
+    <text x="122" y="323" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#1a1b20" xml:space="preserve">08:12</text>
+    <text x="176" y="323" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">Echo Dot du salon</text>
+    <text x="122" y="394" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#1a1b20" xml:space="preserve">08:41</text>
+    <text x="176" y="394" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">Echo Show de la cuisine</text>
+    <text x="146" y="447" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#622cc8" xml:space="preserve">Réécouter l’enregistrement</text>
+    <text x="146" y="473" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#b02e26" xml:space="preserve">Supprimer l’enregistrement</text>
+    <text x="122" y="521" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#1a1b20" xml:space="preserve">12:05</text>
+    <text x="176" y="521" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">Echo Dot du salon</text>
+    <text x="122" y="592" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#1a1b20" xml:space="preserve">19:33</text>
+    <text x="176" y="592" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">Echo Dot de la chambre</text>
+    <text x="122" y="663" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#1a1b20" xml:space="preserve">21:58</text>
+    <text x="176" y="663" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">Echo Show de la cuisine</text>
+    <text x="366" y="740" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#b02e26" text-anchor="middle" xml:space="preserve">Supprimer toutes mes activités de cette période</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="filets" id="couche7">
+    <line x1="618" y1="268" x2="690" y2="268" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="690" y1="268" x2="690" y2="205" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="690" y1="205" x2="748" y2="205" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="413.04" y1="413" x2="706" y2="413" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="706" y1="413" x2="706" y2="365" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="706" y1="365" x2="748" y2="365" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="618" y1="468" x2="722" y2="468" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="722" y1="468" x2="722" y2="525" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="722" y1="525" x2="748" y2="525" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="618" y1="735" x2="738" y2="735" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="738" y1="735" x2="738" y2="685" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="738" y1="685" x2="748" y2="685" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="points" id="couche8">
+    <circle cx="618" cy="268" r="4" fill="#622cc8"/>
+    <circle cx="413.04" cy="413" r="4" fill="#622cc8"/>
+    <circle cx="618" cy="468" r="4" fill="#622cc8"/>
+    <circle cx="618" cy="735" r="4" fill="#622cc8"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="annotations" id="couche9">
+    <text x="760" y="213" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Le filtre par date</text>
+    <text x="760" y="238" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Aujourd’hui, les 7 ou 30 derniers jours, tout l’historique, ou une période au choix. On peut aussi filtrer par appareil et</text>
+    <text x="760" y="260" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">par profil.</text>
+    <text x="760" y="373" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Le contenu de la demande</text>
+    <text x="760" y="398" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Amazon garde la transcription et l’enregistrement audio tant que vous ne les supprimez pas, ou jusqu’à l’échéance de</text>
+    <text x="760" y="420" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">suppression automatique que vous avez réglée.</text>
+    <text x="760" y="533" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Réécouter, puis supprimer</text>
+    <text x="760" y="558" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Chaque demande s’ouvre sur ses deux commandes. La suppression porte sur cette demande seule.</text>
+    <text x="760" y="693" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Tout effacer d’un coup</text>
+    <text x="760" y="718" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Le bouton du bas ne vide pas l’historique entier : il efface la période actuellement affichée.</text>
+  </g>
+</svg>
