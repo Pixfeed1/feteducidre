@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="676px" viewBox="0 0 1600 676" version="1.1">
+  <title>CE QUE VOUS PAIEREZ LA DEUXIÈME ANNÉE</title>
+  <desc>cinq offres d’hébergement mutualisé relevées le 7 octobre 2026, aux prestations très différentes : la figure compare les prix, pas les services</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="676" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">CE QUE VOUS PAIEREZ LA DEUXIÈME ANNÉE</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">cinq offres d’hébergement mutualisé relevées le 7 octobre 2026, aux prestations très différentes : la figure compare les prix, pas les services</text>
+    <rect x="56" y="108" width="22" height="14" rx="4" fill="#ddd3f6"/>
+    <text x="88" y="119" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">prix d’appel</text>
+    <rect x="199.599" y="108" width="22" height="14" rx="4" fill="#622cc8"/>
+    <text x="231.599" y="119" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">prix au renouvellement</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="échelle" id="couche3">
+    <line x1="300" y1="204" x2="300" y2="620" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="589.375" y1="204" x2="589.375" y2="620" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="878.75" y1="204" x2="878.75" y2="620" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="1168.12" y1="204" x2="1168.12" y2="620" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="300" y="640" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">0 €</text>
+    <text x="589.375" y="640" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">5 €</text>
+    <text x="878.75" y="640" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">10 €</text>
+    <text x="1168.12" y="640" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">15 €</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche4">
+    <rect x="300" y="220" width="636.625" height="30" rx="6" fill="#622cc8"/>
+    <rect x="300" y="220" width="57.875" height="30" rx="6" fill="#ddd3f6"/>
+    <rect x="300" y="306" width="926" height="30" rx="6" fill="#622cc8"/>
+    <rect x="300" y="306" width="107.648" height="30" rx="6" fill="#ddd3f6"/>
+    <rect x="300" y="392" width="578.171" height="30" rx="6" fill="#622cc8"/>
+    <rect x="300" y="392" width="173.046" height="30" rx="6" fill="#ddd3f6"/>
+    <rect x="300" y="478" width="346.671" height="30" rx="6" fill="#622cc8"/>
+    <rect x="300" y="478" width="173.046" height="30" rx="6" fill="#ddd3f6"/>
+    <rect x="300" y="564" width="332.781" height="30" rx="6" fill="#622cc8"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="noms" id="couche5">
+    <text x="56" y="238" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">IONOS</text>
+    <text x="56" y="257" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Plus</text>
+    <text x="56" y="324" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">o2switch</text>
+    <text x="56" y="343" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Cloud</text>
+    <text x="56" y="410" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Hostinger</text>
+    <text x="56" y="429" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Premium</text>
+    <text x="56" y="496" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">OVHcloud</text>
+    <text x="56" y="515" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Perso</text>
+    <text x="56" y="582" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Infomaniak</text>
+    <text x="56" y="601" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Hébergement Web</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="valeurs" id="couche6">
+    <text x="948.625" y="240" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">11,00 €</text>
+    <text x="367.875" y="240" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#ffffff" xml:space="preserve">1,00 €</text>
+    <text x="1238" y="326" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">16,00 €</text>
+    <text x="417.648" y="326" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#ffffff" xml:space="preserve">1,86 €</text>
+    <text x="890.171" y="412" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">9,99 €</text>
+    <text x="483.046" y="412" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#ffffff" xml:space="preserve">2,99 €</text>
+    <text x="658.671" y="498" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">5,99 €</text>
+    <text x="483.046" y="498" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#ffffff" xml:space="preserve">2,99 €</text>
+    <text x="644.781" y="584" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">5,75 €</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="facteurs" id="couche7">
+    <text x="1344" y="240" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">x 11,0</text>
+    <text x="1344" y="326" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">x 8,6</text>
+    <text x="1344" y="412" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">x 3,3</text>
+    <text x="1344" y="498" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">x 2,0</text>
+    <text x="1344" y="581" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">même prix</text>
+  </g>
+</svg>
