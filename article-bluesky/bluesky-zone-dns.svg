@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="720px" viewBox="0 0 1600 720" version="1.1">
+  <title>UNE SEULE LIGNE À AJOUTER DANS LA ZONE DNS</title>
+  <desc>l’enregistrement TXT qui fait d’un nom de domaine un pseudo Bluesky, redessiné d’après trois domaines réels interrogés en DNS</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="720" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">UNE SEULE LIGNE À AJOUTER DANS LA ZONE DNS</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">l’enregistrement TXT qui fait d’un nom de domaine un pseudo Bluesky, redessiné d’après trois domaines réels interrogés en DNS</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="châssis" id="couche3">
+    <rect x="96" y="150" width="1408" height="320" rx="14" fill="#ffffff"/>
+    <rect x="96" y="150" width="1408" height="320" rx="14" fill="none" stroke="#ccd0da" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="panneau" id="couche4">
+    <line x1="122" y1="234" x2="1478" y2="234" stroke="#d5d3cc" stroke-width="2" stroke-linecap="round"/>
+    <rect x="112" y="405" width="1376" height="36" rx="8" fill="#eee8fc"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="masques" id="couche5">
+    <rect x="639.401" y="417" width="168" height="14" rx="6" fill="#ced1db"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="panneau" id="couche6">
+    <text x="122" y="192" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Zone DNS  ·  votredomaine.fr</text>
+    <text x="122" y="224" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#8c8d96" letter-spacing="1" xml:space="preserve">TYPE</text>
+    <text x="272" y="224" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#8c8d96" letter-spacing="1" xml:space="preserve">NOM</text>
+    <text x="452" y="224" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#8c8d96" letter-spacing="1" xml:space="preserve">TTL</text>
+    <text x="552" y="224" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#8c8d96" letter-spacing="1" xml:space="preserve">VALEUR</text>
+    <text x="122" y="260" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">A</text>
+    <text x="272" y="260" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">@</text>
+    <text x="452" y="260" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">3600</text>
+    <text x="552" y="260" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">203.0.113.10</text>
+    <text x="122" y="302" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">CNAME</text>
+    <text x="272" y="302" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">www</text>
+    <text x="452" y="302" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">3600</text>
+    <text x="552" y="302" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">votredomaine.fr.</text>
+    <text x="122" y="344" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">MX</text>
+    <text x="272" y="344" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">@</text>
+    <text x="452" y="344" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">3600</text>
+    <text x="552" y="344" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">10 mx1.hebergeur.fr.</text>
+    <text x="122" y="386" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">TXT</text>
+    <text x="272" y="386" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">@</text>
+    <text x="452" y="386" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">3600</text>
+    <text x="552" y="386" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">v=spf1 include:_spf.hebergeur.fr ~all</text>
+    <text x="122" y="428" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">TXT</text>
+    <text x="272" y="428" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">_atproto</text>
+    <text x="452" y="428" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">3600</text>
+    <text x="552" y="428" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">did=did:plc:</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="filets" id="couche7">
+    <line x1="136.164" y1="441" x2="136.164" y2="496" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="136.164" y1="496" x2="98" y2="496" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="98" y1="496" x2="98" y2="574" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="302" y1="441" x2="302" y2="520" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="302" y1="520" x2="584" y2="520" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="584" y1="520" x2="584" y2="574" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="679.701" y1="441" x2="679.701" y2="544" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="679.701" y1="544" x2="1070" y2="544" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="1070" y1="544" x2="1070" y2="574" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="points" id="couche8">
+    <circle cx="136.164" cy="441" r="4" fill="#622cc8"/>
+    <circle cx="302" cy="441" r="4" fill="#622cc8"/>
+    <circle cx="679.701" cy="441" r="4" fill="#622cc8"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="annotations" id="couche9">
+    <text x="96" y="597" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Le type : TXT</text>
+    <text x="96" y="622" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Ni A, ni CNAME. Un simple enregistrement de texte, que le réseau</text>
+    <text x="96" y="644" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">vient lire pour vérifier que le domaine est bien à vous.</text>
+    <text x="582" y="597" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Le nom : _atproto</text>
+    <text x="582" y="622" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Rien d’autre, surtout pas le domaine : l’hébergeur l’ajoute tout</text>
+    <text x="582" y="644" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">seul. Selon les interfaces, le champ s’appelle Nom, Hôte ou</text>
+    <text x="582" y="666" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Sous-domaine.</text>
+    <text x="1068" y="597" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">La valeur : did=did:plc:</text>
+    <text x="1068" y="622" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Le « did= » fait partie de la valeur. Les 24 caractères qui suivent</text>
+    <text x="1068" y="644" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">désignent votre compte, et ils sont publics : n’importe qui peut les</text>
+    <text x="1068" y="666" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">lire dans le DNS.</text>
+  </g>
+</svg>
