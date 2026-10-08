@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="644px" viewBox="0 0 1600 644" version="1.1">
+  <title>GENESIS 8 A QUITTÉ LES NOUVEAUTÉS DE LA BOUTIQUE DAZ</title>
+  <desc>part des nouveautés qui ne visent que Genesis 8 ; les deux blocs ne comptent pas la même chose, mais partagent la même échelle</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="644" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">GENESIS 8 A QUITTÉ LES NOUVEAUTÉS DE LA BOUTIQUE DAZ</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">part des nouveautés qui ne visent que Genesis 8 ; les deux blocs ne comptent pas la même chose, mais partagent la même échelle</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="grille" id="couche3">
+    <line x1="68" y1="572" x2="1544" y2="572" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="68" y1="492" x2="1544" y2="492" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="68" y1="412" x2="1544" y2="412" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="68" y1="332" x2="1544" y2="332" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="68" y1="252" x2="1544" y2="252" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="60" y="576" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">0 %</text>
+    <text x="60" y="496" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">10 %</text>
+    <text x="60" y="416" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">20 %</text>
+    <text x="60" y="336" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">30 %</text>
+    <text x="60" y="256" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">40 %</text>
+    <line x1="1002" y1="144" x2="1002" y2="616" stroke="#ced2dc" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="entêtes" id="couche4">
+    <text x="112" y="156" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#646670" xml:space="preserve">Boutique Daz, tous les produits conçus pour une figure</text>
+    <text x="1064" y="156" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#646670" xml:space="preserve">Personnages seuls, du 9 septembre au 7 octobre 2026</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="grille" id="couche5">
+    <line x1="68" y1="572" x2="1544" y2="572" stroke="#aaaeba" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="colonnes" id="couche6">
+    <rect x="148.432" y="268" width="92.736" height="304" rx="4" fill="#c4b4f0"/>
+    <rect x="314.032" y="364" width="92.736" height="208" rx="4" fill="#c4b4f0"/>
+    <rect x="479.632" y="508.8" width="92.736" height="63.2" rx="4" fill="#c4b4f0"/>
+    <rect x="645.232" y="562.4" width="92.736" height="9.6" rx="4" fill="#c4b4f0"/>
+    <rect x="810.832" y="567.521" width="92.736" height="4.479" rx="4" fill="#c4b4f0"/>
+    <rect x="1125" y="563.489" width="96" height="8.51064" rx="4" fill="#622cc8"/>
+    <rect x="1343" y="231.13" width="96" height="340.87" rx="4" fill="#b45309"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="valeurs" id="couche7">
+    <text x="194.8" y="258" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#c4b4f0" text-anchor="middle" xml:space="preserve">38 %</text>
+    <text x="360.4" y="354" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#c4b4f0" text-anchor="middle" xml:space="preserve">26 %</text>
+    <text x="526" y="498.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#c4b4f0" text-anchor="middle" xml:space="preserve">7,9 %</text>
+    <text x="691.6" y="552.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#c4b4f0" text-anchor="middle" xml:space="preserve">1,2 %</text>
+    <text x="857.2" y="553.521" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">18 sur 3 215</text>
+    <text x="857.2" y="535.521" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#c4b4f0" text-anchor="middle" xml:space="preserve">0,6 %</text>
+    <text x="1173" y="549.489" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">1 sur 94</text>
+    <text x="1173" y="531.489" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#622cc8" text-anchor="middle" xml:space="preserve">1,1 %</text>
+    <text x="1391" y="217.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">245 sur 575</text>
+    <text x="1391" y="199.13" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle" xml:space="preserve">42,6 %</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="abscisses" id="couche8">
+    <text x="194.8" y="600" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">fin 2022</text>
+    <text x="360.4" y="600" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">2023</text>
+    <text x="526" y="600" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">2024</text>
+    <text x="691.6" y="600" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">2025</text>
+    <text x="857.2" y="600" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">2026</text>
+    <text x="1173" y="600" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" text-anchor="middle" xml:space="preserve">Boutique Daz</text>
+    <text x="1391" y="600" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" text-anchor="middle" xml:space="preserve">RenderHub</text>
+  </g>
+</svg>
