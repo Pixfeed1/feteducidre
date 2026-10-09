@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="584px" viewBox="0 0 1600 584" version="1.1">
+  <title>CHAQUE VERSION DE WINDOWS 11 S’ARRÊTE AU BOUT DE DEUX ANS</title>
+  <desc>au 9 octobre 2026, la version 24H2 est à 4 jours de son dernier correctif</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="584" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">CHAQUE VERSION DE WINDOWS 11 S’ARRÊTE AU BOUT DE DEUX ANS</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">au 9 octobre 2026, la version 24H2 est à 4 jours de son dernier correctif</text>
+    <rect x="56" y="118" width="22" height="14" rx="4" fill="#cdc0f0"/>
+    <text x="88" y="129" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">écoulé</text>
+    <rect x="169.255" y="118" width="22" height="14" rx="4" fill="#622cc8"/>
+    <text x="201.255" y="129" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">reste à courir</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="axe" id="couche3">
+    <line x1="492.776" y1="198" x2="492.776" y2="536" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="724.423" y1="198" x2="724.423" y2="536" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="956.071" y1="198" x2="956.071" y2="536" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="1187.72" y1="198" x2="1187.72" y2="536" stroke="#d5d3cc" stroke-width="1"/>
+    <line x1="1420" y1="198" x2="1420" y2="536" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="492.776" y="560" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2025</text>
+    <text x="724.423" y="560" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2026</text>
+    <text x="956.071" y="560" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2027</text>
+    <text x="1187.72" y="560" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2028</text>
+    <text x="1420" y="560" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2029</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche4">
+    <rect x="674.286" y="226" width="462.026" height="34" rx="6" fill="#f0d4ba"/>
+    <rect x="902.76" y="226" width="233.551" height="34" rx="6" fill="#b45309"/>
+    <rect x="434.388" y="310" width="470.911" height="34" rx="6" fill="#cdc0f0"/>
+    <rect x="902.76" y="310" width="2.5386" height="34" rx="6" fill="#622cc8"/>
+    <rect x="666.035" y="394" width="470.276" height="34" rx="6" fill="#cdc0f0"/>
+    <rect x="902.76" y="394" width="233.551" height="34" rx="6" fill="#622cc8"/>
+    <rect x="897.683" y="478" width="470.911" height="34" rx="6" fill="#cdc0f0"/>
+    <rect x="902.76" y="478" width="465.833" height="34" rx="6" fill="#622cc8"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="noms" id="couche5">
+    <text x="56" y="245" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Windows 10</text>
+    <text x="56" y="263" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">sous ESU, inscription gratuite en France</text>
+    <text x="56" y="329" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Windows 11  24H2</text>
+    <text x="56" y="347" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">sortie en octobre 2024</text>
+    <text x="56" y="413" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Windows 11  25H2</text>
+    <text x="56" y="431" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">second semestre 2025</text>
+    <text x="56" y="497" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Windows 11  26H2</text>
+    <text x="56" y="515" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">second semestre 2026</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="étiquettes" id="couche6">
+    <text x="1148.31" y="248" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#b45309" xml:space="preserve">12 octobre 2027</text>
+    <text x="1148.31" y="264" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">il reste 12 mois</text>
+    <text x="917.298" y="332" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">13 octobre 2026</text>
+    <text x="917.298" y="348" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">il reste 4 jours</text>
+    <text x="1148.31" y="416" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">12 octobre 2027</text>
+    <text x="1148.31" y="432" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">il reste 12 mois</text>
+    <text x="1380.59" y="500" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" xml:space="preserve">octobre 2028</text>
+    <text x="1380.59" y="516" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">il reste 24 mois</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="repère" id="couche7">
+    <line x1="902.76" y1="182" x2="902.76" y2="536" stroke="#b02e26" stroke-width="2"/>
+    <text x="902.76" y="171" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#b02e26" text-anchor="middle" xml:space="preserve">9 octobre 2026</text>
+  </g>
+</svg>
