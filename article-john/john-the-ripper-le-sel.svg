@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="622px" viewBox="0 0 1600 622" version="1.1">
+  <title>LE SEL, OU POURQUOI DEUX FOIS LE MÊME MOT DE PASSE NE SE VOIT PLUS</title>
+  <desc>empreintes SHA-256 réellement calculées pour le mot de passe « soleil », sans sel puis avec un sel propre à chaque compte</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="622" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">LE SEL, OU POURQUOI DEUX FOIS LE MÊME MOT DE PASSE NE SE VOIT PLUS</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">empreintes SHA-256 réellement calculées pour le mot de passe « soleil », sans sel puis avec un sel propre à chaque compte</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="sections" id="couche3">
+    <text x="56" y="192" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#b02e26" xml:space="preserve">SANS SEL</text>
+    <text x="56" y="416" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#0c7c5c" xml:space="preserve">AVEC UN SEL PROPRE À CHAQUE COMPTE</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="flèches" id="couche4">
+    <line x1="270.188" y1="233" x2="594" y2="233" stroke="#d5d3cc" stroke-width="2"/>
+    <polygon points="594,233 585,228 585,238" fill="#d5d3cc"/>
+    <line x1="756" y1="233" x2="776" y2="233" stroke="#d5d3cc" stroke-width="2"/>
+    <polygon points="776,233 767,228 767,238" fill="#d5d3cc"/>
+    <line x1="270.188" y1="287" x2="594" y2="287" stroke="#d5d3cc" stroke-width="2"/>
+    <polygon points="594,287 585,282 585,292" fill="#d5d3cc"/>
+    <line x1="756" y1="287" x2="776" y2="287" stroke="#d5d3cc" stroke-width="2"/>
+    <polygon points="776,287 767,282 767,292" fill="#d5d3cc"/>
+    <line x1="570" y1="457" x2="594" y2="457" stroke="#d5d3cc" stroke-width="2"/>
+    <polygon points="594,457 585,452 585,462" fill="#d5d3cc"/>
+    <line x1="756" y1="457" x2="776" y2="457" stroke="#d5d3cc" stroke-width="2"/>
+    <polygon points="776,457 767,452 767,462" fill="#d5d3cc"/>
+    <line x1="570" y1="511" x2="594" y2="511" stroke="#d5d3cc" stroke-width="2"/>
+    <polygon points="594,511 585,506 585,516" fill="#d5d3cc"/>
+    <line x1="756" y1="511" x2="776" y2="511" stroke="#d5d3cc" stroke-width="2"/>
+    <polygon points="776,511 767,506 767,516" fill="#d5d3cc"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="pastilles" id="couche5">
+    <rect x="196" y="218" width="60.1875" height="30" rx="8" fill="#eef0f6"/>
+    <rect x="606" y="218" width="138" height="30" rx="8" fill="#1a1b20"/>
+    <rect x="196" y="272" width="60.1875" height="30" rx="8" fill="#eef0f6"/>
+    <rect x="606" y="272" width="138" height="30" rx="8" fill="#1a1b20"/>
+    <rect x="196" y="442" width="60.1875" height="30" rx="8" fill="#eef0f6"/>
+    <rect x="330" y="442" width="175.708" height="30" rx="8" fill="#eef0f6"/>
+    <rect x="606" y="442" width="138" height="30" rx="8" fill="#1a1b20"/>
+    <rect x="196" y="496" width="60.1875" height="30" rx="8" fill="#eef0f6"/>
+    <rect x="330" y="496" width="177.396" height="30" rx="8" fill="#eef0f6"/>
+    <rect x="606" y="496" width="138" height="30" rx="8" fill="#1a1b20"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="accolades" id="couche6">
+    <line x1="1498" y1="233" x2="1498" y2="287" stroke="#b02e26" stroke-width="2"/>
+    <line x1="1488" y1="233" x2="1498" y2="233" stroke="#b02e26" stroke-width="2"/>
+    <line x1="1488" y1="287" x2="1498" y2="287" stroke="#b02e26" stroke-width="2"/>
+    <line x1="1498" y1="457" x2="1498" y2="511" stroke="#0c7c5c" stroke-width="2"/>
+    <line x1="1488" y1="457" x2="1498" y2="457" stroke="#0c7c5c" stroke-width="2"/>
+    <line x1="1488" y1="511" x2="1498" y2="511" stroke="#0c7c5c" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="lignes" id="couche7">
+    <text x="96" y="238" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Alice</text>
+    <text x="209" y="238" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">soleil</text>
+    <text x="675" y="238" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">SHA-256</text>
+    <text x="790" y="239" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="15" font-weight="normal" fill="#b02e26" xml:space="preserve">e93e24c1b877a15df5e4a8cbb20f351b891b7507…</text>
+    <text x="96" y="292" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Bob</text>
+    <text x="209" y="292" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">soleil</text>
+    <text x="675" y="292" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">SHA-256</text>
+    <text x="790" y="293" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="15" font-weight="normal" fill="#b02e26" xml:space="preserve">e93e24c1b877a15df5e4a8cbb20f351b891b7507…</text>
+    <text x="1510" y="266" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="26" font-weight="bold" fill="#b02e26" xml:space="preserve">=</text>
+    <text x="96" y="337" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b02e26" xml:space="preserve">Deux fois la même empreinte. Une seule table suffit pour les deux comptes.</text>
+    <text x="96" y="462" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Alice</text>
+    <text x="209" y="462" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">soleil</text>
+    <text x="343" y="462" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#0c7c5c" xml:space="preserve">+ sel ed97c189bc10…</text>
+    <text x="675" y="462" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">SHA-256</text>
+    <text x="790" y="463" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="15" font-weight="normal" fill="#0c7c5c" xml:space="preserve">cc3c41c8677ae5aa950c87b586baec6f2ea00473…</text>
+    <text x="96" y="516" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#1a1b20" xml:space="preserve">Bob</text>
+    <text x="209" y="516" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">soleil</text>
+    <text x="343" y="516" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#0c7c5c" xml:space="preserve">+ sel 83e2e87b4d46…</text>
+    <text x="675" y="516" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">SHA-256</text>
+    <text x="790" y="517" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="15" font-weight="normal" fill="#0c7c5c" xml:space="preserve">35fcd5d168eb8b12ced963be4fe701cc2ac50712…</text>
+    <text x="1510" y="490" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="26" font-weight="bold" fill="#0c7c5c" xml:space="preserve">≠</text>
+    <text x="96" y="561" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#0c7c5c" xml:space="preserve">Deux empreintes sans rapport. L’attaquant recommence tout pour chaque compte.</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="mention" id="couche8">
+    <text x="56" y="592" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">empreintes tronquées à 40 caractères sur 64</text>
+  </g>
+</svg>
