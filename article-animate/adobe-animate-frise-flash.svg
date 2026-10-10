@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="780px" viewBox="0 0 1600 780" version="1.1">
+  <title>TRENTE ANS, DEUX NOMS, ET DEUX JOURS DE FLOTTEMENT</title>
+  <desc>de FutureSplash Animator à Adobe Animate, et l’arrêt annoncé puis annulé en février 2026</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="780" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">TRENTE ANS, DEUX NOMS, ET DEUX JOURS DE FLOTTEMENT</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">de FutureSplash Animator à Adobe Animate, et l’arrêt annoncé puis annulé en février 2026</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="axe" id="couche3">
+    <line x1="92" y1="462" x2="1024.37" y2="462" stroke="#b29eea" stroke-width="6" stroke-linecap="round"/>
+    <line x1="1024.37" y1="462" x2="1508" y2="462" stroke="#622cc8" stroke-width="6" stroke-linecap="round"/>
+    <line x1="287.158" y1="453" x2="287.158" y2="471" stroke="#d5d3cc" stroke-width="2" stroke-linecap="round"/>
+    <text x="287.158" y="488" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2000</text>
+    <line x1="745.053" y1="453" x2="745.053" y2="471" stroke="#d5d3cc" stroke-width="2" stroke-linecap="round"/>
+    <text x="745.053" y="488" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2010</text>
+    <line x1="974" y1="453" x2="974" y2="471" stroke="#d5d3cc" stroke-width="2" stroke-linecap="round"/>
+    <text x="974" y="488" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2015</text>
+    <line x1="1202.95" y1="453" x2="1202.95" y2="471" stroke="#d5d3cc" stroke-width="2" stroke-linecap="round"/>
+    <text x="1202.95" y="488" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2020</text>
+    <line x1="1431.89" y1="453" x2="1431.89" y2="471" stroke="#d5d3cc" stroke-width="2" stroke-linecap="round"/>
+    <text x="1431.89" y="488" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">2025</text>
+    <text x="564.184" y="441" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#b29eea" text-anchor="middle" xml:space="preserve">l’ère Flash</text>
+    <text x="1260.18" y="441" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#622cc8" text-anchor="middle" xml:space="preserve">l’ère Animate</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="tiges" id="couche4">
+    <line x1="104" y1="462" x2="104" y2="408" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="104" cy="462" r="7" fill="#622cc8"/>
+    <line x1="516.105" y1="462" x2="516.105" y2="516" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="516.105" cy="462" r="7" fill="#622cc8"/>
+    <line x1="1024.37" y1="462" x2="1024.37" y2="408" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="1024.37" cy="462" r="7" fill="#622cc8"/>
+    <line x1="1248.74" y1="462" x2="1248.74" y2="516" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="1248.74" cy="462" r="7" fill="#622cc8"/>
+    <line x1="1374.66" y1="462" x2="1374.66" y2="280" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="1374.66" cy="462" r="7" fill="#622cc8"/>
+    <line x1="1482.26" y1="462" x2="1482.26" y2="644" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="1482.26" cy="462" r="7" fill="#622cc8"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="jalons" id="couche5">
+    <text x="122" y="333" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">1996</text>
+    <text x="122" y="359" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">FutureSplash Animator</text>
+    <text x="122" y="382" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">FutureWave le sort. Macromedia le rachète la</text>
+    <text x="122" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">même année et le rebaptise Flash.</text>
+    <text x="534.105" y="531" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">2005</text>
+    <text x="534.105" y="557" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Adobe rachète Macromedia</text>
+    <text x="534.105" y="580" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Flash change de maison et devient un produit</text>
+    <text x="534.105" y="602" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Adobe.</text>
+    <text x="1042.37" y="333" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">février 2016</text>
+    <text x="1042.37" y="359" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Flash Professional devient Adobe Animate</text>
+    <text x="1042.37" y="382" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Le logiciel se détourne de Flash et vise le</text>
+    <text x="1042.37" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">HTML5.</text>
+    <text x="1092.82" y="531" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">31 décembre 2020</text>
+    <text x="997.643" y="557" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Flash Player est débranché</text>
+    <text x="942.18" y="580" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Les navigateurs bloquent ses contenus dès</text>
+    <text x="1144.84" y="602" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">janvier 2021.</text>
+    <text x="1257.92" y="205" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">octobre 2023</text>
+    <text x="1112.55" y="231" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">La dernière vraie mise à jour</text>
+    <text x="1069.8" y="254" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Aucune version 2025 ne sortira, et Animate</text>
+    <text x="1148.18" y="276" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">manque le dernier Adobe MAX.</text>
+    <text x="1327.27" y="659" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">début février 2026</text>
+    <text x="1220.22" y="685" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">L’arrêt annoncé, puis annulé</text>
+    <text x="1156.59" y="708" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Deux jours de flottement. Le 5 février, Animate</text>
+    <text x="1205.75" y="730" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">repasse en vie, en mode maintenance.</text>
+  </g>
+</svg>
