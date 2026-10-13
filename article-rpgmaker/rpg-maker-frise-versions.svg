@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="552px" viewBox="0 0 1600 552" version="1.1">
+  <title>TREIZE TITRES, TRENTE-QUATRE ANS, TROIS FAÇONS DE SCRIPTER</title>
+  <desc>de RPG Tsukūru Dante 98 en 1992 à RPG Maker U2U, annoncé en 2026 ; dates japonaises</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="552" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">TREIZE TITRES, TRENTE-QUATRE ANS, TROIS FAÇONS DE SCRIPTER</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">de RPG Tsukūru Dante 98 en 1992 à RPG Maker U2U, annoncé en 2026 ; dates japonaises</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="eres" id="couche3">
+    <rect x="112" y="284" width="483.588" height="52" rx="0" fill="#7c60d0"/>
+    <text x="353.794" y="315" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">douze ans sans écrire une ligne</text>
+    <rect x="595.588" y="284" width="450.978" height="52" rx="0" fill="#6838ca"/>
+    <text x="821.077" y="315" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">onze ans de Ruby</text>
+    <rect x="1046.57" y="284" width="441.434" height="52" rx="0" fill="#4a1ca0"/>
+    <text x="1267.28" y="315" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">onze ans de JavaScript</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="tiges" id="couche4">
+    <line x1="134.271" y1="291" x2="134.271" y2="254" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="275.052" y1="329" x2="275.052" y2="366" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="304.481" y1="291" x2="304.481" y2="254" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="434.127" y1="329" x2="434.127" y2="366" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="531.958" y1="291" x2="531.958" y2="254" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="595.588" y1="329" x2="595.588" y2="366" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="731.995" y1="291" x2="731.995" y2="254" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="889.877" y1="329" x2="889.877" y2="366" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="1046.57" y1="291" x2="1046.57" y2="254" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="1235.07" y1="329" x2="1235.07" y2="366" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="1339.26" y1="291" x2="1339.26" y2="190" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="1400.51" y1="329" x2="1400.51" y2="430" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <line x1="1463.34" y1="291" x2="1463.34" y2="190" stroke="#622cc8" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="134.271" cy="291" r="6" fill="#ffffff"/>
+    <circle cx="275.052" cy="329" r="6" fill="#ffffff"/>
+    <circle cx="304.481" cy="291" r="6" fill="#ffffff"/>
+    <circle cx="434.127" cy="329" r="6" fill="#ffffff"/>
+    <circle cx="531.958" cy="291" r="6" fill="#ffffff"/>
+    <circle cx="595.588" cy="329" r="6" fill="#ffffff"/>
+    <circle cx="731.995" cy="291" r="6" fill="#ffffff"/>
+    <circle cx="889.877" cy="329" r="6" fill="#ffffff"/>
+    <circle cx="1046.57" cy="291" r="6" fill="#ffffff"/>
+    <circle cx="1235.07" cy="329" r="6" fill="#ffffff"/>
+    <circle cx="1339.26" cy="291" r="6" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <circle cx="1400.51" cy="329" r="6" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <circle cx="1463.34" cy="291" r="6" fill="none" stroke="#ffffff" stroke-width="3"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="versions" id="couche5">
+    <text x="96.7549" y="225" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Dante 98</text>
+    <text x="117.583" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">1992</text>
+    <text x="230.036" y="383" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Dante 98 II</text>
+    <text x="258.365" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">1996</text>
+    <text x="294.471" y="225" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">95</text>
+    <text x="287.793" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">1997</text>
+    <text x="414.106" y="383" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">2000</text>
+    <text x="417.44" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">2000</text>
+    <text x="511.938" y="225" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">2003</text>
+    <text x="515.271" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">2002</text>
+    <text x="583.583" y="383" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">XP</text>
+    <text x="559.724" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">juillet 2004</text>
+    <text x="719.99" y="225" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">VX</text>
+    <text x="715.308" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">2007</text>
+    <text x="859.195" y="383" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">VX Ace</text>
+    <text x="873.747" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">2011</text>
+    <text x="1033.07" y="225" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">MV</text>
+    <text x="1029.88" y="246" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">2015</text>
+    <text x="1222.08" y="383" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">MZ</text>
+    <text x="1201.7" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">août 2020</text>
+    <text x="1316.76" y="161" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#646670" xml:space="preserve">Unite</text>
+    <text x="1322.58" y="182" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">2023</text>
+    <text x="1381.1" y="447" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#646670" xml:space="preserve">With</text>
+    <text x="1383.82" y="468" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">2024</text>
+    <text x="1445.34" y="161" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#646670" xml:space="preserve">U2U</text>
+    <text x="1415.79" y="182" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#622cc8" xml:space="preserve">annoncé 2026</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="note" id="couche6">
+    <text x="56" y="519" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Repère creux : les titres qui avancent à côté de la série principale, sur consoles ou sous Unity.</text>
+  </g>
+</svg>
