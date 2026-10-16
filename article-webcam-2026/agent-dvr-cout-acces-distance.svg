@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="590px" viewBox="0 0 1600 590" version="1.1">
+  <title>GRATUIT CHEZ SOI, 95,40 $ L’AN POUR REGARDER DE DEHORS</title>
+  <desc>coût sur douze mois des formules Agent DVR, au tarif mensuel relevé le 12 octobre 2026</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="590" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">GRATUIT CHEZ SOI, 95,40 $ L’AN POUR REGARDER DE DEHORS</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">coût sur douze mois des formules Agent DVR, au tarif mensuel relevé le 12 octobre 2026</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="bascule" id="couche3">
+    <line x1="56" y1="252" x2="1544" y2="252" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="272" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#622cc8" xml:space="preserve">dès qu’on veut voir ses caméras hors du réseau local</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche4">
+    <line x1="352" y1="192" x2="352" y2="226" stroke="#d5d3cc" stroke-width="3"/>
+    <rect x="352" y="320" width="466.241" height="34" rx="5" fill="#6c38d4"/>
+    <rect x="352" y="398" width="876.767" height="34" rx="5" fill="#6c38d4"/>
+    <rect x="352" y="476" width="1170" height="34" rx="5" fill="#6c38d4"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="libelles" id="couche5">
+    <text x="56" y="186" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Gratuit</text>
+    <text x="56" y="208" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">pas d’abonnement</text>
+    <text x="56" y="314" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Basic</text>
+    <text x="56" y="336" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">7,95 $ par mois</text>
+    <text x="56" y="392" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Standard</text>
+    <text x="56" y="414" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">14,95 $ par mois</text>
+    <text x="56" y="470" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" xml:space="preserve">Professional</text>
+    <text x="56" y="492" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">19,95 $ par mois</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="valeurs" id="couche6">
+    <text x="366" y="217" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#622cc8" xml:space="preserve">0 $</text>
+    <text x="740.84" y="345" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#ffffff" xml:space="preserve">95,40 $</text>
+    <text x="1140.8" y="423" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#ffffff" xml:space="preserve">179,40 $</text>
+    <text x="1434.03" y="501" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#ffffff" xml:space="preserve">239,40 $</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="note" id="couche7">
+    <text x="56" y="551" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Tarifs mensuels. L’éditeur propose aussi un paiement annuel, avec licence locale perpétuelle.</text>
+  </g>
+</svg>
