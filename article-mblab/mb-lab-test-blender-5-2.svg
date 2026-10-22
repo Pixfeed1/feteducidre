@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="656px" viewBox="0 0 1600 656" version="1.1">
+  <title>DANS BLENDER 5.2, MB-LAB TOURNE ENCORE, SAUF SON PANNEAU</title>
+  <desc>test du 22 octobre 2026 : huit étapes, deux extensions, trois versions de Blender</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="656" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">DANS BLENDER 5.2, MB-LAB TOURNE ENCORE, SAUF SON PANNEAU</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">test du 22 octobre 2026 : huit étapes, deux extensions, trois versions de Blender</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="entetes" id="couche3">
+    <text x="992" y="154" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">MB-Lab 1.8.1</text>
+    <text x="992" y="176" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">23 cas sur 24</text>
+    <line x1="846" y1="188" x2="1138" y2="188" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="880" y="204" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">Blender 4.2</text>
+    <text x="992" y="204" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">Blender 4.5</text>
+    <text x="1104" y="204" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">Blender 5.2</text>
+    <text x="1362" y="154" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">CharMorph 0.4.0</text>
+    <text x="1362" y="176" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">24 cas sur 24</text>
+    <line x1="1216" y1="188" x2="1508" y2="188" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="1250" y="204" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">Blender 4.2</text>
+    <text x="1362" y="204" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">Blender 4.5</text>
+    <text x="1474" y="204" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">Blender 5.2</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="conduites" id="couche4">
+    <line x1="203.349" y1="244" x2="852" y2="244" stroke="#d5d3cc" stroke-width="1" stroke-dasharray="3 7"/>
+    <line x1="145.698" y1="288" x2="852" y2="288" stroke="#d5d3cc" stroke-width="1" stroke-dasharray="3 7"/>
+    <line x1="267.62" y1="332" x2="852" y2="332" stroke="#d5d3cc" stroke-width="1" stroke-dasharray="3 7"/>
+    <line x1="275.172" y1="376" x2="852" y2="376" stroke="#d5d3cc" stroke-width="1" stroke-dasharray="3 7"/>
+    <line x1="272.323" y1="420" x2="852" y2="420" stroke="#d5d3cc" stroke-width="1" stroke-dasharray="3 7"/>
+    <line x1="158.917" y1="464" x2="852" y2="464" stroke="#d5d3cc" stroke-width="1" stroke-dasharray="3 7"/>
+    <line x1="177.818" y1="508" x2="852" y2="508" stroke="#d5d3cc" stroke-width="1" stroke-dasharray="3 7"/>
+    <line x1="248.729" y1="552" x2="852" y2="552" stroke="#d5d3cc" stroke-width="1" stroke-dasharray="3 7"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="marques" id="couche5">
+    <circle cx="880" cy="243" r="12" fill="#0c7c5c"/>
+    <polyline points="874.5,243.5 878.5,247.5 885.5,238.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="992" cy="243" r="12" fill="#0c7c5c"/>
+    <polyline points="986.5,243.5 990.5,247.5 997.5,238.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1104" cy="243" r="12" fill="#0c7c5c"/>
+    <polyline points="1098.5,243.5 1102.5,247.5 1109.5,238.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1250" cy="243" r="12" fill="#0c7c5c"/>
+    <polyline points="1244.5,243.5 1248.5,247.5 1255.5,238.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1362" cy="243" r="12" fill="#0c7c5c"/>
+    <polyline points="1356.5,243.5 1360.5,247.5 1367.5,238.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1474" cy="243" r="12" fill="#0c7c5c"/>
+    <polyline points="1468.5,243.5 1472.5,247.5 1479.5,238.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="880" cy="287" r="12" fill="#0c7c5c"/>
+    <polyline points="874.5,287.5 878.5,291.5 885.5,282.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="992" cy="287" r="12" fill="#0c7c5c"/>
+    <polyline points="986.5,287.5 990.5,291.5 997.5,282.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1104" cy="287" r="12" fill="#0c7c5c"/>
+    <polyline points="1098.5,287.5 1102.5,291.5 1109.5,282.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1250" cy="287" r="12" fill="#0c7c5c"/>
+    <polyline points="1244.5,287.5 1248.5,291.5 1255.5,282.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1362" cy="287" r="12" fill="#0c7c5c"/>
+    <polyline points="1356.5,287.5 1360.5,291.5 1367.5,282.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1474" cy="287" r="12" fill="#0c7c5c"/>
+    <polyline points="1468.5,287.5 1472.5,291.5 1479.5,282.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="880" cy="331" r="12" fill="#0c7c5c"/>
+    <polyline points="874.5,331.5 878.5,335.5 885.5,326.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="992" cy="331" r="12" fill="#0c7c5c"/>
+    <polyline points="986.5,331.5 990.5,335.5 997.5,326.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1104" cy="331" r="12" fill="#0c7c5c"/>
+    <polyline points="1098.5,331.5 1102.5,335.5 1109.5,326.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1250" cy="331" r="12" fill="#0c7c5c"/>
+    <polyline points="1244.5,331.5 1248.5,335.5 1255.5,326.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1362" cy="331" r="12" fill="#0c7c5c"/>
+    <polyline points="1356.5,331.5 1360.5,335.5 1367.5,326.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1474" cy="331" r="12" fill="#0c7c5c"/>
+    <polyline points="1468.5,331.5 1472.5,335.5 1479.5,326.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="880" cy="375" r="12" fill="#0c7c5c"/>
+    <polyline points="874.5,375.5 878.5,379.5 885.5,370.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="992" cy="375" r="12" fill="#0c7c5c"/>
+    <polyline points="986.5,375.5 990.5,379.5 997.5,370.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1104" cy="375" r="12" fill="#0c7c5c"/>
+    <polyline points="1098.5,375.5 1102.5,379.5 1109.5,370.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1250" cy="375" r="12" fill="#0c7c5c"/>
+    <polyline points="1244.5,375.5 1248.5,379.5 1255.5,370.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1362" cy="375" r="12" fill="#0c7c5c"/>
+    <polyline points="1356.5,375.5 1360.5,379.5 1367.5,370.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1474" cy="375" r="12" fill="#0c7c5c"/>
+    <polyline points="1468.5,375.5 1472.5,379.5 1479.5,370.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="880" cy="419" r="12" fill="#0c7c5c"/>
+    <polyline points="874.5,419.5 878.5,423.5 885.5,414.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="992" cy="419" r="12" fill="#0c7c5c"/>
+    <polyline points="986.5,419.5 990.5,423.5 997.5,414.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1104" cy="419" r="12" fill="#0c7c5c"/>
+    <polyline points="1098.5,419.5 1102.5,423.5 1109.5,414.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1250" cy="419" r="12" fill="#0c7c5c"/>
+    <polyline points="1244.5,419.5 1248.5,423.5 1255.5,414.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1362" cy="419" r="12" fill="#0c7c5c"/>
+    <polyline points="1356.5,419.5 1360.5,423.5 1367.5,414.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1474" cy="419" r="12" fill="#0c7c5c"/>
+    <polyline points="1468.5,419.5 1472.5,423.5 1479.5,414.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="880" cy="463" r="12" fill="#0c7c5c"/>
+    <polyline points="874.5,463.5 878.5,467.5 885.5,458.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="992" cy="463" r="12" fill="#0c7c5c"/>
+    <polyline points="986.5,463.5 990.5,467.5 997.5,458.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1104" cy="463" r="12" fill="#0c7c5c"/>
+    <polyline points="1098.5,463.5 1102.5,467.5 1109.5,458.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1250" cy="463" r="12" fill="#0c7c5c"/>
+    <polyline points="1244.5,463.5 1248.5,467.5 1255.5,458.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1362" cy="463" r="12" fill="#0c7c5c"/>
+    <polyline points="1356.5,463.5 1360.5,467.5 1367.5,458.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1474" cy="463" r="12" fill="#0c7c5c"/>
+    <polyline points="1468.5,463.5 1472.5,467.5 1479.5,458.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="880" cy="507" r="12" fill="#0c7c5c"/>
+    <polyline points="874.5,507.5 878.5,511.5 885.5,502.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="992" cy="507" r="12" fill="#0c7c5c"/>
+    <polyline points="986.5,507.5 990.5,511.5 997.5,502.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1104" cy="507" r="12" fill="#0c7c5c"/>
+    <polyline points="1098.5,507.5 1102.5,511.5 1109.5,502.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1250" cy="507" r="12" fill="#0c7c5c"/>
+    <polyline points="1244.5,507.5 1248.5,511.5 1255.5,502.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1362" cy="507" r="12" fill="#0c7c5c"/>
+    <polyline points="1356.5,507.5 1360.5,511.5 1367.5,502.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1474" cy="507" r="12" fill="#0c7c5c"/>
+    <polyline points="1468.5,507.5 1472.5,511.5 1479.5,502.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="880" cy="551" r="12" fill="#0c7c5c"/>
+    <polyline points="874.5,551.5 878.5,555.5 885.5,546.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="992" cy="551" r="12" fill="#0c7c5c"/>
+    <polyline points="986.5,551.5 990.5,555.5 997.5,546.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1104" cy="551" r="12" fill="none" stroke="#b02e26" stroke-width="2.4"/>
+    <polyline points="1099.4,546.4 1108.6,555.6" fill="none" stroke="#b02e26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="1099.4,555.6 1108.6,546.4" fill="none" stroke="#b02e26" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1250" cy="551" r="12" fill="#0c7c5c"/>
+    <polyline points="1244.5,551.5 1248.5,555.5 1255.5,546.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1362" cy="551" r="12" fill="#0c7c5c"/>
+    <polyline points="1356.5,551.5 1360.5,555.5 1367.5,546.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1474" cy="551" r="12" fill="#0c7c5c"/>
+    <polyline points="1468.5,551.5 1472.5,555.5 1479.5,546.5" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="etapes" id="couche6">
+    <text x="56" y="250" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">Installation du zip</text>
+    <text x="56" y="294" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">Activation</text>
+    <text x="56" y="338" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">Création d’un personnage</text>
+    <text x="56" y="382" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">Réglage de la morphologie</text>
+    <text x="56" y="426" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">Finalisation avec squelette</text>
+    <text x="56" y="470" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">Export FBX</text>
+    <text x="56" y="514" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">Rendu Cycles</text>
+    <text x="56" y="558" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#1a1b20" xml:space="preserve">Panneau de l’extension</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="note" id="couche7">
+    <text x="56" y="615" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Les sept premières étapes ont été exécutées dans Blender sans interface ; le panneau a été contrôlé dans son code.</text>
+  </g>
+</svg>
