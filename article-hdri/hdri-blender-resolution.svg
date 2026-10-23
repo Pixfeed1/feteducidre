@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="648px" viewBox="0 0 1600 648" version="1.1">
+  <title>LA 8K ÉCLAIRE PAREIL, ET TRIPLE LA MÉMOIRE</title>
+  <desc>même scène et même HDRI en quatre résolutions, de la 1K à la 8K ; chaque panneau a son échelle</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="648" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">LA 8K ÉCLAIRE PAREIL, ET TRIPLE LA MÉMOIRE</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">même scène et même HDRI en quatre résolutions, de la 1K à la 8K ; chaque panneau a son échelle</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="entetes" id="couche3">
+    <text x="56" y="167" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Lumière du soleil</text>
+    <text x="57" y="187" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#646670" xml:space="preserve">éclairement à Strength 1, W/m²</text>
+    <text x="57" y="208" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#622cc8" xml:space="preserve">identique d’un bout à l’autre</text>
+    <text x="435.5" y="167" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Poids du fichier</text>
+    <text x="436.5" y="187" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#646670" xml:space="preserve">.hdr téléchargé, Mo</text>
+    <text x="436.5" y="208" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#622cc8" xml:space="preserve">x 67 de la 1K à la 8K</text>
+    <text x="815" y="167" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Mémoire de Blender</text>
+    <text x="816" y="187" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#646670" xml:space="preserve">RAM au pic du rendu, Go</text>
+    <text x="816" y="208" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#622cc8" xml:space="preserve">x 3,4 de la 1K à la 8K</text>
+    <text x="1194.5" y="167" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">Temps de rendu</text>
+    <text x="1195.5" y="187" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#646670" xml:space="preserve">960 × 540 px, 64 échantillons, s</text>
+    <text x="1195.5" y="208" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#622cc8" xml:space="preserve">x 1,1 de la 1K à la 8K</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="sols" id="couche4">
+    <line x1="56" y1="540" x2="405.5" y2="540" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="435.5" y1="540" x2="785" y2="540" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="815" y1="540" x2="1164.5" y2="540" stroke="#d5d3cc" stroke-width="2"/>
+    <line x1="1194.5" y1="540" x2="1544" y2="540" stroke="#d5d3cc" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche5">
+    <rect x="99.75" y="306.957" width="46" height="233.043" rx="4" fill="#7c60d0"/>
+    <rect x="171.75" y="306.957" width="46" height="233.043" rx="4" fill="#7c60d0"/>
+    <rect x="243.75" y="306.957" width="46" height="233.043" rx="4" fill="#7c60d0"/>
+    <rect x="315.75" y="306.957" width="46" height="233.043" rx="4" fill="#7c60d0"/>
+    <rect x="479.25" y="536.548" width="46" height="3.4525" rx="4" fill="#7c60d0"/>
+    <rect x="551.25" y="526.19" width="46" height="13.81" rx="4" fill="#7c60d0"/>
+    <rect x="623.25" y="481.998" width="46" height="58.0019" rx="4" fill="#7c60d0"/>
+    <rect x="695.25" y="306.957" width="46" height="233.043" rx="4" fill="#7c60d0"/>
+    <rect x="858.75" y="470.717" width="46" height="69.2832" rx="4" fill="#7c60d0"/>
+    <rect x="930.75" y="467.568" width="46" height="72.4324" rx="4" fill="#7c60d0"/>
+    <rect x="1002.75" y="458.12" width="46" height="81.8801" rx="4" fill="#7c60d0"/>
+    <rect x="1074.75" y="306.957" width="46" height="233.043" rx="4" fill="#7c60d0"/>
+    <rect x="1238.25" y="329.845" width="46" height="210.155" rx="4" fill="#7c60d0"/>
+    <rect x="1310.25" y="331.925" width="46" height="208.075" rx="4" fill="#7c60d0"/>
+    <rect x="1382.25" y="329.845" width="46" height="210.155" rx="4" fill="#7c60d0"/>
+    <rect x="1454.25" y="306.957" width="46" height="233.043" rx="4" fill="#7c60d0"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="valeurs" id="couche6">
+    <text x="122.75" y="296.957" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">8,36</text>
+    <text x="194.75" y="296.957" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">8,36</text>
+    <text x="266.75" y="296.957" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">8,36</text>
+    <text x="338.75" y="296.957" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">8,36</text>
+    <text x="502.25" y="526.548" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">1,0</text>
+    <text x="574.25" y="516.19" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">4,0</text>
+    <text x="646.25" y="471.998" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">16,8</text>
+    <text x="718.25" y="296.957" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">67,5</text>
+    <text x="881.75" y="460.717" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">0,66</text>
+    <text x="953.75" y="457.568" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">0,69</text>
+    <text x="1025.75" y="448.12" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">0,78</text>
+    <text x="1097.75" y="296.957" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">2,22</text>
+    <text x="1261.25" y="319.845" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">50,5</text>
+    <text x="1333.25" y="321.925" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">50,0</text>
+    <text x="1405.25" y="319.845" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">50,5</text>
+    <text x="1477.25" y="296.957" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" text-anchor="middle" xml:space="preserve">56,0</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="res" id="couche7">
+    <text x="122.75" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">1K</text>
+    <text x="194.75" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">2K</text>
+    <text x="266.75" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">4K</text>
+    <text x="338.75" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">8K</text>
+    <text x="502.25" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">1K</text>
+    <text x="574.25" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">2K</text>
+    <text x="646.25" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">4K</text>
+    <text x="718.25" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">8K</text>
+    <text x="881.75" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">1K</text>
+    <text x="953.75" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">2K</text>
+    <text x="1025.75" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">4K</text>
+    <text x="1097.75" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">8K</text>
+    <text x="1261.25" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">1K</text>
+    <text x="1333.25" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">2K</text>
+    <text x="1405.25" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">4K</text>
+    <text x="1477.25" y="565" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" text-anchor="middle" xml:space="preserve">8K</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="note" id="couche8">
+    <text x="56" y="609" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">HDRI qwantani_afternoon_puresky (Poly Haven, CC0), Blender 5.2.3 LTS, Cycles sur processeur, médiane de trois rendus.</text>
+  </g>
+</svg>
