@@ -250,7 +250,8 @@ def composer():
     #  -----------------------------------------------------------  panneaux
     largeur = (L - 2 * MARGE - 60) / 2.0
     pleine = (len(FORMES) - 1) * X_PAS
-    grilles, courbes, points, etiquettes = [], [], [], []
+    grilles, courbes, points = [], [], []
+    titres_p, valeurs_p, axes_p = [], [], []
 
     for j, p in enumerate(PANNEAUX):
         gx = MARGE + j * (largeur + 60)
@@ -259,7 +260,7 @@ def composer():
             raise SystemExit("les sept crans font %d px pour un panneau de %d"
                              % (pleine, largeur))
 
-        etiquettes.append(texte("panneaux", (gx, Y_PANNEAU),
+        titres_p.append(texte("panneaux", (gx, Y_PANNEAU),
                                 D.typo(p["titre"]), "panneau", D.ENCRE))
 
         v = 0
@@ -287,23 +288,25 @@ def composer():
             #  vingt-huit nombres dans une figure qui en montre déjà la forme.
             lab = ms(p[mode][-1])
             bx, by = pts[-1]
-            etiquettes.append(texte("valeurs", (bx + 14, by - 10), lab,
-                                    "valeur", teinte))
+            valeurs_p.append(texte("valeurs", (bx + 14, by - 10), lab,
+                                   "valeur", teinte))
             if bx + 14 + mesure.mesure(lab, fontes["valeur"]) > gx + largeur:
                 raise SystemExit("« %s » sort de son panneau" % lab)
 
         for i, n in enumerate(FORMES):
-            etiquettes.append(texte("axes", (x0 + i * X_PAS, Y_BAS + 14),
-                                    formes_lues(n), "axe", D.FAIBLE,
-                                    centre=True))
+            axes_p.append(texte("axes", (x0 + i * X_PAS, Y_BAS + 14),
+                                formes_lues(n), "axe", D.FAIBLE,
+                                centre=True))
         mention = D.typo("nombre de formes (échelle doublée à chaque cran)")
-        etiquettes.append(texte("axes", (x0 + pleine / 2.0, Y_BAS + 40),
-                                mention, "mention", D.GRIS, centre=True))
+        axes_p.append(texte("axes", (x0 + pleine / 2.0, Y_BAS + 40),
+                            mention, "mention", D.GRIS, centre=True))
 
     o.extend(grilles)
     o.extend(courbes)
     o.extend(points)
-    o.extend(etiquettes)
+    o.extend(titres_p)
+    o.extend(valeurs_p)
+    o.extend(axes_p)
 
     note = D.typo(PHRASE)
     pied = D.typo(PIED)
