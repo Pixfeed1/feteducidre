@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="778px" viewBox="0 0 1600 778" version="1.1">
+  <title>LE PLAN DE VOL TYPE : 75 % DEVANT, 60 % SUR LE CÔTÉ</title>
+  <desc>recouvrement minimal conseillé par Pix4D dans le cas général, vu de dessus</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="778" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">LE PLAN DE VOL TYPE : 75 % DEVANT, 60 % SUR LE CÔTÉ</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">recouvrement minimal conseillé par Pix4D dans le cas général, vu de dessus</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="aplats" id="couche3">
+    <rect x="420" y="342" width="212" height="300" rx="0" fill="#f2f1ee"/>
+    <rect x="420" y="222" width="212" height="300" rx="0" fill="#eeeafa"/>
+    <rect x="473" y="222" width="212" height="300" rx="0" fill="#fcf2e4"/>
+    <rect x="473" y="222" width="159" height="300" rx="0" fill="#e2d8f0"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="piste" id="couche4">
+    <line x1="124" y1="372" x2="968" y2="372" stroke="#8c8d96" stroke-width="2" stroke-dasharray="7 7"/>
+    <circle cx="124" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="177" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="230" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="283" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="336" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="389" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="442" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="495" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="548" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="601" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="654" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="707" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="760" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="813" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="866" cy="372" r="4.5" fill="#1a1b20"/>
+    <circle cx="919" cy="372" r="4.5" fill="#1a1b20"/>
+    <line x1="770" y1="372" x2="815" y2="372" stroke="#1a1b20" stroke-width="2.4"/>
+    <polygon points="822,372 811,366 811,378" fill="#1a1b20"/>
+    <line x1="124" y1="492" x2="968" y2="492" stroke="#8c8d96" stroke-width="2" stroke-dasharray="7 7"/>
+    <circle cx="124" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="177" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="230" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="283" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="336" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="389" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="442" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="495" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="548" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="601" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="654" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="707" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="760" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="813" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="866" cy="492" r="4.5" fill="#1a1b20"/>
+    <circle cx="919" cy="492" r="4.5" fill="#1a1b20"/>
+    <line x1="322" y1="492" x2="277" y2="492" stroke="#1a1b20" stroke-width="2.4"/>
+    <polygon points="270,492 281,486 281,498" fill="#1a1b20"/>
+    <line x1="124" y1="612" x2="968" y2="612" stroke="#8c8d96" stroke-width="2" stroke-dasharray="7 7"/>
+    <circle cx="124" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="177" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="230" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="283" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="336" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="389" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="442" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="495" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="548" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="601" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="654" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="707" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="760" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="813" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="866" cy="612" r="4.5" fill="#1a1b20"/>
+    <circle cx="919" cy="612" r="4.5" fill="#1a1b20"/>
+    <line x1="770" y1="612" x2="815" y2="612" stroke="#1a1b20" stroke-width="2.4"/>
+    <polygon points="822,612 811,606 811,618" fill="#1a1b20"/>
+    <path d="M 968 372 A 60 60 0 0 1 968 492" fill="none" stroke="#8c8d96" stroke-width="2"/>
+    <path d="M 124 612 A 60 60 0 0 1 124 492" fill="none" stroke="#8c8d96" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="cadres" id="couche5">
+    <rect x="420" y="342" width="212" height="300" fill="none" stroke="#622cc8" stroke-width="2" stroke-dasharray="8 6"/>
+    <rect x="420" y="222" width="212" height="300" fill="none" stroke="#622cc8" stroke-width="2"/>
+    <rect x="473" y="222" width="212" height="300" fill="none" stroke="#b45309" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="cotes" id="couche6">
+    <line x1="473" y1="194" x2="632" y2="194" stroke="#b45309" stroke-width="2"/>
+    <line x1="473" y1="194" x2="473" y2="206" stroke="#b45309" stroke-width="2"/>
+    <line x1="632" y1="194" x2="632" y2="206" stroke="#b45309" stroke-width="2"/>
+    <line x1="394" y1="342" x2="394" y2="522" stroke="#622cc8" stroke-width="2"/>
+    <line x1="394" y1="342" x2="406" y2="342" stroke="#622cc8" stroke-width="2"/>
+    <line x1="394" y1="522" x2="406" y2="522" stroke="#622cc8" stroke-width="2"/>
+    <text x="552.5" y="185" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle" xml:space="preserve">75 %</text>
+    <text x="382" y="438" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#622cc8" text-anchor="end" xml:space="preserve">60 %</text>
+    <text x="406" y="241" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#622cc8" text-anchor="end" xml:space="preserve">photo 1</text>
+    <text x="699" y="241" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#b45309" xml:space="preserve">photo 2</text>
+    <text x="526" y="669" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#622cc8" text-anchor="middle" xml:space="preserve">photo de la ligne suivante</text>
+    <text x="124" y="343" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">sens du vol</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="colonne" id="couche7">
+    <text x="1104" y="245" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="40" font-weight="bold" fill="#b45309" xml:space="preserve">75 %</text>
+    <text x="1104" y="278" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">entre deux photos d’une même ligne : le drone déclenche chaque</text>
+    <text x="1104" y="301" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">fois qu’il a avancé d’un quart de photo.</text>
+    <text x="1104" y="381" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="40" font-weight="bold" fill="#622cc8" xml:space="preserve">60 %</text>
+    <text x="1104" y="414" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">entre deux lignes voisines, espacées de 40 % de la largeur d’une</text>
+    <text x="1104" y="437" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">photo.</text>
+    <text x="1104" y="517" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="40" font-weight="bold" fill="#1a1b20" xml:space="preserve">8 à 12</text>
+    <text x="1104" y="550" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">photos voient chaque point du sol : 4 sur une même ligne, et 2 ou</text>
+    <text x="1104" y="573" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">3 lignes.</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="note" id="couche8">
+    <text x="56" y="730" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#1a1b20" xml:space="preserve">Cas difficiles : 80 % et 80 % sur des champs, 85 % et 85 % en forêt, 85 % et 70 % sur la neige ou le sable.</text>
+  </g>
+</svg>
