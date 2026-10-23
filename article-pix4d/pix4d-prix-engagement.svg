@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="768px" viewBox="0 0 1600 768" version="1.1">
+  <title>CHEZ PIX4D, LE PRIX D’APPEL ENGAGE POUR TROIS ANS</title>
+  <desc>coût mensuel hors taxes de chaque offre, relevé le 23 octobre 2026 sur pix4d.com depuis la France</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="768" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">CHEZ PIX4D, LE PRIX D’APPEL ENGAGE POUR TROIS ANS</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">coût mensuel hors taxes de chaque offre, relevé le 23 octobre 2026 sur pix4d.com depuis la France</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="legende" id="couche3">
+    <circle cx="65" cy="126" r="9" fill="#622cc8"/>
+    <text x="86" y="132" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">Prix d’appel : engagement de 3 ans, payé d’avance (1 an pour PIX4Dmapper)</text>
+    <circle cx="666.031" cy="126" r="9" fill="#b45309"/>
+    <text x="687.031" y="132" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#1a1b20" xml:space="preserve">Sans engagement, payé au mois</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="grille" id="couche4">
+    <line x1="436" y1="162" x2="436" y2="656" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <text x="436" y="681" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">0</text>
+    <line x1="646.213" y1="162" x2="646.213" y2="656" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <text x="646.213" y="681" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">100 €</text>
+    <line x1="856.426" y1="162" x2="856.426" y2="656" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <text x="856.426" y="681" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">200 €</text>
+    <line x1="1066.64" y1="162" x2="1066.64" y2="656" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <text x="1066.64" y="681" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">300 €</text>
+    <line x1="1276.85" y1="162" x2="1276.85" y2="656" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <text x="1276.85" y="681" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" text-anchor="middle" xml:space="preserve">400 €</text>
+    <text x="1318.85" y="681" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">par mois</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="liens" id="couche5">
+    <line x1="902.672" y1="184" x2="1379.86" y2="184" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+    <line x1="902.672" y1="238" x2="1274.75" y2="238" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+    <line x1="803.872" y1="292" x2="1169.64" y2="292" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+    <line x1="1047.72" y1="346" x2="1169.64" y2="346" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+    <line x1="656.723" y1="400" x2="1148.62" y2="400" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+    <line x1="686.153" y1="454" x2="896.366" y2="454" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+    <line x1="669.336" y1="508" x2="770.238" y2="508" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+    <line x1="551.617" y1="562" x2="644.111" y2="562" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+    <line x1="541.106" y1="616" x2="623.089" y2="616" stroke="#d5d3cc" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="points" id="couche6">
+    <circle cx="902.672" cy="184" r="9" fill="#622cc8"/>
+    <circle cx="1379.86" cy="184" r="9" fill="#b45309"/>
+    <circle cx="902.672" cy="238" r="9" fill="#622cc8"/>
+    <circle cx="1274.75" cy="238" r="9" fill="#b45309"/>
+    <circle cx="803.872" cy="292" r="9" fill="#622cc8"/>
+    <circle cx="1169.64" cy="292" r="9" fill="#b45309"/>
+    <circle cx="1047.72" cy="346" r="9" fill="#622cc8"/>
+    <circle cx="1169.64" cy="346" r="9" fill="#b45309"/>
+    <circle cx="656.723" cy="400" r="9" fill="#622cc8"/>
+    <circle cx="1148.62" cy="400" r="9" fill="#b45309"/>
+    <circle cx="686.153" cy="454" r="9" fill="#622cc8"/>
+    <circle cx="896.366" cy="454" r="9" fill="#b45309"/>
+    <circle cx="669.336" cy="508" r="9" fill="#622cc8"/>
+    <circle cx="770.238" cy="508" r="9" fill="#b45309"/>
+    <circle cx="551.617" cy="562" r="9" fill="#622cc8"/>
+    <circle cx="644.111" cy="562" r="9" fill="#b45309"/>
+    <circle cx="541.106" cy="616" r="9" fill="#622cc8"/>
+    <circle cx="623.089" cy="616" r="9" fill="#b45309"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="noms" id="couche7">
+    <text x="56" y="191" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dmatic Pro</text>
+    <text x="56" y="245" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dcloud Pro</text>
+    <text x="56" y="299" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dmatic Standard</text>
+    <text x="56" y="353" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dmapper</text>
+    <text x="56" y="370" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" xml:space="preserve">pas d’offre 3 ans</text>
+    <text x="56" y="407" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dfields</text>
+    <text x="56" y="461" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dmatic Analyst</text>
+    <text x="56" y="515" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dcatch Pro</text>
+    <text x="56" y="569" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dcloud Starter</text>
+    <text x="56" y="623" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dreact</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="prix" id="couche8">
+    <text x="841.62" y="189" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">222 €</text>
+    <text x="1400.86" y="189" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">449 €</text>
+    <text x="841.62" y="243" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">222 €</text>
+    <text x="1295.75" y="243" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">399 €</text>
+    <text x="742.82" y="297" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">175 €</text>
+    <text x="1190.64" y="297" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">349 €</text>
+    <text x="986.667" y="351" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">291 €</text>
+    <text x="1190.64" y="351" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">349 €</text>
+    <text x="595.671" y="405" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">105 €</text>
+    <text x="1169.62" y="405" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">339 €</text>
+    <text x="625.981" y="459" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">119 €</text>
+    <text x="917.366" y="459" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">219 €</text>
+    <text x="610.045" y="513" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">111 €</text>
+    <text x="791.238" y="513" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">159 €</text>
+    <text x="499.466" y="567" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">55 €</text>
+    <text x="665.111" y="567" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">99 €</text>
+    <text x="488.955" y="621" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#622cc8" xml:space="preserve">50 €</text>
+    <text x="644.089" y="621" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#b45309" xml:space="preserve">89 €</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="trouvaille" id="couche9">
+    <text x="56" y="725" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#1a1b20" xml:space="preserve">Sans engagement, PIX4Dfields coûte 3,2 fois son prix d’appel : 339 € par mois au lieu de 105 €.</text>
+  </g>
+</svg>
