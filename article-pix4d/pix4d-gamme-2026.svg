@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="876px" viewBox="0 0 1600 876" version="1.1">
+  <title>PIX4D EN 2026 : SEPT LOGICIELS, DONT UN SUR LE DÉPART</title>
+  <desc>la gamme de l’éditeur suisse au 23 octobre 2026, par usage, et ce qui en est sorti</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="876" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">PIX4D EN 2026 : SEPT LOGICIELS, DONT UN SUR LE DÉPART</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">la gamme de l’éditeur suisse au 23 octobre 2026, par usage, et ce qui en est sorti</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="bandes" id="couche3">
+    <line x1="56" y1="132" x2="1544" y2="132" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="154" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#622cc8" letter-spacing="1.4" xml:space="preserve">EN VENTE AUJOURD’HUI</text>
+    <line x1="56" y1="540" x2="1544" y2="540" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="562" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#622cc8" letter-spacing="1.4" xml:space="preserve">SUR LE DÉPART</text>
+    <line x1="56" y1="698" x2="1544" y2="698" stroke="#d5d3cc" stroke-width="1"/>
+    <text x="56" y="720" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#622cc8" letter-spacing="1.4" xml:space="preserve">SORTIS DE LA GAMME</text>
+    <line x1="56" y1="753" x2="178.302" y2="753" stroke="#8c8d96" stroke-width="2"/>
+    <line x1="552" y1="753" x2="679.833" y2="753" stroke="#8c8d96" stroke-width="2"/>
+    <line x1="1048" y1="753" x2="1178.06" y2="753" stroke="#8c8d96" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="liste" id="couche4">
+    <text x="56" y="184" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" letter-spacing="0.8" xml:space="preserve">Logiciel de bureau · Windows et macOS</text>
+    <text x="56" y="211" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dmatic</text>
+    <text x="56" y="234" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Le logiciel phare : photogrammétrie et LiDAR, de quelques photos à des dizaines de milliers.</text>
+    <text x="56" y="255" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Orthomosaïque, nuage de points, maillage, CAO.</text>
+    <text x="56" y="279" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#622cc8" xml:space="preserve">Analyst · Standard · Pro</text>
+    <text x="830" y="184" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" letter-spacing="0.8" xml:space="preserve">Plateforme en ligne</text>
+    <text x="830" y="211" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dcloud</text>
+    <text x="830" y="234" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Traitement dans le cloud, mesures, partage par lien, suivi de chantier.</text>
+    <text x="830" y="258" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#622cc8" xml:space="preserve">Starter · Pro · Enterprise</text>
+    <text x="56" y="326" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" letter-spacing="0.8" xml:space="preserve">Appli mobile · iOS et Android</text>
+    <text x="56" y="353" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dcatch</text>
+    <text x="56" y="376" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Scan 3D au smartphone. LiDAR sur iPhone et iPad Pro, RTK sur iOS seulement.</text>
+    <text x="56" y="400" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#622cc8" xml:space="preserve">Pro · Pro + PIX4Dcloud Pro</text>
+    <text x="830" y="305" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" letter-spacing="0.8" xml:space="preserve">Bureau · Agriculture</text>
+    <text x="830" y="332" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dfields</text>
+    <text x="830" y="355" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Indices de végétation, cartes de préconisation, même sans connexion.</text>
+    <text x="56" y="447" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" letter-spacing="0.8" xml:space="preserve">Bureau · Secours</text>
+    <text x="56" y="474" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dreact</text>
+    <text x="56" y="497" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Carte 2D en quelques minutes, sans internet, pour les équipes d’urgence.</text>
+    <text x="830" y="400" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" letter-spacing="0.8" xml:space="preserve">Kit de développement</text>
+    <text x="830" y="427" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dengine</text>
+    <text x="830" y="450" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Le moteur de Pix4D en modules Python, à intégrer dans ses propres outils.</text>
+    <text x="56" y="592" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#8c8d96" letter-spacing="0.8" xml:space="preserve">Bureau · Historique</text>
+    <text x="56" y="619" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">PIX4Dmapper</text>
+    <text x="56" y="649" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#b02e26" xml:space="preserve">Plus vendu ni renouvelé au 1er janvier 2027.</text>
+    <text x="56" y="671" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#646670" xml:space="preserve">Support arrêté le 1er décembre 2027.</text>
+    <text x="56" y="757" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#8c8d96" xml:space="preserve">PIX4Dsurvey</text>
+    <text x="56" y="782" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">fondu dans PIX4Dmatic 2.0, janvier 2026</text>
+    <text x="552" y="757" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#8c8d96" xml:space="preserve">PIX4Dinspect</text>
+    <text x="552" y="782" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">arrêté, relais assuré par PIX4Dcloud</text>
+    <text x="1048" y="757" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#8c8d96" xml:space="preserve">PIX4Dcapture</text>
+    <text x="1048" y="782" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">appli de vol arrêtée</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="note" id="couche5">
+    <text x="56" y="837" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Relevé le 23 octobre 2026 sur pix4d.com, support.pix4d.com et community.pix4d.com.</text>
+  </g>
+</svg>
