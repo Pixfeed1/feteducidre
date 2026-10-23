@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="472px" viewBox="0 0 1600 472" version="1.1">
+  <title>LA MÊME BOULE QUI TOURNE, DE 7,8 À 332 KIO</title>
+  <desc>poids compressé d’une scène minimale, empaquetée et minifiée avec esbuild</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="472" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">LA MÊME BOULE QUI TOURNE, DE 7,8 À 332 KIO</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">poids compressé d’une scène minimale, empaquetée et minifiée avec esbuild</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="barres" id="couche3">
+    <rect x="376" y="186" width="24.4337" height="38" rx="4" fill="#7c60d0"/>
+    <rect x="376" y="270" width="405.036" height="38" rx="4" fill="#7c60d0"/>
+    <rect x="376" y="354" width="1040" height="38" rx="4" fill="#7c60d0"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="noms" id="couche4">
+    <text x="56" y="183" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">Zdog</text>
+    <text x="56" y="267" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">three.js</text>
+    <text x="56" y="289" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">17 fois Zdog</text>
+    <text x="56" y="351" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">Babylon.js</text>
+    <text x="56" y="373" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#646670" xml:space="preserve">43 fois Zdog</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="valeurs" id="couche5">
+    <text x="416.434" y="212" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">7,8 Kio</text>
+    <text x="797.036" y="296" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">129,3 Kio</text>
+    <text x="1432" y="380" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#1a1b20" xml:space="preserve">332 Kio</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="note" id="couche6">
+    <text x="56" y="433" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Kibioctets après compression. Zdog 1.1.3, et pour chaque bibliothèque la même sphère animée, rien de plus.</text>
+  </g>
+</svg>
