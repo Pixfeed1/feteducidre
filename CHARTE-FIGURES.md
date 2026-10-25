@@ -1,4 +1,4 @@
-# Charte des figures — jurojin.net et pixfeed
+# Charte des figures, jurojin.net et pixfeed
 
 Instructions complètes pour fabriquer un visuel d'article. À donner telle
 quelle à qui fabrique la figure.
