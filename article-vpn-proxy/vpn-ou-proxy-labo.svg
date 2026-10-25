@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1600px" height="820px" viewBox="0 0 1600 820" version="1.1">
+  <title>LE LABO : UN PETIT INTERNET DANS UNE SEULE MACHINE LINUX</title>
+  <desc>six espaces réseau isolés, deux vrais navigateurs et quatre points d’écoute ; tests du 25 octobre 2026</desc>
+  <g inkscape:groupmode="layer" inkscape:label="fond" id="couche1">
+    <rect x="0" y="0" width="1600" height="820" rx="0" fill="#faf9f6"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="titre" id="couche2">
+    <text x="56" y="64" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#1a1b20" letter-spacing="2.2" xml:space="preserve">LE LABO : UN PETIT INTERNET DANS UNE SEULE MACHINE LINUX</text>
+    <text x="56" y="90" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="normal" fill="#8c8d96" xml:space="preserve">six espaces réseau isolés, deux vrais navigateurs et quatre points d’écoute ; tests du 25 octobre 2026</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="cables" id="couche3">
+    <line x1="316" y1="406" x2="376" y2="406" stroke="#9698a2" stroke-width="3" stroke-linecap="round"/>
+    <line x1="716" y1="406" x2="772" y2="406" stroke="#9698a2" stroke-width="3" stroke-linecap="round"/>
+    <line x1="880" y1="406" x2="926" y2="223" stroke="#9698a2" stroke-width="3" stroke-linecap="round"/>
+    <line x1="880" y1="406" x2="926" y2="393" stroke="#9698a2" stroke-width="3" stroke-linecap="round"/>
+    <line x1="880" y1="406" x2="926" y2="536" stroke="#9698a2" stroke-width="3" stroke-linecap="round"/>
+    <line x1="880" y1="406" x2="926" y2="666" stroke="#9698a2" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="tunnel" id="couche4">
+    <polyline points="186,336 186,312 276,284 770,284 880,304 920,353" fill="none" stroke="#b45309" stroke-width="3" stroke-dasharray="10 8" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="920" y1="359" x2="920" y2="381" stroke="#b45309" stroke-width="3"/>
+    <polygon points="920,389 914,377 926,377" fill="#b45309"/>
+    <text x="294" y="272" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#b45309" xml:space="preserve">Mode VPN : tunnel WireGuard chiffré, du PC jusqu’au serveur VPN</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="nuage" id="couche5">
+    <circle cx="826" cy="406" r="54" fill="#622cc8"/>
+    <text x="826" y="412" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">Internet</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="boites" id="couche6">
+    <rect x="56" y="336" width="260" height="150" rx="10" fill="#ffffff" stroke="#d5d3cc" stroke-width="2"/>
+    <rect x="376" y="326" width="340" height="170" rx="10" fill="#ffffff" stroke="#d5d3cc" stroke-width="2"/>
+    <rect x="926" y="146" width="618" height="154" rx="10" fill="#ffffff" stroke="#d5d3cc" stroke-width="2"/>
+    <rect x="926" y="330" width="618" height="126" rx="10" fill="#ffffff" stroke="#d5d3cc" stroke-width="2"/>
+    <rect x="926" y="486" width="618" height="100" rx="10" fill="#ffffff" stroke="#d5d3cc" stroke-width="2"/>
+    <rect x="926" y="616" width="618" height="100" rx="10" fill="#ffffff" stroke="#d5d3cc" stroke-width="2"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="contenus" id="couche7">
+    <text x="78" y="377" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">Ton PC</text>
+    <text x="78" y="404" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Chromium 153, Firefox 158</text>
+    <text x="78" y="428" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">192.168.1.10</text>
+    <text x="78" y="452" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">proxy ou VPN réglé ici</text>
+    <text x="398" y="367" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">Box et FAI</text>
+    <text x="398" y="394" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Ton IP publique : 203.0.113.10</text>
+    <text x="398" y="418" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Résolveur DNS du FAI,</text>
+    <text x="398" y="442" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">qui note chaque nom demandé</text>
+    <text x="996" y="187" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">Serveur proxy</text>
+    <text x="1522" y="187" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" text-anchor="end" xml:space="preserve">198.51.100.20</text>
+    <text x="948" y="214" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Squid : proxy HTTP (port 3128) et HTTPS (3129)</text>
+    <text x="948" y="238" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">Dante : proxy SOCKS5 (port 1080)</text>
+    <text x="948" y="262" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">réglages d’usine</text>
+    <text x="996" y="371" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">Serveur VPN</text>
+    <text x="1522" y="371" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" text-anchor="end" xml:space="preserve">198.51.100.30</text>
+    <text x="948" y="398" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">WireGuard, UDP 51820</text>
+    <text x="948" y="422" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">résolveur DNS du VPN (10.8.0.1)</text>
+    <text x="996" y="527" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">Le site visité</text>
+    <text x="1522" y="527" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" text-anchor="end" xml:space="preserve">192.0.2.80</text>
+    <text x="948" y="554" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">site.test en HTTPS et en HTTP, page WebRTC</text>
+    <text x="948" y="657" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#1a1b20" xml:space="preserve">Serveur STUN tiers</text>
+    <text x="1522" y="657" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#622cc8" text-anchor="end" xml:space="preserve">stun.visio.test</text>
+    <text x="948" y="684" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">celui qu’appelle la page WebRTC</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="pastilles" id="couche8">
+    <circle cx="965" cy="178" r="17" fill="#9442fa"/>
+    <circle cx="965" cy="362" r="17" fill="#9442fa"/>
+    <circle cx="965" cy="518" r="17" fill="#9442fa"/>
+    <circle cx="346" cy="406" r="21" fill="#faf9f6"/>
+    <circle cx="346" cy="406" r="17" fill="#9442fa"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="numeros" id="couche9">
+    <text x="965" y="185" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">2</text>
+    <text x="965" y="369" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">3</text>
+    <text x="965" y="525" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">4</text>
+    <text x="346" y="413" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">1</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="legende" id="couche10">
+    <line x1="56" y1="556" x2="856" y2="556" stroke="#d5d3cc" stroke-width="1" stroke-linecap="round"/>
+    <text x="56" y="580" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#622cc8" letter-spacing="1.4" xml:space="preserve">LES QUATRE POINTS D’ÉCOUTE</text>
+    <circle cx="73" cy="613" r="17" fill="#9442fa"/>
+    <circle cx="73" cy="651" r="17" fill="#9442fa"/>
+    <circle cx="73" cy="689" r="17" fill="#9442fa"/>
+    <circle cx="73" cy="727" r="17" fill="#9442fa"/>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="legnum" id="couche11">
+    <text x="73" y="620" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">1</text>
+    <text x="106" y="619" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">ta ligne chez le FAI : capture et journal du résolveur DNS</text>
+    <text x="73" y="658" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">2</text>
+    <text x="106" y="657" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">le serveur proxy : capture, journaux de Squid et de Dante</text>
+    <text x="73" y="696" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">3</text>
+    <text x="106" y="695" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">le serveur VPN : capture à l’intérieur du tunnel</text>
+    <text x="73" y="734" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle" xml:space="preserve">4</text>
+    <text x="106" y="733" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#646670" xml:space="preserve">le site : journal des requêtes, capture et serveur STUN</text>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="pied" id="couche12">
+    <text x="56" y="779" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" xml:space="preserve">Adresses de documentation (RFC 5737). Chaque machine tourne dans son propre espace de noms réseau Linux, reliée aux autres par des câbles virtuels.</text>
+    <text x="1544" y="779" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#8c8d96" text-anchor="end" xml:space="preserve">jurojin.net</text>
+  </g>
+</svg>
